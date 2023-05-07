@@ -1,19 +1,32 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, Text, Button, TextInput } from 'react-native';
 import { useSelector } from 'react-redux';
+import { useCaretakerRegistrationMutation } from './../../../features/caretaker/caretakerApi';
 // import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 // import Button from './../../../components/common/Button/Button';
 
 export default function SignupScreen({ navigation }) {
   const [name, setName] = useState('');
-  const [age, setAge] = useState('');
+  const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
-  const [imageUri, setImageUri] = useState('');
+  const [imgUrl, setImgUrl] = useState('');
+
+  const [caretakerRegistration, { data, isLoading, isError }] =
+    useCaretakerRegistrationMutation() || {};
+  console.log(data);
 
   const handleSubmit = () => {
+    const data = {
+      name,
+      password,
+      email,
+      phone,
+      imgUrl,
+    };
+    caretakerRegistration(data);
     console.log(
-      `Name: ${name}, Age: ${age}, Email: ${email}, Phone: ${phone}, Image: ${imageUri}`
+      `Name: ${name}, password: ${password}, Email: ${email}, Phone: ${phone}, Image: ${imgUrl}`
     );
   };
 
@@ -59,17 +72,18 @@ export default function SignupScreen({ navigation }) {
 
       <TextInput
         style={styles.input}
-        value={age}
-        onChangeText={setAge}
-        placeholder='Enter your age'
-        keyboardType='numeric'
+        value={email}
+        onChangeText={setEmail}
+        placeholder='Enter your email'
       />
 
       <TextInput
         style={styles.input}
-        value={email}
-        onChangeText={setEmail}
-        placeholder='Enter your email'
+        value={password}
+        onChangeText={setPassword}
+        placeholder='Enter password'
+        keyboardType='numeric'
+        secureTextEntry={true}
       />
 
       <TextInput
@@ -82,8 +96,8 @@ export default function SignupScreen({ navigation }) {
 
       <TextInput
         style={styles.input}
-        value={imageUri}
-        onChangeText={setImageUri}
+        value={imgUrl}
+        onChangeText={setImgUrl}
         placeholder='Enter your image url'
       />
 
