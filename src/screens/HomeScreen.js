@@ -1,22 +1,25 @@
-import React from "react";
-import { View, Text, Button } from "react-native";
+import React, { useState } from "react";
+import { View, Text, Button, TextInput, Image } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
-import { increment, decrement } from "../store/counterSlice";
+import CongiCareLogo from "../assets/CogniCare - Koala.svg";
 
 export default function HomeScreen({ navigation }) {
-  const count = useSelector((state) => state.counter.count);
-  const dispatch = useDispatch();
-
+  const [text, setText] = useState("");
   return (
-    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <Text>Home Screen</Text>
+    <View
+      style={{
+        flex: 1,
+        alignItems: "center",
+        justifyContent: "center",
+        gap: 10,
+      }}
+    >
+      {/* <Image source={CongiCareLogo} /> */}
+      <Button title="Care-Taker" />
       <Button
-        title="Go to Detail Screen"
-        onPress={() => navigation.navigate("Detail")}
+        title="Patient"
+        onPress={() => navigation.navigate("PatientSignIn")}
       />
-      <Text>Count: {count}</Text>
-      <Button title="+" onPress={() => dispatch(increment())} />
-      <Button title="-" onPress={() => dispatch(decrement())} />
     </View>
   );
 }

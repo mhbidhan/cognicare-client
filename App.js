@@ -12,6 +12,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import HomeScreen from "./src/screens/HomeScreen";
 import DetailScreen from "./src/screens/DetailScreen";
 import store from "./src/store/store";
+import SignInScreen from "./src/screens/patient/SignInScreen";
 
 const Stack = createStackNavigator();
 
@@ -22,7 +23,8 @@ const App = () => {
         <NavigationContainer>
           <Stack.Navigator>
             <Stack.Screen name="Home" component={HomeScreen} />
-            <Stack.Screen name="Detail" component={DetailScreen} />
+            {/* <Stack.Screen name="Detail" component={DetailScreen} /> */}
+            <Stack.Screen name="PatientSignIn" component={SignInScreen} />
           </Stack.Navigator>
         </NavigationContainer>
       </SafeAreaView>
