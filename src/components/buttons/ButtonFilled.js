@@ -24,7 +24,15 @@ function ButtonFilled({ text, onPressHandler }) {
       onPress={onPressHandler}
       underlayColor="#fff"
     >
-      <Text style={{ color: "#fff", textAlign: "center" }}>{text}</Text>
+      <Text
+        style={{
+          color: "#fff",
+          textAlign: "center",
+          fontSize: globalStyles.fontSizes.small,
+        }}
+      >
+        {text}
+      </Text>
     </TouchableHighlight>
   );
 }

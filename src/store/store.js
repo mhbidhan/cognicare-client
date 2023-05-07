@@ -1,14 +1,16 @@
-import { configureStore } from '@reduxjs/toolkit';
-import { apiSlice } from '../features/api/apiSlice';
-import counterReducer from './counterSlice';
-import caretakerSliceReduser from '../features/caretaker/caretakerSlice';
+import { configureStore } from "@reduxjs/toolkit";
+import { apiSlice } from "../features/api/apiSlice";
+import counterReducer from "./counterSlice";
+import caretakerSliceReduser from "../features/caretaker/caretakerSlice";
+import patientSliceReducer from "../features/patient/patientSlice";
 
 const store = configureStore({
   reducer: {
     [apiSlice.reducerPath]: apiSlice.reducer,
     caretaker: caretakerSliceReduser,
+    patient: patientSliceReducer,
   },
-  devTools: process.env.NODE_ENV !== 'production',
+  devTools: process.env.NODE_ENV !== "production",
   middleware: (getDefaultMiddlewares) =>
     getDefaultMiddlewares().concat(apiSlice.middleware),
 });

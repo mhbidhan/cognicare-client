@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Text, View, StyleSheet, Button } from "react-native";
 import { BarCodeScanner } from "expo-barcode-scanner";
+import globalStyles from "../../utils/globalStyle";
 
 const SignInScreen = () => {
   const [hasPermission, setHasPermission] = useState(null);
@@ -34,8 +35,11 @@ const SignInScreen = () => {
     <View style={styles.container}>
       <BarCodeScanner
         onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
-        style={StyleSheet.absoluteFillObject}
+        style={[{ height: 400, width: 400 }]}
       />
+      <Text style={{ color: globalStyles.colors.primary, fontSize: 20 }}>
+        Scan QR Code
+      </Text>
       {scanned && (
         <Button
           title={"Tap to Scan Again"}
@@ -54,6 +58,12 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "column",
     justifyContent: "center",
+    alignItems: "center",
+    paddingTop: 20,
+    paddingBottom: 20,
+    paddingRight: 10,
+    paddingLeft: 10,
+    rowGap: 20,
   },
 });
 
