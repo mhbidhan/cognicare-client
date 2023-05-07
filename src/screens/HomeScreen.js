@@ -21,18 +21,31 @@ export default function HomeScreen({ navigation }) {
         flex: 1,
         alignItems: "center",
         justifyContent: "center",
-        gap: 10,
+        gap: 90,
       }}
     >
-      <SampleSvg />
-      <ButtonFilled
-        text="Care-Taker"
-        onPressHandler={() => onPressHandler("CareTakerLogIn")}
-      />
-      <ButtonFilled
-        text="Patient"
-        onPressHandler={() => onPressHandler("PatientSignIn")}
-      />
+      <View
+        style={{ flex: 1, alignItems: "center", justifyContent: "flex-end" }}
+      >
+        <SampleSvg />
+      </View>
+      <View
+        style={{
+          flex: 1,
+          alignItems: "center",
+          justifyContent: "flex-start",
+          gap: 20,
+        }}
+      >
+        <ButtonFilled
+          text="Care-Taker"
+          onPressHandler={() => onPressHandler("CareTakerLogIn")}
+        />
+        <ButtonFilled
+          text="Patient"
+          onPressHandler={() => onPressHandler("PatientSignIn")}
+        />
+      </View>
     </View>
   );
 }

@@ -8,6 +8,11 @@ const globalStyles = StyleSheet.create({
     secondary: "#5A78B1",
     secondaryLight: "#79C0E8",
   },
+  fontSizes: {
+    regular: 24,
+    large: 30,
+    small: 18,
+  },
   container: {
     flex: 1,
     padding: 20,

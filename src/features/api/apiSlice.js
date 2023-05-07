@@ -1,9 +1,9 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const apiSlice = createApi({
-  reducerPath: 'api',
+  reducerPath: "api",
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://8502-113-11-37-34.ngrok-free.app', //process.env.REACT_APP_API_URL,
+    baseUrl: "https://a8c6-113-11-37-34.in.ngrok.io", //process.env.REACT_APP_API_URL,
     // prepareHeaders: async (headers, {getState, endpoints}) => {
     // 	const auth = JSON.parse(localStorage.getItem('auth'))
     // 	const token = auth?.token
