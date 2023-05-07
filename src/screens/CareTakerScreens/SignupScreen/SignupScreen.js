@@ -50,7 +50,6 @@ export default function SignupScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
-      {/* <Text style={styles.label}>Name:</Text> */}
       <TextInput
         style={styles.input}
         value={name}
@@ -58,7 +57,6 @@ export default function SignupScreen({ navigation }) {
         placeholder='Enter your name'
       />
 
-      {/* <Text style={styles.label}>Age:</Text> */}
       <TextInput
         style={styles.input}
         value={age}
@@ -102,11 +100,17 @@ export default function SignupScreen({ navigation }) {
           // width={200}
         />
       </View>
-      <Button title='Login' onPress={() => navigation.navigate('Login')} />
+
+      <View style={styles.signInTextView}>
+        <Text style={styles.signInPreText}>Don't have an account?</Text>
+        <Text
+          style={styles.signInText}
+          onPress={() => navigation.navigate('Login')}
+        >
+          Login
+        </Text>
+      </View>
     </View>
-    // <View style={styles.container}>
-    //   <Text>Hello</Text>
-    // </View>
   );
 }
 
@@ -137,5 +141,18 @@ const styles = StyleSheet.create({
   submitButton: {
     marginTop: 30,
     width: 200,
+  },
+  signInTextView: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    gap: 8,
+    marginTop: 10,
+  },
+  signInPreText: {
+    color: '#000',
+  },
+  signInText: {
+    color: '#79C0E8',
   },
 });

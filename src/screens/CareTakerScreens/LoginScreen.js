@@ -31,7 +31,17 @@ export default function LoginScreen({ navigation }) {
       />
 
       <View style={styles.submitButton}>
-        <Button color='#61B15A' title='Signup' onPress={handleSubmit} style={} />
+        <Button color='#61B15A' title='Login' onPress={handleSubmit} />
+      </View>
+
+      <View style={styles.signupTextView}>
+        <Text style={styles.signupPreText}>Don't have an account?</Text>
+        <Text
+          style={styles.signupText}
+          onPress={() => navigation.navigate('Signup')}
+        >
+          Sign Up
+        </Text>
       </View>
     </View>
   );
@@ -41,6 +51,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
+    justifyContent: 'center',
     alignItems: 'center',
   },
   input: {
@@ -64,6 +75,19 @@ const styles = StyleSheet.create({
   submitButton: {
     marginTop: 30,
     width: 200,
-    height: 100,
+    // height: 100,
+  },
+  signupTextView: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    gap: 8,
+    marginTop: 10,
+  },
+  signupPreText: {
+    color: '#000',
+  },
+  signupText: {
+    color: '#79C0E8',
   },
 });

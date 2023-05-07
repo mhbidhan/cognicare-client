@@ -4,8 +4,8 @@ const initialState = {
 	currentPage: 'home'
 }
 
-const otherSlice = createSlice({
-	name: 'other',
+const caretakerSlice = createSlice({
+	name: 'caretaker',
 	initialState,
 	reducers: {
 		setCurrentPage: (state, action) => {
@@ -14,5 +14,5 @@ const otherSlice = createSlice({
 	}
 })
 
-export const { setCurrentPage } = otherSlice.actions
-export default otherSlice.reducer
+export const { setCurrentPage } = caretakerSlice.actions
+export default caretakerSlice.reducer
