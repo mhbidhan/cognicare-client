@@ -1,24 +1,37 @@
-import React, { useState } from 'react';
-import { View, Text, Button, TextInput, Image } from 'react-native';
-import { useSelector, useDispatch } from 'react-redux';
-import CongiCareLogo from '../assets/CogniCare - Koala.svg';
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  Button,
+  TextInput,
+  Image,
+  Alert,
+  TouchableHighlight,
+} from "react-native";
+import SampleSvg from "../assests/sampleSvg";
+import ButtonFilled from "../components/buttons/ButtonFilled";
 
 export default function HomeScreen({ navigation }) {
-  const [text, setText] = useState('');
+  function onPressHandler(page) {
+    navigation.navigate(page);
+  }
   return (
     <View
       style={{
         flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
+        alignItems: "center",
+        justifyContent: "center",
         gap: 10,
       }}
     >
-      {/* <Image source={CongiCareLogo} /> */}
-      <Button title='Care-Taker' onPress={() => navigation.navigate('Login')} />
-      <Button
-        title='Patient'
-        onPress={() => navigation.navigate('PatientSignIn')}
+      <SampleSvg />
+      <ButtonFilled
+        text="Care-Taker"
+        onPressHandler={() => onPressHandler("CareTakerLogIn")}
+      />
+      <ButtonFilled
+        text="Patient"
+        onPressHandler={() => onPressHandler("PatientSignIn")}
       />
     </View>
   );
