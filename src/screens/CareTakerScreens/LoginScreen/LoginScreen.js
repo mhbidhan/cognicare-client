@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Text, Button, TextInput } from 'react-native';
 import { useSelector } from 'react-redux';
 import { useLoginMutation } from './../../../features/caretaker/caretakerApi';
-// import ButtonFilled from './../../../components/buttons/ButtonFilled';
+import ButtonFilled from './../../../components/common/buttons/ButtonFilled';
 // import AsyncStorage from '@react-native-async-storage/async-storage';
 import { storeData, getData } from './../../../localStorage';
 
@@ -64,7 +64,12 @@ export default function LoginScreen({ navigation }) {
       />
 
       <View style={styles.submitButton}>
-        <Button color='#61B15A' title='Login' onPress={handleSubmit} />
+        <ButtonFilled
+          text='Login'
+          onPressHandler={handleSubmit}
+          width={200}
+          textSize={20}
+        />
       </View>
 
       <View style={styles.signupTextView}>
