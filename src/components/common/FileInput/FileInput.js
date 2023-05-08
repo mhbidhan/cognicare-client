@@ -39,10 +39,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
     borderColor: '#000',
     borderWidth: 2,
-    // backgroundColor: '#000',
     borderRadius: 5,
     padding: 15,
-    // alignSelf: '100%',
     width: 300,
   },
 });
