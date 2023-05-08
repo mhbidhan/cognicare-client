@@ -8,11 +8,21 @@ import {
   Alert,
   Pressable,
   TouchableOpacity,
+  ScrollView,
 } from 'react-native';
 import globalStyles from './../../../utils/globalStyle';
-import PatientCard from '../../../components/buttons/PatientCard/PatientCard';
+import PatientCard from '../../../components/PatientCard/PatientCard';
+import { getData } from './../../../localStorage';
+import { useGetAllPatientsQuery } from './../../../features/patient/patientApi';
+import { useSelector } from 'react-redux';
 
 function PatientList({ navigation }) {
+  const { caretakerToken } = useSelector((state) => state.caretaker);
+  const { data, isLoading, isError } = useGetAllPatientsQuery() || {};
+
+  console.log('caretakerToken', caretakerToken);
+  console.log('patients', data);
+
   return (
     <View style={styles.container}>
       <View style={styles.topbar}>
@@ -24,7 +34,13 @@ function PatientList({ navigation }) {
           <Text style={styles.plusSign}>+</Text>
         </TouchableOpacity>
       </View>
-      <PatientCard />
+      {!isLoading && !isError && data && caretakerToken ? (
+        <ScrollView style={styles.cardListView}>
+          {data.map((patient, i) => (
+            <PatientCard key={i} patient={patient} navigation={navigation} />
+          ))}
+        </ScrollView>
+      ) : null}
     </View>
   );
 }
@@ -32,14 +48,14 @@ function PatientList({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 5,
+    paddingVertical: 15,
     // alignItems: 'center',
   },
   topbar: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginLeft: 10,
-    marginRight: 10,
+    marginLeft: 20,
+    marginRight: 20,
   },
   text: {
     fontSize: 30,
@@ -58,6 +74,9 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: 'bold',
     color: '#fff',
+  },
+  cardListView: {
+    marginHorizontal: 20,
   },
 });
 

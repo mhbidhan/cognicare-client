@@ -6,16 +6,16 @@ export const apiSlice = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: 'https://4eea-113-11-37-34.ngrok-free.app', //process.env.REACT_APP_API_URL,
     prepareHeaders: async (headers, { getState, endpoints }) => {
-      // let token = '';
+      let token = getState().caretaker.caretakerToken;
       // getData('token').then((val) => {
       //   console.log('api', val);
       //   headers.set('x-auth-token', val);
       // });
-
-      // if (token) {
-      //   headers.set('x-auth-token', token);
-      //   headers.set('Accept-Language', 'en-US');
-      // }
+      console.log('api', token);
+      if (token) {
+        headers.set('x-auth-token', token);
+        // headers.set('Accept-Language', 'en-US');
+      }
 
       return headers;
     },

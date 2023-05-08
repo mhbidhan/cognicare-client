@@ -18,6 +18,7 @@ import SignInScreen from './src/screens/patient/SignInScreen';
 import PatientDashBoardScreen from './src/screens/patient/PatientDashBoardScreen';
 import PatientList from './src/screens/CareTakerScreens/PatientList/PatientList';
 import AddPatient from './src/screens/CareTakerScreens/AddPatient/AddPatient';
+import PatientDetails from './src/screens/CareTakerScreens/PatientDetails/PatientDetails';
 
 const Stack = createStackNavigator();
 
@@ -38,6 +39,7 @@ const App = () => {
             />
             <Stack.Screen name='Patient_List' component={PatientList} />
             <Stack.Screen name='Add_Patient' component={AddPatient} />
+            <Stack.Screen name='Patient_Details' component={PatientDetails} />
           </Stack.Navigator>
         </NavigationContainer>
       </SafeAreaView>
