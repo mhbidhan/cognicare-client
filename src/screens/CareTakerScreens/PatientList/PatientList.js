@@ -10,7 +10,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import globalStyles from './../../../utils/globalStyle';
-import PatientCard from '../../../components/buttons/PatientCard/PatientCard';
+import PatientCard from '../../../components/PatientCard/PatientCard';
 
 function PatientList({ navigation }) {
   return (
@@ -24,7 +24,9 @@ function PatientList({ navigation }) {
           <Text style={styles.plusSign}>+</Text>
         </TouchableOpacity>
       </View>
-      <PatientCard />
+      <View style={{ marginLeft: 10, marginRight: 10 }}>
+        <PatientCard />
+      </View>
     </View>
   );
 }
