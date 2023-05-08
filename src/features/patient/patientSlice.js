@@ -1,18 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  currentPage: "home",
+  patient: {},
 };
 
 const patientSlice = createSlice({
   name: "patient",
   initialState,
   reducers: {
-    setCurrentPage: (state, action) => {
-      state.currentPage = action.payload.currentPage;
+    setPatient: (state, action) => {
+      state = action.payload;
     },
   },
 });
 
-export const { setCurrentPage } = patientSlice.actions;
+export const { setPatient } = patientSlice.actions;
 export default patientSlice.reducer;
