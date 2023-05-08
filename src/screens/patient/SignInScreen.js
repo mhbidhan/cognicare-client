@@ -29,10 +29,10 @@ const SignInScreen = ({ navigation }) => {
     setScanned(true);
     // alert(`Bar code with type ${type} and data ${data} has been scanned!`);
     // navigation.navigate("PatientDashBoardScreen");
-    // const token =
-    //   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDU3N2E0Y2I3YTRmMzMzZTNkZDY5ODUiLCJpYXQiOjE2ODM0NTQ1NDAsImV4cCI6MTY4MzU0MDk0MH0.d-vkpy1bCl8CfohSgc5BCbD-ibffP3G66W_Ax5uu32U';
-    const token = data;
-    fetch('https://f05e-113-11-37-34.ap.ngrok.io/patients/own', {
+    const token =
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDU4Y2Q5ZGQ4NWY3MzJlNmZiOWJmOWIiLCJpYXQiOjE2ODM1NDE0MDUsImV4cCI6MTY4MzYyNzgwNX0.v2P1g1JfEYziir4YTpItrE2sVEXizcDuNi-ruAp9DFI';
+    // const token = data;
+    fetch('https://2e64-113-11-37-34.ap.ngrok.io/patients/own', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

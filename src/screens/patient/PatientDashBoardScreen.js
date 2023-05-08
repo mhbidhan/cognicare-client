@@ -3,6 +3,7 @@ import { Text, View, StyleSheet, Button } from 'react-native';
 import { useSelector } from 'react-redux';
 import Timeline from 'react-native-timeline-flatlist';
 import globalStyles from '../../utils/globalStyle';
+import OkayaCheckInScreen from '../../components/okaya/OkayaCheckInScreen';
 
 const styles = StyleSheet.create({
   container: {
@@ -77,6 +78,7 @@ const PatientDashBoard = () => {
           style: { paddingTop: 5 },
         }}
       />
+      <OkayaCheckInScreen />
     </View>
   );
 };
