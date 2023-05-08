@@ -1,37 +1,53 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, Text, Button, TextInput } from 'react-native';
 import { useSelector } from 'react-redux';
-import { useCaretakerRegistrationMutation } from './../../../features/caretaker/caretakerApi';
-// import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
+import { useCreateNewPatientMutation } from './../../../features/patient/patientApi';
 import ButtonFilled from './../../../components/buttons/ButtonFilled';
+// import FileInput from '../../../components/common/FileInput/FileInput.component';
+import { getData } from './../../../localStorage';
+import { useEffect } from 'react';
 
 export default function SignupScreen({ navigation }) {
   const [name, setName] = useState('');
-  const [password, setPassword] = useState('');
-  const [email, setEmail] = useState('');
-  const [phone, setPhone] = useState('');
+  const [age, setAge] = useState('');
   const [imgUrl, setImgUrl] = useState('');
+  const [emergencyName, setEmergencyName] = useState('');
+  const [emergencyPhone, setEmergencyPhone] = useState('');
+  const [emergencyRelation, setEmergencyRelation] = useState('');
+  const [token, setToken] = useState('');
 
-  const [caretakerRegistration, { data, isLoading, isError }] =
-    useCaretakerRegistrationMutation() || {};
+  const [createNewPatient, { data, isLoading, isError }] =
+    useCreateNewPatientMutation() || {};
   console.log(data);
+
+  useEffect(() => {
+    getData('token').then((val) => {
+      console.log('api', val);
+      setToken(val);
+    });
+  }, []);
+  // const handleChangeFile = (fileData) => {
+  //   setImgUrl(fileData);
+  // };
 
   const handleSubmit = () => {
     const data = {
       name,
-      password,
-      email,
-      phone,
+      age,
       imgUrl,
+      emergencyContact: {
+        name: emergencyName,
+        phone: emergencyPhone,
+        relation: emergencyRelation,
+      },
+      token,
     };
     console.log(data);
-    caretakerRegistration(data);
+    createNewPatient(data);
     // console.log(
     //   `Name: ${name}, password: ${password}, Email: ${email}, Phone: ${phone}, Image: ${imgUrl}`
     // );
   };
-
-  // const handleChooseImage = () => {
   //   launchCamera(
   //     {
   //       mediaType: 'photo',
@@ -73,25 +89,9 @@ export default function SignupScreen({ navigation }) {
 
       <TextInput
         style={styles.input}
-        value={email}
-        onChangeText={setEmail}
-        placeholder='Enter your email'
-      />
-
-      <TextInput
-        style={styles.input}
-        value={password}
-        onChangeText={setPassword}
-        placeholder='Enter password'
-        keyboardType='numeric'
-        secureTextEntry={true}
-      />
-
-      <TextInput
-        style={styles.input}
-        value={phone}
-        onChangeText={setPhone}
-        placeholder='Enter your phone number'
+        value={age}
+        onChangeText={setAge}
+        placeholder='Enter your age'
         keyboardType='numeric'
       />
 
@@ -102,27 +102,37 @@ export default function SignupScreen({ navigation }) {
         placeholder='Enter your image url'
       />
 
-      {/* <View>
-        {imageUri && <Image style={styles.image} source={{ uri: imageUri }} />}
-        <Button title='Choose Image' onPress={handleChooseImage} />
-      </View> */}
+      {/* <FileInput handleChange={handleChangeFile} /> */}
+
+      <TextInput
+        style={styles.input}
+        value={emergencyName}
+        onChangeText={setEmergencyName}
+        placeholder='Emergency contact name'
+      />
+
+      <TextInput
+        style={styles.input}
+        value={emergencyPhone}
+        onChangeText={setEmergencyPhone}
+        placeholder='Emergency contact phone'
+        keyboardType='numeric'
+      />
+
+      <TextInput
+        style={styles.input}
+        value={emergencyRelation}
+        onChangeText={setEmergencyRelation}
+        placeholder='Emergency contact relation'
+      />
 
       <View style={styles.submitButton}>
         <ButtonFilled
-          text='Signup'
+          text='Add Patient'
           onPressHandler={handleSubmit}
           width={200}
           style={{ marginTop: 30 }}
         />
-      </View>
-      <View style={styles.signInTextView}>
-        <Text style={styles.signInPreText}>Already have an account?</Text>
-        <Text
-          style={styles.signInText}
-          onPress={() => navigation.navigate('CareTakerLogIn')}
-        >
-          Login
-        </Text>
       </View>
     </View>
   );
@@ -140,7 +150,7 @@ const styles = StyleSheet.create({
     borderColor: 'blue',
     borderRadius: 5,
     padding: 10,
-    marginTop: 30,
+    marginTop: 20,
   },
   label: {
     fontSize: 16,
@@ -153,7 +163,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   submitButton: {
-    marginTop: 30,
+    marginTop: 20,
     width: 200,
   },
   signInTextView: {

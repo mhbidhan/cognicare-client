@@ -1,18 +1,18 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-	currentPage: 'home'
-}
+  caretakerToken: '',
+};
 
 const caretakerSlice = createSlice({
-	name: 'caretaker',
-	initialState,
-	reducers: {
-		setCurrentPage: (state, action) => {
-			state.currentPage = action.payload.currentPage
-		}
-	}
-})
+  name: 'caretaker',
+  initialState,
+  reducers: {
+    setCaretakerToken: (state, action) => {
+      state.caretakerToken = action.payload.caretakerToken;
+    },
+  },
+});
 
-export const { setCurrentPage } = caretakerSlice.actions
-export default caretakerSlice.reducer
+export const { setCaretakerToken } = caretakerSlice.actions;
+export default caretakerSlice.reducer;
