@@ -36,16 +36,18 @@ export const patientApi = apiSlice.injectEndpoints({
         method: 'POST',
         body: data,
       }),
-      async onQueryStarted(arg, { queryFulfilled, dispatch }) {
-        try {
-          const { data } = await queryFulfilled;
-          // console.log(data);
-        } catch (err) {
-          //Do nothing;
-        }
-      },
+    }),
+    getAllPatients: builder.query({
+      query: () => ({
+        url: '/patients',
+        method: 'GET',
+      }),
     }),
   }),
 });
 
-export const { usePatientLoginQuery, useCreateNewPatientMutation } = patientApi;
+export const {
+  usePatientLoginQuery,
+  useCreateNewPatientMutation,
+  useGetAllPatientsQuery,
+} = patientApi;

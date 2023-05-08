@@ -5,20 +5,20 @@ export const apiSlice = createApi({
   reducerPath: 'api',
   baseQuery: fetchBaseQuery({
     baseUrl: 'https://4eea-113-11-37-34.ngrok-free.app', //process.env.REACT_APP_API_URL,
-    // prepareHeaders: async (headers, { getState, endpoints }) => {
-    //   let token = '';
-    //   getData('token').then((val) => {
-    //     console.log('api', val);
-    //     headers.set('x-auth-token', val);
-    //   });
+    prepareHeaders: async (headers, { getState, endpoints }) => {
+      let token = getState().caretaker.caretakerToken;
+      // getData('token').then((val) => {
+      //   console.log('api', val);
+      //   headers.set('x-auth-token', val);
+      // });
+      console.log('api', token);
+      if (token) {
+        headers.set('x-auth-token', token);
+        // headers.set('Accept-Language', 'en-US');
+      }
 
-    //   if (token) {
-    //     headers.set('x-auth-token', token);
-    //     headers.set('Accept-Language', 'en-US');
-    //   }
-
-    //   return headers;
-    // },
+      return headers;
+    },
   }),
   // tagTypes: ['Manufacturer'],
   endpoints: (builder) => ({}),
