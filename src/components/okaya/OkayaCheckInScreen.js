@@ -13,7 +13,6 @@ function OkayaCheckInScreen() {
 
   return (
     <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-      {/* <Button title='Open Okaya in Browser' onPress={handleOpenBrowser} /> */}
       <ButtonFilled
         text='Open Okaya in Browser'
         onPressHandler={handleOpenBrowser}
