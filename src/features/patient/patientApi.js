@@ -3,8 +3,8 @@ import { apiSlice } from "./../api/apiSlice";
 export const patientApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     patientLogin: builder.query({
-      query: (id) => ({
-        url: `/patients/${id}`,
+      query: () => ({
+        url: `/patients/own`,
         method: "GET",
       }),
       async onQueryStarted(arg, { queryFulfilled, dispatch }) {
