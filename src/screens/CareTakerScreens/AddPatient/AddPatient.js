@@ -42,11 +42,8 @@ export default function SignupScreen({ navigation }) {
       },
       token,
     };
-    console.log(data);
     createNewPatient(data);
-    // console.log(
-    //   `Name: ${name}, password: ${password}, Email: ${email}, Phone: ${phone}, Image: ${imgUrl}`
-    // );
+    navigation.navigate('Patient_List');
   };
   //   launchCamera(
   //     {
