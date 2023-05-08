@@ -1,16 +1,16 @@
-import { apiSlice } from "./../api/apiSlice";
+import { apiSlice } from './../api/apiSlice';
 
 export const patientApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     patientLogin: builder.query({
       query: (id) => ({
         url: `/patients/${id}`,
-        method: "GET",
+        method: 'GET',
       }),
       async onQueryStarted(arg, { queryFulfilled, dispatch }) {
         try {
           const { data } = await queryFulfilled;
-          console.log(data);
+          // console.log(data);
           // localStorage.setItem(
           //   'auth',
           //   JSON.stringify({
@@ -30,7 +30,22 @@ export const patientApi = apiSlice.injectEndpoints({
         }
       },
     }),
+    createNewPatient: builder.mutation({
+      query: (data) => ({
+        url: '/patients',
+        method: 'POST',
+        body: data,
+      }),
+      async onQueryStarted(arg, { queryFulfilled, dispatch }) {
+        try {
+          const { data } = await queryFulfilled;
+          // console.log(data);
+        } catch (err) {
+          //Do nothing;
+        }
+      },
+    }),
   }),
 });
 
-export const { usePatientLoginQuery } = patientApi;
+export const { usePatientLoginQuery, useCreateNewPatientMutation } = patientApi;

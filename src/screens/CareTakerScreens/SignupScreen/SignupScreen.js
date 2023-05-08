@@ -3,7 +3,7 @@ import { StyleSheet, View, Text, Button, TextInput } from 'react-native';
 import { useSelector } from 'react-redux';
 import { useCaretakerRegistrationMutation } from './../../../features/caretaker/caretakerApi';
 // import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
-// import Button from './../../../components/common/Button/Button';
+import ButtonFilled from './../../../components/buttons/ButtonFilled';
 
 export default function SignupScreen({ navigation }) {
   const [name, setName] = useState('');
@@ -24,10 +24,11 @@ export default function SignupScreen({ navigation }) {
       phone,
       imgUrl,
     };
+    console.log(data);
     caretakerRegistration(data);
-    console.log(
-      `Name: ${name}, password: ${password}, Email: ${email}, Phone: ${phone}, Image: ${imgUrl}`
-    );
+    // console.log(
+    //   `Name: ${name}, password: ${password}, Email: ${email}, Phone: ${phone}, Image: ${imgUrl}`
+    // );
   };
 
   // const handleChooseImage = () => {
@@ -107,19 +108,18 @@ export default function SignupScreen({ navigation }) {
       </View> */}
 
       <View style={styles.submitButton}>
-        <Button
-          color='#61B15A'
-          title='Signup'
-          onPress={handleSubmit}
-          // width={200}
+        <ButtonFilled
+          text='Signup'
+          onPressHandler={handleSubmit}
+          width={200}
+          style={{ marginTop: 30 }}
         />
       </View>
-
       <View style={styles.signInTextView}>
-        <Text style={styles.signInPreText}>Don't have an account?</Text>
+        <Text style={styles.signInPreText}>Already have an account?</Text>
         <Text
           style={styles.signInText}
-          onPress={() => navigation.navigate('Login')}
+          onPress={() => navigation.navigate('CareTakerLogIn')}
         >
           Login
         </Text>

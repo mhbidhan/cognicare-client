@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   StyleSheet,
   View,
@@ -6,33 +6,25 @@ import {
   TextInput,
   TouchableHighlight,
   Alert,
-} from "react-native";
-import globalStyles from "../../utils/globalStyle";
+} from 'react-native';
+import globalStyles from '../../utils/globalStyle';
 
-function ButtonFilled({ text, onPressHandler }) {
+function ButtonFilled({ text, onPressHandler, width, height }) {
   return (
     <TouchableHighlight
       style={{
-        width: 328,
-        height: 50,
-        justifyContent: "center",
-        alignItems: "center",
+        width: width ? width : 328,
+        height: height ? height : 50,
+        justifyContent: 'center',
+        alignItems: 'center',
         padding: 10,
         borderRadius: 10,
         backgroundColor: globalStyles.colors.primary,
       }}
       onPress={onPressHandler}
-      underlayColor="#fff"
+      underlayColor='#fff'
     >
-      <Text
-        style={{
-          color: "#fff",
-          textAlign: "center",
-          fontSize: globalStyles.fontSizes.small,
-        }}
-      >
-        {text}
-      </Text>
+      <Text style={{ color: '#fff', textAlign: 'center' }}>{text}</Text>
     </TouchableHighlight>
   );
 }
