@@ -1,22 +1,22 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Text, Button, TextInput } from 'react-native';
-import { useSelector } from 'react-redux';
-import { useCaretakerRegistrationMutation } from './../../../features/caretaker/caretakerApi';
-// import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
+import { StyleSheet, Text, TextInput, View } from 'react-native';
+import FileInput from '../../../components/common/FileInput/FileInput';
+import uploadToCloudinary from '../../../services/cloudinary';
 import ButtonFilled from './../../../components/buttons/ButtonFilled';
+import { useCaretakerRegistrationMutation } from './../../../features/caretaker/caretakerApi';
 
 export default function SignupScreen({ navigation }) {
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
-  const [imgUrl, setImgUrl] = useState('');
+  const [img, setImg] = useState('');
 
-  const [caretakerRegistration, { data, isLoading, isError }] =
+  const [caretakerRegistration, { data, isLoading, error, isError }] =
     useCaretakerRegistrationMutation() || {};
-  console.log(data);
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
+    const imgUrl = (await uploadToCloudinary(img)).secure_url;
     const data = {
       name,
       password,
@@ -24,43 +24,9 @@ export default function SignupScreen({ navigation }) {
       phone,
       imgUrl,
     };
-    console.log(data);
-    caretakerRegistration(data);
-    // console.log(
-    //   `Name: ${name}, password: ${password}, Email: ${email}, Phone: ${phone}, Image: ${imgUrl}`
-    // );
-  };
 
-  // const handleChooseImage = () => {
-  //   launchCamera(
-  //     {
-  //       mediaType: 'photo',
-  //       maxWidth: 800,
-  //       maxHeight: 600,
-  //       quality: 1,
-  //     },
-  //     (res) => console.log(res)
-  //   );
-  //   // ImagePicker.showImagePicker(
-  //   //   {
-  //   //     mediaType: 'photo',
-  //   //     maxWidth: 800,
-  //   //     maxHeight: 600,
-  //   //     quality: 1,
-  //   //   },
-  //   //   (response) => {
-  //   //     if (response.didCancel) {
-  //   //       console.log('User cancelled image picker');
-  //   //     } else if (response.error) {
-  //   //       console.log('ImagePicker Error: ', response.error);
-  //   //     } else if (response.customButton) {
-  //   //       console.log('User tapped custom button: ', response.customButton);
-  //   //     } else {
-  //   //       setImageUri(response.uri);
-  //   //     }
-  //   //   }
-  //   // );
-  // };
+    caretakerRegistration(data);
+  };
 
   return (
     <View style={styles.container}>
@@ -68,22 +34,22 @@ export default function SignupScreen({ navigation }) {
         style={styles.input}
         value={name}
         onChangeText={setName}
-        placeholder='Enter your name'
+        placeholder="Enter your name"
       />
 
       <TextInput
         style={styles.input}
         value={email}
         onChangeText={setEmail}
-        placeholder='Enter your email'
+        placeholder="Enter your email"
       />
 
       <TextInput
         style={styles.input}
         value={password}
         onChangeText={setPassword}
-        placeholder='Enter password'
-        keyboardType='numeric'
+        placeholder="Enter password"
+        keyboardType="numeric"
         secureTextEntry={true}
       />
 
@@ -91,25 +57,22 @@ export default function SignupScreen({ navigation }) {
         style={styles.input}
         value={phone}
         onChangeText={setPhone}
-        placeholder='Enter your phone number'
-        keyboardType='numeric'
+        placeholder="Enter your phone number"
+        keyboardType="numeric"
       />
 
-      <TextInput
+      {/* <TextInput
         style={styles.input}
         value={imgUrl}
         onChangeText={setImgUrl}
         placeholder='Enter your image url'
-      />
+      /> */}
 
-      {/* <View>
-        {imageUri && <Image style={styles.image} source={{ uri: imageUri }} />}
-        <Button title='Choose Image' onPress={handleChooseImage} />
-      </View> */}
+      <FileInput handleChange={(file) => setImg(file)} />
 
       <View style={styles.submitButton}>
         <ButtonFilled
-          text='Signup'
+          text="Signup"
           onPressHandler={handleSubmit}
           width={200}
           style={{ marginTop: 30 }}
