@@ -3,7 +3,7 @@ import { StyleSheet, View, Text, Button, TextInput } from 'react-native';
 import { useSelector } from 'react-redux';
 import { useCaretakerRegistrationMutation } from './../../../features/caretaker/caretakerApi';
 // import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
-import ButtonFilled from './../../../components/buttons/ButtonFilled';
+import ButtonFilled from './../../../components/common/buttons/ButtonFilled';
 
 export default function SignupScreen({ navigation }) {
   const [name, setName] = useState('');
@@ -112,7 +112,7 @@ export default function SignupScreen({ navigation }) {
           text='Signup'
           onPressHandler={handleSubmit}
           width={200}
-          style={{ marginTop: 30 }}
+          textSize={20}
         />
       </View>
       <View style={styles.signInTextView}>
