@@ -17,30 +17,15 @@ import { useGetAllPatientsQuery } from './../../../features/patient/patientApi';
 import { useSelector } from 'react-redux';
 
 function PatientList({ navigation }) {
-  const { caretakerToken } = useSelector((state) => state.caretaker);
-  const { data, isLoading, isError } = useGetAllPatientsQuery() || {};
+  // const { caretakerToken } = useSelector((state) => state.caretaker);
+  // const { data, isLoading, isError } = useGetAllPatientsQuery() || {};
 
-  console.log('caretakerToken', caretakerToken);
-  console.log('patients', data);
+  // console.log('caretakerToken', caretakerToken);
+  // console.log('patients', data);
 
   return (
     <View style={styles.container}>
-      <View style={styles.topbar}>
-        <Text style={styles.text}>Patients</Text>
-        <TouchableOpacity
-          style={styles.plusSignView}
-          onPress={() => navigation.navigate('Add_Patient')}
-        >
-          <Text style={styles.plusSign}>+</Text>
-        </TouchableOpacity>
-      </View>
-      {!isLoading && !isError && data && caretakerToken ? (
-        <ScrollView style={styles.cardListView}>
-          {data.map((patient, i) => (
-            <PatientCard key={i} patient={patient} navigation={navigation} />
-          ))}
-        </ScrollView>
-      ) : null}
+      <Text style={styles.plusSign}>Patient Details</Text>
     </View>
   );
 }

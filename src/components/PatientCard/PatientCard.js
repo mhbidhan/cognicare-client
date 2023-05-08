@@ -4,26 +4,29 @@ import {
   View,
   Text,
   TextInput,
-  TouchableHighlight,
+  TouchableOpacity,
   Alert,
   Image,
   Modal,
   Button,
 } from 'react-native';
 import globalStyles from './../../utils/globalStyle';
-import pic from './../../assests/pic.jpg';
+import pic from './../../assets/pic.jpg';
 import ButtonFilled from '../common/buttons/ButtonFilled';
 import QRCode from 'react-native-qrcode-svg';
 
-function PatientCard({ patient }) {
+function PatientCard({ patient, navigation }) {
   const [modalVisible, setModalVisible] = useState(false);
-  console.log(patient);
+  // console.log(patient);
   const getcodeHandeler = () => {
     setModalVisible(true);
   };
 
   return (
-    <View style={styles.container}>
+    <TouchableOpacity
+      style={styles.container}
+      onPress={() => navigation.navigate('Patient_Details')}
+    >
       <View>
         <Image source={pic} style={styles.image} />
       </View>
@@ -63,7 +66,7 @@ function PatientCard({ patient }) {
         height={40}
         textSize={17}
       />
-    </View>
+    </TouchableOpacity>
   );
 }
 
@@ -71,13 +74,21 @@ const styles = StyleSheet.create({
   container: {
     // flex: 1,
     padding: 10,
-    // backgroundColor: 'red',
+    marginTop: 20,
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 10,
-    borderWidth: 3,
-    borderStyle: 'solid',
-    borderColor: globalStyles.colors.primary,
+    // borderRadius: 10,
+    // borderWidth: 1,
+    // borderStyle: 'solid',
+    // borderColor: globalStyles.colors.primary,
+    shadowColor: globalStyles.colors.primary,
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 3.84,
+    elevation: 3,
   },
   name: {
     fontSize: 30,

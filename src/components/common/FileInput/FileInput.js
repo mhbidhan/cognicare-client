@@ -28,20 +28,24 @@ const FileInput = ({ handleChange }) => {
     }
   }
   return (
-    <TouchableOpacity style={styles.fileInput} onPress={selectFile}>
-      <Text>{placeholder}</Text>
+    <TouchableOpacity style={styles.input} onPress={selectFile}>
+      <Text style={styles.label}>{placeholder}</Text>
     </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
-  fileInput: {
-    backgroundColor: 'transparent',
-    borderColor: '#000',
-    borderWidth: 2,
-    borderRadius: 5,
-    padding: 15,
+  input: {
     width: 300,
+    borderWidth: 1,
+    borderColor: 'blue',
+    borderRadius: 5,
+    padding: 10,
+    marginTop: 30,
+  },
+  label: {
+    fontSize: 16,
+    marginBottom: 5,
   },
 });
 export default FileInput;
