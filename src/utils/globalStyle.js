@@ -18,6 +18,7 @@ const globalStyles = StyleSheet.create({
     flex: 1,
     padding: 20,
     backgroundColor: '#fff',
+    // alignItems: 'center',
   },
   titleText: {
     fontSize: 18,
@@ -27,6 +28,14 @@ const globalStyles = StyleSheet.create({
   paragraph: {
     marginVertical: 8,
     lineHeight: 20,
+  },
+  textInput: {
+    width: 300,
+    borderWidth: 1,
+    borderColor: '#8cd9c2',
+    borderRadius: 5,
+    padding: 10,
+    marginTop: 30,
   },
 });
 

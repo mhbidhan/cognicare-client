@@ -80,10 +80,18 @@ const PatientDashBoard = ({ navigation }) => {
         }}
       />
       <OkayaCheckInScreen />
-      <ButtonFilled
-        text='Send SMS'
-        onPressHandler={() => navigation.navigate('PatientSendSms')}
-      />
+      <View
+        style={{
+          alignItems: 'center',
+          justifyContent: 'center',
+          marginTop: 10,
+        }}
+      >
+        <ButtonFilled
+          text='Send SMS'
+          onPressHandler={() => navigation.navigate('PatientSendSms')}
+        />
+      </View>
     </View>
   );
 };
