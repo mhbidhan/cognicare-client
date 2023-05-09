@@ -7,6 +7,7 @@ import OkayaCheckInScreen from '../../components/okaya/OkayaCheckInScreen';
 import ButtonFilled from '../../components/common/buttons/ButtonFilled';
 import { ImageBackground } from 'react-native';
 import blueBackground from '../../assets/blueBackground.png';
+import nightWallpaper from '../../assets/nightWallpaper.png';
 
 const styles = StyleSheet.create({
   container: {
@@ -18,6 +19,7 @@ const styles = StyleSheet.create({
   list: {
     flex: 1,
     marginTop: 20,
+    paddingTop: 10,
   },
 });
 
@@ -56,43 +58,60 @@ const PatientDashBoard = ({ navigation }) => {
   const patientData = useSelector((state) => state.patient.patientData);
 
   return (
-    <View style={globalStyles.container}>
-      <Text style={{ fontSize: globalStyles.fontSizes.large }}>
-        Greetings, {patientData.name}
-      </Text>
-      <Timeline
-        style={styles.list}
-        data={data}
-        separator={true}
-        circleSize={20}
-        circleColor='rgb(45,156,219)'
-        lineColor='rgb(45,156,219)'
-        timeContainerStyle={{ minWidth: 52, marginTop: -5 }}
-        timeStyle={{
-          textAlign: 'center',
-          backgroundColor: '#ff9797',
-          color: 'white',
-          padding: 5,
-          borderRadius: 13,
-          overflow: 'hidden',
-        }}
-        descriptionStyle={{ color: 'gray' }}
-        options={{
-          style: { paddingTop: 5 },
-        }}
-      />
-      <OkayaCheckInScreen />
-      <View
+    <View style={{ flex: 1, position: 'relative' }}>
+      <ImageBackground
+        source={nightWallpaper}
+        resizeMode='cover'
         style={{
-          alignItems: 'center',
-          justifyContent: 'center',
-          marginTop: 10,
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          bottom: 0,
+          right: 0,
+          opacity: 0.3,
         }}
-      >
-        <ButtonFilled
-          text='Send SMS'
-          onPressHandler={() => navigation.navigate('PatientSendSms')}
+      ></ImageBackground>
+      <View style={[globalStyles.container, { opacity: 1 }]}>
+        <Text
+          style={{ fontSize: globalStyles.fontSizes.large, color: 'white' }}
+        >
+          Greetings, {patientData.name ? patientData.name : 'Touhid'}
+        </Text>
+        <Timeline
+          style={styles.list}
+          data={data}
+          separator={true}
+          circleSize={20}
+          circleColor='#cccccc'
+          lineColor='rgb(45,156,219)'
+          timeContainerStyle={{ minWidth: 52, marginTop: 0 }}
+          timeStyle={{
+            textAlign: 'center',
+            backgroundColor: '#cccccc',
+            color: 'black',
+            padding: 5,
+            borderRadius: 13,
+            overflow: 'hidden',
+          }}
+          titleStyle={{ color: 'white' }}
+          descriptionStyle={{ color: '#cccccc' }}
+          options={{
+            style: { paddingTop: 5 },
+          }}
         />
+        <OkayaCheckInScreen />
+        <View
+          style={{
+            alignItems: 'center',
+            justifyContent: 'center',
+            marginTop: 10,
+          }}
+        >
+          <ButtonFilled
+            text='Send SMS'
+            onPressHandler={() => navigation.navigate('PatientSendSms')}
+          />
+        </View>
       </View>
     </View>
   );
