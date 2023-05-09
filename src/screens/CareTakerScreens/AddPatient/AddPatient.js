@@ -1,16 +1,18 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Text, Button, TextInput } from 'react-native';
+import { StyleSheet, View, Text, Button, TextInput, Alert } from 'react-native';
 import { useSelector } from 'react-redux';
 import { useCreateNewPatientMutation } from './../../../features/patient/patientApi';
-import ButtonFilled from './../../../components/buttons/ButtonFilled';
-// import FileInput from '../../../components/common/FileInput/FileInput.component';
+import ButtonFilled from './../../../components/common/buttons/ButtonFilled';
 import { getData } from './../../../localStorage';
 import { useEffect } from 'react';
+import FileInput from '../../../components/common/FileInput/FileInput';
+import uploadToCloudinary from './../../../services/cloudinary';
+import globalStyles from './../../../utils/globalStyle';
 
 export default function SignupScreen({ navigation }) {
   const [name, setName] = useState('');
   const [age, setAge] = useState('');
-  const [imgUrl, setImgUrl] = useState('');
+  const [img, setImg] = useState('');
   const [emergencyName, setEmergencyName] = useState('');
   const [emergencyPhone, setEmergencyPhone] = useState('');
   const [emergencyRelation, setEmergencyRelation] = useState('');
@@ -21,16 +23,22 @@ export default function SignupScreen({ navigation }) {
   console.log(data);
 
   useEffect(() => {
-    getData('token').then((val) => {
-      console.log('api', val);
-      setToken(val);
-    });
-  }, []);
-  // const handleChangeFile = (fileData) => {
-  //   setImgUrl(fileData);
-  // };
+    if (!isLoading && !isError && data?._id) {
+      Alert.alert('Confirmation', 'Patient file added successfully');
+    }
+  }, [isLoading, data]);
 
-  const handleSubmit = () => {
+  const emptyForm = () => {
+    setName('');
+    setAge('');
+    setImg('');
+    setEmergencyName('');
+    setEmergencyPhone('');
+    setEmergencyRelation('');
+  };
+
+  const handleSubmit = async () => {
+    const imgUrl = (await uploadToCloudinary(img)).secure_url;
     const data = {
       name,
       age,
@@ -40,10 +48,10 @@ export default function SignupScreen({ navigation }) {
         phone: emergencyPhone,
         relation: emergencyRelation,
       },
-      token,
     };
     createNewPatient(data);
-    navigation.navigate('Patient_List');
+    emptyForm();
+    // navigation.navigate('Patient_List');
   };
   //   launchCamera(
   //     {
@@ -94,15 +102,6 @@ export default function SignupScreen({ navigation }) {
 
       <TextInput
         style={styles.input}
-        value={imgUrl}
-        onChangeText={setImgUrl}
-        placeholder='Enter your image url'
-      />
-
-      {/* <FileInput handleChange={handleChangeFile} /> */}
-
-      <TextInput
-        style={styles.input}
         value={emergencyName}
         onChangeText={setEmergencyName}
         placeholder='Emergency contact name'
@@ -122,6 +121,8 @@ export default function SignupScreen({ navigation }) {
         onChangeText={setEmergencyRelation}
         placeholder='Emergency contact relation'
       />
+
+      <FileInput handleChange={(file) => setImg(file)} />
 
       <View style={styles.submitButton}>
         <ButtonFilled
@@ -144,7 +145,7 @@ const styles = StyleSheet.create({
   input: {
     width: 300,
     borderWidth: 1,
-    borderColor: 'blue',
+    borderColor: globalStyles.colors.primary,
     borderRadius: 5,
     padding: 10,
     marginTop: 20,

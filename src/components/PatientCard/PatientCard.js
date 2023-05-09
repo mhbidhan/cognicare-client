@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import {
   StyleSheet,
   View,
@@ -14,21 +15,32 @@ import globalStyles from './../../utils/globalStyle';
 import pic from './../../assets/pic.jpg';
 import ButtonFilled from '../common/buttons/ButtonFilled';
 import QRCode from 'react-native-qrcode-svg';
+import { Avatar } from 'react-native-paper';
+import { setThisPatient } from './../../features/caretaker/caretakerSlice';
 
 function PatientCard({ patient, navigation }) {
+  const dispatch = useDispatch();
   const [modalVisible, setModalVisible] = useState(false);
   // console.log(patient);
   const getcodeHandeler = () => {
     setModalVisible(true);
   };
 
+  const cardTouchHandeler = () => {
+    dispatch(setThisPatient({ thisPatient: patient }));
+    navigation.navigate('Patient_Details');
+  };
+
   return (
-    <TouchableOpacity
-      style={styles.container}
-      onPress={() => navigation.navigate('Patient_Details')}
-    >
+    <TouchableOpacity style={styles.container} onPress={cardTouchHandeler}>
       <View>
-        <Image source={pic} style={styles.image} />
+        <Image
+          source={{
+            uri: patient.imgUrl,
+          }}
+          style={styles.image}
+        />
+        {/* <Avatar.Image size={90} source={patient.imgUrl} /> */}
       </View>
       <Text style={styles.name}>{patient.name}</Text>
       <View style={styles.modalParentView}>
@@ -91,7 +103,7 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   name: {
-    fontSize: 30,
+    fontSize: 20,
     fontWeight: 'bold',
     // marginBottom: 5,
   },
@@ -102,6 +114,7 @@ const styles = StyleSheet.create({
   },
   modalParentView: {
     position: 'relative',
+    marginTop: 10,
   },
   modal: {
     flex: 1,

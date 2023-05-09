@@ -5,11 +5,7 @@ import { useLoginMutation } from './../../../features/caretaker/caretakerApi';
 import ButtonFilled from './../../../components/common/buttons/ButtonFilled';
 // import AsyncStorage from '@react-native-async-storage/async-storage';
 import { storeData, getData } from './../../../localStorage';
-
-// export const getData = async (key) => {
-//   const value = await AsyncStorage.getItem(key);
-//   return value;
-// };
+import globalStyles from './../../../utils/globalStyle';
 
 export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState('');
@@ -94,7 +90,7 @@ const styles = StyleSheet.create({
   input: {
     width: 300,
     borderWidth: 1,
-    borderColor: 'blue',
+    borderColor: globalStyles.colors.primary,
     borderRadius: 5,
     padding: 10,
     marginTop: 30,

@@ -1,22 +1,13 @@
 import React, { useState } from 'react';
-import {
-  StyleSheet,
-  View,
-  TextInput,
-  TouchableOpacity,
-  Alert,
-  Image,
-  Modal,
-  Button,
-} from 'react-native';
+import { useSelector } from 'react-redux';
+import { StyleSheet, View } from 'react-native';
 import globalStyles from './../../utils/globalStyle';
-import pic from './../../assets/pic.jpg';
-import ButtonFilled from '../common/buttons/ButtonFilled';
-import QRCode from 'react-native-qrcode-svg';
-import { Avatar, BottomNavigation, Text } from 'react-native-paper';
+import HeroSection from './HeroSection';
 
-function PatientCard({ patient, navigation }) {
+function Stat({ patient, navigation }) {
   const [modalVisible, setModalVisible] = useState(false);
+  const { thisPatient } = useSelector((state) => state.caretaker);
+  console.log('thisPatient', thisPatient);
   // console.log(patient);
   const getcodeHandeler = () => {
     setModalVisible(true);
@@ -24,45 +15,7 @@ function PatientCard({ patient, navigation }) {
 
   return (
     <View style={styles.container}>
-      <View>
-        <Avatar.Image source={pic} size={90} />
-      </View>
-      <Text style={styles.name}>Touhid</Text>
-      {/* <View style={styles.modalParentView}>
-        <Modal
-          animationType='slide'
-          transparent={true}
-          visible={modalVisible}
-          onRequestClose={() => {
-            setModalVisible(!modalVisible);
-          }}
-        >
-          <View style={styles.modal}>
-            <View>
-              <QRCode value={patient.loginCode} size={200} />
-              <View style={styles.modalButtonView}>
-                <ButtonFilled
-                  text='Close'
-                  onPressHandler={() => {
-                    setModalVisible(!modalVisible);
-                  }}
-                  width={200}
-                  height={40}
-                  textSize={17}
-                  btnColor={globalStyles.colors.green}
-                />
-              </View>
-            </View>
-          </View>
-        </Modal>
-      </View> */}
-      <ButtonFilled
-        text='Get Code'
-        onPressHandler={getcodeHandeler}
-        width={200}
-        height={35}
-        textSize={12}
-      />
+      <HeroSection thisPatient={thisPatient} />
     </View>
   );
 }
@@ -121,4 +74,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default PatientCard;
+export default Stat;

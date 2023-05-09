@@ -2,6 +2,8 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   caretakerToken: '',
+  thisPatient: {},
+  patientList: [],
 };
 
 const caretakerSlice = createSlice({
@@ -11,8 +13,15 @@ const caretakerSlice = createSlice({
     setCaretakerToken: (state, action) => {
       state.caretakerToken = action.payload.caretakerToken;
     },
+    setPatientList: (state, action) => {
+      state.patientList = action.payload.patientList;
+    },
+    setThisPatient: (state, action) => {
+      state.thisPatient = action.payload.thisPatient;
+    },
   },
 });
 
-export const { setCaretakerToken } = caretakerSlice.actions;
+export const { setCaretakerToken, setPatientList, setThisPatient } =
+  caretakerSlice.actions;
 export default caretakerSlice.reducer;

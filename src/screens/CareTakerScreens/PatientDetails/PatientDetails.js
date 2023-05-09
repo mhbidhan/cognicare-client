@@ -11,28 +11,26 @@ import {
   TouchableOpacity,
   ScrollView,
 } from 'react-native';
+import { Avatar, BottomNavigation, Text } from 'react-native-paper';
 import globalStyles from './../../../utils/globalStyle';
 import PatientCard from '../../../components/PatientCard/PatientCard';
 import { getData } from './../../../localStorage';
 import { useGetAllPatientsQuery } from './../../../features/patient/patientApi';
-import { useSelector } from 'react-redux';
 import pic from './../../../assets/pic.jpg';
 import ButtonFilled from './../../../components/common/buttons/ButtonFilled';
 import StatRoute from './../../../components/PatientsDetails/Stat';
-
-import { Avatar, BottomNavigation, Text } from 'react-native-paper';
-
-// const StatRoute = () => <Text>Stat</Text>;
-
-const RoutineRoute = () => <Text>Routine</Text>;
-
-const InfoRoute = () => <Text>Information</Text>;
-
-// const Tab = createBottomTabNavigator();
+import InfoRoute from './../../../components/PatientsDetails/Info';
+import RoutineRoute from './../../../components/PatientsDetails/Routine';
 
 function PatienDetails({ navigation }) {
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
+    {
+      key: 'info',
+      title: 'Info',
+      focusedIcon: 'application-brackets',
+      unfocusedIcon: 'application-brackets-outline',
+    },
     {
       key: 'stat',
       title: 'Stat',
@@ -40,24 +38,14 @@ function PatienDetails({ navigation }) {
       unfocusedIcon: 'graph-outline',
     },
     { key: 'routine', title: 'Routine', focusedIcon: 'history' },
-    {
-      key: 'info',
-      title: 'Info',
-      focusedIcon: 'application-brackets',
-      unfocusedIcon: 'application-brackets-outline',
-    },
   ]);
+  // console.log('PDT', selectedPatientLoginToken);
 
   const renderScene = BottomNavigation.SceneMap({
     stat: StatRoute,
     routine: RoutineRoute,
     info: InfoRoute,
   });
-  // const { caretakerToken } = useSelector((state) => state.caretaker);
-  // const { data, isLoading, isError } = useGetAllPatientsQuery() || {};
-
-  // console.log('caretakerToken', caretakerToken);
-  // console.log('patients', data);
 
   return (
     <BottomNavigation

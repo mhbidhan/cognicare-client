@@ -19,6 +19,7 @@ import PatientDashBoardScreen from './src/screens/patient/PatientDashBoardScreen
 import PatientList from './src/screens/CareTakerScreens/PatientList/PatientList';
 import AddPatient from './src/screens/CareTakerScreens/AddPatient/AddPatient';
 import PatientDetails from './src/screens/CareTakerScreens/PatientDetails/PatientDetails';
+import SendSmsScreen from './src/screens/patient/SendSmsScreen';
 
 const Stack = createStackNavigator();
 
@@ -40,6 +41,7 @@ const App = () => {
             <Stack.Screen name='Patient_List' component={PatientList} />
             <Stack.Screen name='Add_Patient' component={AddPatient} />
             <Stack.Screen name='Patient_Details' component={PatientDetails} />
+            <Stack.Screen name='PatientSendSms' component={SendSmsScreen} />
           </Stack.Navigator>
         </NavigationContainer>
       </SafeAreaView>
