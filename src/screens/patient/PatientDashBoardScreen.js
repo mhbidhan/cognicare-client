@@ -5,6 +5,8 @@ import Timeline from 'react-native-timeline-flatlist';
 import globalStyles from '../../utils/globalStyle';
 import OkayaCheckInScreen from '../../components/okaya/OkayaCheckInScreen';
 import ButtonFilled from '../../components/common/buttons/ButtonFilled';
+import { ImageBackground } from 'react-native';
+import blueBackground from '../../assets/blueBackground.png';
 
 const styles = StyleSheet.create({
   container: {
