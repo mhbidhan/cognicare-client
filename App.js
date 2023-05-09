@@ -7,6 +7,7 @@ import {
   SafeAreaView,
   Platform,
 } from 'react-native';
+import Toast from 'react-native-toast-message';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import store from './src/store/store';
@@ -44,6 +45,7 @@ const App = () => {
             <Stack.Screen name='PatientSendSms' component={SendSmsScreen} />
           </Stack.Navigator>
         </NavigationContainer>
+        <Toast />
       </SafeAreaView>
     </Provider>
   );
