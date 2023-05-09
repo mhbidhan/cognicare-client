@@ -32,7 +32,8 @@ const SignInScreen = ({ navigation }) => {
     const token =
       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDU4Y2Q5ZGQ4NWY3MzJlNmZiOWJmOWIiLCJpYXQiOjE2ODM1NDE0MDUsImV4cCI6MTY4MzYyNzgwNX0.v2P1g1JfEYziir4YTpItrE2sVEXizcDuNi-ruAp9DFI';
     // const token = data;
-    fetch('https://4a49-113-11-37-34.in.ngrok.io/patients/own', {
+    const ngRokUrl = 'https://58b7-113-11-37-34.in.ngrok.io';
+    fetch(`${ngRokUrl}/patients/own`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
