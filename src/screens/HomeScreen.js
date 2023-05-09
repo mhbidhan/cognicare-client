@@ -38,36 +38,38 @@ export default function HomeScreen({ navigation }) {
         }}
       >
         <Koala />
-        <Button
-          icon='account-eye'
-          mode='elevated'
-          buttonColor={globalStyles.colors.primary}
-          textColor={globalStyles.colors.primaryLight}
-          contentStyle={{
-            width: 300,
-            paddingVertical: 10,
-          }}
-          style={{ borderRadius: 10 }}
-          labelStyle={{ fontSize: 17 }}
-          onPress={() => onPressHandler('CareTakerLogIn')}
-        >
-          Care-Taker
-        </Button>
-        <Button
-          icon='account-plus-outline'
-          mode='elevated'
-          buttonColor={globalStyles.colors.primary}
-          textColor={globalStyles.colors.primaryLight}
-          contentStyle={{
-            width: 300,
-            paddingVertical: 10,
-          }}
-          style={{ borderRadius: 10 }}
-          labelStyle={{ fontSize: 17 }}
-          onPress={() => onPressHandler('PatientSignIn')}
-        >
-          Patient
-        </Button>
+        <View style={{ gap: 20 }}>
+          <Button
+            icon='account-eye'
+            mode='elevated'
+            buttonColor={globalStyles.colors.primary}
+            textColor={globalStyles.colors.primaryLight}
+            contentStyle={{
+              width: 300,
+              paddingVertical: 10,
+            }}
+            style={{ borderRadius: 10 }}
+            labelStyle={{ fontSize: 17 }}
+            onPress={() => onPressHandler('CareTakerLogIn')}
+          >
+            Care-Taker
+          </Button>
+          <Button
+            icon='account-plus-outline'
+            mode='elevated'
+            buttonColor={globalStyles.colors.primary}
+            textColor={globalStyles.colors.primaryLight}
+            contentStyle={{
+              width: 300,
+              paddingVertical: 10,
+            }}
+            style={{ borderRadius: 10 }}
+            labelStyle={{ fontSize: 17 }}
+            onPress={() => onPressHandler('PatientSignIn')}
+          >
+            Patient
+          </Button>
+        </View>
       </View>
     </ImageBackground>
   );
