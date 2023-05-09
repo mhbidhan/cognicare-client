@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import {
   View,
   Text,
-  Button,
+  // Button,
   TextInput,
   Image,
   Alert,
@@ -16,6 +16,7 @@ import Koala from '../assets/Koala';
 import yellowBackground from '../assets/yellowBackground.png';
 import blueBackground from '../assets/blueBackground.png';
 import nightWallpaper from '../assets/nightWallpaper.png';
+import globalStyles from '../utils/globalStyle';
 
 export default function HomeScreen({ navigation }) {
   function onPressHandler(page) {
@@ -36,6 +37,7 @@ export default function HomeScreen({ navigation }) {
           gap: 90,
         }}
       >
+        <Koala />
         <Button
           icon='account-eye'
           mode='elevated'
