@@ -1,15 +1,9 @@
 import React, { useState } from 'react';
-import {
-  View,
-  Text,
-  Button,
-  TextInput,
-  Image,
-  Alert,
-  TouchableHighlight,
-} from 'react-native';
+import { View } from 'react-native';
 import SampleSvg from '../assets/sampleSvg';
-import ButtonFilled from './../components/common/buttons/ButtonFilled';
+// import ButtonFilled from './../components/common/buttons/ButtonFilled';
+import { Button } from 'react-native-paper';
+import globalStyles from '../utils/globalStyle';
 
 export default function HomeScreen({ navigation }) {
   function onPressHandler(page) {
@@ -37,14 +31,36 @@ export default function HomeScreen({ navigation }) {
           gap: 20,
         }}
       >
-        <ButtonFilled
-          text='Care-Taker'
-          onPressHandler={() => onPressHandler('CareTakerLogIn')}
-        />
-        <ButtonFilled
-          text='Patient'
-          onPressHandler={() => onPressHandler('PatientSignIn')}
-        />
+        <Button
+          icon='account-eye'
+          mode='elevated'
+          buttonColor={globalStyles.colors.primary}
+          textColor={globalStyles.colors.primaryLight}
+          contentStyle={{
+            width: 300,
+            paddingVertical: 10,
+          }}
+          style={{ borderRadius: 10 }}
+          labelStyle={{ fontSize: 17 }}
+          onPress={() => onPressHandler('CareTakerLogIn')}
+        >
+          Care-Taker
+        </Button>
+        <Button
+          icon='account-plus-outline'
+          mode='elevated'
+          buttonColor={globalStyles.colors.primary}
+          textColor={globalStyles.colors.primaryLight}
+          contentStyle={{
+            width: 300,
+            paddingVertical: 10,
+          }}
+          style={{ borderRadius: 10 }}
+          labelStyle={{ fontSize: 17 }}
+          onPress={() => onPressHandler('PatientSignIn')}
+        >
+          Patient
+        </Button>
       </View>
     </View>
   );

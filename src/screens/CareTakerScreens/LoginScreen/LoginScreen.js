@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, Text, Button, TextInput } from 'react-native';
+import { StyleSheet, View, Text, TextInput } from 'react-native';
 import { useSelector } from 'react-redux';
+import { Button } from 'react-native-paper';
 import { useLoginMutation } from './../../../features/caretaker/caretakerApi';
 import ButtonFilled from './../../../components/common/buttons/ButtonFilled';
 // import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -60,12 +61,21 @@ export default function LoginScreen({ navigation }) {
       />
 
       <View style={styles.submitButton}>
-        <ButtonFilled
-          text='Login'
-          onPressHandler={handleSubmit}
-          width={200}
-          textSize={20}
-        />
+        <Button
+          icon='login'
+          mode='elevated'
+          buttonColor={globalStyles.colors.primary}
+          textColor={globalStyles.colors.primaryLight}
+          contentStyle={{
+            width: 300,
+            paddingVertical: 10,
+          }}
+          style={{ borderRadius: 10 }}
+          labelStyle={{ fontSize: 17 }}
+          onPress={handleSubmit}
+        >
+          Login
+        </Button>
       </View>
 
       <View style={styles.signupTextView}>
@@ -107,7 +117,7 @@ const styles = StyleSheet.create({
   },
   submitButton: {
     marginTop: 30,
-    width: 200,
+    // width: 200,
     // height: 100,
   },
   signupTextView: {
@@ -118,9 +128,9 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   signupPreText: {
-    color: '#000',
+    color: globalStyles.colors.green,
   },
   signupText: {
-    color: '#79C0E8',
+    color: globalStyles.colors.primary,
   },
 });

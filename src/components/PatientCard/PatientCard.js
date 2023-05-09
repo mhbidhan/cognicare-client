@@ -9,8 +9,8 @@ import {
   Alert,
   Image,
   Modal,
-  Button,
 } from 'react-native';
+import { Button } from 'react-native-paper';
 import globalStyles from './../../utils/globalStyle';
 import pic from './../../assets/pic.jpg';
 import ButtonFilled from '../common/buttons/ButtonFilled';
@@ -53,31 +53,40 @@ function PatientCard({ patient, navigation }) {
           }}
         >
           <View style={styles.modal}>
-            <View>
-              <QRCode value={patient.loginCode} size={200} />
-              <View style={styles.modalButtonView}>
-                <ButtonFilled
-                  text='Close'
-                  onPressHandler={() => {
-                    setModalVisible(!modalVisible);
-                  }}
-                  width={200}
-                  height={40}
-                  textSize={17}
-                  btnColor={globalStyles.colors.green}
-                />
-              </View>
+            <QRCode value={patient.loginCode} size={200} />
+            <View style={styles.modalButtonView}>
+              <Button
+                icon='close-box-outline'
+                mode='elevated'
+                buttonColor={globalStyles.colors.primaryLight}
+                textColor={globalStyles.colors.primary}
+                style={{ borderRadius: 10 }}
+                labelStyle={{ fontSize: 17 }}
+                onPress={() => {
+                  setModalVisible(!modalVisible);
+                }}
+              >
+                Close
+              </Button>
             </View>
           </View>
         </Modal>
       </View>
-      <ButtonFilled
-        text='Get Code'
-        onPressHandler={getcodeHandeler}
-        width={200}
-        height={40}
-        textSize={17}
-      />
+      <Button
+        icon='qrcode'
+        mode='elevated'
+        buttonColor={globalStyles.colors.primary}
+        textColor={globalStyles.colors.primaryLight}
+        // contentStyle={{
+        //   width: 300,
+        //   paddingVertical: 10,
+        // }}
+        style={{ borderRadius: 10 }}
+        labelStyle={{ fontSize: 17 }}
+        onPress={getcodeHandeler}
+      >
+        Get Code
+      </Button>
     </TouchableOpacity>
   );
 }
@@ -119,7 +128,7 @@ const styles = StyleSheet.create({
   modal: {
     flex: 1,
     padding: 10,
-    backgroundColor: globalStyles.colors.primaryLight,
+    backgroundColor: globalStyles.colors.primary,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 10,
