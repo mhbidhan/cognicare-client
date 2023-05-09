@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, TextInput, View } from 'react-native';
+import Toast from 'react-native-toast-message';
 import globalStyles from '../../utils/globalStyle';
 import ButtonFilled from '../../components/common/buttons/ButtonFilled';
 
@@ -35,7 +36,7 @@ const SendSmsScreen = () => {
       // const resJson = await res.json();
       // if (resJson.messages[0].status !== '0') return -1;
       // return 1;
-      return -1;
+      return 1;
     } catch (error) {
       console.log(error);
     }
@@ -47,6 +48,14 @@ const SendSmsScreen = () => {
 
   const validateMessage = (txt) => {
     return txt.trim().length !== 0;
+  };
+
+  const showToast = (type, text1, text2) => {
+    Toast.show({
+      type,
+      text1,
+      text2,
+    });
   };
 
   const handleSendSMS = async () => {
@@ -65,10 +74,12 @@ const SendSmsScreen = () => {
       }
       const response = await sendSMS(phone, message);
       if (response === -1) {
-        setMessageRespone("Couldn't send message");
+        // setMessageRespone("Couldn't send message");
+        showToast('error', 'Not sent', "Couldn't send message");
       } else {
-        setMessageRespone('Message sent successfully');
-        alert('Message sent successfully');
+        // setMessageRespone('Message sent successfully');
+        // alert('Message sent successfully');
+        showToast('success', 'Sent', 'Message sent successfully');
       }
     } catch (error) {
       console.log(error);
