@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, TextInput, View } from 'react-native';
+import { StyleSheet, Text, TextInput, View, Alert } from 'react-native';
 import FileInput from '../../../components/common/FileInput/FileInput';
 import uploadToCloudinary from '../../../services/cloudinary';
-import ButtonFilled from './../../../components/buttons/ButtonFilled';
+import ButtonFilled from './../../../components/common/buttons/ButtonFilled';
 import { useCaretakerRegistrationMutation } from './../../../features/caretaker/caretakerApi';
+import { useEffect } from 'react';
+import globalStyles from './../../../utils/globalStyle';
 
 export default function SignupScreen({ navigation }) {
   const [name, setName] = useState('');
@@ -14,6 +16,21 @@ export default function SignupScreen({ navigation }) {
 
   const [caretakerRegistration, { data, isLoading, error, isError }] =
     useCaretakerRegistrationMutation() || {};
+
+  const emptyForm = () => {
+    setName('');
+    setPassword('');
+    setEmail('');
+    setPhone('');
+    setImg('');
+  };
+  // console.log(data);
+
+  useEffect(() => {
+    if (!isLoading && !isError && data?._id) {
+      Alert.alert('Confirmation', 'Your account is created');
+    }
+  }, []);
 
   const handleSubmit = async () => {
     const imgUrl = (await uploadToCloudinary(img)).secure_url;
@@ -26,6 +43,7 @@ export default function SignupScreen({ navigation }) {
     };
 
     caretakerRegistration(data);
+    emptyForm();
   };
 
   return (
@@ -61,13 +79,6 @@ export default function SignupScreen({ navigation }) {
         keyboardType='numeric'
       />
 
-      {/* <TextInput
-        style={styles.input}
-        value={imgUrl}
-        onChangeText={setImgUrl}
-        placeholder='Enter your image url'
-      /> */}
-
       <FileInput handleChange={(file) => setImg(file)} />
 
       <View style={styles.submitButton}>
@@ -100,7 +111,7 @@ const styles = StyleSheet.create({
   input: {
     width: 300,
     borderWidth: 1,
-    borderColor: 'blue',
+    borderColor: globalStyles.colors.primary,
     borderRadius: 5,
     padding: 10,
     marginTop: 30,

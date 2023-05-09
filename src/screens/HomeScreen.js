@@ -9,7 +9,7 @@ import {
   TouchableHighlight,
 } from 'react-native';
 import SampleSvg from '../assets/sampleSvg';
-import ButtonFilled from '../components/buttons/ButtonFilled';
+import ButtonFilled from './../components/common/buttons/ButtonFilled';
 
 export default function HomeScreen({ navigation }) {
   function onPressHandler(page) {

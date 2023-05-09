@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   StyleSheet,
   View,
@@ -10,18 +10,26 @@ import {
   TouchableOpacity,
   ScrollView,
 } from 'react-native';
+import { useSelector, useDispatch } from 'react-redux';
 import globalStyles from './../../../utils/globalStyle';
 import PatientCard from '../../../components/PatientCard/PatientCard';
 import { getData } from './../../../localStorage';
 import { useGetAllPatientsQuery } from './../../../features/patient/patientApi';
-import { useSelector } from 'react-redux';
+import { setPatientList } from './../../../features/caretaker/caretakerSlice';
 
 function PatientList({ navigation }) {
+  const dispatch = useDispatch();
   const { caretakerToken } = useSelector((state) => state.caretaker);
   const { data, isLoading, isError } = useGetAllPatientsQuery() || {};
 
-  console.log('caretakerToken', caretakerToken);
-  console.log('patients', data);
+  // console.log('caretakerToken', caretakerToken);
+  // console.log('patients', data);
+
+  useEffect(() => {
+    if (!isLoading && !isError && data) {
+      dispatch(setPatientList({ patientList: data }));
+    }
+  }, [isLoading, data]);
 
   return (
     <View style={styles.container}>
@@ -31,7 +39,7 @@ function PatientList({ navigation }) {
           style={styles.plusSignView}
           onPress={() => navigation.navigate('Add_Patient')}
         >
-          <Text style={styles.plusSign}>+</Text>
+          <Text style={styles.plusSign}>Add</Text>
         </TouchableOpacity>
       </View>
       {!isLoading && !isError && data && caretakerToken ? (
@@ -60,6 +68,7 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 30,
     fontWeight: 'bold',
+    color: globalStyles.colors.primary,
   },
   plusSignView: {
     backgroundColor: globalStyles.colors.primary,
@@ -71,7 +80,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   plusSign: {
-    fontSize: 30,
+    fontSize: 15,
     fontWeight: 'bold',
     color: '#fff',
   },

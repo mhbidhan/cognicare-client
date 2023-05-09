@@ -2,9 +2,8 @@ import React from 'react';
 import { Text, View, StyleSheet, Button } from 'react-native';
 import { useSelector } from 'react-redux';
 import Timeline from 'react-native-timeline-flatlist';
-import globalStyles from '../../utils/globalStyle';
-import OkayaCheckInScreen from '../../components/okaya/OkayaCheckInScreen';
-import ButtonFilled from '../../components/common/buttons/ButtonFilled';
+import globalStyles from './../../utils/globalStyle';
+import ButtonFilled from './../common/buttons/ButtonFilled';
 
 const styles = StyleSheet.create({
   container: {
@@ -14,8 +13,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   list: {
-    flex: 1,
-    marginTop: 20,
+    // flex: 1,
+    marginTop: 10,
   },
 });
 
@@ -50,14 +49,14 @@ const data = [
   },
 ];
 
-const PatientDashBoard = ({ navigation }) => {
+const Routine = ({ navigation }) => {
   const patientData = useSelector((state) => state.patient.patientData);
 
   return (
     <View style={globalStyles.container}>
-      <Text style={{ fontSize: globalStyles.fontSizes.large }}>
-        Greetings, {patientData.name}
-      </Text>
+      {/* <Text style={{ fontSize: globalStyles.fontSizes.large }}>
+        Greetings, Touhid
+      </Text> */}
       <Timeline
         style={styles.list}
         data={data}
@@ -79,13 +78,9 @@ const PatientDashBoard = ({ navigation }) => {
           style: { paddingTop: 5 },
         }}
       />
-      <OkayaCheckInScreen />
-      <ButtonFilled
-        text='Send SMS'
-        onPressHandler={() => navigation.navigate('PatientSendSms')}
-      />
+      {/* <ButtonFilled text='Send SMS' /> */}
     </View>
   );
 };
 
-export default PatientDashBoard;
+export default Routine;
