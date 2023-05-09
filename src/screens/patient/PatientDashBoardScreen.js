@@ -6,7 +6,6 @@ import globalStyles from '../../utils/globalStyle';
 import OkayaCheckInScreen from '../../components/okaya/OkayaCheckInScreen';
 import ButtonFilled from '../../components/common/buttons/ButtonFilled';
 import { ImageBackground } from 'react-native';
-import blueBackground from '../../assets/blueBackground.png';
 import nightWallpaper from '../../assets/nightWallpaper.png';
 
 const styles = StyleSheet.create({
@@ -26,36 +25,46 @@ const styles = StyleSheet.create({
 const data = [
   {
     time: '09:00',
-    title: 'Archery Training',
+    title: 'Breakfast',
     description:
-      'The Beginner Archery and Beginner Crossbow course does not require you to bring any equipment, since everything you need will be provided for the course. ',
+      'For breakfast you are going to eat below things:\n1. Egg\n2. Bread\n3. Jelly',
     circleColor: '#009688',
     lineColor: '#009688',
   },
   {
-    time: '10:45',
-    title: 'Play Badminton',
+    time: '10:00',
+    title: 'Medicine',
     description:
-      'Badminton is a racquet sport played using racquets to hit a shuttlecock across a net.',
+      'Take the medicines listed below:\n1. Donepezil Aricept®\n2. Galantamine Razadyne®\n3. Rivastigmine Exelon®',
   },
-  { time: '12:00', title: 'Lunch' },
+  { time: '13:00', title: 'Shower', description: 'Remember to take a shower' },
   {
     time: '14:00',
-    title: 'Watch Soccer',
+    title: 'Lunch',
     description:
-      'Team sport played between two teams of eleven players with a spherical ball. ',
+      'For lunch you are going to eat below things:\n1. rice\n2. beef\n3. fish\n4. egg',
     lineColor: '#009688',
   },
   {
     time: '16:30',
     title: 'Go to Fitness center',
-    description: 'Look out for the Best Gym & Fitness Centers around me :)',
+    description: "Head out to Fitness Gym for your today's workout",
     circleColor: '#009688',
   },
 ];
 
 const PatientDashBoard = ({ navigation }) => {
   const patientData = useSelector((state) => state.patient.patientData);
+
+  const handleOpenBrowser = async () => {
+    try {
+      await WebBrowser.openBrowserAsync(
+        'https://www.okaya.me/dashboard/DirectAccess/landing?company=527437'
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <View style={{ flex: 1, position: 'relative' }}>
@@ -99,17 +108,26 @@ const PatientDashBoard = ({ navigation }) => {
             style: { paddingTop: 5 },
           }}
         />
-        <OkayaCheckInScreen />
+        {/* <OkayaCheckInScreen /> */}
         <View
           style={{
+            flexDirection: 'row',
             alignItems: 'center',
-            justifyContent: 'center',
+            justifyContent: 'space-around',
             marginTop: 10,
           }}
         >
           <ButtonFilled
+            text='Video Call'
+            onPressHandler={handleOpenBrowser}
+            icon='video-plus'
+            width={155}
+          />
+          <ButtonFilled
             text='Send SMS'
             onPressHandler={() => navigation.navigate('PatientSendSms')}
+            icon='message-processing'
+            width={155}
           />
         </View>
       </View>

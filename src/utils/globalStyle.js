@@ -35,10 +35,11 @@ const globalStyles = StyleSheet.create({
   textInput: {
     width: 300,
     borderWidth: 1,
-    borderColor: '#b4abba',
+    borderColor: '#0f1557',
     borderRadius: 5,
     padding: 10,
     marginTop: 30,
+    color: 'white',
   },
 });
 
