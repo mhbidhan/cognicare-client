@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import Timeline from 'react-native-timeline-flatlist';
 import globalStyles from '../../utils/globalStyle';
 import OkayaCheckInScreen from '../../components/okaya/OkayaCheckInScreen';
+import ButtonFilled from '../../components/common/buttons/ButtonFilled';
 
 const styles = StyleSheet.create({
   container: {
@@ -49,7 +50,7 @@ const data = [
   },
 ];
 
-const PatientDashBoard = () => {
+const PatientDashBoard = ({ navigation }) => {
   const patientData = useSelector((state) => state.patient.patientData);
 
   return (
@@ -79,6 +80,10 @@ const PatientDashBoard = () => {
         }}
       />
       <OkayaCheckInScreen />
+      <ButtonFilled
+        text='Send SMS'
+        onPressHandler={() => navigation.navigate('PatientSendSms')}
+      />
     </View>
   );
 };
