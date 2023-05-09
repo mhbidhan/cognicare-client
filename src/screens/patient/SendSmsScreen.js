@@ -21,7 +21,7 @@ const SendSmsScreen = () => {
       //   api_key: '18e51d6d',
       //   api_secret: 'FF2RhkA12J3S24zR',
       //   from: '13652660851',
-      //   to: `88${number}`,
+      //   to: number,
       //   text: content,
       // };
       // const bodyJSON = JSON.stringify(bodyData);
@@ -35,7 +35,6 @@ const SendSmsScreen = () => {
       // const res = await fetch(url, options);
       // const resJson = await res.json();
       // if (resJson.messages[0].status !== '0') return -1;
-      // return 1;
       return 1;
     } catch (error) {
       console.log(error);
@@ -43,7 +42,7 @@ const SendSmsScreen = () => {
   }
 
   const validatePhone = (txt) => {
-    return txt.length >= 11 && txt.substring(0, 2) === '01';
+    return txt.length >= 9;
   };
 
   const validateMessage = (txt) => {

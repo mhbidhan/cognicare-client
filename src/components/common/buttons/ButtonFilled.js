@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, TouchableHighlight } from 'react-native';
+import { Text, TouchableHighlight, View } from 'react-native';
 import globalStyles from '../../../utils/globalStyle';
 
 function ButtonFilled({
@@ -22,17 +22,29 @@ function ButtonFilled({
         backgroundColor: btnColor ? btnColor : globalStyles.colors.primary,
       }}
       onPress={onPressHandler}
-      underlayColor='#fff'
+      underlayColor={btnColor ? btnColor : globalStyles.colors.primary}
     >
-      <Text
+      <View
         style={{
-          color: '#fff',
-          textAlign: 'center',
-          fontSize: textSize ? textSize : null,
+          shadowColor: 'white',
+          shadowOffset: {
+            width: 0,
+            height: 0,
+          },
+          shadowOpacity: 1,
+          shadowRadius: 10,
         }}
       >
-        {text}
-      </Text>
+        <Text
+          style={{
+            color: '#fff',
+            textAlign: 'center',
+            fontSize: textSize ? textSize : 16,
+          }}
+        >
+          {text}
+        </Text>
+      </View>
     </TouchableHighlight>
   );
 }

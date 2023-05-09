@@ -2,7 +2,9 @@ import { StyleSheet } from 'react-native';
 
 const globalStyles = StyleSheet.create({
   colors: {
-    primary: '#665A6F', //'#5AC8A7',
+    // primary: '#665A6F', //'#5AC8A7',
+    // primary: 'white',
+    primary: '#0f1557',
     green: '#94BF4A',
     primaryLight: '#9CCE97',
     primaryLighter: '#DEEFDC',
@@ -32,7 +34,7 @@ const globalStyles = StyleSheet.create({
   textInput: {
     width: 300,
     borderWidth: 1,
-    borderColor: '#8cd9c2',
+    borderColor: '#b4abba',
     borderRadius: 5,
     padding: 10,
     marginTop: 30,
