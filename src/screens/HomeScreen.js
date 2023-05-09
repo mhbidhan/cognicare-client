@@ -37,7 +37,10 @@ export default function HomeScreen({ navigation }) {
           gap: 90,
         }}
       >
-        <Koala />
+        <View style={{ alignItems: 'center' }}>
+          <Koala />
+          <SampleSvg />
+        </View>
         <View style={{ gap: 20 }}>
           <Button
             icon='account-eye'
