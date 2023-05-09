@@ -20,13 +20,13 @@ const globalStyles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    backgroundColor: '#fff',
+    backgroundColor: 'transparent',
     // alignItems: 'center',
   },
   titleText: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#333',
+    // color: '#333',
   },
   paragraph: {
     marginVertical: 8,
