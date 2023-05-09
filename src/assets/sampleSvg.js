@@ -4,7 +4,8 @@ import Svg, { Path, Circle } from 'react-native-svg';
 const SampleSvg = () => {
   return (
     <Svg
-      // xmlns="http://www.w3.org/2000/svg"
+      xmlns='http://www.w3.org/2000/svg'
+      viewBox='-4 -5 280 180'
       width={261.5}
       height={88.9}
       // {...props}
