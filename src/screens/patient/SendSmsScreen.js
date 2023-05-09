@@ -1,8 +1,15 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, TextInput, View } from 'react-native';
+import {
+  ImageBackground,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from 'react-native';
 import Toast from 'react-native-toast-message';
 import globalStyles from '../../utils/globalStyle';
 import ButtonFilled from '../../components/common/buttons/ButtonFilled';
+import nightWallpaper from '../../assets/nightWallpaper.png';
 
 const SendSmsScreen = () => {
   const [phone, setPhone] = useState('');
@@ -73,11 +80,8 @@ const SendSmsScreen = () => {
       }
       const response = await sendSMS(phone, message);
       if (response === -1) {
-        // setMessageRespone("Couldn't send message");
         showToast('error', 'Not sent', "Couldn't send message");
       } else {
-        // setMessageRespone('Message sent successfully');
-        // alert('Message sent successfully');
         showToast('success', 'Sent', 'Message sent successfully');
       }
     } catch (error) {
@@ -86,13 +90,27 @@ const SendSmsScreen = () => {
   };
 
   return (
-    <View style={[globalStyles.container, { alignItems: 'center' }]}>
+    <View style={{ flex: 1, position: 'relative', alignItems: 'center' }}>
+      <ImageBackground
+        source={nightWallpaper}
+        resizeMode='cover'
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          bottom: 0,
+          right: 0,
+          opacity: 0.3,
+        }}
+      ></ImageBackground>
       <TextInput
         style={globalStyles.textInput}
         placeholder='Enter Phone Number'
         onChangeText={setPhone}
         value={phone}
         inputMode='tel'
+        placeholderTextColor='white'
+        selectionColor='white'
       />
       {phoneError && (
         <Text style={styles.error}>
@@ -106,6 +124,8 @@ const SendSmsScreen = () => {
         value={message}
         multiline={true}
         numberOfLines={10}
+        placeholderTextColor='white'
+        selectionColor='white'
       />
       {messageError && (
         <Text style={styles.error}>Message should not be empty</Text>
@@ -120,18 +140,18 @@ const SendSmsScreen = () => {
       >
         <ButtonFilled
           text='Send SMS'
-          width={300}
+          width={155}
           onPressHandler={handleSendSMS}
+          icon='message-processing'
         />
       </View>
-      <Text>{messageRespone}</Text>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   error: {
-    color: 'red',
+    color: 'white',
   },
 });
 
