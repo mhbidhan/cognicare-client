@@ -2,46 +2,77 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, TextInput, View } from 'react-native';
 import globalStyles from '../../utils/globalStyle';
 import ButtonFilled from '../../components/common/buttons/ButtonFilled';
-import {
-  VONAGE_SMS_API_KEY,
-  VONAGE_SMS_API_SECRET,
-  VONAGE_SMS_API_OUR_NUMBER,
-} from '../../config';
 
 const SendSmsScreen = () => {
   const [phone, setPhone] = useState('');
   const [message, setMessage] = useState('');
-  const [phoneError, setPhoneError] = useState('');
-  const [messageError, setMessageError] = useState('');
+  const [phoneError, setPhoneError] = useState(false);
+  const [messageError, setMessageError] = useState(false);
   const [messageRespone, setMessageRespone] = useState('Initial Response');
 
   async function sendSMS(number, content) {
-    const url = 'https://rest.nexmo.com/sms/json';
+    try {
+      // const url = 'https://rest.nexmo.com/sms/json';
 
-    // The "to" number is a string that includes the area code. Example: "8801742646813";
-    // The content is a string containing what you want to send through text.
-    const options = {
-      method: 'POST',
-      body: {
-        api_key: VONAGE_SMS_API_KEY,
-        api_secret: VONAGE_SMS_API_SECRET,
-        from: VONAGE_SMS_API_OUR_NUMBER,
-        to: number,
-        text: content,
-      },
-    };
-
-    const res = await fetch(url, options);
-    return res.json();
+      // // The "to" number is a string that includes the area code. Example: "8801742646813";
+      // // The content is a string containing what you want to send through text.
+      // const bodyData = {
+      //   api_key: '18e51d6d',
+      //   api_secret: 'FF2RhkA12J3S24zR',
+      //   from: '13652660851',
+      //   to: `88${number}`,
+      //   text: content,
+      // };
+      // const bodyJSON = JSON.stringify(bodyData);
+      // const options = {
+      //   method: 'POST',
+      //   headers: {
+      //     'Content-Type': 'application/json',
+      //   },
+      //   body: bodyJSON,
+      // };
+      // const res = await fetch(url, options);
+      // const resJson = await res.json();
+      // if (resJson.messages[0].status !== '0') return -1;
+      // return 1;
+      return -1;
+    } catch (error) {
+      console.log(error);
+    }
   }
 
-  const handleSendSms = async () => {
-    validatePhone(phone);
-    validateMessage(message);
-    if (phoneError || messageError) return;
-    const response = await sendSMS(phone, message);
-    console.log(response);
-    setMessageRespone(response);
+  const validatePhone = (txt) => {
+    return txt.length >= 11 && txt.substring(0, 2) === '01';
+  };
+
+  const validateMessage = (txt) => {
+    return txt.trim().length !== 0;
+  };
+
+  const handleSendSMS = async () => {
+    try {
+      if (!validatePhone(phone)) {
+        setPhoneError(true);
+        return;
+      } else {
+        setPhoneError(false);
+      }
+      if (!validateMessage(message)) {
+        setMessageError(true);
+        return;
+      } else {
+        setMessageError(false);
+      }
+      const response = await sendSMS(phone, message);
+      if (response === -1) {
+        setMessageRespone("Couldn't send message");
+      } else {
+        setMessageRespone('Message sent successfully');
+        alert('Message sent successfully');
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -53,15 +84,22 @@ const SendSmsScreen = () => {
         value={phone}
         inputMode='tel'
       />
-      <Text style={styles.error}>Error</Text>
+      {phoneError && (
+        <Text style={styles.error}>
+          Number should be 11 digits starting with 01
+        </Text>
+      )}
       <TextInput
         style={globalStyles.textInput}
         placeholder='Enter Text'
         onChangeText={setMessage}
-        value={phone}
+        value={message}
         multiline={true}
         numberOfLines={10}
       />
+      {messageError && (
+        <Text style={styles.error}>Message should not be empty</Text>
+      )}
       <View
         style={{
           alignItems: 'center',
@@ -73,7 +111,7 @@ const SendSmsScreen = () => {
         <ButtonFilled
           text='Send SMS'
           width={300}
-          onPressHandler={handleSendSms}
+          onPressHandler={handleSendSMS}
         />
       </View>
       <Text>{messageRespone}</Text>
