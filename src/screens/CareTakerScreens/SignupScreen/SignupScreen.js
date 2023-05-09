@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, TextInput, View, Alert } from 'react-native';
+import { StyleSheet, Text, TextInput, View } from 'react-native';
+import { Button } from 'react-native-paper';
 import FileInput from '../../../components/common/FileInput/FileInput';
 import uploadToCloudinary from '../../../services/cloudinary';
-import ButtonFilled from './../../../components/common/buttons/ButtonFilled';
+// import ButtonFilled from './../../../components/common/buttons/ButtonFilled';
 import { useCaretakerRegistrationMutation } from './../../../features/caretaker/caretakerApi';
 import { useEffect } from 'react';
 import globalStyles from './../../../utils/globalStyle';
+import Toast from 'react-native-toast-message';
 
 export default function SignupScreen({ navigation }) {
   const [name, setName] = useState('');
@@ -25,10 +27,18 @@ export default function SignupScreen({ navigation }) {
     setImg('');
   };
   // console.log(data);
-
+  const showToast = (type, text1, text2) => {
+    Toast.show({
+      type,
+      text1,
+      text2,
+    });
+  };
   useEffect(() => {
     if (!isLoading && !isError && data?._id) {
-      Alert.alert('Confirmation', 'Your account is created');
+      showToast('success', 'Completed', 'Your account created successfully');
+    } else if (!isLoading && isError && error) {
+      showToast('error', 'Failed', error);
     }
   }, []);
 
@@ -82,12 +92,21 @@ export default function SignupScreen({ navigation }) {
       <FileInput handleChange={(file) => setImg(file)} />
 
       <View style={styles.submitButton}>
-        <ButtonFilled
-          text='Signup'
-          onPressHandler={handleSubmit}
-          width={200}
-          textSize={20}
-        />
+        <Button
+          icon='login-variant'
+          mode='elevated'
+          buttonColor={globalStyles.colors.primary}
+          textColor={globalStyles.colors.primaryLight}
+          contentStyle={{
+            width: 300,
+            paddingVertical: 10,
+          }}
+          style={{ borderRadius: 10 }}
+          labelStyle={{ fontSize: 17 }}
+          onPress={handleSubmit}
+        >
+          Sign Up
+        </Button>
       </View>
       <View style={styles.signInTextView}>
         <Text style={styles.signInPreText}>Already have an account?</Text>
@@ -128,7 +147,6 @@ const styles = StyleSheet.create({
   },
   submitButton: {
     marginTop: 30,
-    width: 200,
   },
   signInTextView: {
     flex: 1,
@@ -138,9 +156,9 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   signInPreText: {
-    color: '#000',
+    color: globalStyles.colors.green,
   },
   signInText: {
-    color: '#79C0E8',
+    color: globalStyles.colors.primary,
   },
 });
