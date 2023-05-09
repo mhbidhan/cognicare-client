@@ -51,6 +51,7 @@ const App = () => {
   return (
     <Provider store={store}>
       <SafeAreaView style={styles.wrapper}>
+        <StatusBar backgroundColor={MyTheme.colors.background} />
         <NavigationContainer theme={MyTheme}>
           {/* <ImageBackground
             source={YellowBackground}
@@ -84,7 +85,7 @@ const App = () => {
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
-    paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
+    // paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
   },
   image: {
     flex: 1,
