@@ -11,6 +11,7 @@ import {
   ScrollView,
 } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
+import { Button } from 'react-native-paper';
 import globalStyles from './../../../utils/globalStyle';
 import PatientCard from '../../../components/PatientCard/PatientCard';
 import { getData } from './../../../localStorage';
@@ -35,12 +36,24 @@ function PatientList({ navigation }) {
     <View style={styles.container}>
       <View style={styles.topbar}>
         <Text style={styles.text}>Patients</Text>
-        <TouchableOpacity
+        <Button
+          icon='database-plus-outline'
+          mode='elevated'
+          buttonColor={globalStyles.colors.primary}
+          textColor={globalStyles.colors.primaryLight}
+          contentStyle={{ width: 100 }}
+          style={{ borderRadius: 10 }}
+          labelStyle={{ fontSize: 17 }}
+          onPress={() => navigation.navigate('Add_Patient')}
+        >
+          Add
+        </Button>
+        {/* <TouchableOpacity
           style={styles.plusSignView}
           onPress={() => navigation.navigate('Add_Patient')}
         >
           <Text style={styles.plusSign}>Add</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
       {!isLoading && !isError && data && caretakerToken ? (
         <ScrollView style={styles.cardListView}>
