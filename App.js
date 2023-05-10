@@ -27,6 +27,7 @@ import PatientList from './src/screens/CareTakerScreens/PatientList/PatientList'
 import AddPatient from './src/screens/CareTakerScreens/AddPatient/AddPatient';
 import PatientDetails from './src/screens/CareTakerScreens/PatientDetails/PatientDetails';
 import SendSmsScreen from './src/screens/patient/SendSmsScreen';
+import PatientDashBoard from './src/screens/patient/PatientDashBoard';
 // import YellowBackground from './src/assets/yellowWallpaper';
 import YellowBackground from './src/assets/yellowBackground.png';
 
@@ -66,6 +67,10 @@ const App = () => {
             <Stack.Screen name='Signup' component={SignupScreen} />
             <Stack.Screen name='CareTakerLogIn' component={LoginScreen} />
             <Stack.Screen name='PatientSignIn' component={SignInScreen} />
+            <Stack.Screen
+              name='PatientDashboard'
+              component={PatientDashBoard}
+            />
             <Stack.Screen
               name='PatientRoutineTimeline'
               component={PatientRoutineTimelineScreen}
