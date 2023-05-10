@@ -1,24 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Provider } from 'react-redux';
-import {
-  View,
-  StyleSheet,
-  StatusBar,
-  SafeAreaView,
-  Platform,
-  ImageBackground,
-  Text,
-} from 'react-native';
+import { StyleSheet, StatusBar, SafeAreaView } from 'react-native';
 import Toast from 'react-native-toast-message';
-import {
-  NavigationContainer,
-  DarkTheme,
-  DefaultTheme,
-} from '@react-navigation/native';
+import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import store from './src/store/store';
-import { storeData, getData } from './src/localStorage';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import HomeScreen from './src/screens/HomeScreen';
 import DetailScreen from './src/screens/DetailScreen';
@@ -31,9 +18,6 @@ import AddPatient from './src/screens/CareTakerScreens/AddPatient/AddPatient';
 import PatientDetails from './src/screens/CareTakerScreens/PatientDetails/PatientDetails';
 import SendSmsScreen from './src/screens/patient/SendSmsScreen';
 import PatientDashBoard from './src/screens/patient/PatientDashBoard';
-// import YellowBackground from './src/assets/yellowWallpaper';
-import YellowBackground from './src/assets/yellowBackground.png';
-import ModalScreen from './src/screens/ModalScreen';
 import globalStyles from './src/utils/globalStyle';
 
 const Stack = createStackNavigator();
@@ -43,8 +27,6 @@ const MyTheme = {
   ...DefaultTheme,
   colors: {
     ...DefaultTheme.colors,
-    // primary: '#454EAE',
-    // background: '#454EAE',
     primary: '#343C87',
     background: '#343C87',
     card: '#343C87',
