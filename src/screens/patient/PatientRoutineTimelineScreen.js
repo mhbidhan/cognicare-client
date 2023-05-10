@@ -53,7 +53,7 @@ const data = [
   },
 ];
 
-const PatientDashBoard = ({ navigation }) => {
+const PatientRoutineTimelineScreen = ({ navigation }) => {
   const patientData = useSelector((state) => state.patient.patientData);
 
   const handleOpenBrowser = async () => {
@@ -135,4 +135,4 @@ const PatientDashBoard = ({ navigation }) => {
   );
 };
 
-export default PatientDashBoard;
+export default PatientRoutineTimelineScreen;
