@@ -1,67 +1,45 @@
 import React, { useState } from 'react';
-import { View } from 'react-native';
+import { View, ImageBackground } from 'react-native';
 import SampleSvg from '../assets/sampleSvg';
-// import ButtonFilled from './../components/common/buttons/ButtonFilled';
-import { Button } from 'react-native-paper';
-import globalStyles from '../utils/globalStyle';
+import Koala from '../assets/Koala';
+import ButtonFilled from './../components/common/buttons/ButtonFilled';
+import nightWallpaper from '../assets/nightWallpaper.png';
 
 export default function HomeScreen({ navigation }) {
   function onPressHandler(page) {
     navigation.navigate(page);
   }
   return (
-    <View
-      style={{
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        gap: 90,
-      }}
+    <ImageBackground
+      source={nightWallpaper}
+      resizeMode='cover'
+      style={{ flex: 1 }}
     >
-      <View
-        style={{ flex: 1, alignItems: 'center', justifyContent: 'flex-end' }}
-      >
-        <SampleSvg />
-      </View>
       <View
         style={{
           flex: 1,
           alignItems: 'center',
-          justifyContent: 'flex-start',
-          gap: 20,
+          justifyContent: 'center',
+          gap: 90,
         }}
       >
-        <Button
-          icon='account-eye'
-          mode='elevated'
-          buttonColor={globalStyles.colors.primary}
-          textColor={globalStyles.colors.primaryLight}
-          contentStyle={{
-            width: 300,
-            paddingVertical: 10,
-          }}
-          style={{ borderRadius: 10 }}
-          labelStyle={{ fontSize: 17 }}
-          onPress={() => onPressHandler('CareTakerLogIn')}
-        >
-          Care-Taker
-        </Button>
-        <Button
-          icon='account-plus-outline'
-          mode='elevated'
-          buttonColor={globalStyles.colors.primary}
-          textColor={globalStyles.colors.primaryLight}
-          contentStyle={{
-            width: 300,
-            paddingVertical: 10,
-          }}
-          style={{ borderRadius: 10 }}
-          labelStyle={{ fontSize: 17 }}
-          onPress={() => onPressHandler('PatientSignIn')}
-        >
-          Patient
-        </Button>
+        <View style={{ alignItems: 'center' }}>
+          <Koala />
+          <SampleSvg />
+        </View>
+        <View style={{ gap: 20 }}>
+          <ButtonFilled
+            text='Care-Taker'
+            icon='account-eye'
+            onPressHandler={() => onPressHandler('CareTakerLogIn')}
+          />
+          <ButtonFilled
+            text='Patient'
+            icon='account-plus-outline'
+            onPressHandler={() => onPressHandler('PatientSignIn')}
+          />
+        </View>
       </View>
-    </View>
+    </ImageBackground>
   );
 }

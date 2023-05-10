@@ -5,6 +5,8 @@ import Timeline from 'react-native-timeline-flatlist';
 import globalStyles from '../../utils/globalStyle';
 import OkayaCheckInScreen from '../../components/okaya/OkayaCheckInScreen';
 import ButtonFilled from '../../components/common/buttons/ButtonFilled';
+import { ImageBackground } from 'react-native';
+import nightWallpaper from '../../assets/nightWallpaper.png';
 
 const styles = StyleSheet.create({
   container: {
@@ -16,36 +18,37 @@ const styles = StyleSheet.create({
   list: {
     flex: 1,
     marginTop: 20,
+    paddingTop: 10,
   },
 });
 
 const data = [
   {
     time: '09:00',
-    title: 'Archery Training',
+    title: 'Breakfast',
     description:
-      'The Beginner Archery and Beginner Crossbow course does not require you to bring any equipment, since everything you need will be provided for the course. ',
+      'For breakfast you are going to eat below things:\n1. Egg\n2. Bread\n3. Jelly',
     circleColor: '#009688',
     lineColor: '#009688',
   },
   {
-    time: '10:45',
-    title: 'Play Badminton',
+    time: '10:00',
+    title: 'Medicine',
     description:
-      'Badminton is a racquet sport played using racquets to hit a shuttlecock across a net.',
+      'Take the medicines listed below:\n1. Donepezil Aricept®\n2. Galantamine Razadyne®\n3. Rivastigmine Exelon®',
   },
-  { time: '12:00', title: 'Lunch' },
+  { time: '13:00', title: 'Shower', description: 'Remember to take a shower' },
   {
     time: '14:00',
-    title: 'Watch Soccer',
+    title: 'Lunch',
     description:
-      'Team sport played between two teams of eleven players with a spherical ball. ',
+      'For lunch you are going to eat below things:\n1. rice\n2. beef\n3. fish\n4. egg',
     lineColor: '#009688',
   },
   {
     time: '16:30',
     title: 'Go to Fitness center',
-    description: 'Look out for the Best Gym & Fitness Centers around me :)',
+    description: "Head out to Fitness Gym for your today's workout",
     circleColor: '#009688',
   },
 ];
@@ -53,44 +56,80 @@ const data = [
 const PatientDashBoard = ({ navigation }) => {
   const patientData = useSelector((state) => state.patient.patientData);
 
+  const handleOpenBrowser = async () => {
+    try {
+      await WebBrowser.openBrowserAsync(
+        'https://www.okaya.me/dashboard/DirectAccess/landing?company=527437'
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
-    <View style={globalStyles.container}>
-      <Text style={{ fontSize: globalStyles.fontSizes.large }}>
-        Greetings, {patientData.name}
-      </Text>
-      <Timeline
-        style={styles.list}
-        data={data}
-        separator={true}
-        circleSize={20}
-        circleColor='rgb(45,156,219)'
-        lineColor='rgb(45,156,219)'
-        timeContainerStyle={{ minWidth: 52, marginTop: -5 }}
-        timeStyle={{
-          textAlign: 'center',
-          backgroundColor: '#ff9797',
-          color: 'white',
-          padding: 5,
-          borderRadius: 13,
-          overflow: 'hidden',
-        }}
-        descriptionStyle={{ color: 'gray' }}
-        options={{
-          style: { paddingTop: 5 },
-        }}
-      />
-      <OkayaCheckInScreen />
-      <View
+    <View style={{ flex: 1, position: 'relative' }}>
+      <ImageBackground
+        source={nightWallpaper}
+        resizeMode='cover'
         style={{
-          alignItems: 'center',
-          justifyContent: 'center',
-          marginTop: 10,
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          bottom: 0,
+          right: 0,
+          opacity: 0.3,
         }}
-      >
-        <ButtonFilled
-          text='Send SMS'
-          onPressHandler={() => navigation.navigate('PatientSendSms')}
+      ></ImageBackground>
+      <View style={[globalStyles.container, { opacity: 1 }]}>
+        <Text
+          style={{ fontSize: globalStyles.fontSizes.large, color: 'white' }}
+        >
+          Greetings, {patientData.name ? patientData.name : 'Touhid'}
+        </Text>
+        <Timeline
+          style={styles.list}
+          data={data}
+          separator={true}
+          circleSize={20}
+          circleColor='#cccccc'
+          lineColor='rgb(45,156,219)'
+          timeContainerStyle={{ minWidth: 52, marginTop: 0 }}
+          timeStyle={{
+            textAlign: 'center',
+            backgroundColor: '#cccccc',
+            color: 'black',
+            padding: 5,
+            borderRadius: 13,
+            overflow: 'hidden',
+          }}
+          titleStyle={{ color: 'white' }}
+          descriptionStyle={{ color: '#cccccc' }}
+          options={{
+            style: { paddingTop: 5 },
+          }}
         />
+        {/* <OkayaCheckInScreen /> */}
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-around',
+            marginTop: 10,
+          }}
+        >
+          <ButtonFilled
+            text='Video Call'
+            onPressHandler={handleOpenBrowser}
+            icon='video-plus'
+            width={155}
+          />
+          <ButtonFilled
+            text='Send SMS'
+            onPressHandler={() => navigation.navigate('PatientSendSms')}
+            icon='message-processing'
+            width={155}
+          />
+        </View>
       </View>
     </View>
   );
