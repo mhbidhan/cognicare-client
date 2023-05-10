@@ -30,6 +30,7 @@ import SendSmsScreen from './src/screens/patient/SendSmsScreen';
 import PatientDashBoard from './src/screens/patient/PatientDashBoard';
 // import YellowBackground from './src/assets/yellowWallpaper';
 import YellowBackground from './src/assets/yellowBackground.png';
+import ModalScreen from './src/screens/ModalScreen';
 
 const Stack = createStackNavigator();
 
@@ -66,6 +67,7 @@ const App = () => {
               name='PatientDashboard'
               component={PatientDashBoard}
             />
+            <Stack.Screen name='Modal' component={ModalScreen} />
             <Stack.Screen name='Home' component={HomeScreen} />
             <Stack.Screen name='Detail' component={DetailScreen} />
             <Stack.Screen name='Signup' component={SignupScreen} />

@@ -1,14 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, ImageBackground } from 'react-native';
 import SampleSvg from '../assets/sampleSvg';
 import Koala from '../assets/Koala';
 import ButtonFilled from './../components/common/buttons/ButtonFilled';
 import nightWallpaper from '../assets/nightWallpaper.png';
+// import Toast from 'react-native-toast-message';
 
 export default function HomeScreen({ navigation }) {
   function onPressHandler(page) {
     navigation.navigate(page);
   }
+
   return (
     <ImageBackground
       source={nightWallpaper}

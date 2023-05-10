@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 
 const globalStyles = StyleSheet.create({
   colors: {
-    // primary: '#665A6F', //'#5AC8A7',
+    //gray: '#665A6F', //'#5AC8A7',
     // primary: 'white',
     primary: '#0f1557',
     green: '#94BF4A',
@@ -11,6 +11,8 @@ const globalStyles = StyleSheet.create({
     primaryLighter: '#DEEFDC',
     secondary: '#5A78B1',
     secondaryLight: '#79C0E8',
+    gray: '#8B8ED6',
+    lightGray: '#A9ADF6',
   },
   fontSizes: {
     regular: 24,
