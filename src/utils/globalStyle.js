@@ -20,6 +20,12 @@ const globalStyles = StyleSheet.create({
     backgroundColor: '#fff',
     // alignItems: 'center',
   },
+  flatListcontainer: {
+    // flex: 1,
+    // padding: 20,
+    backgroundColor: '#fff',
+    // alignItems: 'center',
+  },
   titleText: {
     fontSize: 18,
     fontWeight: 'bold',
