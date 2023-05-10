@@ -62,15 +62,15 @@ const App = () => {
             <Text>Hello</Text>
           </ImageBackground> */}
           <Stack.Navigator>
+            <Stack.Screen
+              name='PatientDashboard'
+              component={PatientDashBoard}
+            />
             <Stack.Screen name='Home' component={HomeScreen} />
             <Stack.Screen name='Detail' component={DetailScreen} />
             <Stack.Screen name='Signup' component={SignupScreen} />
             <Stack.Screen name='CareTakerLogIn' component={LoginScreen} />
             <Stack.Screen name='PatientSignIn' component={SignInScreen} />
-            <Stack.Screen
-              name='PatientDashboard'
-              component={PatientDashBoard}
-            />
             <Stack.Screen
               name='PatientRoutineTimeline'
               component={PatientRoutineTimelineScreen}
