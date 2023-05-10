@@ -90,7 +90,6 @@ const App = () => {
       <SafeAreaView style={styles.wrapper}>
         <StatusBar backgroundColor={MyTheme.colors.background} />
         <NavigationContainer theme={MyTheme}>
-<<<<<<< HEAD
           {isNoUser && (
             <Tab.Navigator>
               <Tab.Screen name='Home' component={HomeScreen} />
@@ -150,27 +149,6 @@ const App = () => {
             <Tab.Screen name='PatientDashboard' component={PatientDashBoard} />
             <Tab.Screen name='PatientSendSms' component={SendSmsScreen} />
             <Tab.Screen
-=======
-          {/* <ImageBackground
-            source={YellowBackground}
-            resizeMode='cover'
-            style={styles.image}
-          >
-            <Text>Hello</Text>
-          </ImageBackground> */}
-          <Stack.Navigator>
-            <Stack.Screen
-              name='PatientDashboard'
-              component={PatientDashBoard}
-            />
-            <Stack.Screen name='Modal' component={ModalScreen} />
-            <Stack.Screen name='Home' component={HomeScreen} />
-            <Stack.Screen name='Detail' component={DetailScreen} />
-            <Stack.Screen name='Signup' component={SignupScreen} />
-            <Stack.Screen name='CareTakerLogIn' component={LoginScreen} />
-            <Stack.Screen name='PatientSignIn' component={SignInScreen} />
-            <Stack.Screen
->>>>>>> refs/remotes/origin/development
               name='PatientRoutineTimeline'
               component={PatientRoutineTimelineScreen}
             />
