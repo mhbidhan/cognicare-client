@@ -1,22 +1,43 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, Dimensions, Image } from 'react-native';
 import { ImageBackground } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import nightWallpaper from '../../assets/nightWallpaper.png';
 import globalStyles from '../../utils/globalStyle';
 import Meal from '../../assets/cognicare-assets/meal/meal-assistance-female-svgrepo-com.png';
 import Medicine from '../../assets/cognicare-assets/medicine/medicines-pill-svgrepo-com.png';
 import Exercise from '../../assets/cognicare-assets/exercise/exercise-autumn-svgrepo-com.png';
+import ProgressCircle from 'react-native-progress-circle';
+import ButtonFilled from '../../components/common/buttons/ButtonFilled';
 
-const PatientDashBoard = () => {
-  // const items = [
-  //   { title: 'Item 1' },
-  //   { title: 'Item 2' },
-  //   { title: 'Item 3' },
-  //   { title: 'Item 4' },
-  //   { title: 'Item 5' },
-  //   { title: 'Item 6' },
-  // ];
+const PatientDashBoard = ({ route }) => {
+  const [patientToken, setPatientToken] = useState('');
+  useEffect(() => {
+    const showToken = async () => {
+      try {
+        const currentPatientToken = await AsyncStorage.getItem('patientToken');
+        console.log(currentPatientToken);
+        setPatientToken(currentPatientToken);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    showToken();
+  }, []);
+
+  const { isPatientState, isNoUserState, isCareTakerState } = route.params;
+
+  const logout = async () => {
+    try {
+      await AsyncStorage.setItem('patientToken', '');
+      isPatientState(false);
+      isCareTakerState(false);
+      isNoUserState(true);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const items = [
     {
@@ -24,8 +45,6 @@ const PatientDashBoard = () => {
       title: 'Breakfast',
       description:
         'For breakfast you are going to eat below things:\n1. Egg\n2. Bread\n3. Jelly',
-      circleColor: '#009688',
-      lineColor: '#009688',
       type: 'meal',
     },
     {
@@ -45,19 +64,15 @@ const PatientDashBoard = () => {
       title: 'Lunch',
       description:
         'For lunch you are going to eat below things:\n1. rice\n2. beef\n3. fish\n4. egg',
-      lineColor: '#009688',
     },
     {
       time: '16:30',
       title: 'Go to Fitness center',
       description: "Head out to Fitness Gym for your today's workout",
-      circleColor: '#009688',
       type: 'exercise',
     },
   ];
-
   const renderItem = ({ item, index }) => {
-    console.log(Meal);
     return (
       <View style={styles.item}>
         <View>
@@ -120,11 +135,48 @@ const PatientDashBoard = () => {
             inactiveSlideScale={1}
           />
         </View>
-        <View style={styles.trackBackground}>
-          <Text>Today's Progress</Text>
+        <View
+          style={[
+            styles.trackBackground,
+            {
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              paddingLeft: 20,
+              paddingRight: 20,
+            },
+          ]}
+        >
+          <View style={{ gap: 5 }}>
+            <Text style={{ color: 'white', fontSize: 24, fontWeight: 'bold' }}>
+              Today's{'\n'}Progress
+            </Text>
+            <Text style={{ color: '#cccccc', fontSize: 18 }}>
+              1 of 12 completed
+            </Text>
+          </View>
+          <View>
+            {/* <Image source={Meal} style={{ width: 50, height: 50 }} /> */}
+            <ProgressCircle
+              percent={30}
+              radius={50}
+              borderWidth={3}
+              color='white'
+              shadowColor={globalStyles.colors.primaryDarker}
+              bgColor='#343C87'
+              // bgColor=''
+            >
+              <Text
+                style={{ fontSize: 18, color: 'white', fontWeight: 'bold' }}
+              >
+                {'30%'}
+              </Text>
+            </ProgressCircle>
+          </View>
         </View>
         <View style={styles.trackBackground}>
-          <Text>Planning</Text>
+          <Text>{patientToken && patientToken}</Text>
+          <ButtonFilled text='Logout' width={20} onPressHandler={logout} />
         </View>
       </View>
     </View>
@@ -147,7 +199,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   title: {
-    fontSize: 24,
+    fontSize: 25,
     fontWeight: 'bold',
   },
   subtitle: {

@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "cognicare",
-    "slug": "cognicare",
+    "name": "ReactNativeProject",
+    "slug": "ReactNativeProject",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
