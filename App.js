@@ -34,6 +34,7 @@ import PatientDashBoard from './src/screens/patient/PatientDashBoard';
 // import YellowBackground from './src/assets/yellowWallpaper';
 import YellowBackground from './src/assets/yellowBackground.png';
 import ModalScreen from './src/screens/ModalScreen';
+import globalStyles from './src/utils/globalStyle';
 
 const Stack = createStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
@@ -115,7 +116,21 @@ const App = () => {
             </Stack.Navigator>
           )}
           {isPatient && (
-            <Tab.Navigator>
+            <Tab.Navigator
+              initialRouteName='PatientDashboard'
+              shifting={true}
+              activeColor={globalStyles.primary}
+              barStyle={{ backgroundColor: '#343C87' }}
+            >
+              <Tab.Screen
+                name='PatientRoutineTimeline'
+                component={PatientRoutineTimelineScreen}
+                initialParams={{
+                  isPatientState: setIsPatient,
+                  isNoUserState: setIsNoUser,
+                  isCareTakerState: setIsCareTaker,
+                }}
+              />
               <Tab.Screen
                 name='PatientDashboard'
                 component={PatientDashBoard}
@@ -128,15 +143,6 @@ const App = () => {
               <Tab.Screen
                 name='PatientSendSms'
                 component={SendSmsScreen}
-                initialParams={{
-                  isPatientState: setIsPatient,
-                  isNoUserState: setIsNoUser,
-                  isCareTakerState: setIsCareTaker,
-                }}
-              />
-              <Tab.Screen
-                name='PatientRoutineTimeline'
-                component={PatientRoutineTimelineScreen}
                 initialParams={{
                   isPatientState: setIsPatient,
                   isNoUserState: setIsNoUser,
