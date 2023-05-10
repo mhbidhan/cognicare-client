@@ -34,7 +34,7 @@ const SignInScreen = ({ navigation }) => {
     const token =
       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDU3NzRiOWE3ODVhODQ0NDQxNTM2NWUiLCJpYXQiOjE2ODM2Mzk5OTIsImV4cCI6MTY4MzcyNjM5Mn0.bAAMZL6WW26Sqt3lCm3MPaBBEr_2do1uCZ1iwyJs_rU';
     // const token = data;
-    const ngRokUrl = 'https://5758-113-11-37-34.ap.ngrok.io';
+    const ngRokUrl = 'https://2780-113-11-37-34.ap.ngrok.io';
     fetch(`${ngRokUrl}/patients/own`, {
       method: 'GET',
       headers: {
@@ -90,7 +90,7 @@ const SignInScreen = ({ navigation }) => {
           text='Dashboard'
           icon='view-dashboard'
           onPressHandler={() => {
-            navigation.navigate('PatientRoutineTimeline');
+            navigation.navigate('PatientDashboard');
           }}
         />
       )}
