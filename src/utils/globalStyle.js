@@ -24,9 +24,9 @@ const globalStyles = StyleSheet.create({
     // alignItems: 'center',
   },
   titleText: {
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: 'bold',
-    // color: '#333',
+    // color: '#fff',
   },
   paragraph: {
     marginVertical: 8,

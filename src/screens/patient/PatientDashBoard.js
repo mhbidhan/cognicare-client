@@ -1,7 +1,8 @@
 import React from 'react';
-import { View } from 'react-native';
+import { Text, View } from 'react-native';
 import { ImageBackground } from 'react-native';
 import nightWallpaper from '../../assets/nightWallpaper.png';
+import globalStyles from '../../utils/globalStyle';
 
 const PatientDashBoard = () => {
   return (
@@ -18,6 +19,21 @@ const PatientDashBoard = () => {
           opacity: 0.3,
         }}
       ></ImageBackground>
+      <View>
+        <Text style={[{ color: 'white' }, globalStyles.titleText]}>
+          Good morning, Touhid
+        </Text>
+      </View>
+      <View>
+        <Text>Next task</Text>
+      </View>
+      <View>
+        <Text>Today's Progress</Text>
+      </View>
+      <View>
+        <Text>Planning</Text>
+      </View>
+      <Text />
     </View>
   );
 };
