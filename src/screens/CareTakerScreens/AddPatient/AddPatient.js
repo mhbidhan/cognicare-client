@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Text, Button, TextInput, Alert } from 'react-native';
+import { StyleSheet, View, Text, TextInput, Alert } from 'react-native';
 import { useSelector } from 'react-redux';
+import { Button } from 'react-native-paper';
 import { useCreateNewPatientMutation } from './../../../features/patient/patientApi';
 import ButtonFilled from './../../../components/common/buttons/ButtonFilled';
 import { getData } from './../../../localStorage';
@@ -35,11 +36,6 @@ export default function SignupScreen({ navigation }) {
       showToast('success', 'Confirmation', 'Patient file added successfully');
     } else if (!isLoading && isError && error) {
       showToast('error', 'Failed', error);
-    }
-  }, []);
-  useEffect(() => {
-    if (!isLoading && !isError && data?._id) {
-      Alert.alert('Confirmation', 'Patient file added successfully');
     }
   }, [isLoading, data]);
 
@@ -140,12 +136,27 @@ export default function SignupScreen({ navigation }) {
       <FileInput handleChange={(file) => setImg(file)} />
 
       <View style={styles.submitButton}>
-        <ButtonFilled
+        <Button
+          icon='database-plus-outline'
+          mode='elevated'
+          buttonColor={globalStyles.colors.primary}
+          textColor={globalStyles.colors.primaryLight}
+          contentStyle={{
+            width: 300,
+            paddingVertical: 10,
+          }}
+          style={{ borderRadius: 10 }}
+          labelStyle={{ fontSize: 17 }}
+          onPress={handleSubmit}
+        >
+          Add Patient
+        </Button>
+        {/* <ButtonFilled
           text='Add Patient'
           onPressHandler={handleSubmit}
           width={200}
           style={{ marginTop: 30 }}
-        />
+        /> */}
       </View>
     </View>
   );
@@ -177,7 +188,6 @@ const styles = StyleSheet.create({
   },
   submitButton: {
     marginTop: 20,
-    width: 200,
   },
   signInTextView: {
     flex: 1,
