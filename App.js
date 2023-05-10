@@ -6,9 +6,15 @@ import {
   StatusBar,
   SafeAreaView,
   Platform,
+  ImageBackground,
+  Text,
 } from 'react-native';
 import Toast from 'react-native-toast-message';
-import { NavigationContainer } from '@react-navigation/native';
+import {
+  NavigationContainer,
+  DarkTheme,
+  DefaultTheme,
+} from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import store from './src/store/store';
 import HomeScreen from './src/screens/HomeScreen';
@@ -21,14 +27,39 @@ import PatientList from './src/screens/CareTakerScreens/PatientList/PatientList'
 import AddPatient from './src/screens/CareTakerScreens/AddPatient/AddPatient';
 import PatientDetails from './src/screens/CareTakerScreens/PatientDetails/PatientDetails';
 import SendSmsScreen from './src/screens/patient/SendSmsScreen';
+// import YellowBackground from './src/assets/yellowWallpaper';
+import YellowBackground from './src/assets/yellowBackground.png';
 
 const Stack = createStackNavigator();
+
+const MyTheme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    // primary: '#454EAE',
+    // background: '#454EAE',
+    primary: '#343C87',
+    background: '#343C87',
+    card: '#343C87',
+    text: 'white',
+    border: '#343C87',
+    notification: '#343C87',
+  },
+};
 
 const App = () => {
   return (
     <Provider store={store}>
       <SafeAreaView style={styles.wrapper}>
-        <NavigationContainer>
+        <StatusBar backgroundColor={MyTheme.colors.background} />
+        <NavigationContainer theme={MyTheme}>
+          {/* <ImageBackground
+            source={YellowBackground}
+            resizeMode='cover'
+            style={styles.image}
+          >
+            <Text>Hello</Text>
+          </ImageBackground> */}
           <Stack.Navigator>
             <Stack.Screen name='Home' component={HomeScreen} />
             <Stack.Screen name='Detail' component={DetailScreen} />
@@ -54,7 +85,11 @@ const App = () => {
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
-    paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
+    // paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
+  },
+  image: {
+    flex: 1,
+    justifyContent: 'center',
   },
 });
 

@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { Text, View, StyleSheet, Button } from 'react-native';
+import { Text, View, StyleSheet, Button, ImageBackground } from 'react-native';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import globalStyles from '../../utils/globalStyle';
 import { usePatientLoginQuery } from '../../features/patient/patientApi';
 import { useDispatch, useSelector } from 'react-redux';
 import { setPatient } from '../../features/patient/patientSlice';
+import ButtonFilled from '../../components/common/buttons/ButtonFilled';
+import nightWallpaper from '../../assets/nightWallpaper.png';
 
 const SignInScreen = ({ navigation }) => {
   const [hasPermission, setHasPermission] = useState(null);
@@ -30,9 +32,9 @@ const SignInScreen = ({ navigation }) => {
     // alert(`Bar code with type ${type} and data ${data} has been scanned!`);
     // navigation.navigate("PatientDashBoardScreen");
     const token =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDU4Y2Q5ZGQ4NWY3MzJlNmZiOWJmOWIiLCJpYXQiOjE2ODM1NDE0MDUsImV4cCI6MTY4MzYyNzgwNX0.v2P1g1JfEYziir4YTpItrE2sVEXizcDuNi-ruAp9DFI';
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDU3NzRiOWE3ODVhODQ0NDQxNTM2NWUiLCJpYXQiOjE2ODM2Mzk5OTIsImV4cCI6MTY4MzcyNjM5Mn0.bAAMZL6WW26Sqt3lCm3MPaBBEr_2do1uCZ1iwyJs_rU';
     // const token = data;
-    const ngRokUrl = 'https://58b7-113-11-37-34.in.ngrok.io';
+    const ngRokUrl = 'https://dc48-103-184-94-6.in.ngrok.io';
     fetch(`${ngRokUrl}/patients/own`, {
       method: 'GET',
       headers: {
@@ -62,26 +64,54 @@ const SignInScreen = ({ navigation }) => {
     console.log(e);
   }
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { position: 'relative' }]}>
+      <ImageBackground
+        source={nightWallpaper}
+        resizeMode='cover'
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          bottom: 0,
+          right: 0,
+          opacity: 0.3,
+        }}
+      ></ImageBackground>
+      <Text style={{ color: globalStyles.colors.primaryLight, fontSize: 20 }}>
+        Scan QR Code
+      </Text>
       <BarCodeScanner
         onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
         style={[{ height: 400, width: 400 }]}
       />
-      <Text style={{ color: globalStyles.colors.primary, fontSize: 20 }}>
-        Scan QR Code
-      </Text>
+
       {foundData && (
-        <Button
-          title={'Patient Dashboard'}
-          onPress={() => {
+        // <Button
+        //   title={'Patient Dashboard'}
+        //   onPress={() => {
+        //     navigation.navigate('PatientDashBoardScreen');
+        //   }}
+        // />
+        <ButtonFilled
+          text='Dashboard'
+          icon='view-dashboard'
+          onPressHandler={() => {
             navigation.navigate('PatientDashBoardScreen');
           }}
         />
       )}
       {scanned && (
-        <Button
-          title={'Tap to Scan Again'}
-          onPress={(e) => {
+        // <Button
+        //   title={'Tap to Scan Again'}
+        // onPress={(e) => {
+        //   setScanned(false);
+        //   console.log(e);
+        // }}
+        // />
+        <ButtonFilled
+          text='Tap to Scan Again'
+          icon='qrcode-scan'
+          onPressHandler={(e) => {
             setScanned(false);
             console.log(e);
           }}
