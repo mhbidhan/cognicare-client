@@ -34,7 +34,7 @@ const SignInScreen = ({ navigation }) => {
     const token =
       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDU3NzRiOWE3ODVhODQ0NDQxNTM2NWUiLCJpYXQiOjE2ODM2Mzk5OTIsImV4cCI6MTY4MzcyNjM5Mn0.bAAMZL6WW26Sqt3lCm3MPaBBEr_2do1uCZ1iwyJs_rU';
     // const token = data;
-    const ngRokUrl = 'https://dc48-103-184-94-6.in.ngrok.io';
+    const ngRokUrl = 'https://5758-113-11-37-34.ap.ngrok.io';
     fetch(`${ngRokUrl}/patients/own`, {
       method: 'GET',
       headers: {
@@ -86,28 +86,15 @@ const SignInScreen = ({ navigation }) => {
       />
 
       {foundData && (
-        // <Button
-        //   title={'Patient Dashboard'}
-        //   onPress={() => {
-        //     navigation.navigate('PatientDashBoardScreen');
-        //   }}
-        // />
         <ButtonFilled
           text='Dashboard'
           icon='view-dashboard'
           onPressHandler={() => {
-            navigation.navigate('PatientDashBoardScreen');
+            navigation.navigate('PatientRoutineTimeline');
           }}
         />
       )}
       {scanned && (
-        // <Button
-        //   title={'Tap to Scan Again'}
-        // onPress={(e) => {
-        //   setScanned(false);
-        //   console.log(e);
-        // }}
-        // />
         <ButtonFilled
           text='Tap to Scan Again'
           icon='qrcode-scan'

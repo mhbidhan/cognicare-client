@@ -22,7 +22,7 @@ import DetailScreen from './src/screens/DetailScreen';
 import SignupScreen from './src/screens/CareTakerScreens/SignupScreen/SignupScreen';
 import LoginScreen from './src/screens/CareTakerScreens/LoginScreen/LoginScreen';
 import SignInScreen from './src/screens/patient/SignInScreen';
-import PatientDashBoardScreen from './src/screens/patient/PatientDashBoardScreen';
+import PatientRoutineTimelineScreen from './src/screens/patient/PatientRoutineTimelineScreen';
 import PatientList from './src/screens/CareTakerScreens/PatientList/PatientList';
 import AddPatient from './src/screens/CareTakerScreens/AddPatient/AddPatient';
 import PatientDetails from './src/screens/CareTakerScreens/PatientDetails/PatientDetails';
@@ -67,8 +67,8 @@ const App = () => {
             <Stack.Screen name='CareTakerLogIn' component={LoginScreen} />
             <Stack.Screen name='PatientSignIn' component={SignInScreen} />
             <Stack.Screen
-              name='PatientDashBoardScreen'
-              component={PatientDashBoardScreen}
+              name='PatientRoutineTimeline'
+              component={PatientRoutineTimelineScreen}
             />
             <Stack.Screen name='Patient_List' component={PatientList} />
             <Stack.Screen name='Add_Patient' component={AddPatient} />
