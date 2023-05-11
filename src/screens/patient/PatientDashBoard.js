@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, Dimensions, Image } from 'react-native';
 import { ImageBackground } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
+import { ViewPropTypes } from 'deprecated-react-native-prop-types';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import nightWallpaper from '../../assets/nightWallpaper.png';
 import globalStyles from '../../utils/globalStyle';
@@ -10,6 +11,21 @@ import Medicine from '../../assets/cognicare-assets/medicine/medicines-pill-svgr
 import Exercise from '../../assets/cognicare-assets/exercise/exercise-autumn-svgrepo-com.png';
 import ProgressCircle from 'react-native-progress-circle';
 import ButtonFilled from '../../components/common/buttons/ButtonFilled';
+
+const propTypes = {
+  style: ViewPropTypes.style,
+  // add any other props here
+  data: ViewPropTypes.data,
+  renderItem: ViewPropTypes.renderItem,
+  sliderWidth: ViewPropTypes.sliderWidth,
+  itemWidth: ViewPropTypes.itemWidth,
+  loop: ViewPropTypes.loop,
+  containerCustomStyle: ViewPropTypes.containerCustomStyle,
+  inactiveSlideScale: ViewPropTypes.inactiveSlideScale,
+  activeSlideAlignment: ViewPropTypes.activeSlideAlignment,
+};
+
+Carousel.propTypes = propTypes;
 
 const PatientDashBoard = ({ route }) => {
   const [patientToken, setPatientToken] = useState('');
