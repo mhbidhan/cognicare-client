@@ -1,5 +1,6 @@
 import React from 'react';
 import { Dimensions, View } from 'react-native';
+import { Button } from 'react-native-paper';
 import contactIcon from '../../assets/icons/contact.png';
 import exerciseIcon from '../../assets/icons/exercise.png';
 import gameIcon from '../../assets/icons/game.png';
@@ -7,7 +8,7 @@ import mealIcon from '../../assets/icons/meal.png';
 import medicineIcon from '../../assets/icons/medicine.png';
 import ActivityIconButton from '../ActivityIconButton/ActivityIconButton';
 
-const ActivityTypeList = ({ setActivityType }) => {
+const ActivityTypeList = ({ setView }) => {
   return (
     <View
       style={{
@@ -15,14 +16,14 @@ const ActivityTypeList = ({ setActivityType }) => {
       }}
     >
       <ActivityTypeRow
-        setActivityType={setActivityType}
+        setView={setView}
         list={[
           { label: 'Meal', icon: mealIcon },
           { label: 'Medicine', icon: medicineIcon },
         ]}
       />
       <ActivityTypeRow
-        setActivityType={setActivityType}
+        setView={setView}
         list={[
           { label: 'Exercise', icon: exerciseIcon },
           { label: 'Game', icon: gameIcon },
@@ -30,15 +31,25 @@ const ActivityTypeList = ({ setActivityType }) => {
       />
       <ActivityTypeRow
         list={[{ label: 'Contact', icon: contactIcon }]}
-        setActivityType={setActivityType}
+        setView={setView}
       />
+
+      <Button
+        style={{
+          width: 300,
+        }}
+        mode="contained"
+        onPress={() => setView('')}
+      >
+        Back
+      </Button>
     </View>
   );
 };
 
 export default ActivityTypeList;
 
-const ActivityTypeRow = ({ list, setActivityType }) => {
+const ActivityTypeRow = ({ list, setView }) => {
   return (
     <View
       style={{
@@ -53,7 +64,7 @@ const ActivityTypeRow = ({ list, setActivityType }) => {
           key={item.label}
           icon={item.icon}
           label={item.label}
-          handlePress={() => setActivityType(item.label)}
+          handlePress={() => setView(item.label)}
         />
       ))}
     </View>
