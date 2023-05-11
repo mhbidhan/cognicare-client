@@ -63,11 +63,6 @@ const App = () => {
             <Text>Hello</Text>
           </ImageBackground> */}
           <Stack.Navigator>
-            <Stack.Screen
-              name='PatientDashboard'
-              component={PatientDashBoard}
-            />
-            <Stack.Screen name='Modal' component={ModalScreen} />
             <Stack.Screen name='Home' component={HomeScreen} />
             <Stack.Screen name='Detail' component={DetailScreen} />
             <Stack.Screen name='Signup' component={SignupScreen} />
@@ -81,6 +76,11 @@ const App = () => {
             <Stack.Screen name='Add_Patient' component={AddPatient} />
             <Stack.Screen name='Patient_Details' component={PatientDetails} />
             <Stack.Screen name='PatientSendSms' component={SendSmsScreen} />
+            <Stack.Screen name='Modal' component={ModalScreen} />
+            <Stack.Screen
+              name='PatientDashboard'
+              component={PatientDashBoard}
+            />
           </Stack.Navigator>
         </NavigationContainer>
         <Toast />
