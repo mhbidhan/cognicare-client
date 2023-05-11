@@ -5,6 +5,7 @@ const globalStyles = StyleSheet.create({
     //gray: '#665A6F', //'#5AC8A7',
     // primary: 'white',
     primary: '#0f1557',
+    primaryDarker: '#2b326e',
     green: '#94BF4A',
     // primaryLight: '#9CCE97',
     primaryLight: 'white',
