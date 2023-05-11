@@ -1,22 +1,12 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Provider } from 'react-redux';
-import {
-  View,
-  StyleSheet,
-  StatusBar,
-  SafeAreaView,
-  Platform,
-  ImageBackground,
-  Text,
-} from 'react-native';
+import { StyleSheet, StatusBar, SafeAreaView } from 'react-native';
 import Toast from 'react-native-toast-message';
-import {
-  NavigationContainer,
-  DarkTheme,
-  DefaultTheme,
-} from '@react-navigation/native';
+import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import store from './src/store/store';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import HomeScreen from './src/screens/HomeScreen';
 import DetailScreen from './src/screens/DetailScreen';
 import SignupScreen from './src/screens/CareTakerScreens/SignupScreen/SignupScreen';
@@ -28,18 +18,15 @@ import AddPatient from './src/screens/CareTakerScreens/AddPatient/AddPatient';
 import PatientDetails from './src/screens/CareTakerScreens/PatientDetails/PatientDetails';
 import SendSmsScreen from './src/screens/patient/SendSmsScreen';
 import PatientDashBoard from './src/screens/patient/PatientDashBoard';
-// import YellowBackground from './src/assets/yellowWallpaper';
-import YellowBackground from './src/assets/yellowBackground.png';
-import ModalScreen from './src/screens/ModalScreen';
+import globalStyles from './src/utils/globalStyle';
 
 const Stack = createStackNavigator();
+const Tab = createMaterialBottomTabNavigator();
 
 const MyTheme = {
   ...DefaultTheme,
   colors: {
     ...DefaultTheme.colors,
-    // primary: '#454EAE',
-    // background: '#454EAE',
     primary: '#343C87',
     background: '#343C87',
     card: '#343C87',
@@ -50,38 +37,120 @@ const MyTheme = {
 };
 
 const App = () => {
+  const [isCareTaker, setIsCareTaker] = useState(false);
+  const [isPatient, setIsPatient] = useState(false);
+  const [isNoUser, setIsNoUser] = useState(false);
+
+  useEffect(() => {
+    const setScreens = async () => {
+      try {
+        const careTakerToken = await AsyncStorage.getItem('caretakerToken');
+        const patientToken = careTakerToken
+          ? null
+          : await AsyncStorage.getItem('patientToken');
+        if (careTakerToken) {
+          setIsCareTaker(true);
+          setIsPatient(false);
+          setIsNoUser(false);
+          return;
+        }
+        if (patientToken) {
+          setIsCareTaker(false);
+          setIsPatient(true);
+          setIsNoUser(false);
+          return;
+        }
+        setIsNoUser(true);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    setScreens();
+  }, []);
+
   return (
     <Provider store={store}>
       <SafeAreaView style={styles.wrapper}>
         <StatusBar backgroundColor={MyTheme.colors.background} />
         <NavigationContainer theme={MyTheme}>
-          {/* <ImageBackground
-            source={YellowBackground}
-            resizeMode='cover'
-            style={styles.image}
-          >
-            <Text>Hello</Text>
-          </ImageBackground> */}
-          <Stack.Navigator>
-            <Stack.Screen name='Home' component={HomeScreen} />
-            <Stack.Screen name='Detail' component={DetailScreen} />
-            <Stack.Screen name='Signup' component={SignupScreen} />
-            <Stack.Screen name='CareTakerLogIn' component={LoginScreen} />
-            <Stack.Screen name='PatientSignIn' component={SignInScreen} />
-            <Stack.Screen
+          {isNoUser && (
+            <Tab.Navigator>
+              <Tab.Screen name='Home' component={HomeScreen} />
+              <Tab.Screen name='CareTakerLogIn' component={LoginScreen} />
+              <Tab.Screen
+                name='PatientSignIn'
+                component={SignInScreen}
+                initialParams={{
+                  isPatientState: setIsPatient,
+                  isNoUserState: setIsNoUser,
+                  isCareTakerState: setIsCareTaker,
+                }}
+              />
+              <Tab.Screen name='Signup' component={SignupScreen} />
+            </Tab.Navigator>
+          )}
+          {isCareTaker && (
+            <Stack.Navigator>
+              <Stack.Screen name='Detail' component={DetailScreen} />
+              <Stack.Screen name='Patient_List' component={PatientList} />
+              <Stack.Screen name='Add_Patient' component={AddPatient} />
+              <Stack.Screen name='Patient_Details' component={PatientDetails} />
+            </Stack.Navigator>
+          )}
+          {isPatient && (
+            <Tab.Navigator
+              initialRouteName='PatientDashboard'
+              shifting={true}
+              activeColor={globalStyles.primary}
+              barStyle={{ backgroundColor: '#343C87' }}
+            >
+              <Tab.Screen
+                name='PatientRoutineTimeline'
+                component={PatientRoutineTimelineScreen}
+                initialParams={{
+                  isPatientState: setIsPatient,
+                  isNoUserState: setIsNoUser,
+                  isCareTakerState: setIsCareTaker,
+                }}
+              />
+              <Tab.Screen
+                name='PatientDashboard'
+                component={PatientDashBoard}
+                initialParams={{
+                  isPatientState: setIsPatient,
+                  isNoUserState: setIsNoUser,
+                  isCareTakerState: setIsCareTaker,
+                }}
+              />
+              <Tab.Screen
+                name='PatientSendSms'
+                component={SendSmsScreen}
+                initialParams={{
+                  isPatientState: setIsPatient,
+                  isNoUserState: setIsNoUser,
+                  isCareTakerState: setIsCareTaker,
+                }}
+              />
+            </Tab.Navigator>
+          )}
+          {/* <Tab.Navigator>
+            <Tab.Screen name='PatientDashboard' component={PatientDashBoard} />
+            <Tab.Screen name='PatientSendSms' component={SendSmsScreen} />
+            <Tab.Screen
               name='PatientRoutineTimeline'
               component={PatientRoutineTimelineScreen}
             />
-            <Stack.Screen name='Patient_List' component={PatientList} />
-            <Stack.Screen name='Add_Patient' component={AddPatient} />
-            <Stack.Screen name='Patient_Details' component={PatientDetails} />
-            <Stack.Screen name='PatientSendSms' component={SendSmsScreen} />
-            <Stack.Screen name='Modal' component={ModalScreen} />
-            <Stack.Screen
-              name='PatientDashboard'
-              component={PatientDashBoard}
-            />
-          </Stack.Navigator>
+            
+            <Tab.Screen name='Home' component={HomeScreen} />
+            <Tab.Screen name='CareTakerLogIn' component={LoginScreen} />
+            <Tab.Screen name='PatientSignIn' component={SignInScreen} />
+            <Tab.Screen name='Signup' component={SignupScreen} />
+
+            <Tab.Screen name='Detail' component={DetailScreen} />
+            <Tab.Screen name='Patient_List' component={PatientList} />
+            <Tab.Screen name='Add_Patient' component={AddPatient} />
+            <Tab.Screen name='Patient_Details' component={PatientDetails} />
+          </Tab.Navigator> */}
         </NavigationContainer>
         <Toast />
       </SafeAreaView>

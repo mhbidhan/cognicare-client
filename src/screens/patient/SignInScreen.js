@@ -7,8 +7,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setPatient } from '../../features/patient/patientSlice';
 import ButtonFilled from '../../components/common/buttons/ButtonFilled';
 import nightWallpaper from '../../assets/nightWallpaper.png';
+import { storeData, getData } from '../../localStorage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const SignInScreen = ({ navigation }) => {
+const SignInScreen = ({ navigation, route }) => {
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
   const [foundData, setFoundData] = useState(false);
@@ -18,7 +20,19 @@ const SignInScreen = ({ navigation }) => {
 
   const { data, isLoading, isError } = usePatientLoginQuery();
 
+  const { isPatientState, isNoUserState, isCareTakerState } = route.params;
+
+  // const getData = async (key) => {
+  //   const value = await AsyncStorage.getItem(key);
+  //   return value;
+  // };
+  // getData('token').then((val) => {
+  //     console.log('api', val);
+  //     headers.set('x-auth-token', val);
+  //   });
+
   useEffect(() => {
+    const getPatienToken = async () => {};
     const getBarCodeScannerPermissions = async () => {
       const { status } = await BarCodeScanner.requestPermissionsAsync();
       setHasPermission(status === 'granted');
@@ -32,10 +46,11 @@ const SignInScreen = ({ navigation }) => {
     // alert(`Bar code with type ${type} and data ${data} has been scanned!`);
     // navigation.navigate("PatientDashBoardScreen");
     const token =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDU3NzRiOWE3ODVhODQ0NDQxNTM2NWUiLCJpYXQiOjE2ODM2Mzk5OTIsImV4cCI6MTY4MzcyNjM5Mn0.bAAMZL6WW26Sqt3lCm3MPaBBEr_2do1uCZ1iwyJs_rU';
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDU3NzRiOWE3ODVhODQ0NDQxNTM2NWUiLCJpYXQiOjE2ODM3MzgwMTMsImV4cCI6MTY4MzgyNDQxM30.Lg5BDAqPXC9KXwNLQLVXtAUFjW9HcaJIFgfnQE2QGtk';
     // const token = data;
-    const ngRokUrl = 'https://2780-113-11-37-34.ap.ngrok.io';
-    fetch(`${ngRokUrl}/patients/own`, {
+    const ngRokUrl = 'https://d8ba-103-184-94-1.in.ngrok.io';
+    const patientId = '64577a4cb7a4f333e3dd6985';
+    fetch(`${ngRokUrl}/patients/${patientId}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -44,9 +59,21 @@ const SignInScreen = ({ navigation }) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        dispatch(setPatient(data));
-        setFoundData(true);
-        return data;
+        // dispatch(setPatient(data));
+        // setFoundData(true);
+        // return data;
+        const sendToMain = async () => {
+          try {
+            console.log(JSON.stringify(data));
+            await AsyncStorage.setItem('patientToken', JSON.stringify(data));
+            isNoUserState(false);
+            isCareTakerState(false);
+            isPatientState(true);
+          } catch (error) {
+            console.log(error);
+          }
+        };
+        sendToMain();
       })
       .catch((error) => {
         console.log('Error fetching', error);
@@ -85,7 +112,7 @@ const SignInScreen = ({ navigation }) => {
         style={[{ height: 400, width: 400 }]}
       />
 
-      {foundData && (
+      {/* {foundData && (
         <ButtonFilled
           text='Dashboard'
           icon='view-dashboard'
@@ -93,7 +120,7 @@ const SignInScreen = ({ navigation }) => {
             navigation.navigate('PatientDashboard');
           }}
         />
-      )}
+      )} */}
       {scanned && (
         <ButtonFilled
           text='Tap to Scan Again'
