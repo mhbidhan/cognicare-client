@@ -176,7 +176,7 @@ const PatientDashBoard = ({ route }) => {
         </View>
         <View style={styles.trackBackground}>
           <Text>{patientToken && patientToken}</Text>
-          <ButtonFilled text='Logout' width={20} onPressHandler={logout} />
+          {/* <ButtonFilled text='Logout' width={20} onPressHandler={logout} /> */}
         </View>
       </View>
     </View>
