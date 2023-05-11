@@ -25,11 +25,8 @@ export default function ModalScreen({ navigation }) {
   const containerStyle = {
     flex: 1,
     backgroundColor: globalStyles.colors.lightGray,
-    // padding: 20,
     width: screenWidth,
     height: screenHeight,
-    // gap: 70,
-    // position: 'relative',
   };
 
   function onPressHandler(page) {
@@ -44,32 +41,15 @@ export default function ModalScreen({ navigation }) {
             visible={visible}
             onDismiss={hideModal}
             contentContainerStyle={containerStyle}
-            // style={{ gap: 100 }}
           >
-            {/* <ImageBackground
-              source={bg}
-              resizeMode='cover'
-              style={{
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                bottom: 0,
-                right: 0,
-                opacity: 1,
-              }}
-            > */}
             <View
               style={{
                 flex: 1,
-                // width: screenWidth,
-                // height: screenHeight,
-                // gap: 70,
               }}
             >
               <View
                 style={{
                   flex: 1,
-                  // backgroundColor: globalStyles.colors.lightGray,
                 }}
               >
                 <View
@@ -126,10 +106,6 @@ export default function ModalScreen({ navigation }) {
                   mode='elevated'
                   buttonColor='#fff'
                   textColor={globalStyles.colors.gray}
-                  // contentStyle={{
-                  //   width: 300,
-                  //   paddingVertical: 10,
-                  // }}
                   style={{ borderRadius: 30, marginBottom: 20 }}
                   labelStyle={{ fontSize: 13 }}
                   onPress={() => console.log('Pressed')}
@@ -153,7 +129,6 @@ export default function ModalScreen({ navigation }) {
                 </Button>
               </View>
             </View>
-            {/* </ImageBackground> */}
           </Modal>
         </Portal>
         <Button style={{ marginTop: 30 }} onPress={showModal}>

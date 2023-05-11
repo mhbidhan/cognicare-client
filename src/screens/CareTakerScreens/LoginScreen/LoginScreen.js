@@ -33,7 +33,7 @@ export default function LoginScreen({ navigation }) {
   // };
   useEffect(() => {
     if (!isLoading && !isError && data) {
-      storeData('token', data);
+      storeData('caretakerToken', data);
       navigation.navigate('Patient_List');
     }
   }, [data, isLoading]);

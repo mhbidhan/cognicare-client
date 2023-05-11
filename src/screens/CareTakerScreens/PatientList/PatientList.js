@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   StyleSheet,
   View,
@@ -20,11 +20,18 @@ import { setPatientList } from './../../../features/caretaker/caretakerSlice';
 
 function PatientList({ navigation }) {
   const dispatch = useDispatch();
+  const [request, setRequest] = useState(true);
   const { caretakerToken } = useSelector((state) => state.caretaker);
-  const { data, isLoading, isError } = useGetAllPatientsQuery() || {};
+  const { data, isLoading, isError } =
+    useGetAllPatientsQuery(undefined, {
+      skip: request,
+    }) || {};
 
   // console.log('caretakerToken', caretakerToken);
-  // console.log('patients', data);
+  console.log('List', data);
+  useEffect(() => {
+    setRequest(false);
+  }, [caretakerToken]);
 
   useEffect(() => {
     if (!isLoading && !isError && data) {
