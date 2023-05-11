@@ -9,7 +9,6 @@ import { createStackNavigator } from '@react-navigation/stack';
 import store from './src/store/store';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import HomeScreen from './src/screens/HomeScreen';
-import DetailScreen from './src/screens/DetailScreen';
 import SignupScreen from './src/screens/CareTakerScreens/SignupScreen/SignupScreen';
 import LoginScreen from './src/screens/CareTakerScreens/LoginScreen/LoginScreen';
 import SignInScreen from './src/screens/patient/SignInScreen';
@@ -27,6 +26,8 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import globalStyles from './src/utils/globalStyle';
+import EditMeal from './src/components/EditForms/EditMeal';
+import Notification from './src/components/PushNotification/Notification';
 
 const Stack = createStackNavigator();
 // const Tab = createBottomTabNavigator();
@@ -89,8 +90,24 @@ const App = () => {
         <NavigationContainer theme={MyTheme}>
           {isNoUser && (
             <Tab.Navigator>
-              <Tab.Screen name='Home' component={HomeScreen} />
-              <Tab.Screen name='CareTakerLogIn' component={LoginScreen} />
+              <Tab.Screen
+                name='Home'
+                component={HomeScreen}
+                initialParams={{
+                  isPatientState: setIsPatient,
+                  isNoUserState: setIsNoUser,
+                  isCareTakerState: setIsCareTaker,
+                }}
+              />
+              <Tab.Screen
+                name='CareTakerLogIn'
+                component={LoginScreen}
+                initialParams={{
+                  isPatientState: setIsPatient,
+                  isNoUserState: setIsNoUser,
+                  isCareTakerState: setIsCareTaker,
+                }}
+              />
               <Tab.Screen
                 name='PatientSignIn'
                 component={SignInScreen}
@@ -100,15 +117,66 @@ const App = () => {
                   isCareTakerState: setIsCareTaker,
                 }}
               />
-              <Tab.Screen name='Signup' component={SignupScreen} />
+              <Tab.Screen
+                name='Signup'
+                component={SignupScreen}
+                initialParams={{
+                  isPatientState: setIsPatient,
+                  isNoUserState: setIsNoUser,
+                  isCareTakerState: setIsCareTaker,
+                }}
+              />
             </Tab.Navigator>
           )}
           {isCareTaker && (
-            <Stack.Navigator>
-              <Stack.Screen name='Detail' component={DetailScreen} />
-              <Stack.Screen name='Patient_List' component={PatientList} />
-              <Stack.Screen name='Add_Patient' component={AddPatient} />
-              <Stack.Screen name='Patient_Details' component={PatientDetails} />
+            <Stack.Navigator
+            // initialRouteName='Patient_List'
+            >
+              {/* <Stack.Screen
+                name='Notification'
+                component={Notification}
+                initialParams={{
+                  isPatientState: setIsPatient,
+                  isNoUserState: setIsNoUser,
+                  isCareTakerState: setIsCareTaker,
+                }}
+              /> */}
+              {/* <Stack.Screen
+                name='Edit-Meal'
+                component={EditMeal}
+                initialParams={{
+                  isPatientState: setIsPatient,
+                  isNoUserState: setIsNoUser,
+                  isCareTakerState: setIsCareTaker,
+                }}
+              /> */}
+              <Stack.Screen
+                name='Patient_List'
+                component={PatientList}
+                initialParams={{
+                  isPatientState: setIsPatient,
+                  isNoUserState: setIsNoUser,
+                  isCareTakerState: setIsCareTaker,
+                }}
+              />
+              <Stack.Screen
+                name='Add_Patient'
+                component={AddPatient}
+                initialParams={{
+                  isPatientState: setIsPatient,
+                  isNoUserState: setIsNoUser,
+                  isCareTakerState: setIsCareTaker,
+                }}
+              />
+              <Stack.Screen
+                name='Patient_Details'
+                component={PatientDetails}
+                initialParams={{
+                  isPatientState: setIsPatient,
+                  isNoUserState: setIsNoUser,
+                  isCareTakerState: setIsCareTaker,
+                }}
+              />
             </Stack.Navigator>
           )}
           {isPatient && (

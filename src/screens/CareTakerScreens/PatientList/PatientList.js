@@ -17,11 +17,13 @@ import PatientCard from '../../../components/PatientCard/PatientCard';
 import { getData } from './../../../localStorage';
 import { useGetAllPatientsQuery } from './../../../features/patient/patientApi';
 import { setPatientList } from './../../../features/caretaker/caretakerSlice';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-function PatientList({ navigation }) {
+function PatientList({ navigation, route }) {
   const dispatch = useDispatch();
   const [request, setRequest] = useState(true);
   const { caretakerToken } = useSelector((state) => state.caretaker);
+  const { isPatientState, isNoUserState, isCareTakerState } = route.params;
   const { data, isLoading, isError } =
     useGetAllPatientsQuery(undefined, {
       skip: request,
@@ -39,6 +41,18 @@ function PatientList({ navigation }) {
     }
   }, [isLoading, data]);
 
+  const logout = async () => {
+    try {
+      console.log('logout');
+      await AsyncStorage.setItem('caretakerToken', '');
+      isCareTakerState(false);
+      isPatientState(false);
+      isNoUserState(true);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.topbar}>
@@ -55,12 +69,18 @@ function PatientList({ navigation }) {
         >
           Add
         </Button>
-        {/* <TouchableOpacity
-          style={styles.plusSignView}
-          onPress={() => navigation.navigate('Add_Patient')}
+        <Button
+          icon='database-plus-outline'
+          mode='elevated'
+          buttonColor={globalStyles.colors.primary}
+          textColor={globalStyles.colors.primaryLight}
+          contentStyle={{ width: 100 }}
+          style={{ borderRadius: 10 }}
+          labelStyle={{ fontSize: 17 }}
+          onPress={logout}
         >
-          <Text style={styles.plusSign}>Add</Text>
-        </TouchableOpacity> */}
+          Out
+        </Button>
       </View>
       {!isLoading && !isError && data && caretakerToken ? (
         <ScrollView style={styles.cardListView}>

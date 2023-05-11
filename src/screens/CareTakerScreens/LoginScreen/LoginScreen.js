@@ -7,10 +7,12 @@ import ButtonFilled from './../../../components/common/buttons/ButtonFilled';
 // import AsyncStorage from '@react-native-async-storage/async-storage';
 import { storeData, getData } from './../../../localStorage';
 import globalStyles from './../../../utils/globalStyle';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export default function LoginScreen({ navigation }) {
+export default function LoginScreen({ navigation, route }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const { isPatientState, isNoUserState, isCareTakerState } = route.params;
   // const { caretakerToken } = useSelector((state) => state.caretaker);
   // console.log('caretakerToken', caretakerToken);
 
@@ -19,25 +21,39 @@ export default function LoginScreen({ navigation }) {
   // const storeData = async (key, value) =>
   //   await AsyncStorage.setItem(key, value);
 
-  const handleSubmit = () => {
-    const data = {
-      email,
-      password,
-    };
-    login(data);
+  const handleSubmit = async () => {
+    try {
+      console.log('login pressed');
+      const data = {
+        email,
+        password,
+      };
+      login(data);
+      // console.log(rtkdata);
+      // await AsyncStorage.setItem('caretakerToken', 'Hello');
+      // isPatientState(false);
+      // isNoUserState(false);
+      // isCareTakerState(true);
+    } catch (error) {
+      console.error(error);
+    }
   };
+
+  useEffect(() => {
+    if (!isLoading && !isError && data) {
+      console.log('Hello from caretaker login');
+      isPatientState(false);
+      isNoUserState(false);
+      isCareTakerState(true);
+      storeData('caretakerToken', data);
+      // navigation.navigate('Patient_List');
+    }
+  }, [data, isLoading]);
 
   // const getData = async (key) => {
   //   const value = await AsyncStorage.getItem(key);
   //   return value;
   // };
-  useEffect(() => {
-    if (!isLoading && !isError && data) {
-      storeData('caretakerToken', data);
-      navigation.navigate('Patient_List');
-    }
-  }, [data, isLoading]);
-
   // getData('token').then((val) => {
   //   console.log('storage', val);
   // });
