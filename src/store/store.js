@@ -1,8 +1,7 @@
-import { configureStore } from "@reduxjs/toolkit";
-import { apiSlice } from "../features/api/apiSlice";
-import counterReducer from "./counterSlice";
-import caretakerSliceReduser from "../features/caretaker/caretakerSlice";
-import patientSliceReducer from "../features/patient/patientSlice";
+import { configureStore } from '@reduxjs/toolkit';
+import { apiSlice } from '../features/api/apiSlice';
+import caretakerSliceReduser from '../features/caretaker/caretakerSlice';
+import patientSliceReducer from '../features/patient/patientSlice';
 
 const store = configureStore({
   reducer: {
@@ -10,7 +9,7 @@ const store = configureStore({
     caretaker: caretakerSliceReduser,
     patient: patientSliceReducer,
   },
-  devTools: process.env.NODE_ENV !== "production",
+  devTools: process.env.NODE_ENV !== 'production',
   middleware: (getDefaultMiddlewares) =>
     getDefaultMiddlewares().concat(apiSlice.middleware),
 });
