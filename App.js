@@ -195,7 +195,7 @@ const App = () => {
                       : 'view-dashboard-outline';
                   } else if (route.name === 'PatientRoutineTimeline') {
                     iconName = focused ? 'timeline' : 'timeline-outline';
-                  } else if (route.name === 'PatientSendSms') {
+                  } else if (route.name === 'PatientContact') {
                     iconName = focused
                       ? 'card-account-phone'
                       : 'card-account-phone-outline';
@@ -231,8 +231,8 @@ const App = () => {
                 }}
               />
               <Tab.Screen
-                name='PatientSendSms'
-                component={SendSmsScreen}
+                name='PatientContact'
+                component={PatientContactScreen}
                 initialParams={{
                   isPatientState: setIsPatient,
                   isNoUserState: setIsNoUser,

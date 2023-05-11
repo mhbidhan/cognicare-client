@@ -117,7 +117,7 @@ const PatientDashBoard = ({ route }) => {
       >
         <View style={styles.trackBackground}>
           <Text style={[{ color: 'white', fontSize: 32, fontWeight: 'bold' }]}>
-            Good morning, Touhid
+            Good morning, {patientToken && JSON.parse(patientToken).name}
           </Text>
         </View>
         <View style={styles.trackBackground}>
@@ -175,7 +175,7 @@ const PatientDashBoard = ({ route }) => {
           </View>
         </View>
         <View style={styles.trackBackground}>
-          <Text>{patientToken && patientToken}</Text>
+          {/* <Text>{patientToken && patientToken}</Text> */}
           {/* <ButtonFilled text='Logout' width={20} onPressHandler={logout} /> */}
         </View>
       </View>

@@ -22,7 +22,7 @@ const LogoutPatient = ({ isPatientState, isCareTakerState, isNoUserState }) => {
         logout(isPatientState, isCareTakerState, isNoUserState)
       }
       icon='logout'
-      width={50}
+      width={100}
       color='white'
     />
   );
