@@ -18,8 +18,10 @@
     "axios": "^1.4.0",
     "expo": "~48.0.15",
     "expo-barcode-scanner": "~12.3.2",
+    "expo-device": "~5.2.1",
     "expo-image-picker": "^14.1.1",
     "expo-navigation-bar": "~2.1.1",
+    "expo-notifications": "~0.18.1",
     "expo-status-bar": "~1.4.4",
     "expo-web-browser": "^12.1.1",
     "i": "^0.3.7",
@@ -39,8 +41,7 @@
     "react-native-toast-message": "^2.1.6",
     "react-native-vector-icons": "^9.2.0",
     "react-redux": "^8.0.5",
-    "expo-notifications": "~0.18.1",
-    "expo-device": "~5.2.1"
+    "react-native-webview": "11.26.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
