@@ -128,7 +128,7 @@ const styles = StyleSheet.create({
   modal: {
     flex: 1,
     padding: 10,
-    backgroundColor: globalStyles.colors.primary,
+    backgroundColor: globalStyles.colors.green,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 10,

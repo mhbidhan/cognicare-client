@@ -56,7 +56,7 @@ const RoutineList = ({ data = [], setView }) => {
     });
 
     setRoutineData(routineData);
-  }, [data]);
+  }, []);
   return (
     <View style={styles}>
       {!data.length ? (
@@ -69,8 +69,8 @@ const RoutineList = ({ data = [], setView }) => {
           data={routineData}
           separator={true}
           circleSize={20}
-          circleColor="rgb(45,156,219)"
-          lineColor="rgb(45,156,219)"
+          circleColor='rgb(45,156,219)'
+          lineColor='rgb(45,156,219)'
           timeContainerStyle={{ minWidth: 52, marginTop: -5 }}
           timeStyle={{
             textAlign: 'center',
@@ -86,7 +86,7 @@ const RoutineList = ({ data = [], setView }) => {
           }}
         />
       )}
-      <Button mode="contained" onPress={() => setView('activityType')}>
+      <Button mode='contained' onPress={() => setView('activityType')}>
         Add Task
       </Button>
     </View>
