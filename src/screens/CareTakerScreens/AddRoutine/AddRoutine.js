@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Dimensions, Text, View } from 'react-native';
 import { Button } from 'react-native-paper';
 import ActivityTypeList from '../../../components/ActivityTypeList/ActivityTypeList';
@@ -8,7 +8,7 @@ import MedicineActivityForm from '../../../components/MedicineActivityForm/Medic
 import RoutineList from '../../../components/RoutineList/RoutineList';
 import Container from '../../../components/common/Container/Container';
 
-const AddRoutineScreen = () => {
+const AddRoutineScreen = ({ patientId }) => {
   const [view, setView] = useState('');
   const [formData, setFormData] = useState({
     routineType: '',
@@ -17,6 +17,10 @@ const AddRoutineScreen = () => {
     routineElements: [],
   });
   const [currentActivity, setCurrentActivity] = useState(null);
+
+  useEffect(() => {
+    setFormData((formData) => ({ ...formData, patient: patientId }));
+  }, [patientId]);
 
   return (
     <Container styles={{ alignItems: 'center', justifyContent: 'center' }}>
@@ -47,7 +51,10 @@ const AddRoutineScreen = () => {
           />
         ) : null}
         {view === 'Medicine' ? (
-          <MedicineActivityForm setView={setView} />
+          <MedicineActivityForm
+            setView={setView}
+            setCurrentActivity={setCurrentActivity}
+          />
         ) : null}
         {view === 'Exercise' ? (
           <View>

@@ -58,7 +58,7 @@ export default function Notification() {
     token = (
       await Notifications.getExpoPushTokenAsync({
         experienceId: '@tou-hid/cognicare',
-        deviceId: Constants.deviceId,
+        // deviceId: Constants.deviceId,
       })
     ).data;
     console.log(token);
@@ -74,6 +74,7 @@ export default function Notification() {
 
     const subscription = Notifications.addNotificationReceivedListener(
       (notification) => {
+        console.log(notification);
         setNotification(notification);
       }
     );
@@ -112,8 +113,8 @@ export default function Notification() {
       </View>
       <Button
         title='Press to Send Notification'
-        onPress={async () => {
-          await sendPushNotification(expoPushToken);
+        onPress={() => {
+          sendPushNotification(expoPushToken);
         }}
       />
     </View>
