@@ -30,6 +30,7 @@ import EditMeal from './src/components/EditForms/EditMeal';
 import Notification from './src/components/PushNotification/Notification';
 import AddRoutine from './src/screens/CareTakerScreens/AddRoutine/AddRoutine';
 import RoutineList from './src/components/RoutineList/RoutineList';
+import Stat from './src/components/PatientsDetails/Stat';
 
 const Stack = createStackNavigator();
 // const Tab = createBottomTabNavigator();
@@ -91,8 +92,8 @@ const App = () => {
         <StatusBar backgroundColor={MyTheme.colors.background} />
         <NavigationContainer theme={MyTheme}>
           {isNoUser && (
-            <Tab.Navigator>
-              <Tab.Screen
+            <Stack.Navigator>
+              <Stack.Screen
                 name='Home'
                 component={HomeScreen}
                 initialParams={{
@@ -101,7 +102,7 @@ const App = () => {
                   isCareTakerState: setIsCareTaker,
                 }}
               />
-              <Tab.Screen
+              <Stack.Screen
                 name='CareTakerLogIn'
                 component={LoginScreen}
                 initialParams={{
@@ -110,7 +111,7 @@ const App = () => {
                   isCareTakerState: setIsCareTaker,
                 }}
               />
-              <Tab.Screen
+              <Stack.Screen
                 name='PatientSignIn'
                 component={SignInScreen}
                 initialParams={{
@@ -119,7 +120,7 @@ const App = () => {
                   isCareTakerState: setIsCareTaker,
                 }}
               />
-              <Tab.Screen
+              <Stack.Screen
                 name='Signup'
                 component={SignupScreen}
                 initialParams={{
@@ -128,13 +129,13 @@ const App = () => {
                   isCareTakerState: setIsCareTaker,
                 }}
               />
-            </Tab.Navigator>
+            </Stack.Navigator>
           )}
           {isCareTaker && (
             <Stack.Navigator
             // initialRouteName='Patient_List'
             >
-              {/* <Stack.Screen
+              <Stack.Screen
                 name='Notification'
                 component={Notification}
                 initialParams={{
@@ -142,7 +143,7 @@ const App = () => {
                   isNoUserState: setIsNoUser,
                   isCareTakerState: setIsCareTaker,
                 }}
-              /> */}
+              />
               {/* <Stack.Screen
                 name='Routine-List'
                 component={RoutineList}
@@ -155,6 +156,15 @@ const App = () => {
               {/* <Stack.Screen
                 name='Add-Routine'
                 component={AddRoutine}
+                initialParams={{
+                  isPatientState: setIsPatient,
+                  isNoUserState: setIsNoUser,
+                  isCareTakerState: setIsCareTaker,
+                }}
+              /> */}
+              {/* <Stack.Screen
+                name='Stat'
+                component={Stat}
                 initialParams={{
                   isPatientState: setIsPatient,
                   isNoUserState: setIsNoUser,
