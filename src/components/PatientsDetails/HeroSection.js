@@ -28,16 +28,19 @@ function HeroSection() {
       }}
     >
       <Image
-        source={{
-          uri: thisPatient.imgUrl,
-        }}
+        // source={{
+        //   uri: thisPatient.imgUrl,
+        // }}
+        source={pic}
         style={styles.image}
       />
       <View style={{ flex: 1 }}>
-        <Text style={styles.name}>{thisPatient.name}</Text>
+        {/* <Text style={styles.name}>{thisPatient.name}</Text> */}
+        <Text style={styles.name}>Maria</Text>
         <View style={styles.textView}>
           <Text style={styles.lable}>Age:</Text>
-          <Text style={styles.text}>{thisPatient.age}</Text>
+          {/* <Text style={styles.text}>{thisPatient.age}</Text> */}
+          <Text style={styles.text}>27</Text>
         </View>
       </View>
     </View>
@@ -62,7 +65,7 @@ const styles = StyleSheet.create({
   name: {
     fontSize: 30,
     fontWeight: 'bold',
-    color: globalStyles.colors.primary,
+    color: globalStyles.colors.primaryLight,
   },
   textView: {
     flexDirection: 'row',
@@ -73,7 +76,7 @@ const styles = StyleSheet.create({
     color: globalStyles.colors.primary,
   },
   text: {
-    color: globalStyles.colors.primary,
+    color: globalStyles.colors.primaryLight,
   },
   image: {
     width: 80,
