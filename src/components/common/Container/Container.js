@@ -1,9 +1,9 @@
 import React from 'react';
-import { View } from 'react-native';
+import { Platform, StatusBar, View } from 'react-native';
 
 const container = {
   padding: 15,
-  paddingTop: 0,
+  paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
 };
 
 const Container = ({ children, styles }) => {
