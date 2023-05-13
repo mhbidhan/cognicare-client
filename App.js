@@ -1,3 +1,4 @@
+import 'react-native-gesture-handler';
 import React, { useEffect, useState } from 'react';
 import { Provider } from 'react-redux';
 import { StyleSheet, StatusBar, SafeAreaView } from 'react-native';
@@ -6,6 +7,7 @@ import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 import store from './src/store/store';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import HomeScreen from './src/screens/HomeScreen';
@@ -35,6 +37,7 @@ import Stat from './src/components/PatientsDetails/Stat';
 const Stack = createStackNavigator();
 // const Tab = createBottomTabNavigator();
 const Tab = createMaterialBottomTabNavigator();
+const Drawer = createDrawerNavigator();
 
 const MyTheme = {
   ...DefaultTheme,
@@ -132,10 +135,11 @@ const App = () => {
             </Stack.Navigator>
           )}
           {isCareTaker && (
-            <Stack.Navigator
-            // initialRouteName='Patient_List'
+            <Drawer.Navigator
+              initialRouteName='Patient_List'
+              defaultStatus='closed'
             >
-              <Stack.Screen
+              <Drawer.Screen
                 name='Notification'
                 component={Notification}
                 initialParams={{
@@ -144,7 +148,7 @@ const App = () => {
                   isCareTakerState: setIsCareTaker,
                 }}
               />
-              {/* <Stack.Screen
+              <Drawer.Screen
                 name='Routine-List'
                 component={RoutineList}
                 initialParams={{
@@ -152,8 +156,8 @@ const App = () => {
                   isNoUserState: setIsNoUser,
                   isCareTakerState: setIsCareTaker,
                 }}
-              /> */}
-              {/* <Stack.Screen
+              />
+              <Drawer.Screen
                 name='Add-Routine'
                 component={AddRoutine}
                 initialParams={{
@@ -161,8 +165,8 @@ const App = () => {
                   isNoUserState: setIsNoUser,
                   isCareTakerState: setIsCareTaker,
                 }}
-              /> */}
-              {/* <Stack.Screen
+              />
+              <Drawer.Screen
                 name='Stat'
                 component={Stat}
                 initialParams={{
@@ -170,8 +174,8 @@ const App = () => {
                   isNoUserState: setIsNoUser,
                   isCareTakerState: setIsCareTaker,
                 }}
-              /> */}
-              <Stack.Screen
+              />
+              <Drawer.Screen
                 name='Patient_List'
                 component={PatientList}
                 initialParams={{
@@ -180,7 +184,7 @@ const App = () => {
                   isCareTakerState: setIsCareTaker,
                 }}
               />
-              <Stack.Screen
+              <Drawer.Screen
                 name='Add_Patient'
                 component={AddPatient}
                 initialParams={{
@@ -189,7 +193,7 @@ const App = () => {
                   isCareTakerState: setIsCareTaker,
                 }}
               />
-              <Stack.Screen
+              <Drawer.Screen
                 name='Patient_Details'
                 component={PatientDetails}
                 initialParams={{
@@ -198,7 +202,7 @@ const App = () => {
                   isCareTakerState: setIsCareTaker,
                 }}
               />
-            </Stack.Navigator>
+            </Drawer.Navigator>
           )}
           {isPatient && (
             <Tab.Navigator
