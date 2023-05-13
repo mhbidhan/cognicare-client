@@ -20,7 +20,7 @@ import pic from './../../../assets/pic.jpg';
 import ButtonFilled from './../../../components/common/buttons/ButtonFilled';
 import StatRoute from './../../../components/PatientsDetails/Stat';
 import InfoRoute from './../../../components/PatientsDetails/Info';
-import RoutineRoute from './../../../components/PatientsDetails/Routine';
+import RoutineRoute from './../../../components/RoutineList/RoutineList';
 
 function PatienDetails({ navigation }) {
   const [index, setIndex] = React.useState(0);

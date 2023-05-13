@@ -52,8 +52,18 @@ export const caretakerApi = apiSlice.injectEndpoints({
         }
       },
     }),
+    pushNotification: builder.mutation({
+      query: (data) => ({
+        url: '/requests',
+        method: 'POST',
+        body: data.body,
+      }),
+    }),
   }),
 });
 
-export const { useCaretakerRegistrationMutation, useLoginMutation } =
-  caretakerApi;
+export const {
+  useCaretakerRegistrationMutation,
+  useLoginMutation,
+  usePushNotificationMutation,
+} = caretakerApi;

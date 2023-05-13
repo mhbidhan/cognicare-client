@@ -35,7 +35,7 @@ const RoutineList = ({ data = [], setView }) => {
       });
 
     setRoutineData(routineData);
-  }, [data]);
+  }, []);
   return (
     <View style={styles}>
       {!data.length ? (
