@@ -47,7 +47,7 @@ export const sendSMS = async (number, content) => {
       showToast(
         'success',
         'Sent',
-        'Message sent successfully. Opening video browser in 10 seconds.'
+        'Message sent successfully. Opening video browser in 5 seconds.'
       );
     }
     // const response = '0';

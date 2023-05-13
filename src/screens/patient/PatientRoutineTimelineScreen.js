@@ -8,6 +8,7 @@ import OkayaCheckInScreen from '../../components/okaya/OkayaCheckInScreen';
 import ButtonFilled from '../../components/common/buttons/ButtonFilled';
 import { ImageBackground } from 'react-native';
 import nightWallpaper from '../../assets/nightWallpaper.png';
+import PatientName from '../../components/PatientName/PatientName';
 
 const styles = StyleSheet.create({
   container: {
@@ -85,7 +86,7 @@ const PatientRoutineTimelineScreen = ({ navigation }) => {
         <Text
           style={{ fontSize: globalStyles.fontSizes.large, color: 'white' }}
         >
-          Greetings, {patientData.name ? patientData.name : 'Touhid'}
+          Greetings, <PatientName />
         </Text>
         <Timeline
           style={styles.list}
