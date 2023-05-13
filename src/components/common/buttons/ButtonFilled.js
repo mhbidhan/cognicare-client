@@ -2,15 +2,15 @@ import React from 'react';
 import { Button } from 'react-native-paper';
 import globalStyles from '../../../utils/globalStyle';
 
-function ButtonFilled({ text, onPressHandler, icon, width }) {
+function ButtonFilled({ text, onPressHandler, icon, width, color }) {
   return (
     <Button
       icon={icon ? icon : null}
       mode='elevated'
       buttonColor={globalStyles.colors.primary}
-      textColor={globalStyles.colors.primaryLight}
+      textColor='white'
       contentStyle={{
-        width: width ? width : 300,
+        // width: width ? width : 100,
         paddingVertical: 10,
       }}
       style={{ borderRadius: 10 }}
