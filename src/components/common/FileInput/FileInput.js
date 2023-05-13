@@ -1,12 +1,10 @@
 import * as FileSystem from 'expo-file-system';
 import * as ImagePicker from 'expo-image-picker';
 import React, { useState } from 'react';
-import { StyleSheet, Text } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-import globalStyles from './../../../utils/globalStyle';
+import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 
-const FileInput = ({ handleChange }) => {
-  const [placeholder, setPlaceholder] = useState('Select an image');
+const FileInput = ({ handleChange, defaultPlaceholder }) => {
+  const [placeholder, setPlaceholder] = useState(defaultPlaceholder);
 
   async function selectFile() {
     try {
@@ -38,15 +36,14 @@ const FileInput = ({ handleChange }) => {
 const styles = StyleSheet.create({
   input: {
     width: 300,
-    borderWidth: 1,
-    borderColor: globalStyles.colors.primary,
-    borderRadius: 5,
-    padding: 10,
-    marginTop: 30,
+    borderRadius: 4,
+    padding: 13,
+    marginBottom: 30,
+    backgroundColor: 'rgba(255,255,255,0.9)',
   },
   label: {
-    color: globalStyles.colors.primary,
-    fontSize: 14,
+    // color: globalStyles.colors.primary,
+    fontSize: 16,
     marginBottom: 5,
   },
 });
