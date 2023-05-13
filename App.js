@@ -28,6 +28,8 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import globalStyles from './src/utils/globalStyle';
 import EditMeal from './src/components/EditForms/EditMeal';
 import Notification from './src/components/PushNotification/Notification';
+import AddRoutine from './src/screens/CareTakerScreens/AddRoutine/AddRoutine';
+import RoutineList from './src/components/RoutineList/RoutineList';
 
 const Stack = createStackNavigator();
 // const Tab = createBottomTabNavigator();
@@ -142,8 +144,17 @@ const App = () => {
                 }}
               /> */}
               {/* <Stack.Screen
-                name='Edit-Meal'
-                component={EditMeal}
+                name='Routine-List'
+                component={RoutineList}
+                initialParams={{
+                  isPatientState: setIsPatient,
+                  isNoUserState: setIsNoUser,
+                  isCareTakerState: setIsCareTaker,
+                }}
+              /> */}
+              {/* <Stack.Screen
+                name='Add-Routine'
+                component={AddRoutine}
                 initialParams={{
                   isPatientState: setIsPatient,
                   isNoUserState: setIsNoUser,
