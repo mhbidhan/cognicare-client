@@ -135,7 +135,7 @@ const App = () => {
             <Stack.Navigator
             // initialRouteName='Patient_List'
             >
-              <Stack.Screen
+              {/* <Stack.Screen
                 name='Notification'
                 component={Notification}
                 initialParams={{
@@ -143,7 +143,7 @@ const App = () => {
                   isNoUserState: setIsNoUser,
                   isCareTakerState: setIsCareTaker,
                 }}
-              />
+              /> */}
               {/* <Stack.Screen
                 name='Routine-List'
                 component={RoutineList}
