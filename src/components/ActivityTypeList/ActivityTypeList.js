@@ -38,7 +38,7 @@ const ActivityTypeList = ({ setView }) => {
         style={{
           width: 300,
         }}
-        mode="contained"
+        mode='contained'
         onPress={() => setView('')}
       >
         Back
