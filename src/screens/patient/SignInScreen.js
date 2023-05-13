@@ -45,11 +45,11 @@ const SignInScreen = ({ navigation, route }) => {
     setScanned(true);
     // alert(`Bar code with type ${type} and data ${data} has been scanned!`);
     // navigation.navigate("PatientDashBoardScreen");
-    // const token =
-    //   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDVjYmMzYzg1ZjA1OTIyNWFlYmMwOWUiLCJpYXQiOjE2ODM3OTkxMDAsImV4cCI6MTY4Mzg4NTUwMH0.KTOH6kfHyGfZ-XvYw_utC6F4dI6X4s6uUiLMDR7yMiE';
-    const token = data;
+    const token =
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDVmMmM2ZDgxNDI3MDhiMDdmMGM2NDgiLCJpYXQiOjE2ODM5NTg4OTN9.7LW7TjxDKc78tff9QqcRLsWQJQEhwmwObbFMuSjHxyM';
+    // const token = data;
     console.log(data);
-    const ngRokUrl = 'https://e488-113-11-37-34.ap.ngrok.io';
+    const ngRokUrl = 'https://1ed1-113-11-37-34.ap.ngrok.io';
     const patientId = '64577a4cb7a4f333e3dd6985';
     fetch(`${ngRokUrl}/patients/own`, {
       method: 'GET',
