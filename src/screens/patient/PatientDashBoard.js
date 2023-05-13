@@ -10,6 +10,7 @@ import Medicine from '../../assets/cognicare-assets/medicine/medicines-pill-svgr
 import Exercise from '../../assets/cognicare-assets/exercise/exercise-autumn-svgrepo-com.png';
 import ProgressCircle from 'react-native-progress-circle';
 import ButtonFilled from '../../components/common/buttons/ButtonFilled';
+import PatientName from '../../components/PatientName/PatientName';
 
 const PatientDashBoard = ({ route }) => {
   const [patientToken, setPatientToken] = useState('');
@@ -117,7 +118,7 @@ const PatientDashBoard = ({ route }) => {
       >
         <View style={styles.trackBackground}>
           <Text style={[{ color: 'white', fontSize: 32, fontWeight: 'bold' }]}>
-            Good morning, {patientToken && JSON.parse(patientToken).name}
+            Good morning, <PatientName />
           </Text>
         </View>
         <View style={styles.trackBackground}>

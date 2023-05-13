@@ -14,46 +14,25 @@ const styles = StyleSheet.create({
   },
 });
 
-const routineData = [
-  {
-    time: '09:00',
-    title: 'Archery Training',
-    circleColor: '#009688',
-    lineColor: '#009688',
-  },
-  {
-    time: '10:45',
-    title: 'Play Badminton',
-  },
-  { time: '12:00', title: 'Lunch' },
-  {
-    time: '14:00',
-    title: 'Watch Soccer',
-    lineColor: '#009688',
-  },
-  {
-    time: '16:30',
-    title: 'Go to Fitness center',
-  },
-  {
-    time: '16:30',
-    title: 'Go to Fitness center',
-  },
-];
-
 const RoutineList = ({ data = [], setView }) => {
   const [routineData, setRoutineData] = useState([]);
 
   useEffect(() => {
-    const routineData = data.map((routineElement) => {
-      const { name, startTime, activityType } = routineElement;
+    const routineData = data
+      .sort((a, b) => {
+        if (a.startTime.timeInNumber > b.startTime.timeInNumber) return 1;
+        else if (a.startTime.timeInNumber < b.startTime.timeInNumber) return -1;
+        else 0;
+      })
+      .map((routineElement) => {
+        const { name, startTime, activityType } = routineElement;
 
-      return {
-        time: startTime.timeInStringr,
-        title: name,
-        description: activityType,
-      };
-    });
+        return {
+          time: startTime.timeInString,
+          title: name,
+          description: activityType,
+        };
+      });
 
     setRoutineData(routineData);
   }, []);
@@ -69,24 +48,25 @@ const RoutineList = ({ data = [], setView }) => {
           data={routineData}
           separator={true}
           circleSize={20}
-          circleColor='rgb(45,156,219)'
-          lineColor='rgb(45,156,219)'
-          timeContainerStyle={{ minWidth: 52, marginTop: -5 }}
+          circleColor="#cccccc"
+          lineColor="rgb(45,156,219)"
+          timeContainerStyle={{ minWidth: 52, marginTop: 0 }}
           timeStyle={{
             textAlign: 'center',
-            backgroundColor: '#ff9797',
-            color: 'white',
+            backgroundColor: '#cccccc',
+            color: 'black',
             padding: 5,
             borderRadius: 13,
             overflow: 'hidden',
           }}
-          descriptionStyle={{ color: 'gray' }}
+          titleStyle={{ color: 'white' }}
+          descriptionStyle={{ color: '#cccccc' }}
           options={{
             style: { paddingTop: 5 },
           }}
         />
       )}
-      <Button mode='contained' onPress={() => setView('activityType')}>
+      <Button mode="contained" onPress={() => setView('activityType')}>
         Add Task
       </Button>
     </View>
