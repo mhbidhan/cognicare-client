@@ -28,6 +28,9 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import globalStyles from './src/utils/globalStyle';
 import EditMeal from './src/components/EditForms/EditMeal';
 import Notification from './src/components/PushNotification/Notification';
+import AddRoutine from './src/screens/CareTakerScreens/AddRoutine/AddRoutine';
+import RoutineList from './src/components/RoutineList/RoutineList';
+import Stat from './src/components/PatientsDetails/Stat';
 
 const Stack = createStackNavigator();
 // const Tab = createBottomTabNavigator();
@@ -89,8 +92,8 @@ const App = () => {
         <StatusBar backgroundColor={MyTheme.colors.background} />
         <NavigationContainer theme={MyTheme}>
           {isNoUser && (
-            <Tab.Navigator>
-              <Tab.Screen
+            <Stack.Navigator>
+              <Stack.Screen
                 name='Home'
                 component={HomeScreen}
                 initialParams={{
@@ -99,7 +102,7 @@ const App = () => {
                   isCareTakerState: setIsCareTaker,
                 }}
               />
-              <Tab.Screen
+              <Stack.Screen
                 name='CareTakerLogIn'
                 component={LoginScreen}
                 initialParams={{
@@ -108,7 +111,7 @@ const App = () => {
                   isCareTakerState: setIsCareTaker,
                 }}
               />
-              <Tab.Screen
+              <Stack.Screen
                 name='PatientSignIn'
                 component={SignInScreen}
                 initialParams={{
@@ -117,7 +120,7 @@ const App = () => {
                   isCareTakerState: setIsCareTaker,
                 }}
               />
-              <Tab.Screen
+              <Stack.Screen
                 name='Signup'
                 component={SignupScreen}
                 initialParams={{
@@ -126,13 +129,13 @@ const App = () => {
                   isCareTakerState: setIsCareTaker,
                 }}
               />
-            </Tab.Navigator>
+            </Stack.Navigator>
           )}
           {isCareTaker && (
             <Stack.Navigator
             // initialRouteName='Patient_List'
             >
-              {/* <Stack.Screen
+              <Stack.Screen
                 name='Notification'
                 component={Notification}
                 initialParams={{
@@ -140,10 +143,28 @@ const App = () => {
                   isNoUserState: setIsNoUser,
                   isCareTakerState: setIsCareTaker,
                 }}
+              />
+              {/* <Stack.Screen
+                name='Routine-List'
+                component={RoutineList}
+                initialParams={{
+                  isPatientState: setIsPatient,
+                  isNoUserState: setIsNoUser,
+                  isCareTakerState: setIsCareTaker,
+                }}
               /> */}
               {/* <Stack.Screen
-                name='Edit-Meal'
-                component={EditMeal}
+                name='Add-Routine'
+                component={AddRoutine}
+                initialParams={{
+                  isPatientState: setIsPatient,
+                  isNoUserState: setIsNoUser,
+                  isCareTakerState: setIsCareTaker,
+                }}
+              /> */}
+              {/* <Stack.Screen
+                name='Stat'
+                component={Stat}
                 initialParams={{
                   isPatientState: setIsPatient,
                   isNoUserState: setIsNoUser,
@@ -195,7 +216,7 @@ const App = () => {
                       : 'view-dashboard-outline';
                   } else if (route.name === 'PatientRoutineTimeline') {
                     iconName = focused ? 'timeline' : 'timeline-outline';
-                  } else if (route.name === 'PatientSendSms') {
+                  } else if (route.name === 'PatientContact') {
                     iconName = focused
                       ? 'card-account-phone'
                       : 'card-account-phone-outline';
@@ -231,8 +252,8 @@ const App = () => {
                 }}
               />
               <Tab.Screen
-                name='PatientSendSms'
-                component={SendSmsScreen}
+                name='PatientContact'
+                component={PatientContactScreen}
                 initialParams={{
                   isPatientState: setIsPatient,
                   isNoUserState: setIsNoUser,

@@ -2,11 +2,13 @@ import React from 'react';
 import { Text, View, StyleSheet, Button } from 'react-native';
 import { useSelector } from 'react-redux';
 import Timeline from 'react-native-timeline-flatlist';
+import * as WebBrowser from 'expo-web-browser';
 import globalStyles from '../../utils/globalStyle';
 import OkayaCheckInScreen from '../../components/okaya/OkayaCheckInScreen';
 import ButtonFilled from '../../components/common/buttons/ButtonFilled';
 import { ImageBackground } from 'react-native';
 import nightWallpaper from '../../assets/nightWallpaper.png';
+import PatientName from '../../components/PatientName/PatientName';
 
 const styles = StyleSheet.create({
   container: {
@@ -84,7 +86,7 @@ const PatientRoutineTimelineScreen = ({ navigation }) => {
         <Text
           style={{ fontSize: globalStyles.fontSizes.large, color: 'white' }}
         >
-          Greetings, {patientData.name ? patientData.name : 'Touhid'}
+          Greetings, <PatientName />
         </Text>
         <Timeline
           style={styles.list}
