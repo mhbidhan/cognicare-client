@@ -1,16 +1,16 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { StyleSheet, View, ScrollView, Dimensions } from 'react-native';
 import { BarChart, ProgressChart, PieChart } from 'react-native-chart-kit';
 import globalStyles from './../../utils/globalStyle';
 import HeroSection from './HeroSection';
+import PatientModeChart from '../PatientDetails/PatientModeChart';
 
 function Stat({ patient, navigation }) {
   const [modalVisible, setModalVisible] = useState(false);
   const { thisPatient } = useSelector((state) => state.caretaker);
-  console.log('thisPatient', thisPatient);
+
   const screenWidth = Dimensions.get('window').width;
-  // console.log(patient);
   const getcodeHandeler = () => {
     setModalVisible(true);
   };
@@ -25,11 +25,11 @@ function Stat({ patient, navigation }) {
   };
 
   const chartConfig = {
-    backgroundGradientFrom: '#1E2923',
-    backgroundGradientFromOpacity: 0,
-    backgroundGradientTo: '#08130D',
-    backgroundGradientToOpacity: 0.5,
-    color: (opacity = 1) => `rgba(26, 255, 146, ${opacity})`,
+    backgroundGradientFrom: '#f2f2f2',
+    backgroundGradientFromOpacity: 1,
+    backgroundGradientTo: '#e6e6e6',
+    backgroundGradientToOpacity: 1,
+    color: (opacity = 1) => `rgba(0, 77, 40, ${opacity})`,
     strokeWidth: 2, // optional, default 3
     barPercentage: 0.5,
     useShadowColorFromDataset: false, // optional
@@ -42,15 +42,19 @@ function Stat({ patient, navigation }) {
     <View style={styles.container}>
       <HeroSection thisPatient={thisPatient} />
       <ScrollView style={{ marginHorizontal: 5, marginVertical: 10 }}>
-        <BarChart
-          // style={graphStyle}
-          data={data}
-          width={screenWidth}
-          height={220}
-          yAxisLabel='$'
-          chartConfig={chartConfig}
-          verticalLabelRotation={0}
-        />
+        <PatientModeChart />
+        <View>
+          <BarChart
+            // style={graphStyle}
+            data={data}
+            width={screenWidth}
+            height={220}
+            yAxisLabel='$'
+            chartConfig={chartConfig}
+            verticalLabelRotation={0}
+            fromZero={true}
+          />
+        </View>
         <View>
           <ProgressChart
             data={[0.4, 0.6, 0.8]}
