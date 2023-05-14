@@ -49,7 +49,7 @@ const SignInScreen = ({ navigation, route }) => {
       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDVmMmM2ZDgxNDI3MDhiMDdmMGM2NDgiLCJpYXQiOjE2ODM5NTg4OTN9.7LW7TjxDKc78tff9QqcRLsWQJQEhwmwObbFMuSjHxyM';
     // const token = data;
     console.log(data);
-    const ngRokUrl = 'https://1ed1-113-11-37-34.ap.ngrok.io';
+    const ngRokUrl = 'https://472c-113-11-37-34.ap.ngrok.io';
     const patientId = '64577a4cb7a4f333e3dd6985';
     fetch(`${ngRokUrl}/patients/own`, {
       method: 'GET',
