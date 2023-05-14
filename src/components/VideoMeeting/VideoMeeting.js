@@ -22,7 +22,7 @@ const VideoMeeting = () => {
       console.log(data._links.host_url.href);
       console.log(data._links.guest_url.href);
       const response = await sendSMS(
-        '8801757600287',
+        '8801827600970',
         `The dementia patient wants to have a video cal with you. Please join here- ${data._links.guest_url.href}`
       );
       console.log('response', response);
