@@ -74,6 +74,7 @@ const styles = StyleSheet.create({
   btnContainer: {
     flexDirection: 'row',
     justifyContent: 'space-around',
+    gap: 5,
   },
 });
 
