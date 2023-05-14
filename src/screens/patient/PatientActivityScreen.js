@@ -17,13 +17,17 @@ import getPatientDetailsFromStorage from '../../utils/getPatientDetailsFromStora
 const PatientActivityScreen = () => {
   const [showOkayaInfo, setShowOkayaInfo] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [okayaPass, setOkayaPass] = useState();
+  const [patientEmail, setPatientEmail] = useState();
+  const [patientName, setPatientName] = useState();
+  const [patientId, setPatientId] = useState();
 
   const handleOpenBrowser = async () => {
     try {
       const okayaUrl = `https://www.okaya.me/dashboard/DirectAccess/landing?company=527437`;
-      const patientData = await getPatientDetailsFromStorage();
-      const { patientName, patientId } = patientData;
-      console.log('patientName, patientId', patientName, patientId);
+      // const patientData = await getPatientDetailsFromStorage();
+      // const { patientName, patientId, okayaPass, patientEmail } = patientData;
+      // console.log('patientName, patientId', patientName, patientId);
       const url = `${okayaUrl}&ciid=${patientId}`;
       console.log(url);
       await WebBrowser.openBrowserAsync(url);
@@ -32,8 +36,18 @@ const PatientActivityScreen = () => {
     }
   };
 
-  const handleOkayaCheckIn = () => {
-    setShowOkayaInfo(true);
+  const handleOkayaCheckIn = async () => {
+    try {
+      const patientData = await getPatientDetailsFromStorage();
+      const { patientName, patientId, okayaPass, patientEmail } = patientData;
+      setPatientName(patientName);
+      setPatientId(patientId);
+      setOkayaPass(okayaPass);
+      setPatientEmail(patientEmail);
+      setShowOkayaInfo(true);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -95,10 +109,10 @@ const PatientActivityScreen = () => {
                   Your credentials for okaya checkin
                 </Text>
                 <Text style={{ fontSize: 20, marginBottom: 20 }}>
-                  1. Email: mubtasim91@gmail.com
+                  Email: {patientEmail && patientEmail}
                 </Text>
                 <Text style={{ fontSize: 20 }}>
-                  2. password:{'  '}
+                  password:{'  '}
                   {!showPassword ? (
                     <Text style={{ fontSize: 20 }}>
                       ******{'   '}
@@ -111,7 +125,8 @@ const PatientActivityScreen = () => {
                     </Text>
                   ) : (
                     <Text style={{ fontSize: 20 }}>
-                      11223344{'   '}
+                      {okayaPass && okayaPass}
+                      {'   '}
                       <MaterialCommunityIcons
                         name='eye-off-outline'
                         size={20}
@@ -128,17 +143,19 @@ const PatientActivityScreen = () => {
                   flexDirection: 'row',
                   gap: 10,
                   height: 30,
-                  justifyContent: 'center',
+                  justifyContent: 'flex-start',
                   alignItems: 'flex-start',
                 }}
               >
                 <ButtonFilled
                   text='Close'
                   onPressHandler={() => setShowOkayaInfo(false)}
+                  icon='close-circle-outline'
                 />
                 <ButtonFilled
                   text='Open Browser'
                   onPressHandler={handleOpenBrowser}
+                  icon='open-in-app'
                 />
               </View>
             </View>
