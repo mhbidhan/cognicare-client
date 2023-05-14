@@ -4,7 +4,7 @@ import { getData } from './../../localStorage';
 export const apiSlice = createApi({
   reducerPath: 'api',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://15aa-103-146-93-19.ngrok-free.app', //process.env.REACT_APP_API_URL,
+    baseUrl: 'https://472c-113-11-37-34.ap.ngrok.io', //process.env.REACT_APP_API_URL,
     prepareHeaders: async (headers, { getState, endpoints }) => {
       let token = getState().caretaker.caretakerToken;
       // getData('token').then((val) => {
