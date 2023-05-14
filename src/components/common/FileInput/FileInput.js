@@ -3,7 +3,10 @@ import * as ImagePicker from 'expo-image-picker';
 import React, { useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 
-const FileInput = ({ handleChange, defaultPlaceholder }) => {
+const FileInput = ({
+  handleChange,
+  defaultPlaceholder = 'Select an image',
+}) => {
   const [placeholder, setPlaceholder] = useState(defaultPlaceholder);
 
   async function selectFile() {
@@ -37,13 +40,14 @@ const styles = StyleSheet.create({
   input: {
     width: 300,
     borderRadius: 4,
-    padding: 13,
-    marginBottom: 30,
+    padding: 12,
+    marginBottom: 20,
     backgroundColor: 'rgba(255,255,255,0.9)',
   },
   label: {
-    // color: globalStyles.colors.primary,
-    fontSize: 16,
+    color: '#000',
+    opacity: 0.4,
+    fontSize: 14,
     marginBottom: 5,
   },
 });
