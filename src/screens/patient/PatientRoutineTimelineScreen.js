@@ -120,17 +120,17 @@ const PatientRoutineTimelineScreen = ({ navigation }) => {
           }}
         >
           <ButtonFilled
-            text='Video Call'
+            text='Okaya Check In'
             onPressHandler={handleOpenBrowser}
             icon='video-plus'
             width={155}
           />
-          <ButtonFilled
+          {/* <ButtonFilled
             text='Send SMS'
             onPressHandler={() => navigation.navigate('PatientSendSms')}
             icon='message-processing'
             width={155}
-          />
+          /> */}
         </View>
       </View>
     </View>
