@@ -22,21 +22,23 @@ import Toast from 'react-native-toast-message';
 export default function SignupScreen({ navigation }) {
   const [name, setName] = useState('');
   const [age, setAge] = useState('');
+  const [email, setEmail] = useState('');
   const [gender, setGender] = useState('');
   const [relationship, setRelationship] = useState('');
-  const [img, setImg] = useState('');
   const [country, setCountry] = useState('');
   const [birthCountry, setBirthCountry] = useState('');
   const [locale, setLocale] = useState('');
   const [livingArrangement, setLivingArrangement] = useState('');
+  const [img, setImg] = useState('');
   const [emergencyName, setEmergencyName] = useState('');
   const [emergencyPhone, setEmergencyPhone] = useState('');
   const [emergencyRelation, setEmergencyRelation] = useState('');
-  const [token, setToken] = useState('');
+  // const [token, setToken] = useState('');
   const [openGender, setOpenGender] = useState(false);
   const [openRelationship, setOpenRelationship] = useState(false);
   const [openLocale, setOpenLocale] = useState(false);
   const [openLivingArrangement, setOpenLivingArrangement] = useState(false);
+
   const genderItems = [
     { label: 'Male', value: 'Male' },
     { label: 'Female', value: 'Female' },
@@ -79,6 +81,13 @@ export default function SignupScreen({ navigation }) {
   const emptyForm = () => {
     setName('');
     setAge('');
+    setEmail('');
+    setGender('');
+    setRelationship('');
+    setCountry('');
+    setBirthCountry('');
+    setLocale('');
+    setLivingArrangement('');
     setImg('');
     setEmergencyName('');
     setEmergencyPhone('');
@@ -90,6 +99,7 @@ export default function SignupScreen({ navigation }) {
     const data = {
       name,
       age,
+      email,
       gender,
       relationship,
       country,
@@ -144,14 +154,22 @@ export default function SignupScreen({ navigation }) {
           style={styles.input}
           value={name}
           onChangeText={setName}
-          placeholder='Enter patient name'
+          placeholder="Enter patient's name"
         />
 
         <TextInput
           style={styles.input}
           value={age}
           onChangeText={setAge}
-          placeholder='Enter patient age'
+          placeholder="Enter patient's age"
+          keyboardType='numeric'
+        />
+
+        <TextInput
+          style={styles.input}
+          value={email}
+          onChangeText={setEmail}
+          placeholder="Enter patient's email"
           keyboardType='numeric'
         />
 
