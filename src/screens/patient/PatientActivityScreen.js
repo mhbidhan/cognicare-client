@@ -4,6 +4,7 @@ import {
   Text,
   View,
   Dimensions,
+  Button,
 } from 'react-native';
 import React, { useState } from 'react';
 import * as WebBrowser from 'expo-web-browser';
@@ -13,6 +14,8 @@ import nightWallpaper from '../../assets/nightWallpaper.png';
 import ButtonFilled from '../../components/common/buttons/ButtonFilled';
 import globalStyles from '../../utils/globalStyle';
 import getPatientDetailsFromStorage from '../../utils/getPatientDetailsFromStorage';
+import TaskRunner from '../../components/Cron/TaskRunner';
+import BackgroundFetchScreen from '../../components/Cron/TaskRunner';
 
 const PatientActivityScreen = () => {
   const [showOkayaInfo, setShowOkayaInfo] = useState(false);
@@ -21,13 +24,11 @@ const PatientActivityScreen = () => {
   const [patientEmail, setPatientEmail] = useState();
   const [patientName, setPatientName] = useState();
   const [patientId, setPatientId] = useState();
+  const [gotBackgroundPermission, setGotBackgroundPermission] = useState(false);
 
   const handleOpenBrowser = async () => {
     try {
       const okayaUrl = `https://www.okaya.me/dashboard/DirectAccess/landing?company=527437`;
-      // const patientData = await getPatientDetailsFromStorage();
-      // const { patientName, patientId, okayaPass, patientEmail } = patientData;
-      // console.log('patientName, patientId', patientName, patientId);
       const url = `${okayaUrl}&ciid=${patientId}`;
       console.log(url);
       await WebBrowser.openBrowserAsync(url);
@@ -35,6 +36,10 @@ const PatientActivityScreen = () => {
       console.log(error);
     }
   };
+
+  const startCron = () => {};
+
+  const stopCron = () => {};
 
   const handleOkayaCheckIn = async () => {
     try {
@@ -161,6 +166,22 @@ const PatientActivityScreen = () => {
             </View>
           )}
         </View>
+        {gotBackgroundPermission ? (
+          <View>
+            <ButtonFilled
+              text='Add Cron'
+              icon='play-circle-outline'
+              onPressHandler={startCron}
+            />
+            <ButtonFilled
+              text='Stop Cron'
+              icon='stop-circle-outline'
+              onPressHandler={stopCron}
+            />
+          </View>
+        ) : (
+          <BackgroundFetchScreen />
+        )}
       </View>
     </View>
   );
