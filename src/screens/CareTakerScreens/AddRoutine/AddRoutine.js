@@ -5,6 +5,7 @@ import ActivityTypeList from '../../../components/ActivityTypeList/ActivityTypeL
 import GenaralActivityForm from '../../../components/GenaralActivityForm/GenaralActivityForm';
 import MealActivityForm from '../../../components/MealActivityForm/MealActivityForm';
 import MedicineActivityForm from '../../../components/MedicineActivityForm/MedicineActivityForm';
+import ExerciseActivityForm from '../../../components/ExerciseActivityForm/ExerciseActivityForm';
 import RoutineList from '../../../components/RoutineList/RoutineList';
 import Container from '../../../components/common/Container/Container';
 
@@ -57,17 +58,15 @@ const AddRoutineScreen = ({ patientId }) => {
           />
         ) : null}
         {view === 'Exercise' ? (
-          <View>
-            <Text>Exercise</Text>
-            <Button mode="contained" onPress={() => setView('')}>
-              Back
-            </Button>
-          </View>
+          <ExerciseActivityForm
+            setView={setView}
+            setCurrentActivity={setCurrentActivity}
+          />
         ) : null}
         {view === 'Game' ? (
           <View>
             <Text>Game</Text>
-            <Button mode="contained" onPress={() => setView('')}>
+            <Button mode='contained' onPress={() => setView('')}>
               Back
             </Button>
           </View>
@@ -75,7 +74,7 @@ const AddRoutineScreen = ({ patientId }) => {
         {view === 'Contact' ? (
           <View>
             <Text>Contact</Text>
-            <Button mode="contained" onPress={() => setView('')}>
+            <Button mode='contained' onPress={() => setView('')}>
               Back
             </Button>
           </View>

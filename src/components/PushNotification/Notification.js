@@ -70,18 +70,17 @@ export default function Notification() {
     registerForPushNotificationsAsync().then((token) => {
       setExpoPushToken(token);
       console.log(token);
+      const subscription = Notifications.addNotificationReceivedListener(
+        (notification) => {
+          console.log(notification);
+          setNotification(notification);
+        }
+      );
     });
 
-    const subscription = Notifications.addNotificationReceivedListener(
-      (notification) => {
-        console.log(notification);
-        setNotification(notification);
-      }
-    );
-
-    return () => {
-      subscription.remove();
-    };
+    // return () => {
+    //   subscription.remove();
+    // };
   }, []);
 
   const sendPushNotification = (expoPushToken) => {
