@@ -46,11 +46,10 @@ export default function HomeScreen({ navigation }) {
       />
       <View
         style={{
-          position: 'absolute',
-          zIndex: 3,
-          top: 80,
-          right: 40,
-          gap: 120,
+          flex: 1,
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: 90,
         }}
       >
         <View style={{ alignItems: 'center' }}>
