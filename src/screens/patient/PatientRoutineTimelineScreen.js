@@ -5,6 +5,7 @@ import globalStyles from '../../utils/globalStyle';
 import { ImageBackground } from 'react-native';
 import nightWallpaper from '../../assets/nightWallpaper.png';
 import PatientName from '../../components/PatientName/PatientName';
+import LottiePatientBackground from '../../components/LottieBackgrounds/LottiePatientBackground';
 
 const styles = StyleSheet.create({
   container: {
@@ -54,7 +55,7 @@ const data = [
 const PatientRoutineTimelineScreen = ({ navigation }) => {
   return (
     <View style={{ flex: 1, position: 'relative' }}>
-      <ImageBackground
+      {/* <ImageBackground
         source={nightWallpaper}
         resizeMode='cover'
         style={{
@@ -65,7 +66,8 @@ const PatientRoutineTimelineScreen = ({ navigation }) => {
           right: 0,
           opacity: 0.3,
         }}
-      ></ImageBackground>
+      ></ImageBackground> */}
+      <LottiePatientBackground />
       <View style={[globalStyles.container, { opacity: 1 }]}>
         <Text
           style={{ fontSize: globalStyles.fontSizes.large, color: 'white' }}

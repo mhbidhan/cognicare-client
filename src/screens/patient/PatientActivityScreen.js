@@ -16,6 +16,7 @@ import globalStyles from '../../utils/globalStyle';
 import getPatientDetailsFromStorage from '../../utils/getPatientDetailsFromStorage';
 import TaskRunner from '../../components/Cron/TaskRunner';
 import BackgroundFetchScreen from '../../components/Cron/TaskRunner';
+import LottiePatientBackground from '../../components/LottieBackgrounds/LottiePatientBackground';
 
 const PatientActivityScreen = () => {
   const [showOkayaInfo, setShowOkayaInfo] = useState(false);
@@ -52,7 +53,7 @@ const PatientActivityScreen = () => {
 
   return (
     <View style={{ flex: 1, position: 'relative' }}>
-      <ImageBackground
+      {/* <ImageBackground
         source={nightWallpaper}
         resizeMode='cover'
         style={{
@@ -63,7 +64,8 @@ const PatientActivityScreen = () => {
           right: 0,
           opacity: 0.3,
         }}
-      ></ImageBackground>
+      ></ImageBackground> */}
+      <LottiePatientBackground />
       <View style={[globalStyles.container, { opacity: 1 }]}>
         <View
           style={{
