@@ -66,7 +66,7 @@ function PatientList({ navigation, route }) {
             icon='database-plus-outline'
             mode='elevated'
             buttonColor={globalStyles.colors.primary}
-            textColor={globalStyles.colors.primaryLight}
+            textColor='white'
             contentStyle={{ width: 100 }}
             style={{ borderRadius: 10 }}
             labelStyle={{ fontSize: 17 }}
@@ -78,7 +78,7 @@ function PatientList({ navigation, route }) {
             icon='database-plus-outline'
             mode='elevated'
             buttonColor={globalStyles.colors.primary}
-            textColor={globalStyles.colors.primaryLight}
+            textColor='white'
             contentStyle={{ width: 100 }}
             style={{ borderRadius: 10 }}
             labelStyle={{ fontSize: 17 }}
