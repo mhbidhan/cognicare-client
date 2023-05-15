@@ -6,6 +6,7 @@ import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 const FileInput = ({
   handleChange,
   defaultPlaceholder = 'Select an image',
+  color = '#000',
 }) => {
   const [placeholder, setPlaceholder] = useState(defaultPlaceholder);
 
@@ -31,7 +32,16 @@ const FileInput = ({
   }
   return (
     <TouchableOpacity style={styles.input} onPress={selectFile}>
-      <Text style={styles.label}>{placeholder}</Text>
+      <Text
+        style={{
+          color: color,
+          opacity: 0.4,
+          fontSize: 14,
+          marginBottom: 5,
+        }}
+      >
+        {placeholder}
+      </Text>
     </TouchableOpacity>
   );
 };

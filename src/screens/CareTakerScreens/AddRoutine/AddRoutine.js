@@ -6,6 +6,8 @@ import GenaralActivityForm from '../../../components/GenaralActivityForm/Genaral
 import MealActivityForm from '../../../components/MealActivityForm/MealActivityForm';
 import MedicineActivityForm from '../../../components/MedicineActivityForm/MedicineActivityForm';
 import ExerciseActivityForm from '../../../components/ExerciseActivityForm/ExerciseActivityForm';
+import ContactActivityForm from '../../../components/ContactActivityForm/ContactActivityForm';
+import GameActivityForm from '../../../components/GameActivityForm/GameActivityForm';
 import RoutineList from '../../../components/RoutineList/RoutineList';
 import Container from '../../../components/common/Container/Container';
 
@@ -64,20 +66,16 @@ const AddRoutineScreen = ({ patientId }) => {
           />
         ) : null}
         {view === 'Game' ? (
-          <View>
-            <Text>Game</Text>
-            <Button mode='contained' onPress={() => setView('')}>
-              Back
-            </Button>
-          </View>
+          <GameActivityForm
+            setView={setView}
+            setCurrentActivity={setCurrentActivity}
+          />
         ) : null}
         {view === 'Contact' ? (
-          <View>
-            <Text>Contact</Text>
-            <Button mode='contained' onPress={() => setView('')}>
-              Back
-            </Button>
-          </View>
+          <ContactActivityForm
+            setView={setView}
+            setCurrentActivity={setCurrentActivity}
+          />
         ) : null}
       </View>
     </Container>
