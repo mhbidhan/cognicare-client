@@ -3,7 +3,7 @@ import * as config from '../config';
 export async function createMeeting() {
   try {
     const tokenRes = await fetch(
-      `https://6182-113-11-37-34.ap.ngrok.io/vonage/token`
+      `https://a6b6-113-11-37-34.ap.ngrok.io/vonage/token`
     );
     const vonageToken = await tokenRes.json();
     const options = {

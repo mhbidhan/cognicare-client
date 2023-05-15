@@ -9,7 +9,8 @@ const getPatientDetailsFromStorage = async () => {
     const patientId = currentPatientToken._id;
     const okayaPass = currentPatientToken.okayaPass;
     const patientEmail = currentPatientToken.email;
-    return { patientName, patientId, okayaPass, patientEmail };
+    const emergencyPhone = currentPatientToken.emergencyContact.phone;
+    return { patientName, patientId, okayaPass, patientEmail, emergencyPhone };
   } catch (error) {
     console.log(error);
   }
