@@ -49,6 +49,7 @@ export default function LoginScreen({ navigation, route }) {
       isNoUserState(false);
       isCareTakerState(true);
       storeData('caretakerToken', data);
+      console.log(data);
       // navigation.navigate('Patient_List');
     }
   }, [data, isLoading]);

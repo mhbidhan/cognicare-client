@@ -94,7 +94,31 @@ export default function SignupScreen({ navigation }) {
     setEmergencyRelation('');
   };
 
+  const validateForm = () => {
+    if (
+      !name.trim() ||
+      !age.trim() ||
+      !email.trim() ||
+      !gender.trim() ||
+      !relationship.trim() ||
+      !country.trim() ||
+      !birthCountry.trim() ||
+      !locale.trim() ||
+      !livingArrangement.trim() ||
+      !img.trim() ||
+      !emergencyName.trim() ||
+      !emergencyPhone.trim() ||
+      !emergencyRelation.trim()
+    )
+      return false;
+    return true;
+  };
+
   const handleSubmit = async () => {
+    if (!validateForm()) {
+      showToast('error', 'Input required', 'Please fill all the input');
+      return;
+    }
     const imgUrl = (await uploadToCloudinary(img)).secure_url;
     const data = {
       name,
