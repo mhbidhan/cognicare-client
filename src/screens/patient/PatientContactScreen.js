@@ -3,11 +3,12 @@ import React from 'react';
 import nightWallpaper from '../../assets/nightWallpaper.png';
 import globalStyles from '../../utils/globalStyle';
 import VideoMeeting from '../../components/VideoMeeting/VideoMeeting';
+import LottiePatientBackground from '../../components/LottieBackgrounds/LottiePatientBackground';
 
 const PatientContactScreen = () => {
   return (
     <View style={{ flex: 1, position: 'relative' }}>
-      <ImageBackground
+      {/* <ImageBackground
         source={nightWallpaper}
         resizeMode='cover'
         style={{
@@ -18,7 +19,8 @@ const PatientContactScreen = () => {
           right: 0,
           opacity: 0.3,
         }}
-      ></ImageBackground>
+      ></ImageBackground> */}
+      <LottiePatientBackground />
       <View
         style={[globalStyles.container, { justifyContent: 'space-between' }]}
       >
