@@ -9,7 +9,7 @@ import {
 } from 'react-native-chart-kit';
 import globalStyles from './../../utils/globalStyle';
 import HeroSection from './HeroSection';
-import PatientModeChart from '../PatientDetails/PatientModeChart';
+import PatientModeChart from '../PatientCharts/PatientModeChart';
 
 function Stat({ patient, navigation }) {
   const [modalVisible, setModalVisible] = useState(false);
