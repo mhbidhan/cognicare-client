@@ -3,6 +3,7 @@ import { Dimensions, View } from 'react-native';
 import { Button, ToggleButton, TextInput } from 'react-native-paper';
 import DropDownPicker from 'react-native-dropdown-picker';
 import ButtonFilled from '../common/buttons/ButtonFilled';
+import globalStyles from '../../utils/globalStyle';
 
 const BloodInput = () => {
   const [glucoseOpen, setGlucoseOpen] = useState(false);
@@ -28,30 +29,34 @@ const BloodInput = () => {
 
   return (
     <View style={{ flex: 1 }}>
-      <View>
+      <View style={{ zIndex: 1000 }}>
         <TextInput label='Blood Glucose (mg/dL)' />
-        <DropDownPicker
-          open={glucoseOpen}
-          value={glucoseValue}
-          items={glucoseItems}
-          setOpen={setGlucoseOpen}
-          setValue={setGlucoseValue}
-          setItems={setGlucoseItems}
-          placeholder='Relation To Meal'
-        />
+        <View>
+          <DropDownPicker
+            open={glucoseOpen}
+            value={glucoseValue}
+            items={glucoseItems}
+            setOpen={setGlucoseOpen}
+            setValue={setGlucoseValue}
+            setItems={setGlucoseItems}
+            placeholder='Relation To Meal'
+          />
+        </View>
       </View>
-      <View>
+      <View style={{ zIndex: 900 }}>
         <TextInput label='Blood Pressure (Systolic)' />
         <TextInput label='Blood Pressure (Diastolic)' />
-        <DropDownPicker
-          open={pressureOpen}
-          value={pressureValue}
-          items={pressureItems}
-          setOpen={setPressureOpen}
-          setValue={setPressureValue}
-          setItems={setPressureItems}
-          placeholder='Relation To Meal'
-        />
+        <View>
+          <DropDownPicker
+            open={pressureOpen}
+            value={pressureValue}
+            items={pressureItems}
+            setOpen={setPressureOpen}
+            setValue={setPressureValue}
+            setItems={setPressureItems}
+            placeholder='Relation To Meal'
+          />
+        </View>
       </View>
       {/* <Button
         onPress={onBloodSubmit}
@@ -94,7 +99,13 @@ const SahhaLogForm = () => {
   };
 
   return (
-    <View style={{ marginBottom: 30, zIndex: 100 }}>
+    <View
+      style={{
+        marginBottom: 30,
+        // zIndex: 100,
+        width: globalStyles.adjustedWidthFromDevice,
+      }}
+    >
       <ToggleButton.Row onValueChange={handleFormChange} value={selectedForm}>
         <ToggleButton icon='water' value='bloodInput' iconColor='white' />
         <ToggleButton
