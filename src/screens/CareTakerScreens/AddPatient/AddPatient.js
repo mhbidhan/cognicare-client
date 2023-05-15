@@ -170,7 +170,6 @@ export default function SignupScreen({ navigation }) {
           value={email}
           onChangeText={setEmail}
           placeholder="Enter patient's email"
-          keyboardType='numeric'
         />
 
         <View style={{ zIndex: 3 }}>

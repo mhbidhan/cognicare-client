@@ -1,44 +1,20 @@
 import { useState, useEffect, useRef } from 'react';
-import { Text, View, Button, Platform } from 'react-native';
-import * as Device from 'expo-device';
+import { Text, View, Button } from 'react-native';
 import * as Notifications from 'expo-notifications';
-// import { Notifications } from 'expo';
-import * as Permissions from 'expo-permissions';
-import Constants from 'expo-constants';
-// import firebaseConfig from './../../firebaseConfig.json';
-import { usePushNotificationMutation } from './../../features/caretaker/caretakerApi';
+
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: true,
+    shouldSetBadge: true,
+  }),
+});
 
 export default function Notification() {
   const [expoPushToken, setExpoPushToken] = useState('');
   const [notification, setNotification] = useState(false);
-  const [pushNotification, { data, isLoding, isError }] =
-    usePushNotificationMutation() || {};
-
-  // async function registerForPushNotificationsAsync() {
-  //   let token;
-  //   if (Constants.isDevice) {
-  //     const { status: existingStatus } = await Permissions.getAsync(
-  //       Permissions.NOTIFICATIONS
-  //     );
-  //     let finalStatus = existingStatus;
-  //     if (existingStatus !== 'granted') {
-  //       const { status } = await Permissions.askAsync(
-  //         Permissions.NOTIFICATIONS
-  //       );
-  //       finalStatus = status;
-  //     }
-  //     if (finalStatus !== 'granted') {
-  //       alert('Failed to get push token for push notification!');
-  //       return;
-  //     }
-  //     token = (await Notifications.getDevicePushTokenAsync()).data;
-  //     console.log(token);
-  //   } else {
-  //     alert('Must use physical device for Push Notifications');
-  //   }
-
-  //   return token;
-  // }
+  const notificationListener = useRef();
+  const responseListener = useRef();
 
   async function registerForPushNotificationsAsync() {
     let token;
@@ -69,31 +45,33 @@ export default function Notification() {
   useEffect(() => {
     registerForPushNotificationsAsync().then((token) => {
       setExpoPushToken(token);
-      console.log(token);
-      const subscription = Notifications.addNotificationReceivedListener(
-        (notification) => {
-          console.log(notification);
-          setNotification(notification);
-        }
-      );
+      console.log('UseEffect Token:', token);
     });
 
-    // return () => {
-    //   subscription.remove();
-    // };
+    notificationListener.current =
+      Notifications.addNotificationReceivedListener((notification) => {
+        console.log('Use Effect Notification:', notification);
+        setNotification(notification);
+      });
+
+    return () => {
+      Notifications.removeNotificationSubscription(
+        notificationListener.current
+      );
+      Notifications.removeNotificationSubscription(responseListener.current);
+    };
   }, []);
 
-  const sendPushNotification = (expoPushToken) => {
-    console.log(expoPushToken);
-    const body = {
-      to: expoPushToken,
-      sound: 'default',
-      title: 'Test Notification',
-      body: 'This is a test notification',
-      data: { data: 'goes here' },
-    };
-    pushNotification({ body });
-  };
+  async function schedulePushNotification() {
+    await Notifications.scheduleNotificationAsync({
+      content: {
+        title: 'Medicine 💊',
+        body: 'Time to take your medicine!',
+        data: { data: 'goes here' },
+      },
+      trigger: { seconds: 1 },
+    });
+  }
 
   return (
     <View
@@ -113,7 +91,7 @@ export default function Notification() {
       <Button
         title='Press to Send Notification'
         onPress={() => {
-          sendPushNotification(expoPushToken);
+          schedulePushNotification(expoPushToken);
         }}
       />
     </View>

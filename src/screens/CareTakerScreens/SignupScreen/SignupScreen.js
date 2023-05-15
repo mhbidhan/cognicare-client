@@ -130,10 +130,11 @@ const styles = StyleSheet.create({
   input: {
     width: 300,
     borderWidth: 1,
-    borderColor: globalStyles.colors.primary,
+    backgroundColor: globalStyles.colors.white,
+    color: '#999999',
     borderRadius: 5,
     padding: 10,
-    marginTop: 30,
+    marginBottom: 10,
   },
   label: {
     fontSize: 16,
@@ -146,7 +147,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   submitButton: {
-    marginTop: 30,
+    // marginTop: 30,
   },
   signInTextView: {
     flex: 1,
