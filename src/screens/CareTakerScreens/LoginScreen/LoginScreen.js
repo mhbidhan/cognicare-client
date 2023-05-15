@@ -31,7 +31,8 @@ export default function LoginScreen({ navigation, route }) {
         email,
         password,
       };
-      login(data);
+      const myData = await login(data);
+      console.log('myData', myData);
       // console.log(rtkdata);
       // await AsyncStorage.setItem('caretakerToken', 'Hello');
       // isPatientState(false);

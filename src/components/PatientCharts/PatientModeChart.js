@@ -2,6 +2,7 @@ import { StyleSheet, View, Dimensions } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { BarChart } from 'react-native-chart-kit';
 import { SERVER_URL } from '../../config';
+import globalStyles from '../../utils/globalStyle';
 
 const PatientModeChart = () => {
   const [patientModeData, setPatientModeData] = useState();
@@ -66,7 +67,12 @@ const PatientModeChart = () => {
   }, []);
 
   return (
-    <View style={{ marginBottom: 10 }}>
+    <View
+      style={{
+        marginBottom: 10,
+        // width: globalStyles.adjustedWidthFromDevice,
+      }}
+    >
       {patientModeData && (
         <BarChart
           data={patientModeData}
@@ -75,9 +81,10 @@ const PatientModeChart = () => {
           verticalLabelRotation={0}
           fromZero={true}
           showBarTops={false}
+          width={globalStyles.adjustedWidthFromDevice}
           style={{
             borderRadius: 7,
-            width: Dimensions.get('window').width - 5,
+            // width: Dimensions.get('window').width - 5,
           }}
         />
       )}
