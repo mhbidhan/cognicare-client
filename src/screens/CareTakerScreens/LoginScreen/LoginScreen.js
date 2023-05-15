@@ -80,15 +80,7 @@ export default function LoginScreen({ navigation, route }) {
         imageAssetsFolder='lottie/welcomeScreen/images'
         resizeMode='cover'
       />
-      <View
-        style={{
-          position: 'absolute',
-          zIndex: 3,
-          top: 50,
-          right: 30,
-          alignItems: 'center',
-        }}
-      >
+      <View style={styles.container}>
         <TextInput
           style={styles.input}
           value={email}
