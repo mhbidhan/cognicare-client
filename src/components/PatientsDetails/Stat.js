@@ -9,7 +9,14 @@ import SahhaLogForm from '../SahhaLogForm/SahhaLogForm';
 function Stat({ patient, navigation }) {
   return (
     <View style={styles.container}>
-      <ScrollView style={{ marginHorizontal: 5, marginVertical: 10 }}>
+      <ScrollView
+      // style={styles.scrollView}
+      // contentContainerStyle={styles.contentContainer}
+      // contentContainerStyle={{
+      //   justifyContent: 'center',
+      //   alignItems: 'center',
+      // }}
+      >
         <SahhaLogForm />
         <PatientModeChart />
         <View>
@@ -77,6 +84,23 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 3.84,
     elevation: 3,
+  },
+  scrollView: {
+    height: '70%',
+    width: '100%',
+    // margin: 20,
+    alignSelf: 'center',
+    // padding: 20,
+    // borderWidth: 5,
+    // borderRadius: 5,
+    // borderColor: 'black',
+    backgroundColor: 'red',
+  },
+  contentContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'green',
+    paddingBottom: 50,
   },
   name: {
     fontSize: 30,

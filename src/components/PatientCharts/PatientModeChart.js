@@ -70,7 +70,6 @@ const PatientModeChart = () => {
       {patientModeData && (
         <BarChart
           data={patientModeData}
-          width={Dimensions.get('window').width - 5}
           height={220}
           chartConfig={chartConfig}
           verticalLabelRotation={0}
@@ -78,6 +77,7 @@ const PatientModeChart = () => {
           showBarTops={false}
           style={{
             borderRadius: 7,
+            width: Dimensions.get('window').width - 5,
           }}
         />
       )}
