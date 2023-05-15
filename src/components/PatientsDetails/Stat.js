@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { StyleSheet, View, ScrollView, Dimensions } from 'react-native';
-import { BarChart, ProgressChart, PieChart } from 'react-native-chart-kit';
+import { StyleSheet, View, ScrollView, Dimensions, Text } from 'react-native';
+import {
+  BarChart,
+  ProgressChart,
+  PieChart,
+  LineChart,
+} from 'react-native-chart-kit';
 import globalStyles from './../../utils/globalStyle';
 import HeroSection from './HeroSection';
 import PatientModeChart from '../PatientDetails/PatientModeChart';
@@ -9,6 +14,24 @@ import PatientModeChart from '../PatientDetails/PatientModeChart';
 function Stat({ patient, navigation }) {
   const [modalVisible, setModalVisible] = useState(false);
   const { thisPatient } = useSelector((state) => state.caretaker);
+  // const { width: SIZE } = Dimensions.get('window');
+  // const data1 = [
+  //   { x: 1453075200, y: 1.47 },
+  //   { x: 1453161600, y: 1.37 },
+  //   { x: 1453248000, y: 1.53 },
+  //   { x: 1453334400, y: 1.54 },
+  //   { x: 1453420800, y: 1.52 },
+  //   { x: 1453507200, y: 2.03 },
+  //   { x: 1453593600, y: 2.1 },
+  //   { x: 1453680000, y: 2.5 },
+  //   { x: 1453766400, y: 2.3 },
+  //   { x: 1453852800, y: 2.42 },
+  //   { x: 1453939200, y: 2.55 },
+  //   { x: 1454025600, y: 2.41 },
+  //   { x: 1454112000, y: 2.43 },
+  //   { x: 1454198400, y: 2.2 },
+  // ];
+  // const points = monotoneCubicInterpolation(data1)(40);
 
   const screenWidth = Dimensions.get('window').width;
   const getcodeHandeler = () => {
@@ -40,36 +63,49 @@ function Stat({ patient, navigation }) {
 
   return (
     <View style={styles.container}>
-      <HeroSection thisPatient={thisPatient} />
+      {/* <HeroSection thisPatient={thisPatient} /> */}
       <ScrollView style={{ marginHorizontal: 5, marginVertical: 10 }}>
         <PatientModeChart />
         <View>
-          <BarChart
-            // style={graphStyle}
-            data={data}
-            width={screenWidth}
+          <Text>Bezier Line Chart</Text>
+          <LineChart
+            data={{
+              labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+              datasets: [
+                {
+                  data: [
+                    Math.random() * 100,
+                    Math.random() * 100,
+                    Math.random() * 100,
+                    Math.random() * 100,
+                    Math.random() * 100,
+                    Math.random() * 100,
+                  ],
+                },
+              ],
+            }}
+            width={Dimensions.get('window').width} // from react-native
             height={220}
             yAxisLabel='$'
-            chartConfig={chartConfig}
-            verticalLabelRotation={0}
-            fromZero={true}
-          />
-        </View>
-        <View>
-          <ProgressChart
-            data={[0.4, 0.6, 0.8]}
-            width={Dimensions.get('window').width}
-            height={220}
+            yAxisSuffix='k'
+            yAxisInterval={1} // optional, defaults to 1
             chartConfig={{
-              backgroundColor: '#1cc910',
-              backgroundGradientFrom: '#eff3ff',
-              backgroundGradientTo: '#efefef',
-              decimalPlaces: 2,
-              color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+              backgroundColor: '#e26a00',
+              backgroundGradientFrom: '#fb8c00',
+              backgroundGradientTo: '#ffa726',
+              decimalPlaces: 2, // optional, defaults to 2dp
+              color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+              labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
               style: {
                 borderRadius: 16,
               },
+              propsForDots: {
+                r: '6',
+                strokeWidth: '2',
+                stroke: '#ffa726',
+              },
             }}
+            bezier
             style={{
               marginVertical: 8,
               borderRadius: 16,
@@ -77,58 +113,12 @@ function Stat({ patient, navigation }) {
           />
         </View>
         <View>
-          <PieChart
-            data={[
-              {
-                name: 'Seoul',
-                population: 21500000,
-                color: 'rgba(131, 167, 234, 1)',
-                legendFontColor: '#7F7F7F',
-                legendFontSize: 15,
-              },
-              {
-                name: 'Toronto',
-                population: 2800000,
-                color: '#F00',
-                legendFontColor: '#7F7F7F',
-                legendFontSize: 15,
-              },
-              {
-                name: 'New York',
-                population: 8538000,
-                color: '#ffffff',
-                legendFontColor: '#7F7F7F',
-                legendFontSize: 15,
-              },
-              {
-                name: 'Moscow',
-                population: 11920000,
-                color: 'rgb(0, 0, 255)',
-                legendFontColor: '#7F7F7F',
-                legendFontSize: 15,
-              },
-            ]}
-            width={Dimensions.get('window').width - 16}
-            height={220}
-            chartConfig={{
-              backgroundColor: '#1cc910',
-              backgroundGradientFrom: '#eff3ff',
-              backgroundGradientTo: '#efefef',
-              decimalPlaces: 2,
-              color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
-              style: {
-                borderRadius: 16,
-              },
-            }}
-            style={{
-              marginVertical: 8,
-              borderRadius: 16,
-            }}
-            accessor='population'
-            backgroundColor='transparent'
-            paddingLeft='15'
-            absolute //for the absolute number remove if you want percentage
-          />
+          {/* <View style={{ backgroundColor: 'black' }}>
+            <ChartPathProvider data={{ points, smoothingStrategy: 'bezier' }}>
+              <ChartPath height={SIZE / 2} stroke='yellow' width={SIZE} />
+              <ChartDot style={{ backgroundColor: 'blue' }} />
+            </ChartPathProvider>
+          </View> */}
         </View>
       </ScrollView>
     </View>

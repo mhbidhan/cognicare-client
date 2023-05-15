@@ -22,27 +22,27 @@ const MealActivityForm = ({ setView, onFromSubmit, setCurrentActivity }) => {
         <TextInput
           onChangeText={(text) => handleInputChange('name', text, setFormData)}
           style={styles.input}
-          label="Meal Type"
-          placeholder="Breakfast, Lunch, Dinner..."
+          label='Meal Type'
+          placeholder='Breakfast, Lunch, Dinner...'
         />
         <TextInput
           onChangeText={(text) =>
             handleInputChange('description', text, setFormData)
           }
           style={styles.input}
-          label="Description"
-          placeholder="Description"
+          label='Description'
+          placeholder='Description'
         />
 
         <View style={styles.btnContainer}>
           <Button
             style={styles.btn}
-            mode="contained"
+            mode='contained'
             onPress={() => setView('activityType')}
           >
             Back
           </Button>
-          <Button style={styles.btn} mode="contained" onPress={handleSubmit}>
+          <Button style={styles.btn} mode='contained' onPress={handleSubmit}>
             Next
           </Button>
         </View>
@@ -70,6 +70,7 @@ const styles = StyleSheet.create({
   btnContainer: {
     flexDirection: 'row',
     justifyContent: 'space-around',
+    gap: 5,
   },
 });
 
