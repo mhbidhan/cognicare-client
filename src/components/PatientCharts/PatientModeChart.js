@@ -1,6 +1,7 @@
 import { StyleSheet, View, Dimensions } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { BarChart } from 'react-native-chart-kit';
+import { SERVER_URL } from '../../config';
 
 const PatientModeChart = () => {
   const [patientModeData, setPatientModeData] = useState();
@@ -24,7 +25,8 @@ const PatientModeChart = () => {
   useEffect(() => {
     const fetchPatientModeData = async () => {
       try {
-        const url = 'https://cognicare-projectcode.koyeb.app/okaya/checkin';
+        const url = `${SERVER_URL}/okaya/checkin`;
+        // const url = 'https://cognicare-projectcode.koyeb.app/okaya/checkin';
         const options = {
           method: 'POST',
           headers: {
