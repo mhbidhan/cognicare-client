@@ -1,11 +1,7 @@
 import React from 'react';
-import { Text, View, StyleSheet, Button } from 'react-native';
-import { useSelector } from 'react-redux';
+import { Text, View, StyleSheet } from 'react-native';
 import Timeline from 'react-native-timeline-flatlist';
-import * as WebBrowser from 'expo-web-browser';
 import globalStyles from '../../utils/globalStyle';
-import OkayaCheckInScreen from '../../components/okaya/OkayaCheckInScreen';
-import ButtonFilled from '../../components/common/buttons/ButtonFilled';
 import { ImageBackground } from 'react-native';
 import nightWallpaper from '../../assets/nightWallpaper.png';
 import PatientName from '../../components/PatientName/PatientName';
@@ -56,18 +52,6 @@ const data = [
 ];
 
 const PatientRoutineTimelineScreen = ({ navigation }) => {
-  const patientData = useSelector((state) => state.patient.patientData);
-
-  const handleOpenBrowser = async () => {
-    try {
-      await WebBrowser.openBrowserAsync(
-        'https://www.okaya.me/dashboard/DirectAccess/landing?company=527437'
-      );
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   return (
     <View style={{ flex: 1, position: 'relative' }}>
       <ImageBackground
@@ -110,28 +94,6 @@ const PatientRoutineTimelineScreen = ({ navigation }) => {
             style: { paddingTop: 5 },
           }}
         />
-        {/* <OkayaCheckInScreen /> */}
-        <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'space-around',
-            marginTop: 10,
-          }}
-        >
-          <ButtonFilled
-            text='Okaya Check In'
-            onPressHandler={handleOpenBrowser}
-            icon='video-plus'
-            width={155}
-          />
-          {/* <ButtonFilled
-            text='Send SMS'
-            onPressHandler={() => navigation.navigate('PatientSendSms')}
-            icon='message-processing'
-            width={155}
-          /> */}
-        </View>
       </View>
     </View>
   );

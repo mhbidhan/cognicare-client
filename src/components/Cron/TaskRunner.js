@@ -29,7 +29,7 @@ TaskManager.defineTask(BACKGROUND_FETCH_TASK, async () => {
 async function registerBackgroundFetchAsync() {
   try {
     return BackgroundFetch.registerTaskAsync(BACKGROUND_FETCH_TASK, {
-      minimumInterval: 5, // 5 seconds
+      minimumInterval: 60, // 5 seconds
       stopOnTerminate: false, // android only,
       startOnBoot: true, // android only
     });
@@ -51,9 +51,10 @@ async function unregisterBackgroundFetchAsync() {
 
 const styles = StyleSheet.create({
   screen: {
-    flex: 1,
+    // flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    zIndex: -100,
   },
   textContainer: {
     margin: 10,
