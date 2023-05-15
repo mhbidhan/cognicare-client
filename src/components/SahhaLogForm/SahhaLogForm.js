@@ -28,7 +28,7 @@ const BloodInput = () => {
   };
 
   return (
-    <View style={{ flex: 1 }}>
+    <View>
       <View style={{ zIndex: 1000 }}>
         <TextInput label='Blood Glucose (mg/dL)' />
         <View>
@@ -67,7 +67,10 @@ const BloodInput = () => {
       >
         Save
       </Button> */}
-      <ButtonFilled icon='check' text='Save' onPressHandler={onBloodSubmit} />
+      {/* <ButtonFilled icon='check' text='Save' onPressHandler={onBloodSubmit} /> */}
+      <Button mode='contained' dark={true} icon='check' onPress={onBloodSubmit}>
+        Save
+      </Button>
     </View>
   );
 };
@@ -102,7 +105,7 @@ const SahhaLogForm = () => {
     <View
       style={{
         marginBottom: 30,
-        // zIndex: 100,
+        zIndex: 100,
         width: globalStyles.adjustedWidthFromDevice,
       }}
     >
