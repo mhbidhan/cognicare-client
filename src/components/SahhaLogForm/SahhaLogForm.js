@@ -1,51 +1,68 @@
 import React, { useState } from 'react';
-import { View } from 'react-native';
+import { Dimensions, View } from 'react-native';
 import { Button, ToggleButton, TextInput } from 'react-native-paper';
 import DropDownPicker from 'react-native-dropdown-picker';
+import ButtonFilled from '../common/buttons/ButtonFilled';
 
-const BloodGlucoseInput = () => {
-  const [open, setOpen] = useState(false);
-  const [value, setValue] = useState(null);
-  const [items, setItems] = useState([
+const BloodInput = () => {
+  const [glucoseOpen, setGlucoseOpen] = useState(false);
+  const [glucoseValue, setGlucoseValue] = useState(null);
+  const [glucoseItems, setGlucoseItems] = useState([
     { label: 'Before Meal', value: 'Before Meal' },
     { label: 'After Meal', value: 'After Meal' },
   ]);
-  return (
-    <View>
-      <TextInput label='Blood Glucose (mg/dL)' />
-      <DropDownPicker
-        open={open}
-        value={value}
-        items={items}
-        setOpen={setOpen}
-        setValue={setValue}
-        setItems={setItems}
-        placeholder='Relation To Meal'
-      />
-    </View>
-  );
-};
 
-const BloodPressureInput = () => {
-  const [open, setOpen] = useState(false);
-  const [value, setValue] = useState(null);
-  const [items, setItems] = useState([
+  const [pressureOpen, setPressureOpen] = useState(false);
+  const [pressureValue, setPressureValue] = useState(null);
+  const [pressureItems, setPressureItems] = useState([
     { label: 'Before Meal', value: 'Before Meal' },
     { label: 'After Meal', value: 'After Meal' },
   ]);
+
+  const onBloodSubmit = async () => {
+    try {
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
-    <View>
-      <TextInput label='Blood Pressure (Systolic)' />
-      <TextInput label='Blood Pressure (Diastolic)' />
-      <DropDownPicker
-        open={open}
-        value={value}
-        items={items}
-        setOpen={setOpen}
-        setValue={setValue}
-        setItems={setItems}
-        placeholder='Relation To Meal'
-      />
+    <View style={{ flex: 1 }}>
+      <View>
+        <TextInput label='Blood Glucose (mg/dL)' />
+        <DropDownPicker
+          open={glucoseOpen}
+          value={glucoseValue}
+          items={glucoseItems}
+          setOpen={setGlucoseOpen}
+          setValue={setGlucoseValue}
+          setItems={setGlucoseItems}
+          placeholder='Relation To Meal'
+        />
+      </View>
+      <View>
+        <TextInput label='Blood Pressure (Systolic)' />
+        <TextInput label='Blood Pressure (Diastolic)' />
+        <DropDownPicker
+          open={pressureOpen}
+          value={pressureValue}
+          items={pressureItems}
+          setOpen={setPressureOpen}
+          setValue={setPressureValue}
+          setItems={setPressureItems}
+          placeholder='Relation To Meal'
+        />
+      </View>
+      {/* <Button
+        onPress={onBloodSubmit}
+        icon='check'
+        mode='contained'
+        dark={true}
+        // style={{ marginLeft: -100 }}
+      >
+        Save
+      </Button> */}
+      <ButtonFilled icon='check' text='Save' onPressHandler={onBloodSubmit} />
     </View>
   );
 };
@@ -59,7 +76,7 @@ const HeartRateInput = () => {
 };
 
 const SahhaLogForm = () => {
-  const [selectedForm, setSelectedForm] = useState('bloodGlucoseInput');
+  const [selectedForm, setSelectedForm] = useState();
 
   const handleFormChange = (value) => {
     setSelectedForm(value);
@@ -67,10 +84,8 @@ const SahhaLogForm = () => {
 
   const renderForm = () => {
     switch (selectedForm) {
-      case 'bloodGlucoseInput':
-        return <BloodGlucoseInput />;
-      case 'bloodPressureInput':
-        return <BloodPressureInput />;
+      case 'bloodInput':
+        return <BloodInput />;
       case 'heartRateInput':
         return <HeartRateInput />;
       default:
@@ -81,16 +96,7 @@ const SahhaLogForm = () => {
   return (
     <View style={{ marginBottom: 30, zIndex: 100 }}>
       <ToggleButton.Row onValueChange={handleFormChange} value={selectedForm}>
-        <ToggleButton
-          icon='water'
-          value='bloodGlucoseInput'
-          iconColor='white'
-        />
-        <ToggleButton
-          icon='car-brake-low-pressure'
-          value='bloodPressureInput'
-          iconColor='white'
-        />
+        <ToggleButton icon='water' value='bloodInput' iconColor='white' />
         <ToggleButton
           icon='heart-circle-outline'
           value='heartRateInput'
