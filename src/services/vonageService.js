@@ -1,10 +1,10 @@
 import * as config from '../config';
+import { SERVER_URL } from '../config';
 
 export async function createMeeting() {
   try {
-    const tokenRes = await fetch(
-      `https://6182-113-11-37-34.ap.ngrok.io/vonage/token`
-    );
+    const vonageTokenUrl = `${SERVER_URL}/vonage/token`;
+    const tokenRes = await fetch(vonageTokenUrl);
     const vonageToken = await tokenRes.json();
     const options = {
       method: 'POST',
@@ -19,9 +19,9 @@ export async function createMeeting() {
     };
     console.log(vonageToken.token);
 
-    const url = 'https://api-eu.vonage.com/beta/meetings/rooms';
+    const vonageMeetingUrl = 'https://api-eu.vonage.com/beta/meetings/rooms';
 
-    const res = await fetch(url, options);
+    const res = await fetch(vonageMeetingUrl, options);
     return await res.json();
   } catch (error) {
     console.log(error);

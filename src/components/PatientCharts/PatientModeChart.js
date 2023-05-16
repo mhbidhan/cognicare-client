@@ -1,6 +1,8 @@
 import { StyleSheet, View, Dimensions, Text } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { BarChart } from 'react-native-chart-kit';
+import { SERVER_URL } from '../../config';
+import globalStyles from '../../utils/globalStyle';
 
 const PatientModeChart = () => {
   const [patientModeData, setPatientModeData] = useState();
@@ -24,7 +26,8 @@ const PatientModeChart = () => {
   useEffect(() => {
     const fetchPatientModeData = async () => {
       try {
-        const url = 'https://cognicare-projectcode.koyeb.app/okaya/checkin';
+        const url = `${SERVER_URL}/okaya/checkin`;
+        // const url = 'https://cognicare-projectcode.koyeb.app/okaya/checkin';
         const options = {
           method: 'POST',
           headers: {
@@ -64,19 +67,24 @@ const PatientModeChart = () => {
   }, []);
 
   return (
-    <View style={{ flex: 1, marginBottom: 10 }}>
-      <Text>Mode chart</Text>
+    <View
+      style={{
+        marginBottom: 10,
+        // width: globalStyles.adjustedWidthFromDevice,
+      }}
+    >
       {patientModeData && (
         <BarChart
           data={patientModeData}
-          width={Dimensions.get('window').width}
           height={220}
           chartConfig={chartConfig}
           verticalLabelRotation={0}
           fromZero={true}
           showBarTops={false}
+          width={globalStyles.adjustedWidthFromDevice}
           style={{
-            borderRadius: 16,
+            borderRadius: 7,
+            // width: Dimensions.get('window').width - 5,
           }}
         />
       )}

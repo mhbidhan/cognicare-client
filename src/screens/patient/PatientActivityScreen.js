@@ -16,6 +16,7 @@ import globalStyles from '../../utils/globalStyle';
 import getPatientDetailsFromStorage from '../../utils/getPatientDetailsFromStorage';
 import TaskRunner from '../../components/Cron/TaskRunner';
 import BackgroundFetchScreen from '../../components/Cron/TaskRunner';
+import LottiePatientBackground from '../../components/LottieBackgrounds/LottiePatientBackground';
 
 const PatientActivityScreen = () => {
   const [showOkayaInfo, setShowOkayaInfo] = useState(false);
@@ -24,7 +25,6 @@ const PatientActivityScreen = () => {
   const [patientEmail, setPatientEmail] = useState();
   const [patientName, setPatientName] = useState();
   const [patientId, setPatientId] = useState();
-  const [gotBackgroundPermission, setGotBackgroundPermission] = useState(false);
 
   const handleOpenBrowser = async () => {
     try {
@@ -36,10 +36,6 @@ const PatientActivityScreen = () => {
       console.log(error);
     }
   };
-
-  const startCron = () => {};
-
-  const stopCron = () => {};
 
   const handleOkayaCheckIn = async () => {
     try {
@@ -57,7 +53,7 @@ const PatientActivityScreen = () => {
 
   return (
     <View style={{ flex: 1, position: 'relative' }}>
-      <ImageBackground
+      {/* <ImageBackground
         source={nightWallpaper}
         resizeMode='cover'
         style={{
@@ -68,7 +64,8 @@ const PatientActivityScreen = () => {
           right: 0,
           opacity: 0.3,
         }}
-      ></ImageBackground>
+      ></ImageBackground> */}
+      <LottiePatientBackground />
       <View style={[globalStyles.container, { opacity: 1 }]}>
         <View
           style={{
@@ -105,6 +102,7 @@ const PatientActivityScreen = () => {
                 shadowRadius: 3.84,
 
                 elevation: 5,
+                zIndex: 100,
               }}
             >
               <View>
@@ -166,22 +164,6 @@ const PatientActivityScreen = () => {
             </View>
           )}
         </View>
-        {gotBackgroundPermission ? (
-          <View>
-            <ButtonFilled
-              text='Add Cron'
-              icon='play-circle-outline'
-              onPressHandler={startCron}
-            />
-            <ButtonFilled
-              text='Stop Cron'
-              icon='stop-circle-outline'
-              onPressHandler={stopCron}
-            />
-          </View>
-        ) : (
-          <BackgroundFetchScreen />
-        )}
       </View>
     </View>
   );

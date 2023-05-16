@@ -3,12 +3,13 @@ import React from 'react';
 import nightWallpaper from '../../assets/nightWallpaper.png';
 import LogoutPatient from '../../components/Logout/Logout.Patient';
 import globalStyles from '../../utils/globalStyle';
+import LottiePatientBackground from '../../components/LottieBackgrounds/LottiePatientBackground';
 
 const PatientProfileScreen = ({ route }) => {
   const { isPatientState, isNoUserState, isCareTakerState } = route.params;
   return (
     <View style={{ flex: 1, position: 'relative' }}>
-      <ImageBackground
+      {/* <ImageBackground
         source={nightWallpaper}
         resizeMode='cover'
         style={{
@@ -19,7 +20,8 @@ const PatientProfileScreen = ({ route }) => {
           right: 0,
           opacity: 0.3,
         }}
-      ></ImageBackground>
+      ></ImageBackground> */}
+      <LottiePatientBackground />
       <View style={[globalStyles.container]}>
         <LogoutPatient
           isPatientState={isPatientState}
