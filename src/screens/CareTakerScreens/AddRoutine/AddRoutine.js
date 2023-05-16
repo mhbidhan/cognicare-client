@@ -12,7 +12,7 @@ import RoutineList from '../../../components/RoutineList/RoutineList';
 import Container from '../../../components/common/Container/Container';
 
 const AddRoutineScreen = ({ patientId }) => {
-  const [view, setView] = useState('');
+  const [view, setView] = useState('genaral');
   const [formData, setFormData] = useState({
     routineType: '',
     patient: '',
