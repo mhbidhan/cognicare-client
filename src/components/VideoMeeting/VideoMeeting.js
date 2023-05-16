@@ -1,20 +1,21 @@
-import { Button, StyleSheet, Text, View } from 'react-native';
-import React, { useRef, useState } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+import React, { useState } from 'react';
 import { createMeeting } from '../../services/vonageService';
-import { WebView } from 'react-native-webview';
 import * as WebBrowser from 'expo-web-browser';
 import ButtonFilled from '../common/buttons/ButtonFilled';
 import { sendSMS } from '../../screens/patient/SendSmsScreen';
+import getPatientDetailsFromStorage from '../../utils/getPatientDetailsFromStorage';
 
 const VideoMeeting = () => {
   const [hostUrl, setHostUrl] = useState();
   const [guestUrl, setGuestUrl] = useState();
-  const [isVisible, setIsVisible] = useState(false);
-  const webViewRef = useRef(null);
 
   async function handlePress() {
     try {
       const data = await createMeeting();
+      const patientdata = await getPatientDetailsFromStorage();
+      const { patientName, emergencyPhone } = patientdata;
+
       console.log(data);
       setHostUrl(data._links.host_url.href);
       setGuestUrl(data._links.guest_url.href);
@@ -22,8 +23,8 @@ const VideoMeeting = () => {
       console.log(data._links.host_url.href);
       console.log(data._links.guest_url.href);
       const response = await sendSMS(
-        '8801827600970',
-        `The dementia patient wants to have a video cal with you. Please join here- ${data._links.guest_url.href}`
+        emergencyPhone, // phone number should be in this format '8801827600970' (inlcuding the country code). Otherwise message will not work,
+        `CogniCare: ${patientName} wants to have a video call with you. Please join here- ${data._links.guest_url.href}`
       );
       console.log('response', response);
       if (response === '0')
@@ -35,30 +36,6 @@ const VideoMeeting = () => {
     }
   }
 
-  //   const INJECTED_JAVASCRIPT = `(function() {
-  //     window.ReactNativeWebView.postMessage(JSON.stringify(window.location));
-  // })();`;
-
-  // const fillInput = (syntheticEvent) => {
-  //   const { nativeEvent } = syntheticEvent;
-  //   console.log('nativeEvent', nativeEvent);
-  //   webViewRef.current.injectJavaScript(`
-  //     const nameInputInterval = setInterval(() => {
-  //       const input = document.querySelectorAll('input[slot="formInputElement"]')[1];
-  //       if (input) {
-  //         input.value = 'Mubtasim Shahriar';
-  //         const joinMeetingBtn = document.querySelectorAll('vwc-button')[0];
-  //         // window.alert(JSON.stringify(joinMeetingBtn))
-  //         joinMeetingBtn.click();
-  //         clearInterval(nameInputInterval);
-  //         nameInputInterval = null;
-
-  //       }
-  //     }, 100);
-  //   `);
-  //   console.log('webviewRef', webViewRef.current);
-  // };
-
   const onClose = () => {
     setIsVisible(false);
     setHostUrl(false);
@@ -67,32 +44,23 @@ const VideoMeeting = () => {
 
   return (
     <View style={{ flex: 1 }}>
-      <Text>Testing Video - Meeting</Text>
       {hostUrl ? (
         <View style={{ flex: 1 }}>
-          {/* <WebView
-            ref={webViewRef}
-            style={{ flex: 1 }}
-            source={{ uri: hostUrl }}
-            javaScriptEnabled
-            scalesPageToFit
-            isVisible={isVisible}
-            // injectedJavaScript={INJECTED_JAVASCRIPT}
-            // onMessage={this.onMessage}
-            onLoad={fillInput}
-            // injectedJavaScript={runFirst}
-            allowWebRtc={true}
-          /> */}
-          <ButtonFilled text='close' onPressHandler={onClose} color='white' />
+          <ButtonFilled
+            text='Close'
+            onPressHandler={onClose}
+            color='white'
+            icon='close-circle-outline'
+          />
         </View>
       ) : null}
       {!guestUrl && (
-        <ButtonFilled text='Create Meeting' onPressHandler={handlePress} />
+        <ButtonFilled
+          text='Start New Meeting'
+          onPressHandler={handlePress}
+          icon='video-check-outline'
+        />
       )}
-      {/* <WebView
-        source={{ uri: 'https://reactnative.dev/' }}
-        style={{ flex: 1 }}
-      /> */}
     </View>
   );
 };

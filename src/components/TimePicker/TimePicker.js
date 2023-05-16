@@ -5,7 +5,7 @@ import { TextInput } from 'react-native-paper';
 
 import moment from 'moment';
 
-const TimePicker = ({ label, onTimeChange }) => {
+const TimePicker = ({ mode = 'time', label, onTimeChange }) => {
   const [time, setTime] = useState(new Date());
   const [timeValue, setTimeValue] = useState('');
   const [show, setShow] = useState(false);
@@ -41,12 +41,12 @@ const TimePicker = ({ label, onTimeChange }) => {
         label={label}
         value={timeValue}
         defaultValue={timeValue}
-        placeholder="Time"
+        placeholder='Time'
       />
       {show && (
         <DateTimePicker
           value={time}
-          mode={'time'}
+          mode={mode}
           is24Hour={false}
           onChange={onChange}
         />

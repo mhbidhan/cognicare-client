@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { Dimensions, StyleSheet } from 'react-native';
 
 const globalStyles = StyleSheet.create({
   colors: {
@@ -15,6 +15,7 @@ const globalStyles = StyleSheet.create({
     gray: '#8B8ED6',
     lightGray: '#A9ADF6',
   },
+  adjustedWidthFromDevice: Dimensions.get('window').width * 0.88,
   fontSizes: {
     regular: 24,
     large: 30,

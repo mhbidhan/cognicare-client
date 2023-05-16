@@ -18,6 +18,7 @@ import { getData } from './../../../localStorage';
 import { useGetAllPatientsQuery } from './../../../features/patient/patientApi';
 import { setPatientList } from './../../../features/caretaker/caretakerSlice';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import LottiePatientBackground from '../../../components/LottieBackgrounds/LottiePatientBackground';
 
 function PatientList({ navigation, route }) {
   const dispatch = useDispatch();
@@ -54,41 +55,48 @@ function PatientList({ navigation, route }) {
   };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.topbar}>
-        <Text style={styles.text}>Patients</Text>
-        <Button
-          icon='database-plus-outline'
-          mode='elevated'
-          buttonColor={globalStyles.colors.primary}
-          textColor={globalStyles.colors.primaryLight}
-          contentStyle={{ width: 100 }}
-          style={{ borderRadius: 10 }}
-          labelStyle={{ fontSize: 17 }}
-          onPress={() => navigation.navigate('Add_Patient')}
-        >
-          Add
-        </Button>
-        <Button
-          icon='database-plus-outline'
-          mode='elevated'
-          buttonColor={globalStyles.colors.primary}
-          textColor={globalStyles.colors.primaryLight}
-          contentStyle={{ width: 100 }}
-          style={{ borderRadius: 10 }}
-          labelStyle={{ fontSize: 17 }}
-          onPress={logout}
-        >
-          Out
-        </Button>
+    <View style={{ flex: 1, position: 'relative' }}>
+      <LottiePatientBackground />
+      <View style={[globalStyles.container, { opacity: 1 }]}>
+        <View style={styles.topbar}>
+          <Text style={{ fontSize: 30, color: 'white', fontWeight: 'bold' }}>
+            Patients
+          </Text>
+          <Button
+            icon='database-plus-outline'
+            mode='elevated'
+            buttonColor={globalStyles.colors.primary}
+            textColor='white'
+            contentStyle={{ width: 100 }}
+            style={{ borderRadius: 10 }}
+            labelStyle={{ fontSize: 17 }}
+            onPress={() => navigation.navigate('Add_Patient')}
+          >
+            Add
+          </Button>
+          <Button
+            icon='database-plus-outline'
+            mode='elevated'
+            buttonColor={globalStyles.colors.primary}
+            textColor='white'
+            contentStyle={{ width: 100 }}
+            style={{ borderRadius: 10 }}
+            labelStyle={{ fontSize: 17 }}
+            onPress={logout}
+          >
+            Out
+          </Button>
+        </View>
+        {!isLoading && !isError && data && caretakerToken ? (
+          <ScrollView style={styles.cardListView}>
+            {data.map((patient, i) => (
+              <PatientCard key={i} patient={patient} navigation={navigation} />
+            ))}
+          </ScrollView>
+        ) : null}
       </View>
-      {!isLoading && !isError && data && caretakerToken ? (
-        <ScrollView style={styles.cardListView}>
-          {data.map((patient, i) => (
-            <PatientCard key={i} patient={patient} navigation={navigation} />
-          ))}
-        </ScrollView>
-      ) : null}
+      {/* <View style={styles.container}>
+      </View> */}
     </View>
   );
 }
@@ -102,8 +110,8 @@ const styles = StyleSheet.create({
   topbar: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginLeft: 20,
-    marginRight: 20,
+    // marginLeft: 20,
+    // marginRight: 20,
   },
   text: {
     fontSize: 30,
