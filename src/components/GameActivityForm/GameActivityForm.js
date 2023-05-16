@@ -1,17 +1,25 @@
 import React, { useState } from 'react';
-import { Dimensions, StyleSheet, View } from 'react-native';
-import { Button, TextInput } from 'react-native-paper';
+import {
+  Dimensions,
+  StyleSheet,
+  View,
+  Text,
+  TouchableHighlight,
+} from 'react-native';
+import { TextInput, Button } from 'react-native-paper';
 import handleInputChange from '../../utils/handleInputChange';
+import globalStyles from '../../utils/globalStyle';
+import FileInput from '../common/FileInput/FileInput';
+import uploadToCloudinary from '../../services/cloudinary';
 
-const MealActivityForm = ({ setView, onFromSubmit, setCurrentActivity }) => {
-  const activityType = 'meal';
+const GameActivityForm = ({ setView, onFromSubmit, setCurrentActivity }) => {
+  const activityType = 'game';
+  const [name, setName] = useState('');
 
-  const [formData, setFormData] = useState({
-    name: '',
-    description: '',
-  });
-
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
+    const formData = {
+      name,
+    };
     setCurrentActivity({ [activityType]: formData, activityType });
     setView('genaral');
   };
@@ -20,18 +28,10 @@ const MealActivityForm = ({ setView, onFromSubmit, setCurrentActivity }) => {
     <View style={styles.form}>
       <View style={styles.formContainer}>
         <TextInput
-          onChangeText={(text) => handleInputChange('name', text, setFormData)}
+          onChangeText={(text) => setName(text)}
           style={styles.input}
-          label='Meal Type'
-          placeholder='Breakfast, Lunch, Dinner...'
-        />
-        <TextInput
-          onChangeText={(text) =>
-            handleInputChange('description', text, setFormData)
-          }
-          style={styles.input}
-          label='Description'
-          placeholder='Description'
+          label='Exercise Type'
+          placeholder='Find color'
         />
 
         <View style={styles.btnContainer}>
@@ -63,6 +63,11 @@ const styles = StyleSheet.create({
   input: {
     marginBottom: 30,
   },
+  urlInput: {
+    flex: 1,
+    marginBottom: 30,
+    height: 90,
+  },
   btn: {
     minWidth: 140,
     marginBottom: 30,
@@ -74,4 +79,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default MealActivityForm;
+export default GameActivityForm;

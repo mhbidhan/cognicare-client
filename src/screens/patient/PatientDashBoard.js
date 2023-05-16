@@ -9,8 +9,8 @@ import Meal from '../../assets/cognicare-assets/meal/meal-assistance-female-svgr
 import Medicine from '../../assets/cognicare-assets/medicine/medicines-pill-svgrepo-com.png';
 import Exercise from '../../assets/cognicare-assets/exercise/exercise-autumn-svgrepo-com.png';
 import ProgressCircle from 'react-native-progress-circle';
-import ButtonFilled from '../../components/common/buttons/ButtonFilled';
 import PatientName from '../../components/PatientName/PatientName';
+import LottiePatientBackground from '../../components/LottieBackgrounds/LottiePatientBackground';
 
 const PatientDashBoard = ({ route }) => {
   const [patientToken, setPatientToken] = useState('');
@@ -101,7 +101,7 @@ const PatientDashBoard = ({ route }) => {
 
   return (
     <View style={{ flex: 1, position: 'relative' }}>
-      <ImageBackground
+      {/* <ImageBackground
         source={nightWallpaper}
         resizeMode='cover'
         style={{
@@ -112,7 +112,8 @@ const PatientDashBoard = ({ route }) => {
           right: 0,
           opacity: 0.3,
         }}
-      ></ImageBackground>
+      ></ImageBackground> */}
+      <LottiePatientBackground />
       <View
         style={[globalStyles.container, { justifyContent: 'space-between' }]}
       >

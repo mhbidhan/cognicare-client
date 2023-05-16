@@ -93,8 +93,8 @@ const GenaralActivityForm = ({ currentActivity, setView, setFormData }) => {
           handleInputChange('name', text, setActivityData)
         }
         style={styles.input}
-        label="Activity Name"
-        placeholder="Activity Name"
+        label='Activity Name'
+        placeholder='Activity Name'
       />
       <TimePicker
         label={'Start Time'}
@@ -111,12 +111,12 @@ const GenaralActivityForm = ({ currentActivity, setView, setFormData }) => {
       <View style={styles.btnContainer}>
         <Button
           style={styles.btn}
-          mode="contained"
+          mode='contained'
           onPress={() => setView('activityType')}
         >
           Back
         </Button>
-        <Button style={styles.btn} mode="contained" onPress={handleSubmit}>
+        <Button style={styles.btn} mode='contained' onPress={handleSubmit}>
           Next
         </Button>
       </View>
@@ -152,6 +152,7 @@ const styles = StyleSheet.create({
     marginBottom: 30,
   },
   btnContainer: {
+    gap: 5,
     flexDirection: 'row',
     justifyContent: 'space-around',
   },

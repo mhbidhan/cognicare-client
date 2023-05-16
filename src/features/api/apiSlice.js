@@ -4,7 +4,8 @@ import { getData } from './../../localStorage';
 export const apiSlice = createApi({
   reducerPath: 'api',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://472c-113-11-37-34.ap.ngrok.io', //process.env.REACT_APP_API_URL,
+    baseUrl: 'https://0f14-113-11-37-34.in.ngrok.io', //process.env.REACT_APP_API_URL,
+    // baseurl: 'https://cognicare-projectcode.koyeb.app',
     prepareHeaders: async (headers, { getState, endpoints }) => {
       let token = getState().caretaker.caretakerToken;
       // getData('token').then((val) => {

@@ -9,39 +9,29 @@ import {
 import { TextInput, Button } from 'react-native-paper';
 import handleInputChange from '../../utils/handleInputChange';
 import globalStyles from '../../utils/globalStyle';
+import FileInput from '../common/FileInput/FileInput';
+import uploadToCloudinary from '../../services/cloudinary';
 
-const ExerciseActivityForm = ({
-  setView,
-  onFromSubmit,
-  setCurrentActivity,
-}) => {
-  const activityType = 'exercise';
+const ContactActivityForm = ({ setView, onFromSubmit, setCurrentActivity }) => {
+  const activityType = 'contact';
   const [name, setName] = useState('');
-  const [description, setDescription] = useState('');
-  const [url1, seturl1] = useState('');
-  const [url2, seturl2] = useState('');
-  const [url3, seturl3] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+  const [relationship, setRelationship] = useState('');
+  const [img, setImg] = useState('');
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
+    const imgUrl = (await uploadToCloudinary(img)).secure_url;
     const formData = {
       name,
-      description,
-      urls: [url1, url2, url3],
+      email,
+      phone,
+      relationship,
+      imgUrl,
     };
     setCurrentActivity({ [activityType]: formData, activityType });
     setView('genaral');
   };
-
-  // const handleUrlInput = () => {
-  //   const newUrlsArr = [...urls];
-  //   newUrlsArr.push(url);
-  //   seturls(newUrlsArr);
-  // };
-  // const handleEditUrlInput = (url, i) => {
-  //   const newUrlsArr = [...urls];
-  //   newUrlsArr[i] = url;
-  //   seturls(newUrlsArr);
-  // };
 
   return (
     <View style={styles.form}>
@@ -52,34 +42,32 @@ const ExerciseActivityForm = ({
           label='Exercise Type'
           placeholder='Walk, jumping...'
         />
+
         <TextInput
-          onChangeText={(text) => setDescription(text)}
+          onChangeText={(text) => setEmail(text)}
           style={styles.input}
-          label='Description'
-          placeholder='Description'
+          label='Email'
+          placeholder='x@mail.com'
         />
 
         <TextInput
-          value={url1}
-          onChangeText={(url) => seturl1(url)}
+          value={phone}
+          onChangeText={(url) => setPhone(url)}
           style={styles.input}
-          label='url-1'
-          placeholder='Task video url'
+          label='Phone'
+          placeholder='017xxxxxxxx'
         />
+
         <TextInput
-          value={url2}
-          onChangeText={(url) => seturl2(url)}
+          value={relationship}
+          onChangeText={(url) => setRelationship(url)}
           style={styles.input}
-          label='url-2'
-          placeholder='Task video url'
+          label='Relationship'
+          placeholder='relationship'
         />
-        <TextInput
-          value={url3}
-          onChangeText={(url) => seturl3(url)}
-          style={styles.input}
-          label='url-3'
-          placeholder='Task video url'
-        />
+
+        <FileInput handleChange={(file) => setImg(file)} />
+
         <View style={styles.btnContainer}>
           <Button
             style={styles.btn}
@@ -125,4 +113,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ExerciseActivityForm;
+export default ContactActivityForm;

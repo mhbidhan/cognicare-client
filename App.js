@@ -33,6 +33,7 @@ import Notification from './src/components/PushNotification/Notification';
 import AddRoutine from './src/screens/CareTakerScreens/AddRoutine/AddRoutine';
 import RoutineList from './src/components/RoutineList/RoutineList';
 import Stat from './src/components/PatientsDetails/Stat';
+import TestingFile from './src/screens/CareTakerScreens/TestingFile/TestingFile';
 
 const Stack = createStackNavigator();
 // const Tab = createBottomTabNavigator();
@@ -139,6 +140,15 @@ const App = () => {
               initialRouteName='Patient_List'
               defaultStatus='closed'
             >
+              <Drawer.Screen
+                name='TestingFile'
+                component={TestingFile}
+                initialParams={{
+                  isPatientState: setIsPatient,
+                  isNoUserState: setIsNoUser,
+                  isCareTakerState: setIsCareTaker,
+                }}
+              />
               <Drawer.Screen
                 name='Notification'
                 component={Notification}
