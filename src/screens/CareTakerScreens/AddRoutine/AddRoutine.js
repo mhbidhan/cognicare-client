@@ -10,23 +10,39 @@ import ContactActivityForm from '../../../components/ContactActivityForm/Contact
 import GameActivityForm from '../../../components/GameActivityForm/GameActivityForm';
 import RoutineList from '../../../components/RoutineList/RoutineList';
 import Container from '../../../components/common/Container/Container';
+import LottieBackground from '../../../components/LottieBackgrounds/LottiePatientBackground';
+import { usePostRoutineElementMutation } from './../../../features/caretaker/caretakerApi';
 
 const AddRoutineScreen = ({ patientId }) => {
   const [view, setView] = useState('');
+  const [currentActivity, setCurrentActivity] = useState(null);
   const [formData, setFormData] = useState({
     routineType: '',
     patient: '',
     date: '',
     routineElements: [],
   });
-  const [currentActivity, setCurrentActivity] = useState(null);
+  const [postRoutineElement, { data, isLoading, isError }] =
+    usePostRoutineElementMutation() || {};
+
+  // useEffect(() => {
+  //   console.log(formData.routineElements);
+  // }, [formData]);
 
   useEffect(() => {
     setFormData((formData) => ({ ...formData, patient: patientId }));
   }, [patientId]);
 
+  const saveHandeler = () => {
+    formData.routineElements.map((item) => {
+      console.log(item);
+      // postRoutineElement(item);
+    });
+  };
+
   return (
-    <Container styles={{ alignItems: 'center', justifyContent: 'center' }}>
+    <View style={{ flex: 1, position: 'relative' }}>
+      <LottieBackground />
       <View
         style={{
           width: Dimensions.get('window').width,
@@ -34,7 +50,11 @@ const AddRoutineScreen = ({ patientId }) => {
         }}
       >
         {!view ? (
-          <RoutineList setView={setView} data={formData.routineElements} />
+          <RoutineList
+            setView={setView}
+            data={formData.routineElements}
+            saveHandeler={saveHandeler}
+          />
         ) : null}
         {view === 'activityType' ? (
           <ActivityTypeList setView={setView} />
@@ -78,7 +98,7 @@ const AddRoutineScreen = ({ patientId }) => {
           />
         ) : null}
       </View>
-    </Container>
+    </View>
   );
 };
 

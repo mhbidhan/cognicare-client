@@ -68,10 +68,12 @@ const PatientModeChart = () => {
 
   return (
     <View
-      style={{
-        marginBottom: 10,
-        // width: globalStyles.adjustedWidthFromDevice,
-      }}
+      style={
+        {
+          // marginBottom: 10,
+          // width: globalStyles.adjustedWidthFromDevice,
+        }
+      }
     >
       {patientModeData && (
         <BarChart

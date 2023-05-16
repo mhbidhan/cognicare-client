@@ -1,10 +1,22 @@
 import React from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import LottieView from 'lottie-react-native';
 
 const ActivityIconButton = ({ icon, handlePress, label }) => {
   return (
     <TouchableOpacity style={styles.iconBtn} onPress={handlePress}>
-      <Image style={styles.icon} source={icon} />
+      {/* <Image style={styles.icon} source={icon} /> */}
+      <LottieView
+        autoPlay
+        ref={null}
+        style={{
+          width: 80,
+          height: 80,
+          backgroundColor: 'transparent',
+        }}
+        // Find more Lottie files at https://lottiefiles.com/featured
+        source={icon}
+      />
       <Text style={styles.btnText}>{label}</Text>
     </TouchableOpacity>
   );

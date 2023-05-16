@@ -1,11 +1,11 @@
 import React from 'react';
 import { Dimensions, View } from 'react-native';
 import { Button } from 'react-native-paper';
-import contactIcon from '../../assets/icons/contact.png';
-import exerciseIcon from '../../assets/icons/exercise.png';
-import gameIcon from '../../assets/icons/game.png';
-import mealIcon from '../../assets/icons/meal.png';
-import medicineIcon from '../../assets/icons/medicine.png';
+import contactIcon from '../../assets/beepingphone.json';
+import exerciseIcon from '../../assets/deadbug-fitness-exercise.json';
+import gameIcon from '../../assets/game-controller.json';
+import mealIcon from '../../assets/food.json';
+import medicineIcon from '../../assets/medicine.json';
 import ActivityIconButton from '../ActivityIconButton/ActivityIconButton';
 
 const ActivityTypeList = ({ setView }) => {

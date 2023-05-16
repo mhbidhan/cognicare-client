@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const RoutineList = ({ data = [], setView }) => {
+const RoutineList = ({ data = [], setView, saveHandeler }) => {
   const [routineData, setRoutineData] = useState([]);
   const [showOkayaPatientInfo, setShowOkayaPatientInfo] = useState(false);
   const { thisPatient } = useSelector((state) => state.caretaker);
@@ -75,22 +75,17 @@ const RoutineList = ({ data = [], setView }) => {
 
   return (
     <View style={{ position: 'relative' }}>
-      <ImageBackground
-        source={nightWallpaper}
-        resizeMode='cover'
-        style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          bottom: 0,
-          right: 0,
-          opacity: 0.3,
-        }}
-      ></ImageBackground>
       <View style={[globalStyles.container, { opacity: 1 }]}>
         {!data.length ? (
-          <Text style={{ fontSize: 15, color: '#fff' }}>
-            There are no routine to be shown
+          <Text
+            style={{
+              flex: 1,
+              fontSize: 15,
+              color: '#fff',
+              textAlign: 'center',
+            }}
+          >
+            There are no routine to add
           </Text>
         ) : (
           <Timeline
@@ -116,9 +111,31 @@ const RoutineList = ({ data = [], setView }) => {
             }}
           />
         )}
-        <Button mode='contained' onPress={() => setView('activityType')}>
-          Add Task
-        </Button>
+        <View
+          style={{
+            flexDirection: 'row',
+            gap: 5,
+            justifyContent: 'center',
+            alignItems: 'center',
+            marginBottom: 8,
+          }}
+        >
+          <Button
+            icon='content-save'
+            mode='contained'
+            onPress={saveHandeler}
+            disabled={true}
+          >
+            Save
+          </Button>
+          <Button
+            icon='calendar-range'
+            mode='contained'
+            onPress={() => setView('activityType')}
+          >
+            Add Task
+          </Button>
+        </View>
         {!showOkayaPatientInfo ? (
           <ButtonFilled
             text='Register Patient to Okaya'
