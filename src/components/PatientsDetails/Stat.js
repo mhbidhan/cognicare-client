@@ -1,83 +1,243 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { StyleSheet, View, ScrollView, Dimensions, Text } from 'react-native';
-import { LineChart } from 'react-native-chart-kit';
+import {
+  BarChart,
+  ProgressChart,
+  PieChart,
+  LineChart,
+} from 'react-native-chart-kit';
 import globalStyles from './../../utils/globalStyle';
-import PatientModeChart from '../PatientCharts/PatientModeChart';
 import SahhaLogForm from '../SahhaLogForm/SahhaLogForm';
 import LottiePatientBackground from '../LottieBackgrounds/LottiePatientBackground';
+import { Button } from 'react-native-paper';
+import PatientModeChart from '../PatientCharts/PatientModeChart';
+import DatePicker from '../DatePicker/DatePicker';
+import moment from 'moment';
 
 function Stat({ patient, navigation }) {
+  const [startTime, setStartTime] = useState(new Date());
+  const [endTime, setEndTime] = useState(new Date());
+  const [bloodGlucose, setBloodGlucose] = useState({
+    // labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+    datasets: [
+      {
+        data: [20, 45, 28, 80, 99, 43],
+      },
+    ],
+    legend: ['Blood Glucose(mg/dL)'],
+  });
+  const [bloodPressure, setBloodPressure] = useState({
+    // labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+    datasets: [
+      {
+        data: [20, 45, 28, 80, 99, 43],
+      },
+    ],
+    legend: ['Blood Pressure(mmHg)'],
+  });
+  const [sleepLogs, setSleepLogs] = useState({
+    // labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+    datasets: [
+      {
+        data: [20, 45, 28, 80, 99, 43],
+      },
+    ],
+    legend: ['Sleep Logs(min)'],
+  });
+
+  const chartConfig = {
+    backgroundGradientFrom: '#f2f2f2',
+    backgroundGradientFromOpacity: 1,
+    backgroundGradientTo: '#e6e6e6',
+    backgroundGradientToOpacity: 1,
+    color: (opacity = 1) => `rgba(0, 77, 40, ${opacity})`,
+    decimalPlaces: 0,
+    strokeWidth: 2, // optional, default 3
+    barPercentage: 0.5,
+    useShadowColorFromDataset: false, // optional
+    style: {
+      borderRadius: 16,
+    },
+    // propsForDots: {
+    //   r: '6',
+    //   strokeWidth: '2',
+    //   stroke: '#ffa726',
+    // },
+  };
+
+  const handleChange = () => {
+    const firstDate = moment(startTime).format('MMM Do'); //new Date(startTime).toLocaleDateString();
+    const endDate = new Date(endTime).toLocaleDateString();
+    console.log('firstDate', firstDate);
+    console.log('endDate', endDate);
+    fetch(
+      `https://cognicare-projectcode.koyeb.app/sahha/blood/log/64577a4cb7a4f333e3dd6985?startDate=2023/05/01&endDate=2023/05/15`
+    )
+      .then((res) => res.json())
+      .then((res) => {
+        console.log(res);
+        const glucoseLabels = [];
+        const systolicLabels = [];
+        const diastolicLabels = [];
+        const GlucoseData = [];
+        const bloodPressureSystolic = [];
+        const bloodPressureDiastolic = [];
+        res.bloodLogs.map((item) => {
+          if (item.dataType === 'BloodPressureSystolic') {
+            systolicLabels.push(item.dataType);
+            bloodPressureSystolic.push(item.count);
+          } else if (item.dataType === 'BloodPressureDiastolic') {
+            diastolicLabels.push(item.dataType);
+            bloodPressureDiastolic.push(item.count);
+          } else if (item.dataType === 'BloodGlucose') {
+            glucoseLabels.push(item.dataType);
+            GlucoseData.push(item.count);
+          }
+        });
+        const tempBloodPressure = {
+          // labels,
+          datasets: [
+            { data: bloodPressureSystolic },
+            {
+              data: bloodPressureDiastolic,
+            },
+          ],
+          legend: ['Blood Pressure(mmHg)'],
+        };
+
+        const tempBloodGlucose = {
+          // labels,
+          datasets: [{ data: GlucoseData }],
+          legend: ['Blood Glucose(mg/dL)'],
+        };
+        setBloodPressure(tempBloodPressure);
+        setBloodGlucose(tempBloodGlucose);
+      })
+      .catch((error) => {
+        console.log('Error fetching', error);
+      });
+    fetch(
+      `https://cognicare-projectcode.koyeb.app/sahha/sleep/log/64577a4cb7a4f333e3dd6985?startDate=2023/05/01&endDate=2023/05/15`
+    )
+      .then((res) => res.json())
+      .then((res) => {
+        console.log(res);
+        // const labels = [];
+        // const data = [];
+        // res.sleepLogs.map((item) => {
+        //   if (item.dataType === 'BloodGlucose') {
+        //     labels.push(item.dataType);
+        //     data.push(item.durationInMinutes);
+        //   }
+        // });
+        // const tempData = {
+        //   // labels,
+        //   datasets: [{ data: data }],
+        //   legend: ['Blood Glucose(mg/dL)'],
+        // };
+        // setSleepLogs(tempData);
+      })
+      .catch((error) => {
+        console.log('Error fetching', error);
+      });
+  };
+
   return (
     <View style={{ flex: 1, position: 'relative' }}>
       <LottiePatientBackground />
       <View
         style={[globalStyles.container, { justifyContent: 'space-between' }]}
       >
+        <View
+          style={{
+            marginBottom: 5,
+          }}
+        >
+          <View
+            style={{
+              // flex: 1,
+              flexDirection: 'row',
+              gap: 3,
+              justifyContent: 'space-around',
+              marginBottom: 5,
+              // padding: 10,
+            }}
+          >
+            <DatePicker
+              label={'Start Time'}
+              onTimeChange={(time) => setStartTime(time)}
+            />
+            <DatePicker
+              label={'End Time'}
+              onTimeChange={(time) => setEndTime(time)}
+            />
+          </View>
+          <Button
+            icon='chart-bell-curve'
+            mode='contained'
+            onPress={handleChange}
+            style={{
+              // flex: 1,
+              borderRadius: 5,
+            }}
+          >
+            Set
+          </Button>
+        </View>
         <ScrollView
-          // style={styles.scrollView}
-          // contentContainerStyle={styles.contentContainer}
           contentContainerStyle={{
             justifyContent: 'center',
           }}
         >
-          <SahhaLogForm />
+          {/* <SahhaLogForm /> */}
           <PatientModeChart />
           <View
             style={{
-              marginBottom: 10,
-              // width: globalStyles.adjustedWidthFromDevice,
+              flex: 1,
             }}
           >
-            {/* <Text>Bezier Line Chart</Text> */}
             <LineChart
-              data={{
-                labels: [
-                  'January',
-                  'February',
-                  'March',
-                  'April',
-                  'May',
-                  'June',
-                ],
-                datasets: [
-                  {
-                    data: [
-                      Math.random() * 100,
-                      Math.random() * 100,
-                      Math.random() * 100,
-                      Math.random() * 100,
-                      Math.random() * 100,
-                      Math.random() * 100,
-                    ],
-                  },
-                ],
-              }}
+              data={bloodPressure}
               width={globalStyles.adjustedWidthFromDevice} // from react-native
-              // width='100%'
               height={220}
-              yAxisLabel='$'
-              yAxisSuffix='k'
-              yAxisInterval={1} // optional, defaults to 1
+              // yAxisLabel='$'
+              // yAxisSuffix='mg/dL'
+              // yAxisInterval={1} // optional, defaults to 1
               chartConfig={{
                 backgroundColor: '#e26a00',
                 backgroundGradientFrom: '#fb8c00',
                 backgroundGradientTo: '#ffa726',
-                decimalPlaces: 2, // optional, defaults to 2dp
+                decimalPlaces: 0, // optional, defaults to 2dp
                 color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
                 labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
                 style: {
-                  borderRadius: 16,
-                },
-                propsForDots: {
-                  r: '6',
-                  strokeWidth: '2',
-                  stroke: '#ffa726',
+                  // borderRadius: 16,
+                  paddingHorizontal: 10,
                 },
               }}
               bezier
               style={{
                 marginVertical: 8,
+                borderRadius: 16,
+                // paddingHorizontal: 10,
+              }}
+            />
+          </View>
+          <View
+            style={{
+              flex: 1,
+            }}
+          >
+            <LineChart
+              data={bloodGlucose}
+              width={globalStyles.adjustedWidthFromDevice}
+              height={220}
+              // yAxisLabel='$'
+              // yAxisSuffix='mmHg'
+              withVerticalLabels={true}
+              chartConfig={chartConfig}
+              style={{
                 borderRadius: 16,
               }}
             />
@@ -87,62 +247,5 @@ function Stat({ patient, navigation }) {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    padding: 10,
-    marginTop: 20,
-    justifyContent: 'center',
-    alignItems: 'center',
-    shadowColor: globalStyles.colors.primary,
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.1,
-    shadowRadius: 3.84,
-    elevation: 3,
-  },
-  scrollView: {
-    height: '70%',
-    width: '100%',
-    // margin: 20,
-    alignSelf: 'center',
-    // padding: 20,
-    // borderWidth: 5,
-    // borderRadius: 5,
-    // borderColor: 'black',
-    backgroundColor: 'red',
-  },
-  contentContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'green',
-    paddingBottom: 50,
-  },
-  name: {
-    fontSize: 30,
-    fontWeight: 'bold',
-  },
-  image: {
-    width: 100,
-    height: 100,
-    borderRadius: 80,
-  },
-  modalParentView: {
-    position: 'relative',
-  },
-  modal: {
-    flex: 1,
-    padding: 10,
-    backgroundColor: globalStyles.colors.primaryLight,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 10,
-  },
-  modalButtonView: {
-    marginTop: 30,
-  },
-});
 
 export default Stat;
