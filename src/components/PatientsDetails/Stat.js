@@ -18,8 +18,20 @@ import moment from 'moment';
 function Stat({ patient, navigation }) {
   const [startTime, setStartTime] = useState(new Date());
   const [endTime, setEndTime] = useState(new Date());
-  const [bloodGlucose, setBloodGlucose] = useState({
+  const [bloodPressure, setBloodPressure] = useState({
     // labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+    datasets: [
+      {
+        data: [20, 45, 28, 80, 99, 43],
+      },
+      {
+        data: [47, 40, 88, 70, 79, 90],
+      },
+    ],
+    legend: ['Blood Pressure(mmHg)'],
+  });
+  const [bloodGlucose, setBloodGlucose] = useState({
+    labels: ['3rd', '8th', '13th', '17th', '22th', '27th'],
     datasets: [
       {
         data: [20, 45, 28, 80, 99, 43],
@@ -27,20 +39,12 @@ function Stat({ patient, navigation }) {
     ],
     legend: ['Blood Glucose(mg/dL)'],
   });
-  const [bloodPressure, setBloodPressure] = useState({
-    // labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-    datasets: [
-      {
-        data: [20, 45, 28, 80, 99, 43],
-      },
-    ],
-    legend: ['Blood Pressure(mmHg)'],
-  });
+
   const [sleepLogs, setSleepLogs] = useState({
-    // labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+    labels: ['1st', '2nd', '3rd', '4th', '5th', '6th'],
     datasets: [
       {
-        data: [20, 45, 28, 80, 99, 43],
+        data: [250, 450, 280, 380, 299, 443],
       },
     ],
     legend: ['Sleep Logs(min)'],
@@ -67,9 +71,9 @@ function Stat({ patient, navigation }) {
   };
 
   const handleChange = () => {
-    const firstDate = moment(startTime).format('MMM Do'); //new Date(startTime).toLocaleDateString();
+    const firstDate = moment('2023-05-12T07:00:00+06:00').format('MMM D'); //new Date(startTime).toLocaleDateString();
     const endDate = new Date(endTime).toLocaleDateString();
-    console.log('firstDate', firstDate);
+    console.log('firstDate', typeof firstDate, firstDate);
     console.log('endDate', endDate);
     fetch(
       `https://cognicare-projectcode.koyeb.app/sahha/blood/log/64577a4cb7a4f333e3dd6985?startDate=2023/05/01&endDate=2023/05/15`
@@ -91,7 +95,7 @@ function Stat({ patient, navigation }) {
             diastolicLabels.push(item.dataType);
             bloodPressureDiastolic.push(item.count);
           } else if (item.dataType === 'BloodGlucose') {
-            glucoseLabels.push(item.dataType);
+            glucoseLabels.push(moment(item.startDateTime).format('Do'));
             GlucoseData.push(item.count);
           }
         });
@@ -107,7 +111,7 @@ function Stat({ patient, navigation }) {
         };
 
         const tempBloodGlucose = {
-          // labels,
+          labels: glucoseLabels,
           datasets: [{ data: GlucoseData }],
           legend: ['Blood Glucose(mg/dL)'],
         };
@@ -123,20 +127,18 @@ function Stat({ patient, navigation }) {
       .then((res) => res.json())
       .then((res) => {
         console.log(res);
-        // const labels = [];
-        // const data = [];
-        // res.sleepLogs.map((item) => {
-        //   if (item.dataType === 'BloodGlucose') {
-        //     labels.push(item.dataType);
-        //     data.push(item.durationInMinutes);
-        //   }
-        // });
-        // const tempData = {
-        //   // labels,
-        //   datasets: [{ data: data }],
-        //   legend: ['Blood Glucose(mg/dL)'],
-        // };
-        // setSleepLogs(tempData);
+        const labels = [];
+        const data = [];
+        res.sleepLogs.map((item) => {
+          labels.push(moment(item.startDateTime).format('Do'));
+          data.push(item.durationInMinutes);
+        });
+        const tempData = {
+          labels,
+          datasets: [{ data: data }],
+          legend: ['Sleep Logs'],
+        };
+        setSleepLogs(tempData);
       })
       .catch((error) => {
         console.log('Error fetching', error);
@@ -195,12 +197,15 @@ function Stat({ patient, navigation }) {
           <View
             style={{
               flex: 1,
+              marginTop: 8,
             }}
           >
             <LineChart
               data={bloodPressure}
               width={globalStyles.adjustedWidthFromDevice} // from react-native
-              height={220}
+              height={250}
+              horizontalLabelRotation={45}
+              verticalLabelRotation={30}
               // yAxisLabel='$'
               // yAxisSuffix='mg/dL'
               // yAxisInterval={1} // optional, defaults to 1
@@ -218,7 +223,7 @@ function Stat({ patient, navigation }) {
               }}
               bezier
               style={{
-                marginVertical: 8,
+                // marginVertical: 8,
                 borderRadius: 16,
                 // paddingHorizontal: 10,
               }}
@@ -227,15 +232,41 @@ function Stat({ patient, navigation }) {
           <View
             style={{
               flex: 1,
+              marginTop: 8,
             }}
           >
             <LineChart
               data={bloodGlucose}
               width={globalStyles.adjustedWidthFromDevice}
-              height={220}
+              height={250}
+              horizontalLabelRotation={45}
+              verticalLabelRotation={30}
               // yAxisLabel='$'
               // yAxisSuffix='mmHg'
               withVerticalLabels={true}
+              chartConfig={chartConfig}
+              style={{
+                borderRadius: 16,
+              }}
+            />
+          </View>
+          <View
+            style={{
+              flex: 1,
+              marginTop: 8,
+            }}
+          >
+            <LineChart
+              data={sleepLogs}
+              width={globalStyles.adjustedWidthFromDevice}
+              height={250}
+              horizontalLabelRotation={45}
+              verticalLabelRotation={30}
+              // yAxisLabel='$'
+              // yAxisSuffix='mmHg'
+              withVerticalLabels={true}
+              fromZero={true}
+              bezier
               chartConfig={chartConfig}
               style={{
                 borderRadius: 16,
