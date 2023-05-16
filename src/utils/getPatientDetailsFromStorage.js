@@ -9,8 +9,20 @@ const getPatientDetailsFromStorage = async () => {
     const patientId = currentPatientToken._id;
     const okayaPass = currentPatientToken.okayaPass;
     const patientEmail = currentPatientToken.email;
+    const patientRelationshipStatus = currentPatientToken.relationship;
+    const patientGender = currentPatientToken.gender;
+    const patientImage = currentPatientToken.imgUrl;
     const emergencyPhone = currentPatientToken.emergencyContact.phone;
-    return { patientName, patientId, okayaPass, patientEmail, emergencyPhone };
+    return {
+      patientName,
+      patientId,
+      okayaPass,
+      patientEmail,
+      emergencyPhone,
+      patientRelationshipStatus,
+      patientGender,
+      patientImage,
+    };
   } catch (error) {
     console.log(error);
   }

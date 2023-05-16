@@ -1,13 +1,28 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Avatar, Text, Button } from 'react-native-paper';
 
 import LogoutPatient from '../../components/Logout/Logout.Patient';
 import globalStyles from '../../utils/globalStyle';
 import LottiePatientBackground from '../../components/LottieBackgrounds/LottiePatientBackground';
+import getPatientDetailsFromStorage from '../../utils/getPatientDetailsFromStorage';
 
 const PatientProfileScreen = ({ route }) => {
   const { isPatientState, isNoUserState, isCareTakerState } = route.params;
+  const [patientDetails, setPatientDetails] = useState(null);
+
+  useEffect(() => {
+    const getDetails = async () => {
+      try {
+        const patientDetailsFromStorage = await getPatientDetailsFromStorage();
+        console.log(patientDetailsFromStorage);
+        setPatientDetails(patientDetailsFromStorage);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getDetails();
+  }, []);
 
   const logout = () => {
     isPatientState(false);
@@ -31,53 +46,55 @@ const PatientProfileScreen = ({ route }) => {
       ></ImageBackground> */}
       <LottiePatientBackground />
       <View style={[globalStyles.container, { opacity: 1, gap: 40 }]}>
-        <View style={{ alignItems: 'center', marginVertical: 20, gap: 30 }}>
-          <Avatar.Image
-            size={200}
-            source={{
-              uri: 'https://res.cloudinary.com/dimsduru1/image/upload/v1684038187/cognicare/zqdtvs0lml0vqfwxpnfm.jpg',
-            }}
-          />
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'flex-start',
-              gap: 30,
-            }}
-          >
-            <View>
-              <Text
-                variant='bodyLarge'
-                style={{ color: 'white', fontWeight: 'bold' }}
-              >
-                Name
-              </Text>
-              <Text
-                variant='bodyLarge'
-                style={{ color: 'white', fontWeight: 'bold' }}
-              >
-                Relationship Status
-              </Text>
-              <Text
-                variant='bodyLarge'
-                style={{ color: 'white', fontWeight: 'bold' }}
-              >
-                Gender
-              </Text>
-            </View>
-            <View>
-              <Text variant='bodyLarge' style={{ color: 'white' }}>
-                : Mubtasim Shahriar
-              </Text>
-              <Text variant='bodyLarge' style={{ color: 'white' }}>
-                : Single
-              </Text>
-              <Text variant='bodyLarge' style={{ color: 'white' }}>
-                : Male
-              </Text>
+        {patientDetails && (
+          <View style={{ alignItems: 'center', marginVertical: 20, gap: 30 }}>
+            <Avatar.Image
+              size={200}
+              source={{
+                uri: patientDetails.patientImage,
+              }}
+            />
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'flex-start',
+                gap: 30,
+              }}
+            >
+              <View>
+                <Text
+                  variant='bodyLarge'
+                  style={{ color: 'white', fontWeight: 'bold' }}
+                >
+                  Name
+                </Text>
+                <Text
+                  variant='bodyLarge'
+                  style={{ color: 'white', fontWeight: 'bold' }}
+                >
+                  Relationship Status
+                </Text>
+                <Text
+                  variant='bodyLarge'
+                  style={{ color: 'white', fontWeight: 'bold' }}
+                >
+                  Gender
+                </Text>
+              </View>
+              <View>
+                <Text variant='bodyLarge' style={{ color: 'white' }}>
+                  : {patientDetails.patientName}
+                </Text>
+                <Text variant='bodyLarge' style={{ color: 'white' }}>
+                  : {patientDetails.patientRelationshipStatus}
+                </Text>
+                <Text variant='bodyLarge' style={{ color: 'white' }}>
+                  : {patientDetails.patientGender}
+                </Text>
+              </View>
             </View>
           </View>
-        </View>
+        )}
         {/* <LogoutPatient
           isPatientState={isPatientState}
           isNoUserState={isNoUserState}
