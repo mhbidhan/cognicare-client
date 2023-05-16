@@ -190,7 +190,7 @@ function Stat({ patient, navigation }) {
             justifyContent: 'center',
           }}
         >
-          {/* <SahhaLogForm /> */}
+          <SahhaLogForm />
           <PatientModeChart />
           <View
             style={{
