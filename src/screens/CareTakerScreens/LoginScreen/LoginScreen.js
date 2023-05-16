@@ -31,7 +31,8 @@ export default function LoginScreen({ navigation, route }) {
         email,
         password,
       };
-      login(data);
+      const myData = await login(data);
+      console.log('myData', myData);
       // console.log(rtkdata);
       // await AsyncStorage.setItem('caretakerToken', 'Hello');
       // isPatientState(false);
@@ -80,15 +81,7 @@ export default function LoginScreen({ navigation, route }) {
         imageAssetsFolder='lottie/welcomeScreen/images'
         resizeMode='cover'
       />
-      <View
-        style={{
-          position: 'absolute',
-          zIndex: 3,
-          top: 50,
-          right: 30,
-          alignItems: 'center',
-        }}
-      >
+      <View style={styles.container}>
         <TextInput
           style={styles.input}
           value={email}

@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { Text, View, StyleSheet, Button, ImageBackground } from 'react-native';
+import { Text, View, StyleSheet, ImageBackground } from 'react-native';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import globalStyles from '../../utils/globalStyle';
 import { usePatientLoginQuery } from '../../features/patient/patientApi';
 import { useDispatch, useSelector } from 'react-redux';
-import { setPatient } from '../../features/patient/patientSlice';
 import ButtonFilled from '../../components/common/buttons/ButtonFilled';
 import nightWallpaper from '../../assets/nightWallpaper.png';
-import { storeData, getData } from '../../localStorage';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { SERVER_URL } from '../../config';
 
 const SignInScreen = ({ navigation, route }) => {
   const [hasPermission, setHasPermission] = useState(null);
@@ -49,9 +48,9 @@ const SignInScreen = ({ navigation, route }) => {
     //   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDVmMmM2ZDgxNDI3MDhiMDdmMGM2NDgiLCJpYXQiOjE2ODM5NTg4OTN9.7LW7TjxDKc78tff9QqcRLsWQJQEhwmwObbFMuSjHxyM';
     const token = data;
     console.log(data);
-    const ngRokUrl = 'https://9a9b-113-11-37-34.ngrok-free.app';
-    const patientId = '64577a4cb7a4f333e3dd6985';
-    fetch(`${ngRokUrl}/patients/own`, {
+    // const ngRokUrl = 'https://cognicare-projectcode.koyeb.app';
+    // const patientId = '64577a4cb7a4f333e3dd6985';
+    fetch(`${SERVER_URL}/patients/own`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

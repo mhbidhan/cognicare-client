@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { StyleSheet, View, ScrollView, Dimensions, Text } from 'react-native';
 import {
@@ -7,13 +7,12 @@ import {
   PieChart,
   LineChart,
 } from 'react-native-chart-kit';
+import globalStyles from './../../utils/globalStyle';
+import SahhaLogForm from '../SahhaLogForm/SahhaLogForm';
+import LottiePatientBackground from '../LottieBackgrounds/LottiePatientBackground';
 import { Button } from 'react-native-paper';
-// import globalStyles from './../../utils/globalStyle';
-// import HeroSection from './HeroSection';
 import PatientModeChart from '../PatientCharts/PatientModeChart';
 import DatePicker from '../DatePicker/DatePicker';
-// import { useGetBloodLogsQuery } from './../../features/caretaker/caretakerApi';
-// import { getData } from './../../localStorage';
 import moment from 'moment';
 
 function Stat({ patient, navigation }) {
@@ -46,17 +45,6 @@ function Stat({ patient, navigation }) {
     ],
     legend: ['Sleep Logs(min)'],
   });
-
-  const screenWidth = Dimensions.get('window').width;
-
-  const data1 = {
-    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-    datasets: [
-      {
-        data: [20, 45, 28, 80, 99, 43],
-      },
-    ],
-  };
 
   const chartConfig = {
     backgroundGradientFrom: '#f2f2f2',
@@ -154,132 +142,199 @@ function Stat({ patient, navigation }) {
         console.log('Error fetching', error);
       });
   };
-  // console.log(bloodGlucose);
 
   return (
-    <View style={styles.container}>
-      {/* <HeroSection thisPatient={thisPatient} /> */}
+    <View style={{ flex: 1, position: 'relative' }}>
+      <LottiePatientBackground />
       <View
-        style={{
-          flex: 1,
-          flexDirection: 'column',
-          gap: 5,
-          zIndex: 3,
-          paddingHorizontal: 10,
-          marginTop: 5,
-        }}
+        style={[globalStyles.container, { justifyContent: 'space-between' }]}
       >
         <View
-          style={{
-            // flex: 1,
-            flexDirection: 'row',
-            gap: 3,
-            justifyContent: 'space-around',
-            marginBottom: 5,
-            // padding: 10,
-          }}
-        >
-          <DatePicker
-            label={'Start Time'}
-            onTimeChange={(time) => setStartTime(time)}
-          />
-          <DatePicker
-            label={'End Time'}
-            onTimeChange={(time) => setEndTime(time)}
-          />
-        </View>
-        <Button
-          icon='chart-bell-curve'
-          mode='contained'
-          onPress={handleChange}
-          style={{
-            // flex: 1,
-            borderRadius: 5,
-          }}
-        >
-          Set
-        </Button>
-      </View>
-      <ScrollView style={{ height: 400 }}>
-        <PatientModeChart />
-        <View
-          style={{
-            flex: 1,
-          }}
-        >
-          {/* <Text>Blood logs</Text> */}
-          <LineChart
-            data={bloodPressure}
-            width={Dimensions.get('window').width} // from react-native
-            height={220}
-            // yAxisLabel='$'
-            // yAxisSuffix='mg/dL'
-            // yAxisInterval={1} // optional, defaults to 1
-            chartConfig={{
-              backgroundColor: '#e26a00',
-              backgroundGradientFrom: '#fb8c00',
-              backgroundGradientTo: '#ffa726',
-              decimalPlaces: 0, // optional, defaults to 2dp
-              color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-              labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-              style: {
-                // borderRadius: 16,
-                paddingHorizontal: 10,
-              },
-            }}
-            bezier
-            style={{
-              marginVertical: 8,
-              borderRadius: 16,
+          style={
+            {
+              // flex: 1,
+              // flexDirection: 'column',
+              // gap: 5,
+              // zIndex: 3,
               // paddingHorizontal: 10,
+              // marginTop: 5,
+            }
+          }
+        >
+          <View
+            style={{
+              // flex: 1,
+              flexDirection: 'row',
+              gap: 3,
+              justifyContent: 'space-around',
+              marginBottom: 5,
+              // padding: 10,
             }}
-          />
+          >
+            <DatePicker
+              label={'Start Time'}
+              onTimeChange={(time) => setStartTime(time)}
+            />
+            <DatePicker
+              label={'End Time'}
+              onTimeChange={(time) => setEndTime(time)}
+            />
+          </View>
+          <Button
+            icon='chart-bell-curve'
+            mode='contained'
+            onPress={handleChange}
+            style={{
+              // flex: 1,
+              borderRadius: 5,
+            }}
+          >
+            Set
+          </Button>
         </View>
-        <View
-          style={{
-            flex: 1,
+        <ScrollView
+          contentContainerStyle={{
+            justifyContent: 'center',
           }}
         >
-          <LineChart
-            data={bloodGlucose}
-            width={screenWidth}
-            height={220}
-            // yAxisLabel='$'
-            // yAxisSuffix='mmHg'
-            withVerticalLabels={true}
-            chartConfig={chartConfig}
+          {/* <SahhaLogForm /> */}
+          <PatientModeChart />
+          <View
             style={{
-              borderRadius: 16,
+              flex: 1,
             }}
-          />
-        </View>
-      </ScrollView>
+          >
+            {/* <Text>Blood logs</Text> */}
+            <LineChart
+              data={bloodPressure}
+              width={globalStyles.adjustedWidthFromDevice} // from react-native
+              height={220}
+              // yAxisLabel='$'
+              // yAxisSuffix='mg/dL'
+              // yAxisInterval={1} // optional, defaults to 1
+              chartConfig={{
+                backgroundColor: '#e26a00',
+                backgroundGradientFrom: '#fb8c00',
+                backgroundGradientTo: '#ffa726',
+                decimalPlaces: 0, // optional, defaults to 2dp
+                color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+                labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+                style: {
+                  // borderRadius: 16,
+                  paddingHorizontal: 10,
+                },
+              }}
+              bezier
+              style={{
+                marginVertical: 8,
+                borderRadius: 16,
+                // paddingHorizontal: 10,
+              }}
+            />
+          </View>
+          <View
+            style={{
+              flex: 1,
+            }}
+          >
+            <LineChart
+              data={bloodGlucose}
+              width={globalStyles.adjustedWidthFromDevice}
+              height={220}
+              // yAxisLabel='$'
+              // yAxisSuffix='mmHg'
+              withVerticalLabels={true}
+              chartConfig={chartConfig}
+              style={{
+                borderRadius: 16,
+              }}
+            />
+          </View>
+        </ScrollView>
+      </View>
     </View>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: 'column',
-    // gap: 2,
-    // padding: 20,
-    // marginTop: 20,
-    // justifyContent: 'center',
-    // alignItems: 'center',
-    // borderRadius: 10,
-    // borderWidth: 1,
-    // borderStyle: 'solid',
-    // borderColor: globalStyles.colors.primary,
-    // shadowColor: globalStyles.colors.primary,
-    // shadowOffset: {
-    //   width: 0,
-    //   height: 2,
-    // },
-    // shadowOpacity: 0.1,
-    // shadowRadius: 3.84,
-    // elevation: 3,
-  },
-});
+// function Stat({ patient, navigation }) {
+//   return (
+//     <View style={{ flex: 1, position: 'relative' }}>
+//       <LottiePatientBackground />
+//       <View
+//         style={[globalStyles.container, { justifyContent: 'space-between' }]}
+//       >
+//         <ScrollView
+//           // style={styles.scrollView}
+//           // contentContainerStyle={styles.contentContainer}
+//           contentContainerStyle={{
+//             justifyContent: 'center',
+//           }}
+//         >
+//           <SahhaLogForm />
+//           <PatientModeChart />
+//           <View
+//             style={{
+//               marginBottom: 10,
+//               // width: globalStyles.adjustedWidthFromDevice,
+//             }}
+//           >
+//             {/* <Text>Bezier Line Chart</Text> */}
+//             <LineChart
+//               data={{
+//                 labels: [
+//                   'January',
+//                   'February',
+//                   'March',
+//                   'April',
+//                   'May',
+//                   'June',
+//                 ],
+//                 datasets: [
+//                   {
+//                     data: [
+//                       Math.random() * 100,
+//                       Math.random() * 100,
+//                       Math.random() * 100,
+//                       Math.random() * 100,
+//                       Math.random() * 100,
+//                       Math.random() * 100,
+//                     ],
+//                   },
+//                 ],
+//               }}
+//               width={globalStyles.adjustedWidthFromDevice} // from react-native
+//               // width='100%'
+//               height={220}
+//               yAxisLabel='$'
+//               yAxisSuffix='k'
+//               yAxisInterval={1} // optional, defaults to 1
+//               chartConfig={{
+//                 backgroundColor: '#e26a00',
+//                 backgroundGradientFrom: '#fb8c00',
+//                 backgroundGradientTo: '#ffa726',
+//                 decimalPlaces: 2, // optional, defaults to 2dp
+//                 color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+//                 labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+//                 style: {
+//                   borderRadius: 16,
+//                 },
+//                 propsForDots: {
+//                   r: '6',
+//                   strokeWidth: '2',
+//                   stroke: '#ffa726',
+//                 },
+//               }}
+//               bezier
+//               style={{
+//                 marginVertical: 8,
+//                 borderRadius: 16,
+//               }}
+//             />
+//           </View>
+//         </ScrollView>
+//       </View>
+//     </View>
+//   );
+// }
 
 export default Stat;
