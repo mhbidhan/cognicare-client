@@ -161,6 +161,7 @@ const GenaralActivityForm = ({ currentActivity, setView, setFormData }) => {
         };
       }
     });
+
     setView('');
   };
   useEffect(() => {

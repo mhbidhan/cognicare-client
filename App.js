@@ -137,7 +137,7 @@ const App = () => {
           )}
           {isCareTaker && (
             <Drawer.Navigator
-              initialRouteName='Patient_List'
+              initialRouteName='Add-Routine'
               defaultStatus='closed'
             >
               <Drawer.Screen
