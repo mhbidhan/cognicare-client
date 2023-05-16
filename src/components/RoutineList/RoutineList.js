@@ -74,7 +74,7 @@ const RoutineList = ({ data = [], setView }) => {
   };
 
   return (
-    <View style={{ flex: 1, position: 'relative' }}>
+    <View style={{ position: 'relative' }}>
       <ImageBackground
         source={nightWallpaper}
         resizeMode='cover'

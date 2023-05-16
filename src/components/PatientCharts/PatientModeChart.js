@@ -1,4 +1,4 @@
-import { StyleSheet, View, Dimensions } from 'react-native';
+import { StyleSheet, View, Dimensions, Text } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { BarChart } from 'react-native-chart-kit';
 
@@ -64,18 +64,19 @@ const PatientModeChart = () => {
   }, []);
 
   return (
-    <View style={{ marginBottom: 10 }}>
+    <View style={{ flex: 1, marginBottom: 10 }}>
+      <Text>Mode chart</Text>
       {patientModeData && (
         <BarChart
           data={patientModeData}
-          width={Dimensions.get('window').width - 5}
+          width={Dimensions.get('window').width}
           height={220}
           chartConfig={chartConfig}
           verticalLabelRotation={0}
           fromZero={true}
           showBarTops={false}
           style={{
-            borderRadius: 7,
+            borderRadius: 16,
           }}
         />
       )}

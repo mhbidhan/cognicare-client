@@ -59,6 +59,12 @@ export const caretakerApi = apiSlice.injectEndpoints({
         body: data.body,
       }),
     }),
+    getBloodLogs: builder.query({
+      query: (data) => ({
+        url: `/sahha/blood/log/${data.id}/?startDate=${data.startDate}&endDate=${data.endDate}`,
+        method: 'GET',
+      }),
+    }),
   }),
 });
 
@@ -66,4 +72,5 @@ export const {
   useCaretakerRegistrationMutation,
   useLoginMutation,
   usePushNotificationMutation,
+  useGetBloodLogsQuery,
 } = caretakerApi;
