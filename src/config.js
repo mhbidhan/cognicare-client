@@ -1,6 +1,6 @@
 module.exports = {
   // SERVER_URL: 'https://cognicare-projectcode.koyeb.app',
-  SERVER_URL: 'https://6e20-113-11-37-34.in.ngrok.io',
+  SERVER_URL: 'https://620a-113-11-37-34.ap.ngrok.io',
   VONAGE_SMS_API_KEY: process.env.VONAGE_SMS_API_KEY,
   VONAGE_SMS_API_SECRET: process.env.VONAGE_SMS_API_SECRET,
   VONAGE_SMS_API_OUR_NUMBER: process.env.VONAGE_SMS_API_OUR_NUMBER,
