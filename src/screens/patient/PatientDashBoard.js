@@ -11,6 +11,9 @@ import Exercise from '../../assets/cognicare-assets/exercise/exercise-autumn-svg
 import ProgressCircle from 'react-native-progress-circle';
 import PatientName from '../../components/PatientName/PatientName';
 import LottiePatientBackground from '../../components/LottieBackgrounds/LottiePatientBackground';
+import getPatientDetailsFromStorage from '../../utils/getPatientDetailsFromStorage';
+import getPatientRoutine from '../../utils/getPatientRoutine';
+import PatientRoutineCarousel from '../../components/PatientRoutineCarousel/PatientRoutineCarousel';
 
 const PatientDashBoard = ({ route }) => {
   const [patientToken, setPatientToken] = useState('');
@@ -18,7 +21,6 @@ const PatientDashBoard = ({ route }) => {
     const showToken = async () => {
       try {
         const currentPatientToken = await AsyncStorage.getItem('patientToken');
-        console.log(currentPatientToken);
         setPatientToken(currentPatientToken);
       } catch (error) {
         console.log(error);
@@ -28,17 +30,6 @@ const PatientDashBoard = ({ route }) => {
   }, []);
 
   const { isPatientState, isNoUserState, isCareTakerState } = route.params;
-
-  const logout = async () => {
-    try {
-      await AsyncStorage.setItem('patientToken', '');
-      isPatientState(false);
-      isCareTakerState(false);
-      isNoUserState(true);
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   const items = [
     {
@@ -123,19 +114,7 @@ const PatientDashBoard = ({ route }) => {
           </Text>
         </View>
         <View style={styles.trackBackground}>
-          <Text style={[styles.subtitle, { paddingBottom: 5 }]}>
-            Next tasks
-          </Text>
-          <Carousel
-            data={items}
-            renderItem={renderItem}
-            sliderWidth={Math.round(Dimensions.get('window').width * 0.88)}
-            itemWidth={270}
-            loop={false}
-            activeSlideAlignment='start'
-            containerCustomStyle={{}}
-            inactiveSlideScale={1}
-          />
+          <PatientRoutineCarousel />
         </View>
         <View
           style={[
