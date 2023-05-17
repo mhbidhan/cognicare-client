@@ -13,6 +13,7 @@ const getPatientDetailsFromStorage = async () => {
     const patientGender = currentPatientToken.gender;
     const patientImage = currentPatientToken.imgUrl;
     const emergencyPhone = currentPatientToken.emergencyContact.phone;
+    const patientLoginCode = currentPatientToken.loginCode;
     return {
       patientName,
       patientId,
@@ -22,6 +23,7 @@ const getPatientDetailsFromStorage = async () => {
       patientRelationshipStatus,
       patientGender,
       patientImage,
+      patientLoginCode,
     };
   } catch (error) {
     console.log(error);

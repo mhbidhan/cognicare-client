@@ -1,10 +1,6 @@
-import {
-  ImageBackground,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import { ImageBackground, ScrollView, StyleSheet, View } from 'react-native';
+import { Text, IconButton, MD3Colors, Button } from 'react-native-paper';
+
 import React, { useEffect, useState } from 'react';
 import nightWallpaper from '../../assets/nightWallpaper.png';
 import globalStyles from '../../utils/globalStyle';
@@ -17,16 +13,17 @@ import getPatientContacts from '../../utils/getPatientContacts';
 const PatientContactScreen = () => {
   const [contacts, setContacts] = useState(null);
 
+  const getContacts = async () => {
+    try {
+      const patientContatcts = await getPatientContacts();
+      console.log('patientContacts', patientContatcts);
+      setContacts(patientContatcts);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
-    const getContacts = async () => {
-      try {
-        const patientContatcts = await getPatientContacts();
-        // console.log('patientContacts', patientContatcts);
-        setContacts(patientContatcts);
-      } catch (error) {
-        console.log(error);
-      }
-    };
     getContacts();
   }, []);
 
@@ -47,12 +44,23 @@ const PatientContactScreen = () => {
       <LottiePatientBackground />
       <View style={[globalStyles.container, { gap: 30 }]}>
         <VideoMeeting />
-        <ScrollView contentContainerStyle={{ gap: 20 }}>
-          {/* <View style={styles.contactRow}>
-            <PatientContactCard />
-            <PatientContactCard />
-          </View> */}
+        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 20 }}>
+          <Text variant='headlineMedium' style={{ color: 'white' }}>
+            Contacts
+          </Text>
+          {!contacts && (
+            <Button
+              icon='download'
+              onPress={getContacts}
+              mode='contained'
+              dark={true}
+            >
+              Reload
+            </Button>
+          )}
+        </View>
 
+        <ScrollView contentContainerStyle={{ gap: 20 }}>
           {contacts &&
             contacts.map((contact, idx) => {
               if (idx % 2 === 1) return null;
