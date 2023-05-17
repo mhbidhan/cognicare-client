@@ -8,7 +8,7 @@ import { sendSMS } from '../../screens/patient/SendSmsScreen';
 import getPatientDetailsFromStorage from '../../utils/getPatientDetailsFromStorage';
 import showToast from '../Toast/showToast';
 
-const VideoMeetingIcon = () => {
+const VideoMeetingIcon = ({ phoneNumber }) => {
   const [hostUrl, setHostUrl] = useState();
   const [guestUrl, setGuestUrl] = useState();
 
@@ -22,7 +22,7 @@ const VideoMeetingIcon = () => {
       }
 
       const patientdata = await getPatientDetailsFromStorage();
-      const { patientName, emergencyPhone } = patientdata;
+      const { patientName } = patientdata;
 
       console.log(data);
       setHostUrl(data._links.host_url.href);
@@ -30,7 +30,7 @@ const VideoMeetingIcon = () => {
       console.log(data._links.host_url.href);
       console.log(data._links.guest_url.href);
       const response = await sendSMS(
-        emergencyPhone, // phone number should be in this format '8801827600970' (inlcuding the country code). Otherwise message will not work,
+        phoneNumber, // phone number should be in this format '8801827600970' (inlcuding the country code). Otherwise message will not work,
         `CogniCare: ${patientName} wants to have a video call with you. Please join here- ${data._links.guest_url.href}`
       );
       console.log('response', response);

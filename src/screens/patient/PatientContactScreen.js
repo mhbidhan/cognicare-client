@@ -21,7 +21,8 @@ const PatientContactScreen = () => {
     const getContacts = async () => {
       try {
         const patientContatcts = await getPatientContacts();
-        console.log('patientContacts', patientContatcts);
+        // console.log('patientContacts', patientContatcts);
+        setContacts(patientContatcts);
       } catch (error) {
         console.log(error);
       }
@@ -47,7 +48,30 @@ const PatientContactScreen = () => {
       <View style={[globalStyles.container, { gap: 30 }]}>
         <VideoMeeting />
         <ScrollView contentContainerStyle={{ gap: 20 }}>
-          <View style={styles.contactRow}>
+          {/* <View style={styles.contactRow}>
+            <PatientContactCard />
+            <PatientContactCard />
+          </View> */}
+
+          {contacts &&
+            contacts.map((contact, idx) => {
+              if (idx % 2 === 1) return null;
+              if (idx === contacts.length - 1) {
+                return (
+                  <View style={styles.contactRow} key={idx}>
+                    <PatientContactCard contact={contact} />
+                  </View>
+                );
+              }
+              return (
+                <View style={styles.contactRow} key={idx}>
+                  <PatientContactCard contact={contact} />
+                  <PatientContactCard contact={contacts[idx + 1]} />
+                </View>
+              );
+            })}
+
+          {/* <View style={styles.contactRow}>
             <PatientContactCard />
             <PatientContactCard />
           </View>
@@ -66,11 +90,7 @@ const PatientContactScreen = () => {
           <View style={styles.contactRow}>
             <PatientContactCard />
             <PatientContactCard />
-          </View>
-          <View style={styles.contactRow}>
-            <PatientContactCard />
-            <PatientContactCard />
-          </View>
+          </View> */}
         </ScrollView>
       </View>
     </View>
