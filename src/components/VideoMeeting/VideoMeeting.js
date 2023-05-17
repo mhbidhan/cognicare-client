@@ -19,7 +19,6 @@ const VideoMeeting = () => {
       console.log(data);
       setHostUrl(data._links.host_url.href);
       setGuestUrl(data._links.guest_url.href);
-      setIsVisible(true);
       console.log(data._links.host_url.href);
       console.log(data._links.guest_url.href);
       const response = await sendSMS(
@@ -37,13 +36,12 @@ const VideoMeeting = () => {
   }
 
   const onClose = () => {
-    setIsVisible(false);
     setHostUrl(false);
     setGuestUrl(false);
   };
 
   return (
-    <View style={{ flex: 1 }}>
+    <View>
       {hostUrl ? (
         <View style={{ flex: 1 }}>
           <ButtonFilled
