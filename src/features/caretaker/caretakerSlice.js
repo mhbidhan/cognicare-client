@@ -4,6 +4,7 @@ const initialState = {
   caretakerToken: '',
   thisPatient: {},
   patientList: [],
+  patientRoutine: [],
 };
 
 const caretakerSlice = createSlice({
@@ -19,9 +20,16 @@ const caretakerSlice = createSlice({
     setThisPatient: (state, action) => {
       state.thisPatient = action.payload.thisPatient;
     },
+    setThisPatientRoutine: (state, action) => {
+      state.patientRoutine = action.payload.patientRoutine;
+    },
   },
 });
 
-export const { setCaretakerToken, setPatientList, setThisPatient } =
-  caretakerSlice.actions;
+export const {
+  setCaretakerToken,
+  setPatientList,
+  setThisPatient,
+  setThisPatientRoutine,
+} = caretakerSlice.actions;
 export default caretakerSlice.reducer;
