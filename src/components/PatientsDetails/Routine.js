@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import Timeline from 'react-native-timeline-flatlist';
 import globalStyles from './../../utils/globalStyle';
 import ButtonFilled from './../common/buttons/ButtonFilled';
+import LottiePatientBackground from '../LottieBackgrounds/LottiePatientBackground';
 
 const styles = StyleSheet.create({
   container: {
@@ -14,7 +15,8 @@ const styles = StyleSheet.create({
   },
   list: {
     // flex: 1,
-    marginTop: 10,
+    // marginTop: 20,
+    paddingTop: 10,
   },
 });
 
@@ -50,34 +52,35 @@ const data = [
 ];
 
 const Routine = ({ navigation }) => {
-  const patientData = useSelector((state) => state.patient.patientData);
+  const { patientRoutine } = useSelector((state) => state.caretaker);
+  console.log('routine-page', patientRoutine);
 
   return (
-    <View style={globalStyles.container}>
-      {/* <Text style={{ fontSize: globalStyles.fontSizes.large }}>
-        Greetings, Touhid
-      </Text> */}
-      <Timeline
-        style={styles.list}
-        data={data}
-        separator={true}
-        circleSize={20}
-        circleColor='rgb(45,156,219)'
-        lineColor='rgb(45,156,219)'
-        timeContainerStyle={{ minWidth: 52, marginTop: -5 }}
-        timeStyle={{
-          textAlign: 'center',
-          backgroundColor: '#ff9797',
-          color: 'white',
-          padding: 5,
-          borderRadius: 13,
-          overflow: 'hidden',
-        }}
-        descriptionStyle={{ color: 'gray' }}
-        options={{
-          style: { paddingTop: 5 },
-        }}
-      />
+    <View style={{ flex: 1, position: 'relative' }}>
+      <LottiePatientBackground />
+      <View style={[globalStyles.container, { opacity: 1 }]}>
+        <Timeline
+          style={styles.list}
+          data={patientRoutine}
+          separator={true}
+          circleSize={20}
+          circleColor='rgb(45,156,219)'
+          lineColor='rgb(45,156,219)'
+          timeContainerStyle={{ minWidth: 52, marginTop: -5 }}
+          timeStyle={{
+            textAlign: 'center',
+            backgroundColor: '#ff9797',
+            color: 'white',
+            padding: 5,
+            borderRadius: 13,
+            overflow: 'hidden',
+          }}
+          descriptionStyle={{ color: 'gray' }}
+          options={{
+            style: { paddingTop: 5 },
+          }}
+        />
+      </View>
       {/* <ButtonFilled text='Send SMS' /> */}
     </View>
   );

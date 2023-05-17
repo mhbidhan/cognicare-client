@@ -18,7 +18,7 @@ import bg from './../assets/bg.png';
 export default function ModalScreen({ navigation }) {
   const screenHeight = Dimensions.get('screen').height;
   const screenWidth = Dimensions.get('screen').width;
-  const [visible, setVisible] = React.useState(true);
+  const [visible, setVisible] = useState(false);
 
   const showModal = () => setVisible(true);
   const hideModal = () => setVisible(false);
@@ -108,7 +108,7 @@ export default function ModalScreen({ navigation }) {
                   textColor={globalStyles.colors.gray}
                   style={{ borderRadius: 30, marginBottom: 20 }}
                   labelStyle={{ fontSize: 13 }}
-                  onPress={() => console.log('Pressed')}
+                  onPress={hideModal}
                 >
                   DONE
                 </Button>
