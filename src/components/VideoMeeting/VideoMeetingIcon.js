@@ -1,18 +1,26 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 import React, { useState } from 'react';
 import { createMeeting } from '../../services/vonageService';
 import * as WebBrowser from 'expo-web-browser';
+import { IconButton, MD3Colors } from 'react-native-paper';
 import ButtonFilled from '../common/buttons/ButtonFilled';
 import { sendSMS } from '../../screens/patient/SendSmsScreen';
 import getPatientDetailsFromStorage from '../../utils/getPatientDetailsFromStorage';
+import showToast from '../Toast/showToast';
 
-const VideoMeeting = () => {
+const VideoMeetingIcon = () => {
   const [hostUrl, setHostUrl] = useState();
   const [guestUrl, setGuestUrl] = useState();
 
   async function handlePress() {
     try {
       const data = await createMeeting();
+
+      if (!data) {
+        showToast('error', 'Error', 'Check your connection');
+        return;
+      }
+
       const patientdata = await getPatientDetailsFromStorage();
       const { patientName, emergencyPhone } = patientdata;
 
@@ -40,28 +48,26 @@ const VideoMeeting = () => {
     setGuestUrl(false);
   };
 
+  if (guestUrl)
+    return (
+      <IconButton
+        icon='close-circle-outline'
+        iconColor={MD3Colors.primary}
+        size={20}
+        onPress={onClose}
+        mode='contained'
+      />
+    );
   return (
-    <View>
-      {hostUrl ? (
-        <View style={{ flex: 1 }}>
-          <ButtonFilled
-            text='Close'
-            onPressHandler={onClose}
-            color='white'
-            icon='close-circle-outline'
-          />
-        </View>
-      ) : null}
-      {!guestUrl && (
-        <ButtonFilled
-          text='Start New Meeting'
-          onPressHandler={handlePress}
-          icon='video-check-outline'
-        />
-      )}
-    </View>
+    <IconButton
+      icon='video-check'
+      iconColor={MD3Colors.primary}
+      size={20}
+      onPress={handlePress}
+      mode='contained'
+    />
   );
 };
 
 const styles = StyleSheet.create({});
-export default VideoMeeting;
+export default VideoMeetingIcon;
