@@ -5,14 +5,30 @@ import {
   Text,
   View,
 } from 'react-native';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import nightWallpaper from '../../assets/nightWallpaper.png';
 import globalStyles from '../../utils/globalStyle';
 import VideoMeeting from '../../components/VideoMeeting/VideoMeeting';
 import LottiePatientBackground from '../../components/LottieBackgrounds/LottiePatientBackground';
 import PatientContactCard from '../../components/PatientContactCard/PatientContactCard';
+import getPatientDetailsFromStorage from '../../utils/getPatientDetailsFromStorage';
+import getPatientContacts from '../../utils/getPatientContacts';
 
 const PatientContactScreen = () => {
+  const [contacts, setContacts] = useState(null);
+
+  useEffect(() => {
+    const getContacts = async () => {
+      try {
+        const patientContatcts = await getPatientContacts();
+        console.log('patientContacts', patientContatcts);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getContacts();
+  }, []);
+
   return (
     <View style={{ flex: 1, position: 'relative' }}>
       {/* <ImageBackground
