@@ -33,7 +33,7 @@ import Notification from './src/components/PushNotification/Notification';
 import AddRoutine from './src/screens/CareTakerScreens/AddRoutine/AddRoutine';
 import RoutineList from './src/components/RoutineList/RoutineList';
 import Stat from './src/components/PatientsDetails/Stat';
-import TestingFile from './src/screens/CareTakerScreens/NotificationModalFileFile/ContactModal';
+import TestingFile from './src/screens/CareTakerScreens/NotificationModalFileFile/MeditationModal';
 import AddContact from './src/screens/CareTakerScreens/AddContact/AddContact';
 
 const Stack = createStackNavigator();
@@ -138,7 +138,7 @@ const App = () => {
           )}
           {isCareTaker && (
             <Drawer.Navigator
-              initialRouteName='Patient_List'
+              initialRouteName='TestingFile'
               defaultStatus='closed'
             >
               <Drawer.Screen

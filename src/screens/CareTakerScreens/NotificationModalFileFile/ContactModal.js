@@ -56,7 +56,7 @@ export default function ContactModal({ notification, setNotification }) {
             autoPlay
             style={{
               position: 'absolute',
-              bottom: 150,
+              bottom: 160,
               left: 40,
               width: 200,
               height: 200,
@@ -85,6 +85,7 @@ export default function ContactModal({ notification, setNotification }) {
             textColor='#fff'
             labelStyle={{ fontSize: 13 }}
             onPress={() => console.log('Pressed')}
+            style={{ zIndex: 2 }}
           >
             Ignore
           </Button>

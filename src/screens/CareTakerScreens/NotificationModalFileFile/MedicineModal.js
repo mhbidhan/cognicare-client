@@ -147,6 +147,7 @@ export default function MedicineModal({ notification, setNotification }) {
               textColor='#fff'
               labelStyle={{ fontSize: 13 }}
               onPress={() => console.log('Pressed')}
+              style={{ zIndex: 2 }}
             >
               SHOOZE
             </Button>
