@@ -9,6 +9,7 @@ import lottie3 from '../../assets/lotties/confetti3.json';
 import crying from '../../assets/lotties/crying.json';
 import medal from '../../assets/lotties/medal.json';
 import searching from '../../assets/lotties/searching.json';
+import { SERVER_URL } from '../../config';
 import CameraView from '../Camera/Camrea';
 import colors from './colors.json';
 
@@ -26,16 +27,13 @@ export default function FindColorGame() {
 
   const handleSubmit = async () => {
     try {
-      const { data } = await axios.post(
-        'https://0731-113-11-37-34.ap.ngrok.io/game/findColors',
-        {
-          img: photo,
-          assignedColor: selectedColor.current
-            .slice(4, selectedColor.current.length - 1)
-            .split(',')
-            .map((val) => +val),
-        }
-      );
+      const { data } = await axios.post(SERVER_URL + '/game/findColors', {
+        img: photo,
+        assignedColor: selectedColor.current
+          .slice(4, selectedColor.current.length - 1)
+          .split(',')
+          .map((val) => +val),
+      });
 
       setRound((round) => [...round, data]);
 
