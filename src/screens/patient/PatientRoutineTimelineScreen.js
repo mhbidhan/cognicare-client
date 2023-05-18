@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import { Text, View, StyleSheet, ScrollView } from 'react-native';
 import Timeline from 'react-native-timeline-flatlist';
 import globalStyles from '../../utils/globalStyle';
 import PatientName from '../../components/PatientName/PatientName';
@@ -104,30 +104,32 @@ const PatientRoutineTimelineScreen = ({ navigation }) => {
         >
           Greetings, <PatientName />
         </Text>
-        {dataForTimeline && (
-          <Timeline
-            style={styles.list}
-            data={dataForTimeline}
-            separator={true}
-            circleSize={20}
-            circleColor='#cccccc'
-            lineColor='rgb(45,156,219)'
-            timeContainerStyle={{ minWidth: 52, marginTop: 0 }}
-            timeStyle={{
-              textAlign: 'center',
-              backgroundColor: '#cccccc',
-              color: 'black',
-              padding: 5,
-              borderRadius: 13,
-              overflow: 'hidden',
-            }}
-            titleStyle={{ color: 'white' }}
-            descriptionStyle={{ color: '#cccccc' }}
-            options={{
-              style: { paddingTop: 5 },
-            }}
-          />
-        )}
+        <ScrollView>
+          {dataForTimeline && (
+            <Timeline
+              style={styles.list}
+              data={dataForTimeline}
+              separator={true}
+              circleSize={20}
+              circleColor='#cccccc'
+              lineColor='rgb(45,156,219)'
+              timeContainerStyle={{ minWidth: 52, marginTop: 0 }}
+              timeStyle={{
+                textAlign: 'center',
+                backgroundColor: '#cccccc',
+                color: 'black',
+                padding: 5,
+                borderRadius: 13,
+                overflow: 'hidden',
+              }}
+              titleStyle={{ color: 'white' }}
+              descriptionStyle={{ color: '#cccccc' }}
+              options={{
+                style: { paddingTop: 5 },
+              }}
+            />
+          )}
+        </ScrollView>
       </View>
     </View>
   );
