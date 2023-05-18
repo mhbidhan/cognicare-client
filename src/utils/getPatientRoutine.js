@@ -12,10 +12,11 @@ const getPatientRoutine = async () => {
         'x-patient-token': patientLoginCode,
       },
     };
-    console.log('patientLogincode, url', patientLoginCode, url);
-    return await (await fetch(url, options)).json();
+    const response = await fetch(url, options);
+    const data = await response.json();
+    return data;
   } catch (error) {
-    console.log(error);
+    console.log('from patient routine', error);
   }
 };
 

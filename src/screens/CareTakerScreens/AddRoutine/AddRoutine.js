@@ -61,7 +61,7 @@ const AddRoutineScreen = ({ patientId, navigation }) => {
               date: '',
               routineElements: thisPatientRoutine,
             };
-            fetch(`https://ac67-113-11-37-34.ngrok-free.app/patientRoutine`, {
+            fetch(`${SERVER_URL}/patientRoutine`, {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
