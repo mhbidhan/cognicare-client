@@ -6,6 +6,7 @@ import Meal from '../../assets/cognicare-assets/meal/meal-assistance-female-svgr
 import Medicine from '../../assets/cognicare-assets/medicine/medicines-pill-svgrepo-com.png';
 import Exercise from '../../assets/cognicare-assets/exercise/exercise-autumn-svgrepo-com.png';
 import getPatientRoutine from '../../utils/getPatientRoutine';
+import convertTimeToNumber from '../../utils/convertTimeToNumber';
 
 const PatientRoutineCarousel = () => {
   const [patientRoutine, setPatientRoutine] = useState(null);
@@ -25,9 +26,13 @@ const PatientRoutineCarousel = () => {
       const routines = await getPatientRoutine();
       const currentRoutines = routines[0].routineElements;
       const currentItems = [];
+      const currentTime = convertTimeToNumber();
+      const currentTimeInNumber = currentTime.timeInNumber;
       currentRoutines.forEach((routine) => {
-        const routineForChart = convertToChart(routine);
-        currentItems.push(routineForChart);
+        if (routine.endTime.timeInNumber > currentTimeInNumber) {
+          const routineForChart = convertToChart(routine);
+          currentItems.push(routineForChart);
+        }
       });
       // console.log(currentItems);
       setPatientRoutine(currentItems);
