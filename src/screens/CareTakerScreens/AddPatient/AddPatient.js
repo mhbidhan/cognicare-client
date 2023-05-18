@@ -20,7 +20,7 @@ import globalStyles from './../../../utils/globalStyle';
 // import Toast from 'react-native-toast-message';
 import showToast from '../../../utils/showToast';
 
-export default function SignupScreen({ navigation }) {
+export default function AddPatient({ navigation }) {
   const [name, setName] = useState('');
   const [age, setAge] = useState('');
   const [email, setEmail] = useState('');

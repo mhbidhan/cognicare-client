@@ -1,11 +1,11 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { getData } from './../../localStorage';
+import { SERVER_URL } from '../../config';
 
 export const apiSlice = createApi({
   reducerPath: 'api',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://c8bb-113-11-37-40.ngrok-free.app', //process.env.REACT_APP_API_URL,
-    // baseurl: 'https://cognicare-projectcode.koyeb.app',
+    baseUrl: SERVER_URL,
     prepareHeaders: async (headers, { getState, endpoints }) => {
       let token = getState().caretaker.caretakerToken;
       // getData('token').then((val) => {

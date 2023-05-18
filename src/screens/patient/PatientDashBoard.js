@@ -8,6 +8,7 @@ import LottiePatientBackground from '../../components/LottieBackgrounds/LottiePa
 import PatientRoutineCarousel from '../../components/PatientRoutineCarousel/PatientRoutineCarousel';
 
 const PatientDashBoard = ({ route }) => {
+  const [taskCount, setTaskCount] = useState();
   return (
     <View style={{ flex: 1, position: 'relative' }}>
       {/* <ImageBackground
@@ -32,47 +33,51 @@ const PatientDashBoard = ({ route }) => {
           </Text>
         </View>
         <View style={styles.trackBackground}>
-          <PatientRoutineCarousel />
+          <PatientRoutineCarousel setTaskCount={setTaskCount} />
         </View>
-        <View
-          style={[
-            styles.trackBackground,
-            {
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              paddingLeft: 20,
-              paddingRight: 20,
-            },
-          ]}
-        >
-          <View style={{ gap: 5 }}>
-            <Text style={{ color: 'white', fontSize: 24, fontWeight: 'bold' }}>
-              Today's{'\n'}Progress
-            </Text>
-            <Text style={{ color: '#cccccc', fontSize: 18 }}>
-              1 of 12 completed
-            </Text>
-          </View>
-          <View>
-            {/* <Image source={Meal} style={{ width: 50, height: 50 }} /> */}
-            <ProgressCircle
-              percent={30}
-              radius={50}
-              borderWidth={3}
-              color='white'
-              shadowColor={globalStyles.colors.primaryDarker}
-              bgColor='#343C87'
-              // bgColor=''
-            >
+        {taskCount && (
+          <View
+            style={[
+              styles.trackBackground,
+              {
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                paddingLeft: 20,
+                paddingRight: 20,
+              },
+            ]}
+          >
+            <View style={{ gap: 5 }}>
               <Text
-                style={{ fontSize: 18, color: 'white', fontWeight: 'bold' }}
+                style={{ color: 'white', fontSize: 24, fontWeight: 'bold' }}
               >
-                {'30%'}
+                Today's{'\n'}Progress
               </Text>
-            </ProgressCircle>
+              <Text style={{ color: '#cccccc', fontSize: 18 }}>
+                {taskCount[0]} of {taskCount[1]} completed
+              </Text>
+            </View>
+            <View>
+              {/* <Image source={Meal} style={{ width: 50, height: 50 }} /> */}
+              <ProgressCircle
+                percent={taskCount[2]}
+                radius={50}
+                borderWidth={3}
+                color='white'
+                shadowColor={globalStyles.colors.primaryDarker}
+                bgColor='#343C87'
+                // bgColor=''
+              >
+                <Text
+                  style={{ fontSize: 18, color: 'white', fontWeight: 'bold' }}
+                >
+                  {taskCount[2]}%
+                </Text>
+              </ProgressCircle>
+            </View>
           </View>
-        </View>
+        )}
         <View style={styles.trackBackground}>
           {/* <Text>{patientToken && patientToken}</Text> */}
           {/* <ButtonFilled text='Logout' width={20} onPressHandler={logout} /> */}

@@ -26,7 +26,7 @@ import Info from './../../../components/PatientsDetails/Info';
 
 const Tab = createMaterialBottomTabNavigator();
 
-function PatienDetails({ navigation }) {
+function PatientDetails({ navigation }) {
   return (
     <Tab.Navigator>
       <Tab.Screen name='Info' component={Info} />
@@ -36,4 +36,4 @@ function PatienDetails({ navigation }) {
   );
 }
 
-export default PatienDetails;
+export default PatientDetails;

@@ -8,7 +8,7 @@ import Exercise from '../../assets/cognicare-assets/exercise/exercise-autumn-svg
 import getPatientRoutine from '../../utils/getPatientRoutine';
 import convertTimeToNumber from '../../utils/convertTimeToNumber';
 
-const PatientRoutineCarousel = () => {
+const PatientRoutineCarousel = ({ setTaskCount }) => {
   const [patientRoutine, setPatientRoutine] = useState(null);
 
   const convertToChart = (routine) => {
@@ -21,21 +21,39 @@ const PatientRoutineCarousel = () => {
     return item;
   };
 
+  const compareFn = (a, b) => {
+    const aStartTime = a.startTime.timeInNumber;
+    const bStartTime = b.startTime.timeInNumber;
+    if (aStartTime < bStartTime) return -1;
+    if (aStartTime > bStartTime) return 1;
+    return 0;
+  };
+
   const fetchRoutine = async () => {
     try {
       const routines = await getPatientRoutine();
+      console.log(routines);
       const currentRoutines = routines[0].routineElements;
+      currentRoutines.sort(compareFn);
       const currentItems = [];
       const currentTime = convertTimeToNumber();
       const currentTimeInNumber = currentTime.timeInNumber;
+      let total = 0;
+      let over = 0;
       currentRoutines.forEach((routine) => {
-        if (routine.endTime.timeInNumber > currentTimeInNumber) {
+        total++;
+        const isOnNext = routine.endTime.timeInNumber > currentTimeInNumber;
+        if (isOnNext) {
           const routineForChart = convertToChart(routine);
           currentItems.push(routineForChart);
+        } else {
+          over++;
         }
       });
-      // console.log(currentItems);
+      const taskOverPercentage =
+        total === 0 ? 0 : Math.floor((over / total) * 100);
       setPatientRoutine(currentItems);
+      setTaskCount([over, total, taskOverPercentage]);
     } catch (error) {
       console.log(error);
     }

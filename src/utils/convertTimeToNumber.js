@@ -1,8 +1,7 @@
 import moment from 'moment';
 
 const convertTimeToNumber = () => {
-  const formatedTime = moment(time).format('LT');
-  setTimeValue(formatedTime);
+  const formatedTime = moment(new Date()).format('LT');
   const splitedTime = formatedTime.split(/:| /);
   const convertedTime =
     splitedTime[2] === 'AM'

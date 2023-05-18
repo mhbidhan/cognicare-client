@@ -1,13 +1,9 @@
 import { ImageBackground, ScrollView, StyleSheet, View } from 'react-native';
 import { Text, IconButton, MD3Colors, Button } from 'react-native-paper';
-
 import React, { useEffect, useState } from 'react';
-import nightWallpaper from '../../assets/nightWallpaper.png';
 import globalStyles from '../../utils/globalStyle';
-import VideoMeeting from '../../components/VideoMeeting/VideoMeeting';
 import LottiePatientBackground from '../../components/LottieBackgrounds/LottiePatientBackground';
 import PatientContactCard from '../../components/PatientContactCard/PatientContactCard';
-import getPatientDetailsFromStorage from '../../utils/getPatientDetailsFromStorage';
 import getPatientContacts from '../../utils/getPatientContacts';
 
 const PatientContactScreen = () => {
@@ -43,7 +39,7 @@ const PatientContactScreen = () => {
       ></ImageBackground> */}
       <LottiePatientBackground />
       <View style={[globalStyles.container, { gap: 30 }]}>
-        <VideoMeeting />
+        {/* <VideoMeeting /> */}
         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 20 }}>
           <Text variant='headlineMedium' style={{ color: 'white' }}>
             Contacts
@@ -78,27 +74,6 @@ const PatientContactScreen = () => {
                 </View>
               );
             })}
-
-          {/* <View style={styles.contactRow}>
-            <PatientContactCard />
-            <PatientContactCard />
-          </View>
-          <View style={styles.contactRow}>
-            <PatientContactCard />
-            <PatientContactCard />
-          </View>
-          <View style={styles.contactRow}>
-            <PatientContactCard />
-            <PatientContactCard />
-          </View>
-          <View style={styles.contactRow}>
-            <PatientContactCard />
-            <PatientContactCard />
-          </View>
-          <View style={styles.contactRow}>
-            <PatientContactCard />
-            <PatientContactCard />
-          </View> */}
         </ScrollView>
       </View>
     </View>
