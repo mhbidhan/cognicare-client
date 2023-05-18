@@ -16,9 +16,8 @@ const PatientNav = ({ isPatientState, isNoUserState, isCareTakerState }) => {
   return (
     <Tab.Navigator
       initialRouteName='PatientDashboard'
-      shifting={true}
-      tabBarShowLabel={false}
       labeled={false}
+      barStyle={{ backgroundColor: 'white' }}
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
@@ -50,9 +49,6 @@ const PatientNav = ({ isPatientState, isNoUserState, isCareTakerState }) => {
             />
           );
         },
-        tabBarStyle: { backgroundColor: 'white' },
-        tabBarShowLabel: false,
-        tabBarIconStyle: { color: 'black' },
       })}
     >
       <Tab.Screen
