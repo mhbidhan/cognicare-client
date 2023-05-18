@@ -1,95 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View, Dimensions, Image } from 'react-native';
-import { ImageBackground } from 'react-native';
-import Carousel from 'react-native-snap-carousel';
+import { StyleSheet, Text, View } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import nightWallpaper from '../../assets/nightWallpaper.png';
 import globalStyles from '../../utils/globalStyle';
-import Meal from '../../assets/cognicare-assets/meal/meal-assistance-female-svgrepo-com.png';
-import Medicine from '../../assets/cognicare-assets/medicine/medicines-pill-svgrepo-com.png';
-import Exercise from '../../assets/cognicare-assets/exercise/exercise-autumn-svgrepo-com.png';
 import ProgressCircle from 'react-native-progress-circle';
 import PatientName from '../../components/PatientName/PatientName';
 import LottiePatientBackground from '../../components/LottieBackgrounds/LottiePatientBackground';
-import getPatientDetailsFromStorage from '../../utils/getPatientDetailsFromStorage';
-import getPatientRoutine from '../../utils/getPatientRoutine';
 import PatientRoutineCarousel from '../../components/PatientRoutineCarousel/PatientRoutineCarousel';
 
 const PatientDashBoard = ({ route }) => {
-  const [patientToken, setPatientToken] = useState('');
-  useEffect(() => {
-    const showToken = async () => {
-      try {
-        const currentPatientToken = await AsyncStorage.getItem('patientToken');
-        setPatientToken(currentPatientToken);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    showToken();
-  }, []);
-
-  const { isPatientState, isNoUserState, isCareTakerState } = route.params;
-
-  const items = [
-    {
-      time: '09:00',
-      title: 'Breakfast',
-      description:
-        'For breakfast you are going to eat below things:\n1. Egg\n2. Bread\n3. Jelly',
-      type: 'meal',
-    },
-    {
-      time: '10:00',
-      title: 'Medicine',
-      description:
-        'Take the medicines listed below:\n1. Donepezil Aricept®\n2. Galantamine Razadyne®\n3. Rivastigmine Exelon®',
-      type: 'medicine',
-    },
-    {
-      time: '13:00',
-      title: 'Shower',
-      description: 'Remember to take a shower',
-    },
-    {
-      time: '14:00',
-      title: 'Lunch',
-      description:
-        'For lunch you are going to eat below things:\n1. rice\n2. beef\n3. fish\n4. egg',
-    },
-    {
-      time: '16:30',
-      title: 'Go to Fitness center',
-      description: "Head out to Fitness Gym for your today's workout",
-      type: 'exercise',
-    },
-  ];
-  const renderItem = ({ item, index }) => {
-    return (
-      <View style={styles.item}>
-        <View>
-          {item.type ? (
-            <Image
-              source={
-                (item.type === 'meal' && Meal) ||
-                (item.type === 'medicine' && Medicine) ||
-                (item.type === 'exercise' && Exercise)
-              }
-              style={{ width: 30, height: 30 }}
-            />
-          ) : (
-            <Text>Icon</Text>
-          )}
-        </View>
-        <View>
-          <Text style={styles.text}>
-            {item.time} - {item.title}
-          </Text>
-        </View>
-      </View>
-    );
-  };
-
   return (
     <View style={{ flex: 1, position: 'relative' }}>
       {/* <ImageBackground
