@@ -28,7 +28,13 @@ const styles = StyleSheet.create({
   },
 });
 
-const RoutineList = ({ data = [], setView, saveHandeler }) => {
+const RoutineList = ({
+  data = [],
+  setView,
+  saveHandeler,
+  loading,
+  routineElements,
+}) => {
   const [routineData, setRoutineData] = useState([]);
   const [showOkayaPatientInfo, setShowOkayaPatientInfo] = useState(false);
   const { thisPatient } = useSelector((state) => state.caretaker);
@@ -124,7 +130,8 @@ const RoutineList = ({ data = [], setView, saveHandeler }) => {
             icon='content-save'
             mode='contained'
             onPress={saveHandeler}
-            disabled={true}
+            disabled={!routineElements.length}
+            loading={loading}
           >
             Save
           </Button>

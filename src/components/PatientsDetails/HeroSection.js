@@ -25,6 +25,7 @@ function HeroSection() {
       style={{
         flexDirection: 'row',
         gap: 20,
+        padding: 10,
       }}
     >
       <Image
@@ -65,7 +66,7 @@ const styles = StyleSheet.create({
   name: {
     fontSize: 30,
     fontWeight: 'bold',
-    color: globalStyles.colors.primaryLight,
+    color: globalStyles.colors.white,
   },
   textView: {
     flexDirection: 'row',
@@ -73,15 +74,15 @@ const styles = StyleSheet.create({
   },
   lable: {
     fontWeight: '900',
-    color: globalStyles.colors.primary,
+    color: globalStyles.colors.white,
   },
   text: {
     color: globalStyles.colors.primaryLight,
   },
   image: {
-    width: 80,
-    height: 80,
-    borderRadius: 80,
+    width: 100,
+    height: 100,
+    borderRadius: 100,
   },
   modalParentView: {
     position: 'relative',

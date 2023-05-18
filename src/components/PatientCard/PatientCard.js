@@ -21,7 +21,7 @@ import { setThisPatient } from './../../features/caretaker/caretakerSlice';
 function PatientCard({ patient, navigation }) {
   const dispatch = useDispatch();
   const [modalVisible, setModalVisible] = useState(false);
-  // console.log(patient);
+  // console.log('single Patient', patient);
   const getcodeHandeler = () => {
     setModalVisible(true);
   };
