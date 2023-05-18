@@ -4,7 +4,7 @@ import { BarChart } from 'react-native-chart-kit';
 import { SERVER_URL } from '../../config';
 import globalStyles from '../../utils/globalStyle';
 
-const PatientModeChart = () => {
+const PatientModeChart = ({ okayaDataHandeler }) => {
   const [patientModeData, setPatientModeData] = useState();
 
   const chartConfig = {
@@ -40,6 +40,7 @@ const PatientModeChart = () => {
           }),
         };
         const response = await fetch(url, options).then((res) => res.json());
+        okayaDataHandeler(response);
         const data = {};
         data.labels = [];
         data.datasets = [];

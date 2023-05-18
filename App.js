@@ -35,6 +35,8 @@ import AddRoutine from './src/screens/CareTakerScreens/AddRoutine/AddRoutine';
 import RoutineList from './src/components/RoutineList/RoutineList';
 import Stat from './src/components/PatientsDetails/Stat';
 import TestingFile from './src/screens/CareTakerScreens/TestingFile/TestingFile';
+import AddContact from './src/screens/CareTakerScreens/AddContact/AddContact';
+import ModalScreen from './src/screens/ModalScreen';
 
 const Stack = createStackNavigator();
 // const Tab = createBottomTabNavigator();
@@ -138,12 +140,21 @@ const App = () => {
           )}
           {isCareTaker && (
             <Drawer.Navigator
-              initialRouteName='Add-Routine'
+              initialRouteName='Patient_List'
               defaultStatus='closed'
             >
               <Drawer.Screen
-                name='TestingFile'
-                component={TestingFile}
+                name='ModalScreen'
+                component={ModalScreen}
+                initialParams={{
+                  isPatientState: setIsPatient,
+                  isNoUserState: setIsNoUser,
+                  isCareTakerState: setIsCareTaker,
+                }}
+              />
+              <Drawer.Screen
+                name='Add-Contact'
+                component={AddContact}
                 initialParams={{
                   isPatientState: setIsPatient,
                   isNoUserState: setIsNoUser,

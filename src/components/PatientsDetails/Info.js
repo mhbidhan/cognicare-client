@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   StyleSheet,
   View,
@@ -14,49 +14,102 @@ import globalStyles from './../../utils/globalStyle';
 import pic from './../../assets/pic.jpg';
 import ButtonFilled from '../common/buttons/ButtonFilled';
 import QRCode from 'react-native-qrcode-svg';
-import { Avatar, BottomNavigation, Text } from 'react-native-paper';
+import {
+  Avatar,
+  BottomNavigation,
+  Text,
+  ToggleButton,
+} from 'react-native-paper';
+import moment from 'moment';
+import { SERVER_URL } from './../../config';
 import Description from './Description';
 import HeroSection from './HeroSection';
+import LottiePatientBackground from '../LottieBackgrounds/LottiePatientBackground';
+import { setThisPatientRoutine } from './../../features/caretaker/caretakerSlice';
 
 function Info({ navigation }) {
-  const [modalVisible, setModalVisible] = useState(false);
-  const { thisPatient } = useSelector((state) => state.caretaker);
-  console.log('thisPatient', thisPatient);
+  const dispatch = useDispatch();
+  const { thisPatient, patientRoutine } = useSelector(
+    (state) => state.caretaker
+  );
+  console.log('info-> thisPatientRoutine', patientRoutine);
 
-  const getcodeHandeler = () => {
-    setModalVisible(true);
+  useEffect(() => {
+    fetch(`${SERVER_URL}/patientRoutine`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-patient-token': thisPatient.loginCode,
+      },
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        if (res.length > 0) {
+          const tempRoutine = [];
+          console.log('this patient routine', res);
+          res.map((item, i) => {
+            item.routineElements
+              .sort(
+                (a, b) => a.startTime.timeInNumber - b.startTime.timeInNumber
+              )
+              .map((routine) => {
+                const data = {
+                  time: routine.startTime.timeInString,
+                  title: routine.name,
+                  description: routine[routine.activityType].description,
+                  circleColor: '#009688',
+                };
+                tempRoutine.push(data);
+              });
+          });
+          // tempRoutine.sort(
+          //   (a, b) => a.startTime.timeInString - b.startTime.timeInString
+          // );
+          dispatch(
+            setThisPatientRoutine({
+              patientRoutine: tempRoutine,
+            })
+          );
+          // setRoutine(tempRoutine);
+        }
+      })
+      .catch((error) => {
+        console.log('Error fetching', error);
+      });
+  }, []);
+
+  const handleChange = (value) => {
+    if (value === 'addRoutine') {
+      navigation.navigate('Add-Routine');
+    } else {
+      navigation.navigate('Add-Contact');
+    }
   };
 
   return (
-    <View style={styles.container}>
+    <View style={{ flex: 1, position: 'relative' }}>
+      <LottiePatientBackground />
       <HeroSection thisPatient={thisPatient} />
-      <View style={styles.modalParentView}>
-        <Modal
-          animationType='slide'
-          transparent={true}
-          visible={modalVisible}
-          onRequestClose={() => {
-            setModalVisible(!modalVisible);
-          }}
-        >
-          <View style={styles.modal}>
-            <QRCode value={thisPatient.loginCode} size={200} />
-            <View style={styles.modalButtonView}>
-              <ButtonFilled
-                text='Close'
-                onPressHandler={() => {
-                  setModalVisible(!modalVisible);
-                }}
-                width={200}
-                height={40}
-                textSize={17}
-                btnColor={globalStyles.colors.green}
-              />
-            </View>
-          </View>
-        </Modal>
+      <View
+        style={{
+          justifyContent: 'flex-end',
+          alignItems: 'flex-end',
+          marginHorizontal: 10,
+        }}
+      >
+        <ToggleButton.Row onValueChange={handleChange}>
+          <ToggleButton
+            icon='card-account-phone-outline'
+            value='addContact'
+            iconColor='white'
+          />
+          <ToggleButton
+            icon='calendar-range'
+            value='addRoutine'
+            iconColor='white'
+          />
+        </ToggleButton.Row>
       </View>
-      {/* <View style={styles.descView}> */}
       <Description patient={thisPatient} />
       {/* </View> */}
     </View>

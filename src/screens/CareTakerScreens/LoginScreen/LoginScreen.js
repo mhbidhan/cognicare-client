@@ -20,19 +20,19 @@ export default function LoginScreen({ navigation, route }) {
   // console.log('caretakerToken', caretakerToken);
 
   const [login, { data, isLoading, isError }] = useLoginMutation() || {};
-  console.log(data);
+  // console.log(data);
   // const storeData = async (key, value) =>
   //   await AsyncStorage.setItem(key, value);
 
   const handleSubmit = async () => {
     try {
-      console.log('login pressed');
+      // console.log('login pressed');
       const data = {
         email,
         password,
       };
       const myData = await login(data);
-      console.log('myData', myData);
+      // console.log('myData', myData);
       // console.log(rtkdata);
       // await AsyncStorage.setItem('caretakerToken', 'Hello');
       // isPatientState(false);
@@ -45,12 +45,12 @@ export default function LoginScreen({ navigation, route }) {
 
   useEffect(() => {
     if (!isLoading && !isError && data) {
-      console.log('Hello from caretaker login');
+      // console.log('Hello from caretaker login');
       isPatientState(false);
       isNoUserState(false);
       isCareTakerState(true);
       storeData('caretakerToken', data);
-      console.log(data);
+      // console.log(data);
       // navigation.navigate('Patient_List');
     }
   }, [data, isLoading]);
