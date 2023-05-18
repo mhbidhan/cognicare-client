@@ -4,6 +4,7 @@ import { Button } from 'react-native-paper';
 import FileInput from '../../../components/common/FileInput/FileInput';
 import uploadToCloudinary from '../../../services/cloudinary';
 // import ButtonFilled from './../../../components/common/buttons/ButtonFilled';
+import LottiePatientBackground from './../../../components/LottieBackgrounds/LottiePatientBackground';
 import { useCaretakerRegistrationMutation } from './../../../features/caretaker/caretakerApi';
 import { useEffect } from 'react';
 import globalStyles from './../../../utils/globalStyle';
@@ -57,65 +58,68 @@ export default function SignupScreen({ navigation }) {
   };
 
   return (
-    <View style={styles.container}>
-      <TextInput
-        style={styles.input}
-        value={name}
-        onChangeText={setName}
-        placeholder='Enter your name'
-      />
+    <View style={{ flex: 1, position: 'relative' }}>
+      <LottiePatientBackground />
+      <View style={styles.container}>
+        <TextInput
+          style={styles.input}
+          value={name}
+          onChangeText={setName}
+          placeholder='Enter your name'
+        />
 
-      <TextInput
-        style={styles.input}
-        value={email}
-        onChangeText={setEmail}
-        placeholder='Enter your email'
-      />
+        <TextInput
+          style={styles.input}
+          value={email}
+          onChangeText={setEmail}
+          placeholder='Enter your email'
+        />
 
-      <TextInput
-        style={styles.input}
-        value={password}
-        onChangeText={setPassword}
-        placeholder='Enter password'
-        keyboardType='numeric'
-        secureTextEntry={true}
-      />
+        <TextInput
+          style={styles.input}
+          value={password}
+          onChangeText={setPassword}
+          placeholder='Enter password'
+          keyboardType='numeric'
+          secureTextEntry={true}
+        />
 
-      <TextInput
-        style={styles.input}
-        value={phone}
-        onChangeText={setPhone}
-        placeholder='Enter your phone number'
-        keyboardType='numeric'
-      />
+        <TextInput
+          style={styles.input}
+          value={phone}
+          onChangeText={setPhone}
+          placeholder='Enter your phone number'
+          keyboardType='numeric'
+        />
 
-      <FileInput handleChange={(file) => setImg(file)} />
+        <FileInput handleChange={(file) => setImg(file)} />
 
-      <View style={styles.submitButton}>
-        <Button
-          icon='login-variant'
-          mode='elevated'
-          buttonColor={globalStyles.colors.primary}
-          textColor={globalStyles.colors.primaryLight}
-          contentStyle={{
-            width: 300,
-            paddingVertical: 10,
-          }}
-          style={{ borderRadius: 10 }}
-          labelStyle={{ fontSize: 17 }}
-          onPress={handleSubmit}
-        >
-          Sign Up
-        </Button>
-      </View>
-      <View style={styles.signInTextView}>
-        <Text style={styles.signInPreText}>Already have an account?</Text>
-        <Text
-          style={styles.signInText}
-          onPress={() => navigation.navigate('CareTakerLogIn')}
-        >
-          Login
-        </Text>
+        <View style={styles.submitButton}>
+          <Button
+            icon='login-variant'
+            mode='elevated'
+            buttonColor={globalStyles.colors.primary}
+            textColor={globalStyles.colors.primaryLight}
+            contentStyle={{
+              width: 300,
+              paddingVertical: 10,
+            }}
+            style={{ borderRadius: 10 }}
+            labelStyle={{ fontSize: 17 }}
+            onPress={handleSubmit}
+          >
+            Sign Up
+          </Button>
+        </View>
+        <View style={styles.signInTextView}>
+          <Text style={styles.signInPreText}>Already have an account?</Text>
+          <Text
+            style={styles.signInText}
+            onPress={() => navigation.navigate('CareTakerLogIn')}
+          >
+            Login
+          </Text>
+        </View>
       </View>
     </View>
   );
@@ -160,6 +164,6 @@ const styles = StyleSheet.create({
     color: globalStyles.colors.green,
   },
   signInText: {
-    color: globalStyles.colors.primary,
+    color: globalStyles.colors.white,
   },
 });

@@ -23,7 +23,6 @@ import PatientDashBoard from './src/screens/patient/PatientDashBoard';
 import PatientContactScreen from './src/screens/patient/PatientContactScreen';
 import PatientActivityScreen from './src/screens/patient/PatientActivityScreen';
 import PatientProfileScreen from './src/screens/patient/PatientProfileScreen';
-import PatientGameScreen from './src/screens/patient/PatientGameScreen';
 import * as NavigationBar from 'expo-navigation-bar';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -34,9 +33,8 @@ import Notification from './src/components/PushNotification/Notification';
 import AddRoutine from './src/screens/CareTakerScreens/AddRoutine/AddRoutine';
 import RoutineList from './src/components/RoutineList/RoutineList';
 import Stat from './src/components/PatientsDetails/Stat';
-import TestingFile from './src/screens/CareTakerScreens/TestingFile/TestingFile';
+import TestingFile from './src/screens/CareTakerScreens/NotificationModalFileFile/ContactModal';
 import AddContact from './src/screens/CareTakerScreens/AddContact/AddContact';
-import ModalScreen from './src/screens/ModalScreen';
 
 const Stack = createStackNavigator();
 // const Tab = createBottomTabNavigator();
@@ -144,8 +142,8 @@ const App = () => {
               defaultStatus='closed'
             >
               <Drawer.Screen
-                name='ModalScreen'
-                component={ModalScreen}
+                name='TestingFile'
+                component={TestingFile}
                 initialParams={{
                   isPatientState: setIsPatient,
                   isNoUserState: setIsNoUser,
@@ -252,10 +250,6 @@ const App = () => {
                       : 'microsoft-xbox-controller-battery-empty';
                   } else if (route.name === 'PatientProfile') {
                     iconName = focused ? 'account' : 'account-outline';
-                  } else if (route.name === 'PatientGame') {
-                    iconName = focused
-                      ? 'gamepad-circle'
-                      : 'gamepad-circle-outline';
                   }
 
                   // You can return any component that you like here!
@@ -311,15 +305,6 @@ const App = () => {
               <Tab.Screen
                 name='PatientProfile'
                 component={PatientProfileScreen}
-                initialParams={{
-                  isPatientState: setIsPatient,
-                  isNoUserState: setIsNoUser,
-                  isCareTakerState: setIsCareTaker,
-                }}
-              />
-              <Tab.Screen
-                name='PatientGame'
-                component={PatientGameScreen}
                 initialParams={{
                   isPatientState: setIsPatient,
                   isNoUserState: setIsNoUser,
