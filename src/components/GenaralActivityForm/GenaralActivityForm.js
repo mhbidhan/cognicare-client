@@ -4,6 +4,7 @@ import { Button, TextInput } from 'react-native-paper';
 import Toast from 'react-native-toast-message';
 import handleInputChange from '../../utils/handleInputChange';
 import TimePicker from '../TimePicker/TimePicker';
+import showToast from '../../utils/showToast';
 
 const GenaralActivityForm = ({ currentActivity, setView, setFormData }) => {
   const [activityData, setActivityData] = useState({
@@ -96,62 +97,21 @@ const GenaralActivityForm = ({ currentActivity, setView, setFormData }) => {
   };
 
   const handleSubmit = () => {
+    // console.log(activityData);
     setFormData((formData) => {
       const { routineElements } = formData;
 
-      routineElements.sort(compareFn);
+      routineElements?.sort(compareFn);
+      const comparedData = {
+        startTime: activityData.startTime.timeInNumber,
+        endTime: activityData.endTime.timeInNumber,
+      };
 
-      const conflicts = isConflicted(routineElements, activityData);
-      console.log('conflicts', conflicts);
-
-      // for (routineElement of routineElements) {
-      // sample data
-      // Check conflict
-      // [
-      //   {
-      //     meal: {
-      //       name: 'BreakFast 🥞 ',
-      //       description: 'Nejduhf',
-      //     },
-      //     activityType: 'meal',
-      //     name: 'Breakfast',
-      //     startTime: {
-      //       timeInNumber: 1530,
-      //       timeInString: '3:30 PM',
-      //     },
-      //     endTime: {
-      //       timeInNumber: 1535,
-      //       timeInString: '3:35 PM',
-      //     },
-      //   },
-      //   {
-      //     medicine: [
-      //       {
-      //         name: 'Napa',
-      //         description: 'afasfas',
-      //         quantity: '1',
-      //         unit: 'capsule',
-      //         packageImgUrl:
-      //           'https://supplementfactoryuk.com/wp-content/uploads/2019/06/Capsugel-Products-ConiSnap-Hard-A-1-1024x717.jpg',
-      //         medicineImgUrl:
-      //           'https://cdn.dribbble.com/users/4261255/screenshots/15389837/medicine_box_packaging_design.png',
-      //       },
-      //     ],
-      //     activityType: 'medicine',
-      //     name: 'Take Medicine',
-      //     startTime: {
-      //       timeInNumber: 1525,
-      //       timeInString: '3:25 PM',
-      //     },
-      //     endTime: {
-      //       timeInNumber: 1530,
-      //       timeInString: '3:30 PM',
-      //     },
-      //   },
-      // ],
-      // }
+      const conflicts = isConflicted(routineElements, comparedData);
 
       if (!conflicts) {
+        // console.log('not conflict', conflicts);
+        setView('');
         return {
           ...formData,
           routineElements: [
@@ -159,11 +119,18 @@ const GenaralActivityForm = ({ currentActivity, setView, setFormData }) => {
             { ...currentActivity, ...activityData },
           ],
         };
+      } else {
+        // console.log('conflicts', conflicts);
+        showToast(
+          'error',
+          'Time conflict',
+          'Already added a task within this time'
+        );
+        return formData;
       }
     });
-
-    setView('');
   };
+
   useEffect(() => {
     const { startTime, endTime } = activityData;
 
@@ -178,6 +145,7 @@ const GenaralActivityForm = ({ currentActivity, setView, setFormData }) => {
 
     Toast.hide();
   }, [activityData]);
+
   return (
     <View style={styles.form}>
       <TextInput

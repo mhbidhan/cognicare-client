@@ -17,7 +17,8 @@ import { useEffect } from 'react';
 import FileInput from '../../../components/common/FileInput/FileInput';
 import uploadToCloudinary from './../../../services/cloudinary';
 import globalStyles from './../../../utils/globalStyle';
-import Toast from 'react-native-toast-message';
+// import Toast from 'react-native-toast-message';
+import showToast from '../../../utils/showToast';
 
 export default function SignupScreen({ navigation }) {
   const [name, setName] = useState('');
@@ -63,13 +64,6 @@ export default function SignupScreen({ navigation }) {
     useCreateNewPatientMutation() || {};
   console.log(data);
 
-  const showToast = (type, text1, text2) => {
-    Toast.show({
-      type,
-      text1,
-      text2,
-    });
-  };
   useEffect(() => {
     if (!isLoading && !isError && data?._id) {
       showToast('success', 'Confirmation', 'Patient file added successfully');
