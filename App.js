@@ -26,12 +26,8 @@ import store from './src/store/store';
 
 import MeditationGame from './src/components/MeditationGame/MeditationGame';
 import Stat from './src/components/PatientsDetails/Stat';
-import Notification from './src/components/PushNotification/Notification';
-import RoutineList from './src/components/RoutineList/RoutineList';
-import { SERVER_URL } from './src/config';
-import AddRoutine from './src/screens/CareTakerScreens/AddRoutine/AddRoutine';
-import TestingFile from './src/screens/CareTakerScreens/TestingFile/TestingFile';
-import getPatientDetailsFromStorage from './src/utils/getPatientDetailsFromStorage';
+import AddContact from './src/screens/CareTakerScreens/AddContact/AddContact';
+import TestingFile from './src/screens/CareTakerScreens/NotificationModalFileFile/MeditationModal';
 
 const Stack = createStackNavigator();
 // const Tab = createBottomTabNavigator();
@@ -168,12 +164,21 @@ const App = () => {
           )}
           {isCareTaker && (
             <Drawer.Navigator
-              initialRouteName="Add-Routine"
+              initialRouteName="TestingFile"
               defaultStatus="closed"
             >
               <Drawer.Screen
                 name="TestingFile"
                 component={TestingFile}
+                initialParams={{
+                  isPatientState: setIsPatient,
+                  isNoUserState: setIsNoUser,
+                  isCareTakerState: setIsCareTaker,
+                }}
+              />
+              <Drawer.Screen
+                name="Add-Contact"
+                component={AddContact}
                 initialParams={{
                   isPatientState: setIsPatient,
                   isNoUserState: setIsNoUser,

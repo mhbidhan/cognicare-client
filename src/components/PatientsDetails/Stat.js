@@ -18,6 +18,14 @@ import moment from 'moment';
 function Stat({ patient, navigation }) {
   const [startTime, setStartTime] = useState(new Date());
   const [endTime, setEndTime] = useState(new Date());
+  const [okayaData, setOkayaData] = useState({
+    datasets: [
+      {
+        data: [20, 45, 28, 80, 99, 43],
+      },
+    ],
+    legend: ['Fatigue'],
+  });
   const [bloodPressure, setBloodPressure] = useState({
     // labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
     datasets: [
@@ -145,6 +153,21 @@ function Stat({ patient, navigation }) {
       });
   };
 
+  const okayaDataHandeler = (data) => {
+    const fatigueData = [];
+    console.log('okaya log', data);
+    data.map((item) => fatigueData.push(item.fatigue));
+    const finalFatigueChartData = {
+      datasets: [
+        {
+          data: fatigueData,
+        },
+      ],
+      legend: ['Fatigue'],
+    };
+    setOkayaData(finalFatigueChartData);
+  };
+
   return (
     <View style={{ flex: 1, position: 'relative' }}>
       <LottiePatientBackground />
@@ -192,8 +215,8 @@ function Stat({ patient, navigation }) {
             justifyContent: 'center',
           }}
         >
-          <SahhaLogForm />
-          <PatientModeChart />
+          {/* <SahhaLogForm /> */}
+          <PatientModeChart okayaDataHandeler={okayaDataHandeler} />
           <View
             style={{
               flex: 1,
@@ -264,6 +287,27 @@ function Stat({ patient, navigation }) {
               verticalLabelRotation={30}
               // yAxisLabel='$'
               // yAxisSuffix='mmHg'
+              withVerticalLabels={true}
+              fromZero={true}
+              bezier
+              chartConfig={chartConfig}
+              style={{
+                borderRadius: 16,
+              }}
+            />
+          </View>
+          <View
+            style={{
+              flex: 1,
+              marginTop: 8,
+            }}
+          >
+            <LineChart
+              data={okayaData}
+              width={globalStyles.adjustedWidthFromDevice}
+              height={250}
+              horizontalLabelRotation={45}
+              verticalLabelRotation={30}
               withVerticalLabels={true}
               fromZero={true}
               bezier

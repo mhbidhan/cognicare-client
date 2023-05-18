@@ -11,7 +11,8 @@ import {
 import VideoMeetingIcon from '../VideoMeeting/VideoMeetingIcon';
 import PhoneCallButton from '../PhoneCall/PhoneCallButton';
 
-const PatientContactCard = ({ name, imgUrl, phone }) => {
+const PatientContactCard = ({ contact }) => {
+  console.log(contact);
   return (
     <Card>
       <Card.Content
@@ -22,8 +23,8 @@ const PatientContactCard = ({ name, imgUrl, phone }) => {
         }}
       >
         <View>
-          <Text variant='titleLarge'>Mubtasim</Text>
-          <Text variant='titleSmall'>Son</Text>
+          <Text variant='titleLarge'>{contact.name}</Text>
+          <Text variant='titleSmall'>{contact.relation}</Text>
         </View>
         <Avatar.Image
           size={24}
@@ -31,20 +32,9 @@ const PatientContactCard = ({ name, imgUrl, phone }) => {
           style={{ borderRadius: 24 }}
         />
       </Card.Content>
-      {/* <Card.Cover
-        source={{ uri: 'https://picsum.photos/700' }}
-        style={{ width: 50, height: 50, borderRadius: 50 }}
-      /> */}
       <Card.Actions>
-        {/* <IconButton
-          icon='video-check'
-          iconColor={MD3Colors.primary}
-          size={20}
-          onPress={() => console.log('Pressed')}
-          mode='contained'
-        /> */}
-        <VideoMeetingIcon />
-        <PhoneCallButton phoneNumber='8801827600970' />
+        <VideoMeetingIcon phoneNumber={contact.phone} />
+        <PhoneCallButton phoneNumber={contact.phone} />
       </Card.Actions>
     </Card>
   );
