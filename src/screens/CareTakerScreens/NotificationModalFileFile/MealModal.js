@@ -82,6 +82,7 @@ export default function ModalScreen({ notification, setNotification }) {
             textColor='#fff'
             labelStyle={{ fontSize: 13 }}
             onPress={() => console.log('Pressed')}
+            style={{ zIndex: 2 }}
           >
             SHOOZE
           </Button>
