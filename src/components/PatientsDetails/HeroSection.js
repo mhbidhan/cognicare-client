@@ -29,19 +29,15 @@ function HeroSection() {
       }}
     >
       <Image
-        // source={{
-        //   uri: thisPatient.imgUrl,
-        // }}
-        source={pic}
+        source={{
+          uri: thisPatient.imgUrl,
+        }}
         style={styles.image}
       />
       <View style={{ flex: 1 }}>
-        {/* <Text style={styles.name}>{thisPatient.name}</Text> */}
-        <Text style={styles.name}>Maria</Text>
+        <Text style={styles.name}>{thisPatient.name}</Text>
         <View style={styles.textView}>
-          <Text style={styles.lable}>Age:</Text>
-          {/* <Text style={styles.text}>{thisPatient.age}</Text> */}
-          <Text style={styles.text}>27</Text>
+          <Text style={styles.text}>{thisPatient.email}</Text>
         </View>
       </View>
     </View>
