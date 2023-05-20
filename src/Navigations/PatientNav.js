@@ -62,7 +62,7 @@ const PatientNav = ({ isPatientState, isNoUserState, isCareTakerState }) => {
 
   return (
     <Tab.Navigator
-      initialRouteName="PatientDashboard"
+      initialRouteName='PatientDashboard'
       shifting={true}
       tabBarShowLabel={false}
       labeled={false}
@@ -103,7 +103,7 @@ const PatientNav = ({ isPatientState, isNoUserState, isCareTakerState }) => {
       })}
     >
       <Tab.Screen
-        name="PatientRoutineTimeline"
+        name='PatientRoutineTimeline'
         component={PatientRoutineTimelineScreen}
         initialParams={{
           isPatientState,
@@ -112,7 +112,7 @@ const PatientNav = ({ isPatientState, isNoUserState, isCareTakerState }) => {
         }}
       />
       <Tab.Screen
-        name="PatientContact"
+        name='PatientContact'
         component={PatientContactScreen}
         initialParams={{
           isPatientState,
@@ -121,7 +121,7 @@ const PatientNav = ({ isPatientState, isNoUserState, isCareTakerState }) => {
         }}
       />
       <Tab.Screen
-        name="PatientDashboard"
+        name='PatientDashboard'
         component={PatientDashBoard}
         initialParams={{
           isPatientState,
@@ -130,7 +130,7 @@ const PatientNav = ({ isPatientState, isNoUserState, isCareTakerState }) => {
         }}
       />
       <Tab.Screen
-        name="PatientActivity"
+        name='PatientActivity'
         component={PatientGameScreen}
         initialParams={{
           isPatientState,
@@ -139,7 +139,7 @@ const PatientNav = ({ isPatientState, isNoUserState, isCareTakerState }) => {
         }}
       />
       <Tab.Screen
-        name="PatientProfile"
+        name='PatientProfile'
         component={PatientProfileScreen}
         initialParams={{
           isPatientState,
@@ -147,9 +147,9 @@ const PatientNav = ({ isPatientState, isNoUserState, isCareTakerState }) => {
           isCareTakerState,
         }}
       />
-      <Tab.Screen name="gameWrodle" component={Wordle} />
-      <Tab.Screen name="gameFindColor" component={FindColorGame} />
-      <Tab.Screen name="gameMeditation" component={MeditationGame} />
+      <Tab.Screen name='gameWrodle' component={Wordle} />
+      <Tab.Screen name='gameFindColor' component={FindColorGame} />
+      <Tab.Screen name='gameMeditation' component={MeditationGame} />
     </Tab.Navigator>
   );
 };

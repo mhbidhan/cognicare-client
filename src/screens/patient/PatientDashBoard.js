@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, Dimensions } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as Linking from 'expo-linking';
 import globalStyles from '../../utils/globalStyle';
 import ProgressCircle from 'react-native-progress-circle';
 import PatientName from '../../components/PatientName/PatientName';
@@ -10,11 +11,13 @@ import day from '../../assets/lotties/9878-background-full-screen.json';
 import night from '../../assets/lotties/night.json';
 import LottieView from 'lottie-react-native';
 import ButtonFilled from '../../components/common/buttons/ButtonFilled';
+import getPatientDetailsFromStorage from '../../utils/getPatientDetailsFromStorage';
 
 const PatientDashBoard = ({ route }) => {
-  const [taskCount, setTaskCount] = useState(); // [over, total, percentage]
+  const [taskCount, setTaskCount] = useState(); // [completed, total, percentage]
   const [timeOfDay, setTimeOfDay] = useState('night');
   const [greetingTimeOfDay, setGreetingTimeOfDay] = useState('morning');
+  const [emergencyPhone, setEmergencyPhone] = useState();
   const getTimeOfDay = () => {
     const currentHour = new Date().getHours();
     if (currentHour >= 6 && currentHour < 18) setTimeOfDay('day');
@@ -25,8 +28,17 @@ const PatientDashBoard = ({ route }) => {
     else setGreetingTimeOfDay('evening');
   };
 
+  const handleCallButtonPress = () => {
+    Linking.openURL(`tel:${emergencyPhone}`);
+  };
+
   useEffect(() => {
     getTimeOfDay();
+    const setEmergencyPhoneNumber = async () => {
+      const { emergencyPhone } = await getPatientDetailsFromStorage();
+      setEmergencyPhone(emergencyPhone);
+    };
+    setEmergencyPhoneNumber();
   }, []);
 
   return (
@@ -128,7 +140,11 @@ const PatientDashBoard = ({ route }) => {
         <View style={styles.trackBackground}>
           {/* <Text>{patientToken && patientToken}</Text> */}
           {/* <ButtonFilled text='Logout' width={20} onPressHandler={logout} /> */}
-          <ButtonFilled text='Emergency Call' color={'rgb(252, 61, 3)'} />
+          <ButtonFilled
+            text='Emergency Call'
+            color={'rgb(252, 61, 3)'}
+            onPressHandler={handleCallButtonPress}
+          />
         </View>
       </View>
     </View>
