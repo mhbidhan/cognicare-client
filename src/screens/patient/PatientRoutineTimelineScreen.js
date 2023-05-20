@@ -1,11 +1,11 @@
-import React from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import React, { useCallback, useEffect, useState } from 'react';
+import { Text, View, StyleSheet, ScrollView } from 'react-native';
 import Timeline from 'react-native-timeline-flatlist';
 import globalStyles from '../../utils/globalStyle';
-import { ImageBackground } from 'react-native';
-import nightWallpaper from '../../assets/nightWallpaper.png';
 import PatientName from '../../components/PatientName/PatientName';
 import LottiePatientBackground from '../../components/LottieBackgrounds/LottiePatientBackground';
+import getPatientRoutine from '../../utils/getPatientRoutine';
+import { sortRoutine } from '../../utils/routine';
 
 const styles = StyleSheet.create({
   container: {
@@ -53,6 +53,36 @@ const data = [
 ];
 
 const PatientRoutineTimelineScreen = ({ navigation }) => {
+  const [routine, setRoutine] = useState();
+  const [dataForTimeline, setDataForTimeline] = useState();
+
+  const convertedToTimelineData = (routineItem) => {
+    const dataForTimeline = {};
+    dataForTimeline.time = routineItem.startTime.timeInString;
+    const activityType = routineItem.activityType;
+    dataForTimeline.title = routineItem[activityType].name;
+    dataForTimeline.description = routineItem[activityType].description;
+    dataForTimeline.circleColor = '#009688';
+    dataForTimeline.lineColor = '#009688';
+    return dataForTimeline;
+  };
+
+  const setCurrentRoutine = useCallback(async () => {
+    const currentRoutine = await getPatientRoutine();
+    sortRoutine(currentRoutine);
+    const currentItems = [];
+    currentRoutine.forEach((routineItem) => {
+      const dataForTimeline = convertedToTimelineData(routineItem);
+      currentItems.push(dataForTimeline);
+    });
+    setRoutine(currentRoutine);
+    setDataForTimeline(currentItems);
+  }, []);
+
+  useEffect(() => {
+    setCurrentRoutine();
+  }, [setCurrentRoutine]);
+
   return (
     <View style={{ flex: 1, position: 'relative' }}>
       {/* <ImageBackground
@@ -74,28 +104,32 @@ const PatientRoutineTimelineScreen = ({ navigation }) => {
         >
           Greetings, <PatientName />
         </Text>
-        <Timeline
-          style={styles.list}
-          data={data}
-          separator={true}
-          circleSize={20}
-          circleColor='#cccccc'
-          lineColor='rgb(45,156,219)'
-          timeContainerStyle={{ minWidth: 52, marginTop: 0 }}
-          timeStyle={{
-            textAlign: 'center',
-            backgroundColor: '#cccccc',
-            color: 'black',
-            padding: 5,
-            borderRadius: 13,
-            overflow: 'hidden',
-          }}
-          titleStyle={{ color: 'white' }}
-          descriptionStyle={{ color: '#cccccc' }}
-          options={{
-            style: { paddingTop: 5 },
-          }}
-        />
+        <ScrollView>
+          {dataForTimeline && (
+            <Timeline
+              style={styles.list}
+              data={dataForTimeline}
+              separator={true}
+              circleSize={20}
+              circleColor='#cccccc'
+              lineColor='rgb(45,156,219)'
+              timeContainerStyle={{ minWidth: 52, marginTop: 0 }}
+              timeStyle={{
+                textAlign: 'center',
+                backgroundColor: '#cccccc',
+                color: 'black',
+                padding: 5,
+                borderRadius: 13,
+                overflow: 'hidden',
+              }}
+              titleStyle={{ color: 'white' }}
+              descriptionStyle={{ color: '#cccccc' }}
+              options={{
+                style: { paddingTop: 5 },
+              }}
+            />
+          )}
+        </ScrollView>
       </View>
     </View>
   );

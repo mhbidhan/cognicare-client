@@ -155,7 +155,7 @@ function Stat({ patient, navigation }) {
 
   const okayaDataHandeler = (data) => {
     const fatigueData = [];
-    console.log('okaya log', data);
+    // console.log('okaya log', data);
     data.map((item) => fatigueData.push(item.fatigue));
     const finalFatigueChartData = {
       datasets: [
