@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { Dimensions, StyleSheet, View } from 'react-native';
 import { Button } from 'react-native-paper';
 import maditation from '../../assets/lotties/meditation.json';
+import LottiePatientBackground from '../LottieBackgrounds/LottiePatientBackground';
 
 const MeditationGame = () => {
   const [sound, setSound] = useState();
@@ -35,6 +36,7 @@ const MeditationGame = () => {
 
   return (
     <View style={styles.container}>
+      <LottiePatientBackground />
       <LottieView
         autoPlay
         ref={null}

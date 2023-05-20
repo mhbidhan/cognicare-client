@@ -1,5 +1,6 @@
+import axios from 'axios';
 import { StatusBar } from 'expo-status-bar';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import {
   Alert,
   Platform,
@@ -11,18 +12,47 @@ import {
 } from 'react-native';
 import { colors } from '../../utils/constants';
 import Keyboard from '../Keyboard/Keyboard';
+import LottiePatientBackground from '../LottieBackgrounds/LottiePatientBackground';
 
 const NUMBER_OF_TRIES = 6;
 
-function Wordle({ word }) {
-  const letters = word.split('');
+function Wordle() {
+  const [word, setWord] = useState('hello');
+  const [letters, setLetters] = useState('');
 
-  const [rows, setRows] = useState(
-    new Array(NUMBER_OF_TRIES).fill(new Array(letters.length).fill(''))
-  );
+  const [rows, setRows] = useState([[]]);
   const [currRow, setCurrRow] = useState(0);
   const [currCol, setCurrCol] = useState(0);
   const [gameState, setGameState] = useState('playing');
+
+  const getRandomWord = useCallback(async () => {
+    const { data } = await axios.get(
+      'https://random-word-api.herokuapp.com/word?length=5'
+    );
+
+    setWord(data[0]);
+  }, []);
+
+  useEffect(() => {
+    getRandomWord();
+  }, [getRandomWord]);
+
+  useEffect(() => {
+    if (word) {
+      const letters = word.split('');
+
+      setLetters(letters);
+    }
+  }, [word]);
+  useEffect(() => {
+    if (letters) {
+      const rows = new Array(NUMBER_OF_TRIES).fill(
+        new Array(letters.length).fill('')
+      );
+
+      setRows(rows);
+    }
+  }, [letters]);
 
   useEffect(() => {
     checkGameState();
@@ -76,8 +106,6 @@ function Wordle({ word }) {
       if (letters[col] === letter) return colors.primary;
       return colors.secondary;
     }
-
-    return colors.black;
   };
 
   const getCellBorderColor = (row, col) => {
@@ -128,44 +156,47 @@ function Wordle({ word }) {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <Text style={styles.title}>WORDLE</Text>
-      <ScrollView style={styles.map}>
-        {rows.map((row, rowIndex) => (
-          <View key={rowIndex} style={styles.row}>
-            {row.map((cell, colIndex) => (
-              <View
-                key={colIndex}
-                style={[
-                  styles.cell,
-                  {
-                    borderColor: getCellBorderColor(rowIndex, colIndex),
-                    backgroundColor: getCellColor(rowIndex, colIndex),
-                  },
-                ]}
-              >
-                <Text style={styles.cellText}>{cell.toUpperCase()}</Text>
-              </View>
-            ))}
-          </View>
-        ))}
-      </ScrollView>
-      <Keyboard
-        onKeyPressed={onKeyPressed}
-        greenCaps={getCapColor('green')}
-        yellowCaps={getCapColor('yellow')}
-        greyCaps={getCapColor('darkgrey')}
-      />
-      <StatusBar style="auto" />
-    </SafeAreaView>
+    <>
+      <LottiePatientBackground />
+      <SafeAreaView style={styles.container}>
+        <Text style={styles.title}>WORDLE</Text>
+        <ScrollView style={styles.map}>
+          {rows.map((row, rowIndex) => (
+            <View key={rowIndex} style={styles.row}>
+              {row.map((cell, colIndex) => (
+                <View
+                  key={colIndex}
+                  style={[
+                    styles.cell,
+                    {
+                      borderColor: getCellBorderColor(rowIndex, colIndex),
+                      backgroundColor: getCellColor(rowIndex, colIndex),
+                    },
+                  ]}
+                >
+                  <Text style={styles.cellText}>{cell.toUpperCase()}</Text>
+                </View>
+              ))}
+            </View>
+          ))}
+        </ScrollView>
+        <Keyboard
+          onKeyPressed={onKeyPressed}
+          greenCaps={getCapColor('green')}
+          yellowCaps={getCapColor('yellow')}
+          greyCaps={getCapColor('darkgrey')}
+        />
+        <StatusBar style="auto" />
+      </SafeAreaView>
+    </>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.black,
     alignItems: 'center',
+    padding: 20,
   },
   title: {
     marginTop: Platform.OS === 'android' ? 50 : 0,
