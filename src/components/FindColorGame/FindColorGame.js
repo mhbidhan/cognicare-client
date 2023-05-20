@@ -11,6 +11,7 @@ import medal from '../../assets/lotties/medal.json';
 import searching from '../../assets/lotties/searching.json';
 import { SERVER_URL } from '../../config';
 import CameraView from '../Camera/Camrea';
+import LottiePatientBackground from '../LottieBackgrounds/LottiePatientBackground';
 import colors from './colors.json';
 
 function getRandomColor() {
@@ -60,6 +61,7 @@ export default function FindColorGame() {
   if (!view)
     return (
       <View style={styles.container}>
+        <LottiePatientBackground />
         <Text
           style={{
             fontSize: 25,
@@ -108,13 +110,13 @@ export default function FindColorGame() {
   if (view === 'photo')
     return (
       <View style={styles.container}>
+        <LottiePatientBackground />
         <View
           style={{
             ...styles.colorContainer,
             backgroundColor: selectedColor.current,
           }}
         ></View>
-
         <Image style={styles.preview} source={{ uri: photo }} />
         <View style={styles.buttonContainer}>
           <Button
@@ -137,6 +139,7 @@ export default function FindColorGame() {
   if (view === 'result')
     return (
       <View style={styles.container}>
+        <LottiePatientBackground />
         {result === 'You Won' ? <WinningScreen /> : <LoosingScreen />}
         <View style={styles.content}>
           <Text style={{ ...styles.text, fontSize: 25 }}>{result}</Text>
@@ -200,6 +203,7 @@ const styles = StyleSheet.create({
 const WinningScreen = () => {
   return (
     <>
+      <LottiePatientBackground />
       <LottieView
         autoPlay
         loop={false}
@@ -259,6 +263,7 @@ const WinningScreen = () => {
 const LoosingScreen = () => {
   return (
     <>
+      <LottiePatientBackground />
       <LottieView
         autoPlay
         ref={null}

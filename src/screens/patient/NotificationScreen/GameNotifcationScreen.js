@@ -1,11 +1,14 @@
-import React from 'react';
-import { Dimensions, Image, View } from 'react-native';
-import { Button, Text } from 'react-native-paper';
 import LottieView from 'lottie-react-native';
+import React from 'react';
+import { Dimensions, View } from 'react-native';
+import { Button, Text } from 'react-native-paper';
+import logo from '../../../assets/lotties/gamei.json';
 import globalStyles from '../../../utils/globalStyle';
-import logo from '../../../assets/phone.json';
 
-export default function ContactModal({ notification, setNotification }) {
+export default function GameNotificationScreen({
+  notification,
+  setNotification,
+}) {
   const screenHeight = Dimensions.get('screen').height;
   const screenWidth = Dimensions.get('screen').width;
 
@@ -15,6 +18,8 @@ export default function ContactModal({ notification, setNotification }) {
     width: screenWidth,
     height: screenHeight,
   };
+
+  const { time, message, details } = notification;
 
   return (
     <View style={{ flex: 1 }}>
@@ -33,10 +38,10 @@ export default function ContactModal({ notification, setNotification }) {
             }}
           >
             <Text style={{ fontSize: 45, fontWeight: '600', color: '#fff' }}>
-              06:30 AM
+              {time}
             </Text>
             <Text style={{ fontSize: 30, fontWeight: '200', color: '#fff' }}>
-              Call mahmud
+              {message}
             </Text>
           </View>
         </View>
@@ -56,38 +61,33 @@ export default function ContactModal({ notification, setNotification }) {
             autoPlay
             style={{
               position: 'absolute',
-              bottom: 160,
+              bottom: 130,
               left: 40,
               width: 200,
               height: 200,
               zIndex: 1,
-              // backgroundColor: '#eee',
             }}
             source={logo}
           />
-          {/* <Text style={{ fontSize: 15, color: '#fff', marginBottom: 20 }}>
-            Pasta house
-          </Text> */}
+
           <Button
-            icon='check'
-            mode='contained'
-            // buttonColor="#fff"
-            // textColor={globalStyles.colors.gray}
+            icon="check"
+            mode="contained"
             style={{ borderRadius: 30, marginBottom: 20, zIndex: 2 }}
             labelStyle={{ fontSize: 13 }}
             onPress={() => setNotification(false)}
           >
-            Call
+            PLAY NOW
           </Button>
           <Button
-            icon='alarm-snooze'
-            mode='text'
-            textColor='#fff'
+            icon="alarm-snooze"
+            mode="text"
+            textColor="#fff"
             labelStyle={{ fontSize: 13 }}
             onPress={() => console.log('Pressed')}
             style={{ zIndex: 2 }}
           >
-            Ignore
+            SHOOZE
           </Button>
         </View>
       </View>

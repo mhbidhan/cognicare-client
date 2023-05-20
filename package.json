@@ -59,7 +59,8 @@
     "react-native-webview": "11.26.0",
     "react-redux": "^8.0.5",
     "socket.io-client": "^4.6.1",
-    "victory": "^36.6.10"
+    "victory": "^36.6.10",
+    "react-native-view-shot": "3.5.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

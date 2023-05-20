@@ -1,54 +1,21 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { NavigationContainer } from '@react-navigation/native';
 import * as NavigationBar from 'expo-navigation-bar';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { SafeAreaView, StatusBar, StyleSheet } from 'react-native';
 import 'react-native-gesture-handler';
 import Toast from 'react-native-toast-message';
 import { Provider } from 'react-redux';
-import io from 'socket.io-client';
-import store from './src/store/store';
-import MyTheme from './src/assets/Theme/myTheme';
+import CaretakerNav from './src/Navigations/CaretakerNav';
 import PatientNav from './src/Navigations/PatientNav';
 import Unauthenticated from './src/Navigations/Unauthenticated';
-import CaretakerNav from './src/Navigations/CaretakerNav';
+import MyTheme from './src/assets/Theme/myTheme';
+import store from './src/store/store';
 
 const App = () => {
   const [isCareTaker, setIsCareTaker] = useState(false);
   const [isPatient, setIsPatient] = useState(false);
   const [isNoUser, setIsNoUser] = useState(false);
-  const [socket, setSocket] = useState(null);
-  const [patient, setPatient] = useState(null);
-
-  const getPatient = useCallback(async () => {
-    const user = await getPatientDetailsFromStorage();
-
-    setPatient(user);
-  }, []);
-
-  useEffect(() => {
-    getPatient();
-  }, [getPatient]);
-
-  useEffect(() => {
-    if (patient) {
-      const socket = io(SERVER_URL, {
-        query: {
-          userId: patient.patientId,
-        },
-      });
-
-      setSocket(socket);
-    }
-  }, [patient]);
-
-  useEffect(() => {
-    if (socket) {
-      socket.on('taskReminder', (data) => {
-        console.log('data', data);
-      });
-    }
-  }, [socket]);
 
   useEffect(() => {
     NavigationBar.setBackgroundColorAsync(MyTheme.colors.primary);
