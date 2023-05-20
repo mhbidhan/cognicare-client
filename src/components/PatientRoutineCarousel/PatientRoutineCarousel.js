@@ -7,6 +7,7 @@ import Medicine from '../../assets/cognicare-assets/medicine/medicines-pill-svgr
 import Exercise from '../../assets/cognicare-assets/exercise/exercise-autumn-svgrepo-com.png';
 import getPatientRoutine from '../../utils/getPatientRoutine';
 import convertTimeToNumber from '../../utils/convertTimeToNumber';
+import { sortRoutine } from '../../utils/routine';
 
 const PatientRoutineCarousel = ({ setTaskCount }) => {
   const [patientRoutine, setPatientRoutine] = useState(null);
@@ -21,20 +22,12 @@ const PatientRoutineCarousel = ({ setTaskCount }) => {
     return item;
   };
 
-  const compareFn = (a, b) => {
-    const aStartTime = a.startTime.timeInNumber;
-    const bStartTime = b.startTime.timeInNumber;
-    if (aStartTime < bStartTime) return -1;
-    if (aStartTime > bStartTime) return 1;
-    return 0;
-  };
-
   const fetchRoutine = async () => {
     try {
       const routines = await getPatientRoutine();
       console.log(routines);
-      const currentRoutines = routines[0].routineElements;
-      currentRoutines.sort(compareFn);
+      sortRoutine(routines);
+      const currentRoutines = routines;
       const currentItems = [];
       const currentTime = convertTimeToNumber();
       const currentTimeInNumber = currentTime.timeInNumber;
