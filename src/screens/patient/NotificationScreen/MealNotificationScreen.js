@@ -1,11 +1,14 @@
+import LottieView from 'lottie-react-native';
 import React from 'react';
 import { Dimensions, Image, View } from 'react-native';
 import { Button, Text } from 'react-native-paper';
-import LottieView from 'lottie-react-native';
+import mealNotification from '../../../assets/lotties/meal.json';
 import globalStyles from '../../../utils/globalStyle';
-import logo from './../../../assets/lotties/walk.json';
 
-export default function ExerciseModal({ notification, setNotification }) {
+export default function MealNotifiactionScreen({
+  notification,
+  setNotification,
+}) {
   const screenHeight = Dimensions.get('screen').height;
   const screenWidth = Dimensions.get('screen').width;
 
@@ -15,6 +18,8 @@ export default function ExerciseModal({ notification, setNotification }) {
     width: screenWidth,
     height: screenHeight,
   };
+
+  const { message, time } = notification;
 
   return (
     <View style={{ flex: 1 }}>
@@ -32,11 +37,11 @@ export default function ExerciseModal({ notification, setNotification }) {
               paddingTop: 30,
             }}
           >
-            <Text style={{ fontSize: 45, fontWeight: '600', color: '#fff' }}>
-              08:00 AM
+            <Text style={{ fontSize: 35, fontWeight: '400', color: '#fff' }}>
+              {time}
             </Text>
-            <Text style={{ fontSize: 30, fontWeight: '200', color: '#fff' }}>
-              Walk for 30 minutes
+            <Text style={{ fontSize: 30, fontWeight: '400', color: '#fff' }}>
+              {message}
             </Text>
           </View>
         </View>
@@ -44,6 +49,8 @@ export default function ExerciseModal({ notification, setNotification }) {
           style={{
             flex: 1,
             flexDirection: 'column',
+            // gap: 20,
+            width: Dimensions.get('window').width,
             justifyContent: 'center',
             alignItems: 'center',
             backgroundColor: globalStyles.colors.gray,
@@ -52,27 +59,38 @@ export default function ExerciseModal({ notification, setNotification }) {
             position: 'relative',
           }}
         >
-          <LottieView
-            autoPlay
+          <Image
+            source={{
+              uri: 'https://res.cloudinary.com/dgsx9bvvf/image/upload/v1683696605/Lunch_break_Flatline_ux3rbz.png',
+            }}
             style={{
               position: 'absolute',
-              bottom: 140,
-              left: 40,
-              width: 200,
-              height: 200,
+              bottom: 190,
+              left: 30,
+              width: 300,
+              height: 300,
               zIndex: 1,
-              // backgroundColor: '#eee',
+              display: 'none',
             }}
-            source={logo}
           />
+          <LottieView
+            autoPlay
+            ref={null}
+            style={{
+              width: 240,
+              height: 240,
+              top: -70,
+              backgroundColor: 'transparent',
+            }}
+            source={mealNotification}
+          />
+
           {/* <Text style={{ fontSize: 15, color: '#fff', marginBottom: 20 }}>
             Pasta house
           </Text> */}
           <Button
-            icon='check'
-            mode='contained'
-            // buttonColor="#fff"
-            // textColor={globalStyles.colors.gray}
+            icon="check"
+            mode="contained"
             style={{ borderRadius: 30, marginBottom: 20, zIndex: 2 }}
             labelStyle={{ fontSize: 13 }}
             onPress={() => setNotification(false)}
@@ -80,11 +98,11 @@ export default function ExerciseModal({ notification, setNotification }) {
             DONE
           </Button>
           <Button
-            icon='alarm-snooze'
-            mode='text'
-            textColor='#fff'
+            icon="alarm-snooze"
+            mode="text"
+            textColor="#fff"
             labelStyle={{ fontSize: 13 }}
-            onPress={() => console.log('Pressed')}
+            onPress={() => setNotification(false)}
             style={{ zIndex: 2 }}
           >
             SHOOZE
