@@ -1,6 +1,5 @@
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import React, { useCallback, useEffect, useState } from 'react';
-import { StyleSheet } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import io from 'socket.io-client';
 import MyTheme from '../assets/Theme/myTheme';
@@ -21,12 +20,6 @@ const Tab = createMaterialBottomTabNavigator();
 const PatientNav = ({ isPatientState, isNoUserState, isCareTakerState }) => {
   const [socket, setSocket] = useState(null);
   const [patient, setPatient] = useState(null);
-  // const [notification, setNotification] = useState({
-  //   type: 'contact',
-  //   message: 'Lets call Mubtasim',
-  //   time: '3:00 PM',
-  //   details: { name: 'meditation' },
-  // });
   const [notification, setNotification] = useState(null);
 
   const getPatient = useCallback(async () => {
@@ -161,5 +154,4 @@ const PatientNav = ({ isPatientState, isNoUserState, isCareTakerState }) => {
   );
 };
 
-const styles = StyleSheet.create({});
 export default PatientNav;
