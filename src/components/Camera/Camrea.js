@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Dimensions, StyleSheet, Text } from 'react-native';
 import { Button } from 'react-native-paper';
 import { captureRef } from 'react-native-view-shot';
+import LottiePatientBackground from '../LottieBackgrounds/LottiePatientBackground';
 
 const CameraView = ({ handleCapture }) => {
   const cameraRef = useRef();
@@ -43,11 +44,14 @@ const CameraView = ({ handleCapture }) => {
   }
 
   return (
-    <Camera style={styles.container} ratio="16:9" ref={cameraRef}>
-      <Button mode="contained" style={styles.button} onPress={takePic}>
-        Take Picture
-      </Button>
-    </Camera>
+    <>
+      <LottiePatientBackground />
+      <Camera style={styles.container} ratio="16:9" ref={cameraRef}>
+        <Button mode="contained" style={styles.button} onPress={takePic}>
+          Take Picture
+        </Button>
+      </Camera>
+    </>
   );
 };
 
