@@ -1,11 +1,14 @@
-import React from 'react';
-import { Dimensions, Image, View } from 'react-native';
-import { Button, Text } from 'react-native-paper';
 import LottieView from 'lottie-react-native';
+import React from 'react';
+import { Dimensions, View } from 'react-native';
+import { Button, Text } from 'react-native-paper';
+import logo from '../../../assets/lotties/walk.json';
 import globalStyles from '../../../utils/globalStyle';
-import logo from '../../../assets/lotties/gamei.json';
 
-export default function GameModal({ notification, setNotification }) {
+export default function ExerciseNotificationScreen({
+  notification,
+  setNotification,
+}) {
   const screenHeight = Dimensions.get('screen').height;
   const screenWidth = Dimensions.get('screen').width;
 
@@ -15,6 +18,8 @@ export default function GameModal({ notification, setNotification }) {
     width: screenWidth,
     height: screenHeight,
   };
+
+  const { time, message } = notification;
 
   return (
     <View style={{ flex: 1 }}>
@@ -33,10 +38,10 @@ export default function GameModal({ notification, setNotification }) {
             }}
           >
             <Text style={{ fontSize: 45, fontWeight: '600', color: '#fff' }}>
-              04:30 AM
+              {time}
             </Text>
             <Text style={{ fontSize: 30, fontWeight: '200', color: '#fff' }}>
-              Play
+              {message}
             </Text>
           </View>
         </View>
@@ -56,7 +61,7 @@ export default function GameModal({ notification, setNotification }) {
             autoPlay
             style={{
               position: 'absolute',
-              bottom: 130,
+              bottom: 140,
               left: 40,
               width: 200,
               height: 200,
@@ -69,8 +74,8 @@ export default function GameModal({ notification, setNotification }) {
             Pasta house
           </Text> */}
           <Button
-            icon='check'
-            mode='contained'
+            icon="check"
+            mode="contained"
             // buttonColor="#fff"
             // textColor={globalStyles.colors.gray}
             style={{ borderRadius: 30, marginBottom: 20, zIndex: 2 }}
@@ -80,9 +85,9 @@ export default function GameModal({ notification, setNotification }) {
             DONE
           </Button>
           <Button
-            icon='alarm-snooze'
-            mode='text'
-            textColor='#fff'
+            icon="alarm-snooze"
+            mode="text"
+            textColor="#fff"
             labelStyle={{ fontSize: 13 }}
             onPress={() => console.log('Pressed')}
             style={{ zIndex: 2 }}

@@ -17,7 +17,9 @@ const TimePicker = ({ mode = 'time', label, onTimeChange }) => {
     const convertedTime =
       splitedTime[2] === 'AM'
         ? splitedTime
-        : splitedTime.map((val, idx) => (idx === 0 ? +val + 12 : val));
+        : splitedTime.map((val, idx) =>
+            idx === 0 && val !== '12' ? +val + 12 : val
+          );
 
     onTimeChange({
       timeInNumber: +convertedTime.slice(0, 2).join(''),
@@ -41,7 +43,7 @@ const TimePicker = ({ mode = 'time', label, onTimeChange }) => {
         label={label}
         value={timeValue}
         defaultValue={timeValue}
-        placeholder='Time'
+        placeholder="Time"
       />
       {show && (
         <DateTimePicker
