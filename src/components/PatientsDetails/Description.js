@@ -16,60 +16,139 @@ import QRCode from 'react-native-qrcode-svg';
 import { Avatar, BottomNavigation, Text } from 'react-native-paper';
 
 function Description({ patient, navigation }) {
+  console.log('Description page patient', patient);
   return (
-    <View style={styles.container}>
-      <View style={styles.descriptionCard}>
-        {/* <Text>Description</Text> */}
-        <View style={styles.textView}>
-          <Text style={{ fontWeight: '900' }}>Name:</Text>
-          <Text>{patient.name}</Text>
+    <ScrollView style={styles.container}>
+      <View style={{ margin: 5 }}>
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+          <View
+            style={{ flexDirection: 'column', justifyContent: 'space-between' }}
+          >
+            <View style={styles.textView}>
+              <Text style={{ fontWeight: '900' }}>Name: </Text>
+              <Text style={styles.text}>{patient.name}</Text>
+            </View>
+            <View style={styles.textView}>
+              <Text style={{ fontWeight: '900' }}>Gender: </Text>
+              <Text style={styles.text}>{patient.gender}</Text>
+            </View>
+            <View style={styles.textView}>
+              <Text style={{ fontWeight: '900' }}>Age: </Text>
+              <Text style={styles.text}>{patient.age}</Text>
+            </View>
+          </View>
+          <View
+            style={{ flexDirection: 'column', justifyContent: 'space-between' }}
+          >
+            <View style={{ flexDirection: 'row' }}>
+              <Text style={{ fontWeight: '900' }}>Birth place: </Text>
+              <Text style={styles.text}>{patient.birthCountry}</Text>
+            </View>
+            <View style={{ flexDirection: 'row' }}>
+              <Text style={{ fontWeight: '900' }}>Living in: </Text>
+              <Text style={styles.text}>{patient.country}</Text>
+            </View>
+          </View>
         </View>
-        <View style={styles.textView}>
-          <Text style={{ fontWeight: '900' }}>Age:</Text>
-          <Text>{patient.age}</Text>
+        <View
+          style={{
+            flexDirection: 'column',
+            justifyContent: 'space-between',
+            marginTop: 10,
+          }}
+        >
+          <View style={{ flexDirection: 'row' }}>
+            <Text style={{ fontWeight: '900' }}>Locale: </Text>
+            <Text style={styles.text}>{patient.locale}</Text>
+          </View>
+          <View style={{ flexDirection: 'row' }}>
+            <Text style={{ fontWeight: '900' }}>Living Arrangement: </Text>
+            <Text style={styles.text}>{patient.livingArrangement}</Text>
+          </View>
         </View>
-        <View style={{ flexDirection: 'column' }}>
-          <Text style={{ fontWeight: '900' }}>Details:</Text>
-          <Text>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Natoque
-            penatibus et magnis dis parturient. Posuere ac ut consequat semper
-            viverra nam libero justo laoreet. Lectus arcu bibendum at varius vel
-            pharetra vel. Elit sed vulputate mi sit.
+        <View
+          style={{
+            backgroundColor: '#2b326e',
+            marginTop: 10,
+            paddingBottom: 5,
+            borderRadius: 5,
+            opacity: 0.8,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <Text style={{ fontSize: 20, fontWeight: 'bold', color: '#fff' }}>
+            Emergency Contact
           </Text>
+          <View
+            style={{
+              flexDirection: 'column',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            <View style={styles.textView}>
+              <Text style={styles.lable}>Name: </Text>
+              <Text style={styles.emergencytext}>
+                {patient.emergencyContact.name}
+              </Text>
+            </View>
+            <View style={styles.textView}>
+              <Text style={styles.lable}>Phone: </Text>
+              <Text style={styles.emergencytext}>
+                {patient.emergencyContact.phone}
+              </Text>
+            </View>
+            <View style={styles.textView}>
+              <Text style={styles.lable}>Relation: </Text>
+              <Text style={styles.emergencytext}>
+                {patient.emergencyContact.relation}
+              </Text>
+            </View>
+          </View>
         </View>
+        {patient.contacts.map((c, i) => {
+          <View key={i} style={{ backgroundColor: '#2b326e' }}>
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+              }}
+            >
+              <View style={{ flexDirection: 'column' }}>
+                <Text style={{ fontWeight: '900' }}>Name: </Text>
+                <Text style={styles.emergencytext}>{c.name}</Text>
+              </View>
+              <View style={{ flexDirection: 'column' }}>
+                <Text style={{ fontWeight: '900' }}>Phone: </Text>
+                <Text style={styles.emergencytext}>{c.phone}</Text>
+              </View>
+              <View style={{ flexDirection: 'column' }}>
+                <Text style={{ fontWeight: '900' }}>Relation: </Text>
+                <Text style={styles.emergencytext}>{c.relation}</Text>
+              </View>
+            </View>
+          </View>;
+        })}
       </View>
-    </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    // flex: 1,
+    flex: 1,
     padding: 10,
     marginTop: 20,
+    backgroundColor: globalStyles.colors.white,
+    opacity: 0.6,
     // justifyContent: 'center',
     // alignItems: 'center',
     // borderRadius: 10,
     // borderWidth: 1,
     // borderStyle: 'solid',
     // borderColor: globalStyles.colors.primary,
-    shadowColor: globalStyles.colors.primary,
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.1,
-    shadowRadius: 3.84,
-    elevation: 3,
-  },
-  descriptionCard: {
-    // flex: 1,
-    // padding: 10,
-    // marginTop: 20,
-    // justifyContent: 'center',
-    // alignItems: 'center',
-    // backgroundColor: globalStyles.colors.primary,
+    // shadowColor: globalStyles.colors.primary,
     // shadowOffset: {
     //   width: 0,
     //   height: 2,
@@ -80,6 +159,16 @@ const styles = StyleSheet.create({
   },
   textView: {
     flexDirection: 'row',
+  },
+  text: {
+    color: globalStyles.colors.primary,
+  },
+  emergencytext: {
+    color: globalStyles.colors.white,
+  },
+  lable: {
+    fontWeight: '900',
+    color: globalStyles.colors.green,
   },
 });
 

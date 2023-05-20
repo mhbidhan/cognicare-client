@@ -46,7 +46,7 @@ function Info({ navigation }) {
       .then((res) => {
         if (res.length > 0) {
           const tempRoutine = [];
-          console.log('this patient routine', res);
+          console.log('this patient routine response', res);
           res.map((item, i) => {
             item.routineElements
               .sort(
