@@ -18,6 +18,7 @@
     "@react-navigation/stack": "^6.3.16",
     "@reduxjs/toolkit": "^1.9.5",
     "axios": "^1.4.0",
+    "d3-shape": "^3.2.0",
     "deprecated-react-native-prop-types": "^4.1.0",
     "expo": "~48.0.15",
     "expo-av": "~13.2.1",
@@ -53,14 +54,15 @@
     "react-native-screens": "~3.20.0",
     "react-native-snap-carousel": "^3.9.1",
     "react-native-svg": "^13.4.0",
+    "react-native-svg-charts": "^5.4.0",
     "react-native-timeline-flatlist": "^0.8.0",
     "react-native-toast-message": "^2.1.6",
     "react-native-vector-icons": "^9.2.0",
+    "react-native-view-shot": "3.5.0",
     "react-native-webview": "11.26.0",
     "react-redux": "^8.0.5",
     "socket.io-client": "^4.6.1",
-    "victory": "^36.6.10",
-    "react-native-view-shot": "3.5.0"
+    "victory": "^36.6.10"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

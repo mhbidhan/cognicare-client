@@ -1,12 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { StyleSheet, View, ScrollView, Dimensions, Text } from 'react-native';
-import {
-  BarChart,
-  ProgressChart,
-  PieChart,
-  LineChart,
-} from 'react-native-chart-kit';
+import { LineChart } from 'react-native-chart-kit';
 import globalStyles from './../../utils/globalStyle';
 import SahhaLogForm from '../SahhaLogForm/SahhaLogForm';
 import LottiePatientBackground from '../LottieBackgrounds/LottiePatientBackground';
@@ -167,7 +162,6 @@ function Stat({ patient, navigation }) {
     };
     setOkayaData(finalFatigueChartData);
   };
-
   return (
     <View style={{ flex: 1, position: 'relative' }}>
       <LottiePatientBackground />

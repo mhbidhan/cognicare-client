@@ -1,11 +1,16 @@
 import { StyleSheet, View, Dimensions, Text } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { BarChart, PieChart } from 'react-native-chart-kit';
+import { AreaChart, Grid } from 'react-native-svg-charts';
+import * as shape from 'd3-shape';
 import { SERVER_URL } from '../../config';
 import globalStyles from '../../utils/globalStyle';
 
 const PatientModeChart = ({ okayaDataHandeler }) => {
   const [patientModeData, setPatientModeData] = useState();
+  const [areaData, setAreaData] = useState([
+    1, -1, 0, 1, 1, -1, 0, 0, -1, 1, 1,
+  ]);
 
   const chartConfig = {
     backgroundGradientFrom: '#323861',
@@ -100,10 +105,18 @@ const PatientModeChart = ({ okayaDataHandeler }) => {
         const response = await fetch(url, options).then((res) => res.json());
         console.log('response', response);
         okayaDataHandeler(response);
+        const tempAreaData = [];
         const pieData = [];
         const colors = ['#7F7F7F', '#ffa726', '#F00', '#fff', '#000'];
         response.map((item) => {
           item.mood.split(', ').map((m) => {
+            if (m === 'happy') {
+              tempAreaData.push(1);
+            } else if (m === 'Neutral') {
+              tempAreaData.push(0);
+            } else {
+              tempAreaData.push(-1);
+            }
             console.log('single', m);
             const isExiest = pieData.find((d) => d.name === m);
             console.log('isExiest', isExiest);
@@ -125,6 +138,7 @@ const PatientModeChart = ({ okayaDataHandeler }) => {
           });
         });
         console.log(pieData);
+        setAreaData(tempAreaData);
         setPatientModeData(pieData);
       } catch (error) {
         console.log('patientFetchError', error);
@@ -135,39 +149,68 @@ const PatientModeChart = ({ okayaDataHandeler }) => {
   }, []);
 
   return (
-    <View
-      style={{
-        flex: 1,
-        marginTop: 8,
-        width: globalStyles.adjustedWidthFromDevice,
-      }}
-    >
-      {patientModeData && (
-        // <BarChart
-        //   data={patientModeData}
-        //   height={220}
-        //   chartConfig={chartConfig}
-        //   verticalLabelRotation={0}
-        //   fromZero={true}
-        //   showBarTops={false}
-        //   width={globalStyles.adjustedWidthFromDevice}
-        //   style={{
-        //     borderRadius: 7,
-        //     // width: Dimensions.get('window').width - 5,
-        //   }}
-        // />
-        <PieChart
-          data={patientModeData}
-          width={globalStyles.adjustedWidthFromDevice}
-          height={200}
-          chartConfig={chartConfig}
-          accessor={'population'}
-          backgroundColor={'transparent'}
-          paddingLeft={'15'}
-          // center={[20, 20]}
-          absolute
-        />
-      )}
+    <View>
+      <Text
+        style={{
+          color: '#fff',
+          marginTop: 8,
+          textAlign: 'center',
+          fontSize: 15,
+          fontWeight: 'bold',
+        }}
+      >
+        Patient's mood chart
+      </Text>
+      <View
+        style={{
+          flex: 1,
+          marginTop: 8,
+          width: globalStyles.adjustedWidthFromDevice,
+        }}
+      >
+        {patientModeData && (
+          // <BarChart
+          //   data={patientModeData}
+          //   height={220}
+          //   chartConfig={chartConfig}
+          //   verticalLabelRotation={0}
+          //   fromZero={true}
+          //   showBarTops={false}
+          //   width={globalStyles.adjustedWidthFromDevice}
+          //   style={{
+          //     borderRadius: 7,
+          //     // width: Dimensions.get('window').width - 5,
+          //   }}
+          // />
+          <PieChart
+            data={patientModeData}
+            width={globalStyles.adjustedWidthFromDevice}
+            height={200}
+            chartConfig={chartConfig}
+            accessor={'population'}
+            backgroundColor={'transparent'}
+            paddingLeft={'15'}
+            // center={[20, 20]}
+            absolute
+          />
+        )}
+      </View>
+      <View
+        style={{
+          flex: 1,
+          marginTop: 8,
+        }}
+      >
+        <AreaChart
+          style={{ height: 200 }}
+          data={areaData}
+          contentInset={{ top: 30, bottom: 30 }}
+          curve={shape.curveNatural}
+          svg={{ fill: 'rgba(134, 65, 244, 0.8)' }}
+        >
+          <Grid />
+        </AreaChart>
+      </View>
     </View>
   );
 };
