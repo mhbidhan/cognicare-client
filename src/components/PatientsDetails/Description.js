@@ -16,7 +16,7 @@ import QRCode from 'react-native-qrcode-svg';
 import { Avatar, BottomNavigation, Text } from 'react-native-paper';
 
 function Description({ patient, navigation }) {
-  console.log('Description page patient', patient);
+  console.log('contacts', patient.contacts);
   return (
     <ScrollView style={styles.container}>
       <View style={{ margin: 5 }}>
@@ -71,7 +71,8 @@ function Description({ patient, navigation }) {
             backgroundColor: '#2b326e',
             marginTop: 10,
             paddingBottom: 5,
-            borderRadius: 5,
+            borderTopLeftRadius: 5,
+            borderTopRightRadius: 5,
             opacity: 0.8,
             justifyContent: 'center',
             alignItems: 'center',
@@ -107,29 +108,44 @@ function Description({ patient, navigation }) {
             </View>
           </View>
         </View>
-        {patient.contacts.map((c, i) => {
-          <View key={i} style={{ backgroundColor: '#2b326e' }}>
+        <View style={{ backgroundColor: '#2b326e', marginBottom: 10 }}>
+          <Text
+            style={{
+              fontSize: 20,
+              fontWeight: 'bold',
+              color: '#fff',
+              textAlign: 'center',
+            }}
+          >
+            Contact
+          </Text>
+          {patient.contacts.map((c, i) => (
             <View
+              key={i}
               style={{
                 flexDirection: 'row',
                 justifyContent: 'space-between',
+                backgroundColor: '#2b326e',
+                padding: 5,
+                borderBottomWidth: 1,
+                borderBottomColor: '#fff',
               }}
             >
               <View style={{ flexDirection: 'column' }}>
-                <Text style={{ fontWeight: '900' }}>Name: </Text>
+                <Text style={styles.lable}>Name</Text>
                 <Text style={styles.emergencytext}>{c.name}</Text>
               </View>
               <View style={{ flexDirection: 'column' }}>
-                <Text style={{ fontWeight: '900' }}>Phone: </Text>
+                <Text style={styles.lable}>Phone</Text>
                 <Text style={styles.emergencytext}>{c.phone}</Text>
               </View>
               <View style={{ flexDirection: 'column' }}>
-                <Text style={{ fontWeight: '900' }}>Relation: </Text>
+                <Text style={styles.lable}>Relation</Text>
                 <Text style={styles.emergencytext}>{c.relation}</Text>
               </View>
             </View>
-          </View>;
-        })}
+          ))}
+        </View>
       </View>
     </ScrollView>
   );
