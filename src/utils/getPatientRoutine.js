@@ -14,7 +14,7 @@ const getPatientRoutine = async () => {
     };
     const response = await fetch(url, options);
     const data = await response.json();
-    return data;
+    return data[0].routineElements;
   } catch (error) {
     console.log('from patient routine', error);
   }
