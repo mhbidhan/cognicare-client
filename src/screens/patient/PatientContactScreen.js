@@ -1,13 +1,29 @@
-import { ImageBackground, ScrollView, StyleSheet, View } from 'react-native';
+import {
+  ImageBackground,
+  ScrollView,
+  StyleSheet,
+  View,
+  Dimensions,
+} from 'react-native';
 import { Text, IconButton, MD3Colors, Button } from 'react-native-paper';
 import React, { useEffect, useState } from 'react';
+import LottieView from 'lottie-react-native';
 import globalStyles from '../../utils/globalStyle';
 import LottiePatientBackground from '../../components/LottieBackgrounds/LottiePatientBackground';
 import PatientContactCard from '../../components/PatientContactCard/PatientContactCard';
 import getPatientContacts from '../../utils/getPatientContacts';
+import day from '../../assets/lotties/9878-background-full-screen.json';
+import night from '../../assets/lotties/night.json';
 
 const PatientContactScreen = () => {
   const [contacts, setContacts] = useState(null);
+  const [timeOfDay, setTimeOfDay] = useState('night');
+
+  const getTimeOfDay = () => {
+    const currentHour = new Date().getHours();
+    if (currentHour >= 6 && currentHour < 18) setTimeOfDay('day');
+    else setTimeOfDay('night');
+  };
 
   const getContacts = async () => {
     try {
@@ -19,8 +35,9 @@ const PatientContactScreen = () => {
   };
 
   useEffect(() => {
+    getTimeOfDay();
     getContacts();
-  }, []);
+  }, [getTimeOfDay, getContacts]);
 
   return (
     <View style={{ flex: 1, position: 'relative' }}>
@@ -36,11 +53,25 @@ const PatientContactScreen = () => {
           opacity: 0.3,
         }}
       ></ImageBackground> */}
-      <LottiePatientBackground />
+      {/* <LottiePatientBackground /> */}
+      <LottieView
+        autoPlay
+        source={timeOfDay === 'day' ? day : night}
+        style={{
+          position: 'absolute',
+          height: Dimensions.get('screen').height,
+        }}
+      />
       <View style={[globalStyles.container, { gap: 30 }]}>
         {/* <VideoMeeting /> */}
         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 20 }}>
-          <Text variant='headlineMedium' style={{ color: 'white' }}>
+          <Text
+            variant='headlineMedium'
+            style={{
+              color: timeOfDay === 'day' ? 'rgb(105, 15, 117)' : 'white',
+              fontWeight: 'bold',
+            }}
+          >
             Contacts
           </Text>
           {!contacts && (
