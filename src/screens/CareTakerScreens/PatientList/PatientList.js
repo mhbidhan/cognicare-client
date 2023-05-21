@@ -30,11 +30,12 @@ function PatientList({ navigation, route }) {
       skip: request,
     }) || {};
 
-  // console.log('caretakerToken', caretakerToken);
-  console.log('List', data);
   useEffect(() => {
-    setRequest(false);
-  }, [caretakerToken]);
+    getData('caretakerToken').then((val) => {
+      console.log('PatientList-token', val);
+      setRequest(false);
+    });
+  }, []);
 
   useEffect(() => {
     if (!isLoading && !isError && data) {
