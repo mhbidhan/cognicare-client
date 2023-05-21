@@ -166,14 +166,14 @@ const PatientRoutineCarousel = ({ setTaskCount }) => {
         >
           Next tasks
         </Text>
-        <Button
+        {/* <Button
           icon='reload'
           onPress={fetchRoutine}
           mode='contained'
           dark={true}
         >
           Reload
-        </Button>
+        </Button> */}
       </View>
 
       {patientRoutine && (
