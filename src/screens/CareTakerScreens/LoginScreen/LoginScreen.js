@@ -31,13 +31,7 @@ export default function LoginScreen({ navigation, route }) {
         email,
         password,
       };
-      const myData = await login(data);
-      // console.log('myData', myData);
-      // console.log(rtkdata);
-      // await AsyncStorage.setItem('caretakerToken', 'Hello');
-      // isPatientState(false);
-      // isNoUserState(false);
-      // isCareTakerState(true);
+      login(data);
     } catch (error) {
       console.error(error);
     }
@@ -46,22 +40,19 @@ export default function LoginScreen({ navigation, route }) {
   useEffect(() => {
     if (!isLoading && !isError && data) {
       // console.log('Hello from caretaker login');
-      isPatientState(false);
-      isNoUserState(false);
-      isCareTakerState(true);
-      storeData('caretakerToken', data);
-      // console.log(data);
-      // navigation.navigate('Patient_List');
+      const sendToMain = async () => {
+        try {
+          await storeData('caretakerToken', data);
+          isPatientState(false);
+          isNoUserState(false);
+          isCareTakerState(true);
+        } catch (error) {
+          console.log(error);
+        }
+      };
+      sendToMain();
     }
   }, [data, isLoading]);
-
-  // const getData = async (key) => {
-  //   const value = await AsyncStorage.getItem(key);
-  //   return value;
-  // };
-  // getData('token').then((val) => {
-  //   console.log('storage', val);
-  // });
 
   return (
     <View
@@ -133,6 +124,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
+    justifyContent: 'center',
     alignItems: 'center',
   },
   input: {
@@ -153,11 +145,6 @@ const styles = StyleSheet.create({
     height: 200,
     resizeMode: 'contain',
     marginBottom: 20,
-  },
-  submitButton: {
-    // marginTop: 50,
-    // width: 200,
-    // height: 100,
   },
   signupTextView: {
     flex: 1,

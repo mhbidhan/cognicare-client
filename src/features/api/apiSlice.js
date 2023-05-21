@@ -7,12 +7,14 @@ export const apiSlice = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: SERVER_URL,
     prepareHeaders: async (headers, { getState, endpoints }) => {
-      let token = getState().caretaker.caretakerToken;
-      // getData('token').then((val) => {
-      //   console.log('api', val);
-      //   headers.set('x-auth-token', val);
+      // let token = getState().caretaker.caretakerToken;
+      let token = await getData('caretakerToken');
+      // getData('caretakerToken').then((val) => {
+      //   console.log('local-token', val);
+      //   token = val;
       // });
-      console.log('api', token);
+      // console.log('redux-token', token);
+      console.log('final-token', token);
       if (token) {
         headers.set('x-auth-token', token);
         // headers.set('Accept-Language', 'en-US');
