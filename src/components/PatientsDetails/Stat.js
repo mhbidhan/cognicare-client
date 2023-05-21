@@ -209,7 +209,7 @@ function Stat({ patient, navigation }) {
             justifyContent: 'center',
           }}
         >
-          {/* <SahhaLogForm /> */}
+          <SahhaLogForm />
           <PatientModeChart okayaDataHandeler={okayaDataHandeler} />
           <View
             style={{

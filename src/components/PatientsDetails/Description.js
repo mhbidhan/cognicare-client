@@ -159,7 +159,7 @@ const styles = StyleSheet.create({
     padding: 10,
     marginTop: 20,
     backgroundColor: globalStyles.colors.white,
-    opacity: 0.6,
+    opacity: 0.5,
     // justifyContent: 'center',
     // alignItems: 'center',
     // borderRadius: 10,
