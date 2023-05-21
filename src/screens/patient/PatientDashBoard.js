@@ -39,6 +39,7 @@ const PatientDashBoard = ({ route }) => {
       setEmergencyPhone(emergencyPhone);
     };
     setEmergencyPhoneNumber();
+    console.log('patientDashboard useEffect');
   }, []);
 
   return (
@@ -138,8 +139,6 @@ const PatientDashBoard = ({ route }) => {
           </View>
         )}
         <View style={styles.trackBackground}>
-          {/* <Text>{patientToken && patientToken}</Text> */}
-          {/* <ButtonFilled text='Logout' width={20} onPressHandler={logout} /> */}
           <ButtonFilled
             text='Emergency Call'
             color={'rgb(252, 61, 3)'}
