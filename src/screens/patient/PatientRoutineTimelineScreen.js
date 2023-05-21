@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { Text, View, StyleSheet, ScrollView } from 'react-native';
+import { Text, View, StyleSheet, ScrollView, Dimensions } from 'react-native';
 import Timeline from 'react-native-timeline-flatlist';
+import LottieView from 'lottie-react-native';
 import globalStyles from '../../utils/globalStyle';
 import PatientName from '../../components/PatientName/PatientName';
 import LottiePatientBackground from '../../components/LottieBackgrounds/LottiePatientBackground';
@@ -8,6 +9,8 @@ import getPatientRoutine from '../../utils/getPatientRoutine';
 import { sortRoutine } from '../../utils/routine';
 import getPatientTodayLogs from '../../utils/getPatientTodayLogs';
 import convertTimeToNumber from '../../utils/convertTimeToNumber';
+import day from '../../assets/lotties/9878-background-full-screen.json';
+import night from '../../assets/lotties/night.json';
 
 const styles = StyleSheet.create({
   container: {
@@ -57,11 +60,24 @@ const data = [
 const PatientRoutineTimelineScreen = ({ navigation }) => {
   const [routine, setRoutine] = useState();
   const [dataForTimeline, setDataForTimeline] = useState();
+  const [timeOfDay, setTimeOfDay] = useState('night');
+  const [greetingTimeOfDay, setGreetingTimeOfDay] = useState('morning');
+
+  const getTimeOfDay = () => {
+    const currentHour = new Date().getHours();
+    if (currentHour >= 6 && currentHour < 18) setTimeOfDay('day');
+    else setTimeOfDay('night');
+
+    if (currentHour <= 11) setGreetingTimeOfDay('morning');
+    else if (currentHour <= 17) setGreetingTimeOfDay('afternoon');
+    else setGreetingTimeOfDay('evening');
+  };
 
   const convertedToTimelineData = (
     routineItem,
     currentTimeInNumber,
-    todaysLogs
+    todaysLogs,
+    isDay
   ) => {
     const dataForTimeline = {};
     dataForTimeline.time = routineItem.startTime.timeInString;
@@ -91,13 +107,13 @@ const PatientRoutineTimelineScreen = ({ navigation }) => {
         dataForTimeline.lineColor = '#009688';
       }
     } else {
-      dataForTimeline.circleColor = 'white';
-      dataForTimeline.lineColor = 'white';
+      dataForTimeline.circleColor = isDay ? '#333333' : 'white';
+      dataForTimeline.lineColor = isDay ? '#333333' : 'white';
     }
     return dataForTimeline;
   };
 
-  const setCurrentRoutine = useCallback(async () => {
+  const setCurrentRoutine = useCallback(async (isDay) => {
     const routine = await getPatientRoutine();
     const currentRoutineId = routine._id;
     const todaysLogs = await getPatientTodayLogs(currentRoutineId);
@@ -110,7 +126,8 @@ const PatientRoutineTimelineScreen = ({ navigation }) => {
       const dataForTimeline = convertedToTimelineData(
         routineItem,
         currentTimeInNumber,
-        todaysLogs
+        todaysLogs,
+        isDay
       );
       currentItems.push(dataForTimeline);
     });
@@ -119,8 +136,12 @@ const PatientRoutineTimelineScreen = ({ navigation }) => {
   }, []);
 
   useEffect(() => {
-    setCurrentRoutine();
-  }, [setCurrentRoutine]);
+    getTimeOfDay();
+    const currentHour = new Date().getHours();
+    let isDay = false;
+    if (currentHour >= 6 && currentHour < 18) isDay = true;
+    setCurrentRoutine(isDay);
+  }, [setCurrentRoutine, getTimeOfDay]);
 
   return (
     <View style={{ flex: 1, position: 'relative' }}>
@@ -136,12 +157,26 @@ const PatientRoutineTimelineScreen = ({ navigation }) => {
           opacity: 0.3,
         }}
       ></ImageBackground> */}
-      <LottiePatientBackground />
+      {/* <LottiePatientBackground /> */}
+      <LottieView
+        autoPlay
+        source={timeOfDay === 'day' ? day : night}
+        style={{
+          position: 'absolute',
+          height: Dimensions.get('screen').height,
+        }}
+      />
       <View style={[globalStyles.container, { opacity: 1 }]}>
         <Text
-          style={{ fontSize: globalStyles.fontSizes.large, color: 'white' }}
+          style={[
+            {
+              color: timeOfDay === 'day' ? 'rgb(105, 15, 117)' : 'white',
+              fontSize: 30,
+              fontWeight: 'bold',
+            },
+          ]}
         >
-          Greetings, <PatientName />
+          Good {greetingTimeOfDay}, <PatientName />
         </Text>
         <ScrollView>
           {dataForTimeline && (
@@ -150,19 +185,23 @@ const PatientRoutineTimelineScreen = ({ navigation }) => {
               data={dataForTimeline}
               separator={true}
               circleSize={20}
-              circleColor='#cccccc'
-              lineColor='rgb(45,156,219)'
-              timeContainerStyle={{ minWidth: 52, marginTop: 0 }}
+              // circleColor='#cccccc'
+              // lineColor='rgb(45,156,219)'
+              timeContainerStyle={{ width: 68, marginTop: 0 }}
               timeStyle={{
                 textAlign: 'center',
-                backgroundColor: '#cccccc',
-                color: 'black',
+                backgroundColor: timeOfDay === 'day' ? '#404040' : '#cccccc',
+                color: timeOfDay === 'day' ? 'white' : 'black',
                 padding: 5,
                 borderRadius: 13,
                 overflow: 'hidden',
               }}
-              titleStyle={{ color: 'white' }}
-              descriptionStyle={{ color: '#cccccc' }}
+              titleStyle={{
+                color: timeOfDay === 'day' ? 'rgb(105, 15, 117)' : 'white',
+              }}
+              descriptionStyle={{
+                color: timeOfDay === 'day' ? 'rgb(105, 15, 117)' : 'white',
+              }}
               options={{
                 style: { paddingTop: 5 },
               }}

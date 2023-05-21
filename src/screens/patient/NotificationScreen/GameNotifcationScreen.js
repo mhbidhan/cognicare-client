@@ -75,7 +75,9 @@ export default function GameNotificationScreen({
             mode="contained"
             style={{ borderRadius: 30, marginBottom: 20, zIndex: 2 }}
             labelStyle={{ fontSize: 13 }}
-            onPress={() => setNotification(false)}
+            onPress={() => {
+              setNotification(null);
+            }}
           >
             PLAY NOW
           </Button>
@@ -84,7 +86,10 @@ export default function GameNotificationScreen({
             mode="text"
             textColor="#fff"
             labelStyle={{ fontSize: 13 }}
-            onPress={() => console.log('Pressed')}
+            onPress={() => {
+              setNotification(null);
+              setTimeout(() => setNotification(notification), 1000 * 60 * 10);
+            }}
             style={{ zIndex: 2 }}
           >
             SHOOZE
