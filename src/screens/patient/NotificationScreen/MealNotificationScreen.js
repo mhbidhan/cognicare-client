@@ -8,6 +8,7 @@ import globalStyles from '../../../utils/globalStyle';
 export default function MealNotifiactionScreen({
   notification,
   setNotification,
+  handleLog,
 }) {
   const screenHeight = Dimensions.get('screen').height;
   const screenWidth = Dimensions.get('screen').width;
@@ -49,7 +50,6 @@ export default function MealNotifiactionScreen({
           style={{
             flex: 1,
             flexDirection: 'column',
-            // gap: 20,
             width: Dimensions.get('window').width,
             justifyContent: 'center',
             alignItems: 'center',
@@ -85,15 +85,15 @@ export default function MealNotifiactionScreen({
             source={mealNotification}
           />
 
-          {/* <Text style={{ fontSize: 15, color: '#fff', marginBottom: 20 }}>
-            Pasta house
-          </Text> */}
           <Button
             icon="check"
             mode="contained"
             style={{ borderRadius: 30, marginBottom: 20, zIndex: 2 }}
             labelStyle={{ fontSize: 13 }}
-            onPress={() => setNotification(false)}
+            onPress={() => {
+              handleLog();
+              setNotification(null);
+            }}
           >
             DONE
           </Button>
@@ -102,7 +102,10 @@ export default function MealNotifiactionScreen({
             mode="text"
             textColor="#fff"
             labelStyle={{ fontSize: 13 }}
-            onPress={() => setNotification(false)}
+            onPress={() => {
+              setNotification(null);
+              setTimeout(() => setNotification(notification), 1000 * 60 * 10);
+            }}
             style={{ zIndex: 2 }}
           >
             SHOOZE
