@@ -107,12 +107,21 @@ const PatientModeChart = ({ okayaDataHandeler }) => {
         okayaDataHandeler(response);
         const tempAreaData = [];
         const pieData = [];
-        const colors = ['#7F7F7F', '#ffa726', '#F00', '#fff', '#000'];
+        const colors = [
+          '#7F7F7F',
+          '#ffa726',
+          '#F00',
+          '#fff',
+          '#94BF4A',
+          '#5A78B1',
+          '#5AC8A7',
+          '#000',
+        ];
         response.map((item) => {
           item.mood.split(', ').map((m) => {
-            if (m === 'happy') {
+            if (m.toLowerCase() === 'happy') {
               tempAreaData.push(1);
-            } else if (m === 'Neutral') {
+            } else if (m.toLowerCase() === 'neutral') {
               tempAreaData.push(0);
             } else {
               tempAreaData.push(-1);
@@ -122,7 +131,7 @@ const PatientModeChart = ({ okayaDataHandeler }) => {
             console.log('isExiest', isExiest);
             if (!isExiest) {
               const pie = {
-                name: m,
+                name: m.charAt(0).toUpperCase() + m.slice(1),
                 population: 1,
                 color: colors[pieData.length],
                 legendFontColor: colors[pieData.length],
@@ -150,17 +159,33 @@ const PatientModeChart = ({ okayaDataHandeler }) => {
 
   return (
     <View>
-      <Text
+      <View
         style={{
-          color: '#fff',
+          flex: 1,
           marginTop: 8,
-          textAlign: 'center',
-          fontSize: 15,
-          fontWeight: 'bold',
         }}
       >
-        Patient's mood chart
-      </Text>
+        <Text
+          style={{
+            color: '#fff',
+            marginTop: 8,
+            textAlign: 'center',
+            fontSize: 15,
+            fontWeight: 'bold',
+          }}
+        >
+          Mood area
+        </Text>
+        <AreaChart
+          style={{ height: 200 }}
+          data={areaData}
+          contentInset={{ top: 30, bottom: 30 }}
+          curve={shape.curveNatural}
+          svg={{ fill: `rgba(255, 255, 255, 0.6)` }}
+        >
+          <Grid />
+        </AreaChart>
+      </View>
       <View
         style={{
           flex: 1,
@@ -168,20 +193,18 @@ const PatientModeChart = ({ okayaDataHandeler }) => {
           width: globalStyles.adjustedWidthFromDevice,
         }}
       >
+        <Text
+          style={{
+            color: '#fff',
+            marginTop: 8,
+            textAlign: 'center',
+            fontSize: 15,
+            fontWeight: 'bold',
+          }}
+        >
+          Patient's mood chart
+        </Text>
         {patientModeData && (
-          // <BarChart
-          //   data={patientModeData}
-          //   height={220}
-          //   chartConfig={chartConfig}
-          //   verticalLabelRotation={0}
-          //   fromZero={true}
-          //   showBarTops={false}
-          //   width={globalStyles.adjustedWidthFromDevice}
-          //   style={{
-          //     borderRadius: 7,
-          //     // width: Dimensions.get('window').width - 5,
-          //   }}
-          // />
           <PieChart
             data={patientModeData}
             width={globalStyles.adjustedWidthFromDevice}
@@ -194,22 +217,6 @@ const PatientModeChart = ({ okayaDataHandeler }) => {
             absolute
           />
         )}
-      </View>
-      <View
-        style={{
-          flex: 1,
-          marginTop: 8,
-        }}
-      >
-        <AreaChart
-          style={{ height: 200 }}
-          data={areaData}
-          contentInset={{ top: 30, bottom: 30 }}
-          curve={shape.curveNatural}
-          svg={{ fill: 'rgba(134, 65, 244, 0.8)' }}
-        >
-          <Grid />
-        </AreaChart>
       </View>
     </View>
   );
