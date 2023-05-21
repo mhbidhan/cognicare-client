@@ -3,9 +3,6 @@ import React, { useCallback, useEffect, useState } from 'react';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import io from 'socket.io-client';
 import MyTheme from '../assets/Theme/myTheme';
-import FindColorGame from '../components/FindColorGame/FindColorGame';
-import MeditationGame from '../components/MeditationGame/MeditationGame';
-import Wordle from '../components/Wordle/Wordle';
 import { SERVER_URL } from '../config';
 import NotificationScreen from '../screens/patient/NotificationScreen/Notification';
 import PatientContactScreen from '../screens/patient/PatientContactScreen';
@@ -21,6 +18,7 @@ const PatientNav = ({ isPatientState, isNoUserState, isCareTakerState }) => {
   const [socket, setSocket] = useState(null);
   const [patient, setPatient] = useState(null);
   const [notification, setNotification] = useState(null);
+  const [currentGame, setCurrentGame] = useState('');
 
   const getPatient = useCallback(async () => {
     const user = await getPatientDetailsFromStorage();
@@ -131,11 +129,14 @@ const PatientNav = ({ isPatientState, isNoUserState, isCareTakerState }) => {
       />
       <Tab.Screen
         name='PatientActivity'
-        component={PatientGameScreen}
-        initialParams={{
-          isPatientState,
-          isNoUserState,
-          isCareTakerState,
+        children={() => (
+          <PatientGameScreen
+            currentGame={currentGame}
+            setCurrentGame={setCurrentGame}
+          />
+        )}
+        listeners={{
+          tabPress: (e) => setCurrentGame(''),
         }}
       />
       <Tab.Screen
@@ -147,9 +148,6 @@ const PatientNav = ({ isPatientState, isNoUserState, isCareTakerState }) => {
           isCareTakerState,
         }}
       />
-      <Tab.Screen name='gameWrodle' component={Wordle} />
-      <Tab.Screen name='gameFindColor' component={FindColorGame} />
-      <Tab.Screen name='gameMeditation' component={MeditationGame} />
     </Tab.Navigator>
   );
 };

@@ -10,12 +10,20 @@ import {
 import color from '../../assets/lotties/color.json';
 import meditaion from '../../assets/lotties/meditation2.json';
 import wordle from '../../assets/lotties/wordle.json';
+import FindColorGame from '../../components/FindColorGame/FindColorGame';
 import LottiePatientBackground from '../../components/LottieBackgrounds/LottiePatientBackground';
+import MeditationGame from '../../components/MeditationGame/MeditationGame';
+import Wordle from '../../components/Wordle/Wordle';
 
-const PatientGameScreen = ({ navigation }) => {
+const PatientGameScreen = ({ currentGame, setCurrentGame }) => {
   const handleNavigation = (screen) => {
-    navigation.navigate(screen);
+    setCurrentGame(screen);
   };
+
+  if (currentGame === 'wordle') return <Wordle />;
+  if (currentGame === 'findColor') return <FindColorGame />;
+  if (currentGame === 'meditation') return <MeditationGame />;
+
   return (
     <View
       style={{
@@ -30,19 +38,19 @@ const PatientGameScreen = ({ navigation }) => {
         <GameCard
           title={'Wordle'}
           lottie={wordle}
-          handlePress={() => handleNavigation('gameWrodle')}
+          handlePress={() => handleNavigation('wordle')}
         />
         <GameCard
           title={'Find Color'}
           lottie={color}
-          handlePress={() => handleNavigation('gameFindColor')}
+          handlePress={() => handleNavigation('findColor')}
         />
       </View>
       <View style={styles.cardContainer}>
         <GameCard
           title={'Meditaion'}
           lottie={meditaion}
-          handlePress={() => handleNavigation('gameMeditation')}
+          handlePress={() => handleNavigation('meditation')}
         />
       </View>
     </View>
