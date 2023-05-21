@@ -12,7 +12,6 @@ const PatientContactScreen = () => {
   const getContacts = async () => {
     try {
       const patientContatcts = await getPatientContacts();
-      console.log('patientContacts', patientContatcts);
       setContacts(patientContatcts);
     } catch (error) {
       console.log(error);
@@ -46,7 +45,7 @@ const PatientContactScreen = () => {
           </Text>
           {!contacts && (
             <Button
-              icon='download'
+              icon='reload'
               onPress={getContacts}
               mode='contained'
               dark={true}

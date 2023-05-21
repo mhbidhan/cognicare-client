@@ -24,10 +24,10 @@ function Description({ patient, navigation }) {
           <View
             style={{ flexDirection: 'column', justifyContent: 'space-between' }}
           >
-            <View style={styles.textView}>
+            {/* <View style={styles.textView}>
               <Text style={{ fontWeight: '900' }}>Name: </Text>
               <Text style={styles.text}>{patient.name}</Text>
-            </View>
+            </View> */}
             <View style={styles.textView}>
               <Text style={{ fontWeight: '900' }}>Gender: </Text>
               <Text style={styles.text}>{patient.gender}</Text>
@@ -50,27 +50,29 @@ function Description({ patient, navigation }) {
             </View>
           </View>
         </View>
-        <View
-          style={{
-            flexDirection: 'column',
-            justifyContent: 'space-between',
-            marginTop: 10,
-          }}
-        >
-          <View style={{ flexDirection: 'row' }}>
-            <Text style={{ fontWeight: '900' }}>Locale: </Text>
-            <Text style={styles.text}>{patient.locale}</Text>
-          </View>
-          <View style={{ flexDirection: 'row' }}>
-            <Text style={{ fontWeight: '900' }}>Living Arrangement: </Text>
-            <Text style={styles.text}>{patient.livingArrangement}</Text>
+        <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+          <View
+            style={{
+              flexDirection: 'column',
+              justifyContent: 'space-between',
+              marginTop: 10,
+            }}
+          >
+            <View style={{ flexDirection: 'row' }}>
+              <Text style={{ fontWeight: '900' }}>Locale: </Text>
+              <Text style={styles.text}>{patient.locale}</Text>
+            </View>
+            <View style={{ flexDirection: 'row' }}>
+              <Text style={{ fontWeight: '900' }}>Living Arrangement: </Text>
+              <Text style={styles.text}>{patient.livingArrangement}</Text>
+            </View>
           </View>
         </View>
         <View
           style={{
             backgroundColor: '#2b326e',
-            marginTop: 10,
-            paddingBottom: 5,
+            marginTop: 20,
+            paddingBottom: 10,
             borderTopLeftRadius: 5,
             borderTopRightRadius: 5,
             opacity: 0.8,

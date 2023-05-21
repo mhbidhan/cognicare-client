@@ -6,6 +6,8 @@ import PatientName from '../../components/PatientName/PatientName';
 import LottiePatientBackground from '../../components/LottieBackgrounds/LottiePatientBackground';
 import getPatientRoutine from '../../utils/getPatientRoutine';
 import { sortRoutine } from '../../utils/routine';
+import getPatientTodayLogs from '../../utils/getPatientTodayLogs';
+import convertTimeToNumber from '../../utils/convertTimeToNumber';
 
 const styles = StyleSheet.create({
   container: {
@@ -56,7 +58,11 @@ const PatientRoutineTimelineScreen = ({ navigation }) => {
   const [routine, setRoutine] = useState();
   const [dataForTimeline, setDataForTimeline] = useState();
 
-  const convertedToTimelineData = (routineItem) => {
+  const convertedToTimelineData = (
+    routineItem,
+    currentTimeInNumber,
+    todaysLogs
+  ) => {
     const dataForTimeline = {};
     dataForTimeline.time = routineItem.startTime.timeInString;
     const activityType = routineItem.activityType;
@@ -64,15 +70,48 @@ const PatientRoutineTimelineScreen = ({ navigation }) => {
     dataForTimeline.description = routineItem[activityType].description;
     dataForTimeline.circleColor = '#009688';
     dataForTimeline.lineColor = '#009688';
+    let completed = false;
+    todaysLogs.forEach((logItem) => {
+      if (
+        logItem.routineElementId === routineItem._id &&
+        logItem.status === 'complete'
+      ) {
+        completed = true;
+      }
+    });
+    dataForTimeline.completed = completed;
+    const timePassed = routineItem.endTime.timeInNumber < currentTimeInNumber;
+    dataForTimeline.timePassed = timePassed;
+    if (timePassed) {
+      if (!completed) {
+        dataForTimeline.circleColor = 'red';
+        dataForTimeline.lineColor = 'red';
+      } else {
+        dataForTimeline.circleColor = '#009688';
+        dataForTimeline.lineColor = '#009688';
+      }
+    } else {
+      dataForTimeline.circleColor = 'white';
+      dataForTimeline.lineColor = 'white';
+    }
     return dataForTimeline;
   };
 
   const setCurrentRoutine = useCallback(async () => {
-    const currentRoutine = await getPatientRoutine();
+    const routine = await getPatientRoutine();
+    const currentRoutineId = routine._id;
+    const todaysLogs = await getPatientTodayLogs(currentRoutineId);
+    const currentTime = convertTimeToNumber();
+    const currentTimeInNumber = currentTime.timeInNumber;
+    const currentRoutine = routine.routineElements;
     sortRoutine(currentRoutine);
     const currentItems = [];
     currentRoutine.forEach((routineItem) => {
-      const dataForTimeline = convertedToTimelineData(routineItem);
+      const dataForTimeline = convertedToTimelineData(
+        routineItem,
+        currentTimeInNumber,
+        todaysLogs
+      );
       currentItems.push(dataForTimeline);
     });
     setRoutine(currentRoutine);
