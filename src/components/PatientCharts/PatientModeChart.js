@@ -127,10 +127,13 @@ const PatientModeChart = ({ okayaDataHandeler }) => {
               tempAreaData.push(-1);
             }
             console.log('single', m);
-            const isExiest = pieData.find((d) => d.name === m);
+            const isExiest = pieData.find(
+              (d) => d.name.toLowerCase() === m.toLowerCase()
+            );
             console.log('isExiest', isExiest);
             if (!isExiest) {
               const pie = {
+                // name: m,
                 name: m.charAt(0).toUpperCase() + m.slice(1),
                 population: 1,
                 color: colors[pieData.length],
@@ -140,7 +143,9 @@ const PatientModeChart = ({ okayaDataHandeler }) => {
               console.log('pie', pie);
               pieData.push(pie);
             } else {
-              const index = pieData.findIndex((t) => t.name === m);
+              const index = pieData.findIndex(
+                (t) => t.name.toLowerCase() === m.toLowerCase()
+              );
               console.log('index', index);
               pieData[index].population += 1;
             }
