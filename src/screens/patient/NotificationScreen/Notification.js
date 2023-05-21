@@ -1,6 +1,8 @@
+import axios from 'axios';
 import { Audio } from 'expo-av';
 import React, { useEffect, useState } from 'react';
 import { StyleSheet } from 'react-native';
+import { SERVER_URL } from '../../../config';
 import ContactNotificationScreen from './ContactNotifiactionScreen';
 import ExerciseNotificationScreen from './ExerciseNotificationScreen';
 import GameNotificationScreen from './GameNotifcationScreen';
@@ -19,6 +21,21 @@ const NotificationScreen = ({ notification, setNotification }) => {
     await sound.playAsync();
   };
 
+  const handleLog = async (status = 'complete') => {
+    const { routineId, details } = notification;
+    try {
+      const log = await axios.post(SERVER_URL + '/routineLogs', {
+        routineId,
+        routineElementId: details._id,
+        status,
+      });
+
+      console.log(log);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     return sound
       ? () => {
@@ -32,11 +49,16 @@ const NotificationScreen = ({ notification, setNotification }) => {
     playSound();
   }, []);
 
+  useEffect(() => {
+    console.log(notification);
+  }, [notification]);
+
   if (notification.type === 'meal')
     return (
       <MealNotifiactionScreen
         notification={notification}
         setNotification={setNotification}
+        handleLog={handleLog}
       />
     );
   if (notification.type === 'medicine')
@@ -44,6 +66,7 @@ const NotificationScreen = ({ notification, setNotification }) => {
       <MedicineNotificationScreen
         notification={notification}
         setNotification={setNotification}
+        handleLog={handleLog}
       />
     );
 
@@ -52,6 +75,7 @@ const NotificationScreen = ({ notification, setNotification }) => {
       <ExerciseNotificationScreen
         notification={notification}
         setNotification={setNotification}
+        handleLog={handleLog}
       />
     );
   if (notification.type === 'contact')
@@ -59,6 +83,7 @@ const NotificationScreen = ({ notification, setNotification }) => {
       <ContactNotificationScreen
         notification={notification}
         setNotification={setNotification}
+        handleLog={handleLog}
       />
     );
   if (notification.type === 'game')
@@ -66,6 +91,7 @@ const NotificationScreen = ({ notification, setNotification }) => {
       <GameNotificationScreen
         notification={notification}
         setNotification={setNotification}
+        handleLog={handleLog}
       />
     );
 };

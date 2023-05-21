@@ -8,6 +8,7 @@ import globalStyles from '../../../utils/globalStyle';
 export default function GameNotificationScreen({
   notification,
   setNotification,
+  handleLog,
 }) {
   const screenHeight = Dimensions.get('screen').height;
   const screenWidth = Dimensions.get('screen').width;
@@ -76,6 +77,7 @@ export default function GameNotificationScreen({
             style={{ borderRadius: 30, marginBottom: 20, zIndex: 2 }}
             labelStyle={{ fontSize: 13 }}
             onPress={() => {
+              handleLog();
               setNotification(null);
             }}
           >

@@ -8,6 +8,7 @@ import globalStyles from '../../../utils/globalStyle';
 export default function ContactNotificationScreen({
   notification,
   setNotification,
+  handleLog,
 }) {
   const screenHeight = Dimensions.get('screen').height;
   const screenWidth = Dimensions.get('screen').width;
@@ -73,7 +74,10 @@ export default function ContactNotificationScreen({
             mode="contained"
             style={{ borderRadius: 30, marginBottom: 20, zIndex: 2 }}
             labelStyle={{ fontSize: 13 }}
-            onPress={() => setNotification(false)}
+            onPress={() => {
+              handleLog();
+              setNotification(null);
+            }}
           >
             Call
           </Button>
@@ -82,7 +86,10 @@ export default function ContactNotificationScreen({
             mode="text"
             textColor="#fff"
             labelStyle={{ fontSize: 13 }}
-            onPress={() => console.log('Pressed')}
+            onPress={() => {
+              setNotification(null);
+              setTimeout(() => setNotification(notification), 1000 * 60 * 10);
+            }}
             style={{ zIndex: 2 }}
           >
             SHOOZE

@@ -1,9 +1,9 @@
-import React from 'react';
-import { Dimensions, Image, View } from 'react-native';
-import { Button, Text } from 'react-native-paper';
 import LottieView from 'lottie-react-native';
-import globalStyles from '../../../utils/globalStyle';
+import React from 'react';
+import { Dimensions, View } from 'react-native';
+import { Button, Text } from 'react-native-paper';
 import logo from '../../../assets/lotties/yoga-meditation.json';
+import globalStyles from '../../../utils/globalStyle';
 
 export default function MeditationModal({ notification, setNotification }) {
   const screenHeight = Dimensions.get('screen').height;
@@ -69,22 +69,25 @@ export default function MeditationModal({ notification, setNotification }) {
             Pasta house
           </Text> */}
           <Button
-            icon='check'
-            mode='contained'
+            icon="check"
+            mode="contained"
             // buttonColor="#fff"
             // textColor={globalStyles.colors.gray}
             style={{ borderRadius: 30, marginBottom: 20, zIndex: 2 }}
             labelStyle={{ fontSize: 13 }}
-            onPress={() => setNotification(false)}
+            onPress={() => setNotification(null)}
           >
             DONE
           </Button>
           <Button
-            icon='alarm-snooze'
-            mode='text'
-            textColor='#fff'
+            icon="alarm-snooze"
+            mode="text"
+            textColor="#fff"
             labelStyle={{ fontSize: 13 }}
-            onPress={() => console.log('Pressed')}
+            onPress={() => {
+              setNotification(null);
+              setTimeout(() => setNotification(notification), 1000 * 60 * 10);
+            }}
             style={{ zIndex: 2 }}
           >
             SHOOZE
