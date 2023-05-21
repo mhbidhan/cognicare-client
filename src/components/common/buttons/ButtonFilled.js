@@ -7,7 +7,7 @@ function ButtonFilled({ text, onPressHandler, icon, width, color }) {
     <Button
       icon={icon ? icon : null}
       mode='elevated'
-      buttonColor={globalStyles.colors.primary}
+      buttonColor={color ? color : globalStyles.colors.primary}
       textColor='white'
       contentStyle={{
         // width: width ? width : 100,
