@@ -12,31 +12,52 @@ import VideoMeetingIcon from '../VideoMeeting/VideoMeetingIcon';
 import PhoneCallButton from '../PhoneCall/PhoneCallButton';
 
 const PatientContactCard = ({ contact }) => {
-  console.log(contact);
   return (
-    <Card>
-      <Card.Content
+    <View>
+      {/* <Card>
+        <Card.Content
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            gap: 8,
+          }}
+        >
+          <View>
+            <Text variant='displayMedium'>{contact.name}</Text>
+            <Text variant='headlineMedium'>{contact.relation}</Text>
+          </View>
+          <Avatar.Image
+            size={24}
+            source={{ uri: 'https://picsum.photos/700' }}
+            style={{ borderRadius: 24 }}
+          />
+        </Card.Content>
+        <Card.Actions>
+          <VideoMeetingIcon phoneNumber={contact.phone} />
+          <PhoneCallButton phoneNumber={contact.phone} />
+        </Card.Actions>
+      </Card> */}
+      <View
         style={{
+          height: 115,
+          backgroundColor: 'white',
+          borderRadius: 8,
           flexDirection: 'row',
           justifyContent: 'space-between',
-          gap: 8,
+          alignItems: 'center',
+          padding: 20,
         }}
       >
         <View>
-          <Text variant='titleLarge'>{contact.name}</Text>
-          <Text variant='titleSmall'>{contact.relation}</Text>
+          <Text variant='headlineMedium'>{contact.name}</Text>
+          <Text variant='titleMedium'>{contact.relation}</Text>
         </View>
-        <Avatar.Image
-          size={24}
-          source={{ uri: 'https://picsum.photos/700' }}
-          style={{ borderRadius: 24 }}
-        />
-      </Card.Content>
-      <Card.Actions>
-        <VideoMeetingIcon phoneNumber={contact.phone} />
-        <PhoneCallButton phoneNumber={contact.phone} />
-      </Card.Actions>
-    </Card>
+        <View style={{ flexDirection: 'row' }}>
+          <VideoMeetingIcon phoneNumber={contact.phone} size={30} />
+          <PhoneCallButton phoneNumber={contact.phone} size={30} />
+        </View>
+      </View>
+    </View>
   );
 };
 

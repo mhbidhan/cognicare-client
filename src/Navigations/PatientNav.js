@@ -147,9 +147,9 @@ const PatientNav = ({ isPatientState, isNoUserState, isCareTakerState }) => {
           isCareTakerState,
         }}
       />
-      <Tab.Screen name='gameWrodle' component={Wordle} />
+      {/* <Tab.Screen name='gameWrodle' component={Wordle} />
       <Tab.Screen name='gameFindColor' component={FindColorGame} />
-      <Tab.Screen name='gameMeditation' component={MeditationGame} />
+      <Tab.Screen name='gameMeditation' component={MeditationGame} /> */}
     </Tab.Navigator>
   );
 };
