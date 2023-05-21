@@ -8,51 +8,105 @@ import Exercise from '../../assets/cognicare-assets/exercise/exercise-autumn-svg
 import getPatientRoutine from '../../utils/getPatientRoutine';
 import convertTimeToNumber from '../../utils/convertTimeToNumber';
 import { sortRoutine } from '../../utils/routine';
+import getPatientTodayLogs from '../../utils/getPatientTodayLogs';
+import markRoutineElementAsCompleted from '../../utils/markRoutineElementAsCompleted';
+import callIcon from '../../assets/carousel/call-day-heart-svgrepo-com.png';
+import gameIcon from '../../assets/carousel/game-card-svgrepo-com.png';
+import mealIcon from '../../assets/carousel/have-a-meal-svgrepo-com.png';
+import exerciseIcon from '../../assets/carousel/weight-dumbbell-svgrepo-com.png';
 
 const PatientRoutineCarousel = ({ setTaskCount }) => {
   const [patientRoutine, setPatientRoutine] = useState(null);
+  const [routineId, setRoutineId] = useState();
+  const [todaysLogs, setTodaysLogs] = useState();
+  const [timeOfDay, setTimeOfDay] = useState('night');
 
-  const convertToChart = (routine) => {
+  const getTimeOfDay = () => {
+    const currentHour = new Date().getHours();
+    if (currentHour >= 6 && currentHour < 18) setTimeOfDay('day');
+    else setTimeOfDay('night');
+  };
+
+  const convertToChart = (routine, currentRoutineId, currentTimeInNumber) => {
     const item = {};
     const activityType = routine.activityType;
     item.title = routine[activityType].name;
     item.description = routine[activityType].description;
     item.time = routine.startTime.timeInString;
+    item.startTimeInNumber = routine.startTime.timeInNumber;
+    item.currentTimeInNumber = currentTimeInNumber;
     item.type = activityType;
+    item.routineElementId = routine._id;
+    item.currentRoutineId = currentRoutineId;
     return item;
+  };
+
+  const isCompleted = (routineElement, todaysLogs) => {
+    let completed = false;
+    todaysLogs.forEach((logItem) => {
+      if (
+        logItem.routineElementId === routineElement._id &&
+        logItem.status === 'complete'
+      ) {
+        completed = true;
+      }
+    });
+    return completed;
   };
 
   const fetchRoutine = async () => {
     try {
       const routines = await getPatientRoutine();
-      console.log(routines);
-      sortRoutine(routines);
-      const currentRoutines = routines;
+      const currentRoutines = routines.routineElements;
+      const currentRoutineId = routines._id;
+      const todaysLogs = await getPatientTodayLogs(currentRoutineId);
+      sortRoutine(currentRoutines);
       const currentItems = [];
       const currentTime = convertTimeToNumber();
       const currentTimeInNumber = currentTime.timeInNumber;
       let total = 0;
       let over = 0;
-      currentRoutines.forEach((routine) => {
+      currentRoutines.forEach((routineElement) => {
         total++;
-        const isOnNext = routine.endTime.timeInNumber > currentTimeInNumber;
-        if (isOnNext) {
-          const routineForChart = convertToChart(routine);
+        const isOnNext =
+          routineElement.endTime.timeInNumber > currentTimeInNumber;
+        const completed = isCompleted(routineElement, todaysLogs);
+        if (completed) over++;
+
+        if (isOnNext && !completed) {
+          const routineForChart = convertToChart(
+            routineElement,
+            currentRoutineId,
+            currentTimeInNumber
+          );
           currentItems.push(routineForChart);
-        } else {
-          over++;
         }
       });
       const taskOverPercentage =
         total === 0 ? 0 : Math.floor((over / total) * 100);
       setPatientRoutine(currentItems);
       setTaskCount([over, total, taskOverPercentage]);
+      setRoutineId(currentRoutineId);
+      setTodaysLogs(todaysLogs);
+    } catch (error) {
+      console.log('hello', error);
+    }
+  };
+
+  const markAsCompleted = async (routineElementId, currentRoutineId) => {
+    try {
+      const data = await markRoutineElementAsCompleted(
+        routineElementId,
+        currentRoutineId
+      );
+      fetchRoutine();
     } catch (error) {
       console.log(error);
     }
   };
 
   useEffect(() => {
+    getTimeOfDay();
     fetchRoutine();
   }, []);
 
@@ -92,35 +146,64 @@ const PatientRoutineCarousel = ({ setTaskCount }) => {
   const renderItem = ({ item, index }) => {
     return (
       <View style={styles.item}>
-        <View>
+        <View style={{ justifyContent: 'space-between' }}>
           {item.type ? (
             <Image
               source={
-                (item.type === 'meal' && Meal) ||
+                (item.type === 'meal' && mealIcon) ||
                 (item.type === 'medicine' && Medicine) ||
-                (item.type === 'exercise' && Exercise)
+                (item.type === 'exercise' && exerciseIcon) ||
+                (item.type === 'game' && gameIcon)
               }
-              style={{ width: 30, height: 30 }}
+              style={{ width: 40, height: 40 }}
             />
           ) : (
             <Text>Icon</Text>
           )}
+          <View>
+            <Text style={styles.title}>{item.title}</Text>
+            <Text style={styles.time}>{item.time}</Text>
+          </View>
         </View>
-        <View>
-          <Text style={styles.text}>
-            {item.time} - {item.title}
-          </Text>
-        </View>
+        {item.startTimeInNumber < item.currentTimeInNumber && (
+          <IconButton
+            icon='check'
+            iconColor={MD3Colors.primary0}
+            size={20}
+            onPress={() =>
+              markAsCompleted(item.routineElementId, item.currentRoutineId)
+            }
+            mode='contained'
+            style={{ alignSelf: 'center' }}
+          />
+        )}
       </View>
     );
   };
 
   return (
     <View>
-      <View style={{ flexDirection: 'row', alignItems: 'center', gap: 20 }}>
-        <Text style={[styles.subtitle, { paddingBottom: 5 }]}>Next tasks</Text>
+      <View
+        style={{
+          flexDirection: 'row',
+          alignItems: 'center',
+          gap: 20,
+          marginBottom: 20,
+        }}
+      >
+        <Text
+          style={[
+            styles.subtitle,
+            {
+              paddingBottom: 5,
+              color: timeOfDay === 'day' ? 'rgb(105, 15, 117)' : 'white',
+            },
+          ]}
+        >
+          Next tasks
+        </Text>
         <Button
-          icon='download'
+          icon='reload'
           onPress={fetchRoutine}
           mode='contained'
           dark={true}
@@ -154,11 +237,13 @@ const styles = StyleSheet.create({
   item: {
     backgroundColor: 'white',
     borderRadius: 5,
-    height: 100,
+    height: 150,
     padding: 12,
     marginLeft: 4,
     marginRight: 4,
     justifyContent: 'space-between',
+    flexDirection: 'row',
+    alignItems: 'stretch',
   },
   title: {
     fontSize: 25,
@@ -169,8 +254,13 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: 'white',
   },
-  text: {
+  time: {
     fontSize: 18,
+    fontWeight: 'bold',
+    color: '#4d4d4d',
+  },
+  title: {
+    fontSize: 22,
     fontWeight: 'bold',
     color: '#4d4d4d',
   },
