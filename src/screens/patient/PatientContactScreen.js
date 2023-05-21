@@ -58,20 +58,7 @@ const PatientContactScreen = () => {
         <ScrollView contentContainerStyle={{ gap: 20 }}>
           {contacts &&
             contacts.map((contact, idx) => {
-              if (idx % 2 === 1) return null;
-              if (idx === contacts.length - 1) {
-                return (
-                  <View style={styles.contactRow} key={idx}>
-                    <PatientContactCard contact={contact} />
-                  </View>
-                );
-              }
-              return (
-                <View style={styles.contactRow} key={idx}>
-                  <PatientContactCard contact={contact} />
-                  <PatientContactCard contact={contacts[idx + 1]} />
-                </View>
-              );
+              return <PatientContactCard contact={contact} key={idx} />;
             })}
         </ScrollView>
       </View>
