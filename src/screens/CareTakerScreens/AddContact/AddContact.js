@@ -5,6 +5,8 @@ import { Button } from 'react-native-paper';
 import Timeline from 'react-native-timeline-flatlist';
 import { SERVER_URL } from './../../../config';
 import globalStyles from './../../../utils/globalStyle';
+import FileInput from '../../../components/common/FileInput/FileInput';
+import uploadToCloudinary from '../../../services/cloudinary';
 import LottiePatientBackground from './../../../components/LottieBackgrounds/LottiePatientBackground';
 
 const styles = StyleSheet.create({
@@ -28,16 +30,26 @@ const AddContact = ({ navigation }) => {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [relation, setRelation] = useState('');
+  const [img, setImg] = useState('');
   const { caretakerToken, thisPatient } = useSelector(
     (state) => state.caretaker
   );
 
-  const handleSubmit = () => {
+  const emptyString = () => {
+    setName('');
+    setPhone('');
+    setRelation('');
+    setImg('');
+  };
+  const handleSubmit = async () => {
+    const imgUrl = (await uploadToCloudinary(img)).secure_url;
     const data = {
       name,
       phone,
       relation,
+      imgUrl,
     };
+    console.log(data);
     fetch(`${SERVER_URL}/patients/${thisPatient._id}/addcontact`, {
       method: 'PUT',
       headers: {
@@ -49,6 +61,7 @@ const AddContact = ({ navigation }) => {
       .then((res) => res.json())
       .then((res) => {
         console.log('result', res);
+        emptyString();
       })
       .catch((error) => {
         console.log('Error fetching', error);
@@ -97,6 +110,9 @@ const AddContact = ({ navigation }) => {
           onChangeText={setRelation}
           placeholder='Relation with patient'
         />
+
+        <FileInput handleChange={(file) => setImg(file)} />
+
         <Button
           icon='check-circle'
           mode='elevated'

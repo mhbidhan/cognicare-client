@@ -55,10 +55,10 @@ function Stat({ patient, navigation }) {
 
   const chartConfig = {
     backgroundGradientFrom: '#f2f2f2',
-    backgroundGradientFromOpacity: 1,
+    backgroundGradientFromOpacity: 0,
     backgroundGradientTo: '#e6e6e6',
-    backgroundGradientToOpacity: 1,
-    color: (opacity = 1) => `rgba(0, 77, 40, ${opacity})`,
+    backgroundGradientToOpacity: 0,
+    color: (opacity = 0.5) => `rgba(255, 255, 255, ${opacity})`,
     decimalPlaces: 0,
     strokeWidth: 2, // optional, default 3
     barPercentage: 0.5,
@@ -218,49 +218,14 @@ function Stat({ patient, navigation }) {
             }}
           >
             <LineChart
-              data={bloodPressure}
-              width={globalStyles.adjustedWidthFromDevice} // from react-native
-              height={250}
-              horizontalLabelRotation={45}
-              verticalLabelRotation={30}
-              // yAxisLabel='$'
-              // yAxisSuffix='mg/dL'
-              // yAxisInterval={1} // optional, defaults to 1
-              chartConfig={{
-                backgroundColor: '#e26a00',
-                backgroundGradientFrom: '#fb8c00',
-                backgroundGradientTo: '#ffa726',
-                decimalPlaces: 0, // optional, defaults to 2dp
-                color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-                labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-                style: {
-                  // borderRadius: 16,
-                  paddingHorizontal: 10,
-                },
-              }}
-              bezier
-              style={{
-                // marginVertical: 8,
-                borderRadius: 16,
-                // paddingHorizontal: 10,
-              }}
-            />
-          </View>
-          <View
-            style={{
-              flex: 1,
-              marginTop: 8,
-            }}
-          >
-            <LineChart
-              data={bloodGlucose}
+              data={okayaData}
               width={globalStyles.adjustedWidthFromDevice}
               height={250}
               horizontalLabelRotation={45}
               verticalLabelRotation={30}
-              // yAxisLabel='$'
-              // yAxisSuffix='mmHg'
               withVerticalLabels={true}
+              fromZero={true}
+              bezier
               chartConfig={chartConfig}
               style={{
                 borderRadius: 16,
@@ -297,14 +262,51 @@ function Stat({ patient, navigation }) {
             }}
           >
             <LineChart
-              data={okayaData}
+              data={bloodPressure}
+              width={globalStyles.adjustedWidthFromDevice} // from react-native
+              height={250}
+              horizontalLabelRotation={45}
+              verticalLabelRotation={30}
+              // yAxisLabel='$'
+              // yAxisSuffix='mg/dL'
+              // yAxisInterval={1} // optional, defaults to 1
+              chartConfig={{
+                backgroundColor: '#e26a00',
+                backgroundGradientFrom: '#fb8c00',
+                backgroundGradientFromOpacity: 0,
+                backgroundGradientTo: '#ffa726',
+                backgroundGradientToOpacity: 0,
+                decimalPlaces: 0, // optional, defaults to 2dp
+                color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+                labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+                style: {
+                  // borderRadius: 16,
+                  paddingHorizontal: 10,
+                },
+              }}
+              bezier
+              style={{
+                // marginVertical: 8,
+                borderRadius: 16,
+                // paddingHorizontal: 10,
+              }}
+            />
+          </View>
+          <View
+            style={{
+              flex: 1,
+              marginTop: 8,
+            }}
+          >
+            <LineChart
+              data={bloodGlucose}
               width={globalStyles.adjustedWidthFromDevice}
               height={250}
               horizontalLabelRotation={45}
               verticalLabelRotation={30}
+              // yAxisLabel='$'
+              // yAxisSuffix='mmHg'
               withVerticalLabels={true}
-              fromZero={true}
-              bezier
               chartConfig={chartConfig}
               style={{
                 borderRadius: 16,
