@@ -3,7 +3,7 @@ import React from 'react';
 import { IconButton, MD3Colors } from 'react-native-paper';
 import * as Linking from 'expo-linking';
 
-const PhoneCallButton = ({ phoneNumber }) => {
+const PhoneCallButton = ({ phoneNumber, size }) => {
   const handleCallButtonPress = () => {
     Linking.openURL(`tel:${phoneNumber}`);
   };
@@ -12,7 +12,7 @@ const PhoneCallButton = ({ phoneNumber }) => {
     <IconButton
       icon='phone'
       iconColor={MD3Colors.primary}
-      size={20}
+      size={size ? size : 20}
       onPress={handleCallButtonPress}
       mode='contained'
     />

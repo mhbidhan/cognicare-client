@@ -60,7 +60,7 @@ const PatientNav = ({ isPatientState, isNoUserState, isCareTakerState }) => {
 
   return (
     <Tab.Navigator
-      initialRouteName="PatientDashboard"
+      initialRouteName='PatientDashboard'
       shifting={true}
       tabBarShowLabel={false}
       labeled={false}
@@ -101,7 +101,7 @@ const PatientNav = ({ isPatientState, isNoUserState, isCareTakerState }) => {
       })}
     >
       <Tab.Screen
-        name="PatientRoutineTimeline"
+        name='PatientRoutineTimeline'
         component={PatientRoutineTimelineScreen}
         initialParams={{
           isPatientState,
@@ -110,7 +110,7 @@ const PatientNav = ({ isPatientState, isNoUserState, isCareTakerState }) => {
         }}
       />
       <Tab.Screen
-        name="PatientContact"
+        name='PatientContact'
         component={PatientContactScreen}
         initialParams={{
           isPatientState,
@@ -119,7 +119,7 @@ const PatientNav = ({ isPatientState, isNoUserState, isCareTakerState }) => {
         }}
       />
       <Tab.Screen
-        name="PatientDashboard"
+        name='PatientDashboard'
         component={PatientDashBoard}
         initialParams={{
           isPatientState,
@@ -128,7 +128,7 @@ const PatientNav = ({ isPatientState, isNoUserState, isCareTakerState }) => {
         }}
       />
       <Tab.Screen
-        name="PatientActivity"
+        name='PatientActivity'
         children={() => (
           <PatientGameScreen
             currentGame={currentGame}
@@ -140,7 +140,7 @@ const PatientNav = ({ isPatientState, isNoUserState, isCareTakerState }) => {
         }}
       />
       <Tab.Screen
-        name="PatientProfile"
+        name='PatientProfile'
         component={PatientProfileScreen}
         initialParams={{
           isPatientState,
