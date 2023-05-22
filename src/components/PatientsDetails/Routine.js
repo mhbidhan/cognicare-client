@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, StyleSheet, Button } from 'react-native';
+import { Text, View, StyleSheet, ScrollView } from 'react-native';
 import { useSelector } from 'react-redux';
 import Timeline from 'react-native-timeline-flatlist';
 import globalStyles from './../../utils/globalStyle';
@@ -14,8 +14,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   list: {
-    // flex: 1,
-    // marginTop: 20,
+    flex: 1,
+    marginTop: 20,
     paddingTop: 10,
   },
 });
@@ -58,30 +58,36 @@ const Routine = ({ navigation }) => {
   return (
     <View style={{ flex: 1, position: 'relative' }}>
       <LottiePatientBackground />
-      <View style={[globalStyles.container, { opacity: 1 }]}>
-        <Timeline
-          style={styles.list}
-          data={patientRoutine}
-          separator={true}
-          circleSize={20}
-          circleColor='rgb(45,156,219)'
-          lineColor='rgb(45,156,219)'
-          timeContainerStyle={{ minWidth: 52, marginTop: -5 }}
-          timeStyle={{
-            textAlign: 'center',
-            backgroundColor: '#ff9797',
-            color: 'white',
-            padding: 5,
-            borderRadius: 13,
-            overflow: 'hidden',
-          }}
-          descriptionStyle={{ color: 'gray' }}
-          options={{
-            style: { paddingTop: 5 },
-          }}
-        />
-      </View>
-      {/* <ButtonFilled text='Send SMS' /> */}
+      <ScrollView>
+        <View style={[globalStyles.container, { opacity: 1 }]}>
+          {patientRoutine && (
+            <Timeline
+              style={styles.list}
+              data={patientRoutine}
+              separator={true}
+              circleSize={20}
+              timeContainerStyle={{ width: 68, marginTop: 0 }}
+              timeStyle={{
+                textAlign: 'center',
+                backgroundColor: '#cccccc', //'#404040',
+                color: 'white', // 'black',
+                padding: 5,
+                borderRadius: 13,
+                overflow: 'hidden',
+              }}
+              titleStyle={{
+                color: 'white', //'rgb(105, 15, 117)',
+              }}
+              descriptionStyle={{
+                color: 'white', //'rgb(105, 15, 117)',
+              }}
+              options={{
+                style: { paddingTop: 5 },
+              }}
+            />
+          )}
+        </View>
+      </ScrollView>
     </View>
   );
 };

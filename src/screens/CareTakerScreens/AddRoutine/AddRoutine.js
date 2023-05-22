@@ -13,26 +13,22 @@ import GameActivityForm from '../../../components/GameActivityForm/GameActivityF
 import RoutineList from '../../../components/RoutineList/RoutineList';
 import Container from '../../../components/common/Container/Container';
 import LottieBackground from '../../../components/LottieBackgrounds/LottiePatientBackground';
-import { usePostRoutineElementMutation } from './../../../features/caretaker/caretakerApi';
 import { setThisPatientRoutine } from './../../../features/caretaker/caretakerSlice';
 import { getData } from '../../../localStorage';
+import showToast from '../../../utils/showToast';
 
 const AddRoutineScreen = ({ patientId, navigation }) => {
   const dispatch = useDispatch();
   const [view, setView] = useState('');
   const [routineType, setRoutineType] = useState('daily');
   const [currentActivity, setCurrentActivity] = useState(null);
-  const { caretakerToken, thisPatient } = useSelector(
-    (state) => state.caretaker
-  );
+  const { thisPatient } = useSelector((state) => state.caretaker);
   const [formData, setFormData] = useState({
     routineType: '',
     patient: '',
     date: '',
     routineElements: [],
   });
-  const [postRoutineElement, { data, isLoading, isError }] =
-    usePostRoutineElementMutation() || {};
 
   useEffect(() => {
     setFormData((formData) => ({ ...formData, patient: patientId }));
@@ -53,7 +49,6 @@ const AddRoutineScreen = ({ patientId, navigation }) => {
       })
         .then((res) => res.json())
         .then((res) => {
-          // console.log('routine element', res);
           thisPatientRoutine.push(res);
           if (i === routineLength - 1) {
             console.log('ultimate call', thisPatientRoutine);
@@ -74,19 +69,17 @@ const AddRoutineScreen = ({ patientId, navigation }) => {
               .then((res) => res.json())
               .then((res) => {
                 if (res.routineElements) {
-                  // console.log('this patient routine', res);
-                  // dispatch(
-                  //   setThisPatientRoutine({
-                  //     patientRoutine: res.routineElements,
-                  //   })
-                  // );
+                  showToast(
+                    'success',
+                    'Saved',
+                    'Routine saved for this patient'
+                  );
                   setFormData({
                     routineType: '',
                     patient: '',
                     date: '',
                     routineElements: [],
                   });
-                  //     navigation.navigate('Patient_Details');
                 }
               })
               .catch((error) => {
@@ -121,7 +114,6 @@ const AddRoutineScreen = ({ patientId, navigation }) => {
             setView={setView}
             data={formData.routineElements}
             saveHandeler={saveHandeler}
-            loading={isLoading}
             routineElements={formData.routineElements}
           />
         ) : null}
