@@ -1,5 +1,12 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { Text, View, StyleSheet, ScrollView, Dimensions } from 'react-native';
+import {
+  Text,
+  View,
+  StyleSheet,
+  ScrollView,
+  Dimensions,
+  ImageBackground,
+} from 'react-native';
 import Timeline from 'react-native-timeline-flatlist';
 import LottieView from 'lottie-react-native';
 import globalStyles from '../../utils/globalStyle';
@@ -11,6 +18,8 @@ import getPatientTodayLogs from '../../utils/getPatientTodayLogs';
 import convertTimeToNumber from '../../utils/convertTimeToNumber';
 import day from '../../assets/lotties/9878-background-full-screen.json';
 import night from '../../assets/lotties/night.json';
+import dayPng from '../../assets/dayPng.png';
+import nightPng from '../../assets/nightPng.png';
 
 const styles = StyleSheet.create({
   container: {
@@ -141,12 +150,13 @@ const PatientRoutineTimelineScreen = ({ navigation }) => {
     let isDay = false;
     if (currentHour >= 6 && currentHour < 18) isDay = true;
     setCurrentRoutine(isDay);
-  }, [setCurrentRoutine, getTimeOfDay]);
+    console.log('patientRoutineTimeline useEffect');
+  }, []);
 
   return (
     <View style={{ flex: 1, position: 'relative' }}>
-      {/* <ImageBackground
-        source={nightWallpaper}
+      <ImageBackground
+        source={timeOfDay === 'day' ? dayPng : nightPng}
         resizeMode='cover'
         style={{
           position: 'absolute',
@@ -154,18 +164,21 @@ const PatientRoutineTimelineScreen = ({ navigation }) => {
           left: 0,
           bottom: 0,
           right: 0,
-          opacity: 0.3,
+          opacity: 1,
         }}
-      ></ImageBackground> */}
-      {/* <LottiePatientBackground /> */}
-      <LottieView
-        autoPlay
-        source={timeOfDay === 'day' ? day : night}
-        style={{
-          position: 'absolute',
-          height: Dimensions.get('screen').height,
-        }}
-      />
+      ></ImageBackground>
+      {/* {timeOfDay !== 'day' ? (
+        <LottiePatientBackground />
+      ) : (
+        <LottieView
+          autoPlay
+          source={day}
+          style={{
+            position: 'absolute',
+            height: Dimensions.get('screen').height,
+          }}
+        />
+      )} */}
       <View style={[globalStyles.container, { opacity: 1 }]}>
         <Text
           style={[
@@ -185,8 +198,6 @@ const PatientRoutineTimelineScreen = ({ navigation }) => {
               data={dataForTimeline}
               separator={true}
               circleSize={20}
-              // circleColor='#cccccc'
-              // lineColor='rgb(45,156,219)'
               timeContainerStyle={{ width: 68, marginTop: 0 }}
               timeStyle={{
                 textAlign: 'center',

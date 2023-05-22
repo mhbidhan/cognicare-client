@@ -1,13 +1,6 @@
 import React from 'react';
-import { Image, StyleSheet, View } from 'react-native';
-import {
-  Avatar,
-  Button,
-  Card,
-  Text,
-  IconButton,
-  MD3Colors,
-} from 'react-native-paper';
+import { StyleSheet, View } from 'react-native';
+import { Avatar, Text } from 'react-native-paper';
 import VideoMeetingIcon from '../VideoMeeting/VideoMeetingIcon';
 import PhoneCallButton from '../PhoneCall/PhoneCallButton';
 import MyTheme from '../../assets/Theme/myTheme';
