@@ -1,22 +1,17 @@
 import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
 import {
-  StyleSheet,
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  Alert,
   Image,
   Modal,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
 } from 'react-native';
 import { Button } from 'react-native-paper';
-import globalStyles from './../../utils/globalStyle';
-import pic from './../../assets/pic.jpg';
-import ButtonFilled from '../common/buttons/ButtonFilled';
 import QRCode from 'react-native-qrcode-svg';
-import { Avatar } from 'react-native-paper';
+import { useDispatch } from 'react-redux';
 import { setThisPatient } from './../../features/caretaker/caretakerSlice';
+import globalStyles from './../../utils/globalStyle';
 
 function PatientCard({ patient, navigation }) {
   const dispatch = useDispatch();
@@ -28,7 +23,7 @@ function PatientCard({ patient, navigation }) {
 
   const cardTouchHandeler = () => {
     dispatch(setThisPatient({ thisPatient: patient }));
-    navigation.navigate('Patient_Details');
+    navigation.navigate('Patient Details');
   };
 
   return (
@@ -40,12 +35,11 @@ function PatientCard({ patient, navigation }) {
           }}
           style={styles.image}
         />
-        {/* <Avatar.Image size={90} source={patient.imgUrl} /> */}
       </View>
       <Text style={styles.name}>{patient.name}</Text>
       <View style={styles.modalParentView}>
         <Modal
-          animationType='slide'
+          animationType="slide"
           transparent={true}
           visible={modalVisible}
           onRequestClose={() => {
@@ -56,8 +50,8 @@ function PatientCard({ patient, navigation }) {
             <QRCode value={patient.loginCode} size={200} />
             <View style={styles.modalButtonView}>
               <Button
-                icon='close-box-outline'
-                mode='elevated'
+                icon="close-box-outline"
+                mode="elevated"
                 buttonColor={globalStyles.colors.primaryLight}
                 textColor={globalStyles.colors.primary}
                 style={{ borderRadius: 10 }}
@@ -73,14 +67,9 @@ function PatientCard({ patient, navigation }) {
         </Modal>
       </View>
       <Button
-        icon='qrcode'
-        mode='elevated'
+        icon="qrcode"
+        mode="contained"
         buttonColor={globalStyles.colors.primary}
-        textColor={globalStyles.colors.primaryLight}
-        // contentStyle={{
-        //   width: 300,
-        //   paddingVertical: 10,
-        // }}
         style={{ borderRadius: 10 }}
         labelStyle={{ fontSize: 17 }}
         onPress={getcodeHandeler}
@@ -93,15 +82,13 @@ function PatientCard({ patient, navigation }) {
 
 const styles = StyleSheet.create({
   container: {
-    // flex: 1,
-    padding: 10,
-    marginTop: 20,
+    padding: 20,
+    marginBottom: 20,
+    borderRadius: 10,
+    backgroundColor: '#fff',
     justifyContent: 'center',
     alignItems: 'center',
-    // borderRadius: 10,
-    // borderWidth: 1,
-    // borderStyle: 'solid',
-    // borderColor: globalStyles.colors.primary,
+
     shadowColor: globalStyles.colors.primary,
     shadowOffset: {
       width: 0,
@@ -132,14 +119,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 10,
-    // position: 'absolute',
-    // top: 0,
-    // left: 0,
-    // transform: [{ translateY: 200 }],
-    // borderWidth: 3,
-    // borderStyle: 'solid',
-    // borderColor: 'red',
-    // borderColor: globalStyles.colors.primary,
   },
   modalButtonView: {
     marginTop: 30,
