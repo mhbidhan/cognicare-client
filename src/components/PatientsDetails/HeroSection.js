@@ -1,20 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { Image, StyleSheet, View } from 'react-native';
+import { Text } from 'react-native-paper';
 import { useSelector } from 'react-redux';
-import {
-  StyleSheet,
-  View,
-  TextInput,
-  TouchableOpacity,
-  Alert,
-  Image,
-  Modal,
-  Button,
-} from 'react-native';
 import globalStyles from './../../utils/globalStyle';
-import pic from './../../assets/pic.jpg';
-import ButtonFilled from '../common/buttons/ButtonFilled';
-import QRCode from 'react-native-qrcode-svg';
-import { Avatar, BottomNavigation, Text } from 'react-native-paper';
 
 function HeroSection() {
   const { thisPatient } = useSelector((state) => state.caretaker);
@@ -73,7 +61,7 @@ const styles = StyleSheet.create({
     color: globalStyles.colors.white,
   },
   text: {
-    color: globalStyles.colors.primaryLight,
+    color: '#fff',
   },
   image: {
     width: 100,

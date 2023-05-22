@@ -1,153 +1,55 @@
-import React, { useState } from 'react';
-import {
-  StyleSheet,
-  View,
-  TextInput,
-  TouchableOpacity,
-  Alert,
-  ScrollView,
-  Modal,
-  Button,
-} from 'react-native';
+import React from 'react';
+import { Dimensions, ScrollView, StyleSheet, View } from 'react-native';
+import { DataTable, Text } from 'react-native-paper';
 import globalStyles from './../../utils/globalStyle';
-import pic from './../../assets/pic.jpg';
-import ButtonFilled from '../common/buttons/ButtonFilled';
-import QRCode from 'react-native-qrcode-svg';
-import { Avatar, BottomNavigation, Text } from 'react-native-paper';
 
-function Description({ patient, navigation }) {
-  console.log('contacts', patient.contacts);
+const fullWidth = Dimensions.get('window').width;
+
+function Description({ patient }) {
   return (
     <ScrollView style={styles.container}>
       <View style={{ margin: 5 }}>
-        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-          <View
-            style={{ flexDirection: 'column', justifyContent: 'space-between' }}
-          >
-            {/* <View style={styles.textView}>
-              <Text style={{ fontWeight: '900' }}>Name: </Text>
-              <Text style={styles.text}>{patient.name}</Text>
-            </View> */}
-            <View style={styles.textView}>
-              <Text style={{ fontWeight: '900' }}>Gender: </Text>
-              <Text style={styles.text}>{patient.gender}</Text>
-            </View>
-            <View style={styles.textView}>
-              <Text style={{ fontWeight: '900' }}>Age: </Text>
-              <Text style={styles.text}>{patient.age}</Text>
-            </View>
-          </View>
-          <View
-            style={{ flexDirection: 'column', justifyContent: 'space-between' }}
-          >
-            <View style={{ flexDirection: 'row' }}>
-              <Text style={{ fontWeight: '900' }}>Birth place: </Text>
-              <Text style={styles.text}>{patient.birthCountry}</Text>
-            </View>
-            <View style={{ flexDirection: 'row' }}>
-              <Text style={{ fontWeight: '900' }}>Living in: </Text>
-              <Text style={styles.text}>{patient.country}</Text>
-            </View>
-          </View>
-        </View>
-        <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+        <View style={{}}>
           <View
             style={{
               flexDirection: 'column',
               justifyContent: 'space-between',
-              marginTop: 10,
+              marginBottom: 20,
             }}
           >
-            <View style={{ flexDirection: 'row' }}>
-              <Text style={{ fontWeight: '900' }}>Locale: </Text>
-              <Text style={styles.text}>{patient.locale}</Text>
-            </View>
-            <View style={{ flexDirection: 'row' }}>
-              <Text style={{ fontWeight: '900' }}>Living Arrangement: </Text>
-              <Text style={styles.text}>{patient.livingArrangement}</Text>
-            </View>
+            <PatientDescriptionView
+              propName={'Gender'}
+              value={patient.gender}
+            />
+            <PatientDescriptionView propName={'Age'} value={patient.age} />
+            <PatientDescriptionView
+              propName={'Birth place'}
+              value={patient.birthCountry}
+            />
+            <PatientDescriptionView
+              propName={'Living in'}
+              value={patient.country}
+            />
+            <PatientDescriptionView
+              propName={'Locale'}
+              value={patient.locale}
+            />
+            <PatientDescriptionView
+              propName={'Living Arrangement'}
+              value={patient.livingArrangement}
+            />
           </View>
-        </View>
-        <View
-          style={{
-            backgroundColor: '#2b326e',
-            marginTop: 20,
-            paddingBottom: 10,
-            borderTopLeftRadius: 5,
-            borderTopRightRadius: 5,
-            opacity: 0.8,
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
-          <Text style={{ fontSize: 20, fontWeight: 'bold', color: '#fff' }}>
-            Emergency Contact
-          </Text>
+
           <View
             style={{
               flexDirection: 'column',
-              justifyContent: 'center',
-              alignItems: 'center',
+              justifyContent: 'space-between',
+              marginBottom: 20,
             }}
-          >
-            <View style={styles.textView}>
-              <Text style={styles.lable}>Name: </Text>
-              <Text style={styles.emergencytext}>
-                {patient.emergencyContact.name}
-              </Text>
-            </View>
-            <View style={styles.textView}>
-              <Text style={styles.lable}>Phone: </Text>
-              <Text style={styles.emergencytext}>
-                {patient.emergencyContact.phone}
-              </Text>
-            </View>
-            <View style={styles.textView}>
-              <Text style={styles.lable}>Relation: </Text>
-              <Text style={styles.emergencytext}>
-                {patient.emergencyContact.relation}
-              </Text>
-            </View>
-          </View>
+          ></View>
         </View>
-        <View style={{ backgroundColor: '#2b326e', marginBottom: 10 }}>
-          <Text
-            style={{
-              fontSize: 20,
-              fontWeight: 'bold',
-              color: '#fff',
-              textAlign: 'center',
-            }}
-          >
-            Contact
-          </Text>
-          {patient.contacts.map((c, i) => (
-            <View
-              key={i}
-              style={{
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                backgroundColor: '#2b326e',
-                padding: 5,
-                borderBottomWidth: 1,
-                borderBottomColor: '#fff',
-              }}
-            >
-              <View style={{ flexDirection: 'column' }}>
-                <Text style={styles.lable}>Name</Text>
-                <Text style={styles.emergencytext}>{c.name}</Text>
-              </View>
-              <View style={{ flexDirection: 'column' }}>
-                <Text style={styles.lable}>Phone</Text>
-                <Text style={styles.emergencytext}>{c.phone}</Text>
-              </View>
-              <View style={{ flexDirection: 'column' }}>
-                <Text style={styles.lable}>Relation</Text>
-                <Text style={styles.emergencytext}>{c.relation}</Text>
-              </View>
-            </View>
-          ))}
-        </View>
+        <EmergencyContactCard emergencyContact={patient.emergencyContact} />
+        <ContactList contacts={patient.contacts} />
       </View>
     </ScrollView>
   );
@@ -158,28 +60,25 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 10,
     marginTop: 20,
-    backgroundColor: globalStyles.colors.white,
-    opacity: 0.5,
-    // justifyContent: 'center',
-    // alignItems: 'center',
-    // borderRadius: 10,
-    // borderWidth: 1,
-    // borderStyle: 'solid',
-    // borderColor: globalStyles.colors.primary,
-    // shadowColor: globalStyles.colors.primary,
-    // shadowOffset: {
-    //   width: 0,
-    //   height: 2,
-    // },
-    // shadowOpacity: 0.1,
-    // shadowRadius: 3.84,
-    // elevation: 3,
+  },
+  backgroundContainer: {
+    width: fullWidth - 40,
+    padding: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#fff',
+    borderRadius: 10,
+    marginBottom: 20,
   },
   textView: {
+    width: fullWidth - 40,
+    marginBottom: 10,
     flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   text: {
-    color: globalStyles.colors.primary,
+    color: '#fff',
+    fontSize: 16,
   },
   emergencytext: {
     color: globalStyles.colors.white,
@@ -191,3 +90,87 @@ const styles = StyleSheet.create({
 });
 
 export default Description;
+
+const PatientDescriptionView = ({ propName, value }) => {
+  return (
+    <View style={styles.textView}>
+      <Text style={{ fontWeight: '900', color: '#fff', fontSize: 16 }}>
+        {propName} :
+      </Text>
+      <Text style={styles.text}>{value}</Text>
+    </View>
+  );
+};
+
+const PatientContactView = ({ propName, value }) => {
+  return (
+    <View
+      style={{
+        alignSelf: 'stretch',
+        marginBottom: 10,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+      }}
+    >
+      <Text style={{ fontWeight: '900', color: '#000', fontSize: 16 }}>
+        {propName} :
+      </Text>
+      <Text style={{ fontSize: 16, color: '#000' }}>{value}</Text>
+    </View>
+  );
+};
+
+const EmergencyContactCard = ({ emergencyContact }) => {
+  const { name, phone, relation } = emergencyContact;
+  return (
+    <View style={styles.backgroundContainer}>
+      <Text
+        style={{
+          fontWeight: '900',
+          color: '#000',
+          fontSize: 20,
+          marginBottom: 20,
+        }}
+      >
+        Emergency Contact
+      </Text>
+      <PatientContactView propName={'Name'} value={name} />
+      <PatientContactView propName={'Phone'} value={`+${phone}`} />
+      <PatientContactView propName={'Relation'} value={relation} />
+    </View>
+  );
+};
+
+const ContactList = ({ contacts = [] }) => {
+  return (
+    <View style={styles.backgroundContainer}>
+      <Text
+        style={{
+          fontWeight: '900',
+          color: '#000',
+          fontSize: 20,
+          marginBottom: 20,
+        }}
+      >
+        Other Contacts
+      </Text>
+      <DataTable>
+        <DataTable.Header>
+          <DataTable.Title>Name</DataTable.Title>
+          <DataTable.Title>Relation</DataTable.Title>
+          <DataTable.Title>Phone</DataTable.Title>
+        </DataTable.Header>
+        {contacts.map((contact, idx) => {
+          const { name, relation, phone } = contact;
+          return (
+            <DataTable.Row key={idx}>
+              <DataTable.Cell>{name}</DataTable.Cell>
+              <DataTable.Cell>{relation}</DataTable.Cell>
+              <DataTable.Cell>+{phone}</DataTable.Cell>
+            </DataTable.Row>
+          );
+        })}
+      </DataTable>
+    </View>
+  );
+};

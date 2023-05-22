@@ -1,23 +1,23 @@
-import { StyleSheet } from 'react-native';
+import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
-import { createDrawerNavigator } from '@react-navigation/drawer';
-import ModalScreen from '../screens/ModalScreen';
-import AddContact from '../screens/CareTakerScreens/AddContact/AddContact';
+import { StyleSheet } from 'react-native';
+import Stat from '../components/PatientsDetails/Stat';
 import Notification from '../components/PushNotification/Notification';
 import RoutineList from '../components/RoutineList/RoutineList';
-import AddRoutine from '../screens/CareTakerScreens/AddRoutine/AddRoutine';
-import Stat from '../components/PatientsDetails/Stat';
-import PatientList from '../screens/CareTakerScreens/PatientList/PatientList';
+import AddContact from '../screens/CareTakerScreens/AddContact/AddContact';
 import AddPatient from '../screens/CareTakerScreens/AddPatient/AddPatient';
+import AddRoutine from '../screens/CareTakerScreens/AddRoutine/AddRoutine';
 import PatientDetails from '../screens/CareTakerScreens/PatientDetails/PatientDetails';
+import PatientList from '../screens/CareTakerScreens/PatientList/PatientList';
+import ModalScreen from '../screens/ModalScreen';
 
-const Drawer = createDrawerNavigator();
+const Stack = createStackNavigator();
 
 const CaretakerNav = ({ isPatientState, isNoUserState, isCareTakerState }) => {
   return (
-    <Drawer.Navigator initialRouteName='Patient_List' defaultStatus='closed'>
-      <Drawer.Screen
-        name='ModalScreen'
+    <Stack.Navigator initialRouteName="Patient List">
+      <Stack.Screen
+        name="ModalScreen"
         component={ModalScreen}
         initialParams={{
           isPatientState,
@@ -25,8 +25,8 @@ const CaretakerNav = ({ isPatientState, isNoUserState, isCareTakerState }) => {
           isCareTakerState,
         }}
       />
-      <Drawer.Screen
-        name='Add-Contact'
+      <Stack.Screen
+        name="Add-Contact"
         component={AddContact}
         initialParams={{
           isPatientState,
@@ -34,8 +34,8 @@ const CaretakerNav = ({ isPatientState, isNoUserState, isCareTakerState }) => {
           isCareTakerState,
         }}
       />
-      <Drawer.Screen
-        name='Notification'
+      <Stack.Screen
+        name="Notification"
         component={Notification}
         initialParams={{
           isPatientState,
@@ -43,8 +43,8 @@ const CaretakerNav = ({ isPatientState, isNoUserState, isCareTakerState }) => {
           isCareTakerState,
         }}
       />
-      <Drawer.Screen
-        name='Routine-List'
+      <Stack.Screen
+        name="Routine-List"
         component={RoutineList}
         initialParams={{
           isPatientState,
@@ -52,8 +52,8 @@ const CaretakerNav = ({ isPatientState, isNoUserState, isCareTakerState }) => {
           isCareTakerState,
         }}
       />
-      <Drawer.Screen
-        name='Add-Routine'
+      <Stack.Screen
+        name="Add-Routine"
         component={AddRoutine}
         initialParams={{
           isPatientState,
@@ -61,8 +61,8 @@ const CaretakerNav = ({ isPatientState, isNoUserState, isCareTakerState }) => {
           isCareTakerState,
         }}
       />
-      <Drawer.Screen
-        name='Stat'
+      <Stack.Screen
+        name="Stat"
         component={Stat}
         initialParams={{
           isPatientState,
@@ -70,8 +70,8 @@ const CaretakerNav = ({ isPatientState, isNoUserState, isCareTakerState }) => {
           isCareTakerState,
         }}
       />
-      <Drawer.Screen
-        name='Patient_List'
+      <Stack.Screen
+        name="Patient List"
         component={PatientList}
         initialParams={{
           isPatientState,
@@ -79,8 +79,8 @@ const CaretakerNav = ({ isPatientState, isNoUserState, isCareTakerState }) => {
           isCareTakerState,
         }}
       />
-      <Drawer.Screen
-        name='Add_Patient'
+      <Stack.Screen
+        name="Add Patient"
         component={AddPatient}
         initialParams={{
           isPatientState,
@@ -88,8 +88,8 @@ const CaretakerNav = ({ isPatientState, isNoUserState, isCareTakerState }) => {
           isCareTakerState,
         }}
       />
-      <Drawer.Screen
-        name='Patient_Details'
+      <Stack.Screen
+        name="Patient Details"
         component={PatientDetails}
         initialParams={{
           isPatientState,
@@ -97,7 +97,7 @@ const CaretakerNav = ({ isPatientState, isNoUserState, isCareTakerState }) => {
           isCareTakerState,
         }}
       />
-    </Drawer.Navigator>
+    </Stack.Navigator>
   );
 };
 
