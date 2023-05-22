@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, View, Dimensions, ImageBackground } from 'react-native';
 import { Avatar, Text, Button } from 'react-native-paper';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import day from '../../assets/lotties/9878-background-full-screen.json';
 import LogoutPatient from '../../components/Logout/Logout.Patient';
 import globalStyles from '../../utils/globalStyle';
@@ -38,9 +39,13 @@ const PatientProfileScreen = ({ route }) => {
   }, []);
 
   const logout = () => {
-    isPatientState(false);
-    isCareTakerState(false);
-    isNoUserState(true);
+    const clearAndLogout = async () => {
+      await AsyncStorage.setItem('patientToken', '');
+      isPatientState(false);
+      isCareTakerState(false);
+      isNoUserState(true);
+    };
+    clearAndLogout();
   };
 
   return (
