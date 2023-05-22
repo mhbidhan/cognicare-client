@@ -11,12 +11,7 @@ import LottieBackground from '../../../components/LottieBackgrounds/LottiePatien
 import MealActivityForm from '../../../components/MealActivityForm/MealActivityForm';
 import MedicineActivityForm from '../../../components/MedicineActivityForm/MedicineActivityForm';
 import RoutineList from '../../../components/RoutineList/RoutineList';
-import Container from '../../../components/common/Container/Container';
-import LottieBackground from '../../../components/LottieBackgrounds/LottiePatientBackground';
-import { usePostRoutineElementMutation } from './../../../features/caretaker/caretakerApi';
-import { setThisPatientRoutine } from './../../../features/caretaker/caretakerSlice';
 import { getData } from '../../../localStorage';
-import showToast from '../../../utils/showToast';
 
 const AddRoutineScreen = ({ patientId, navigation }) => {
   const dispatch = useDispatch();
