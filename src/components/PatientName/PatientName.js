@@ -8,7 +8,6 @@ const PatientName = () => {
     const showToken = async () => {
       try {
         const currentPatientToken = await AsyncStorage.getItem('patientToken');
-        console.log(currentPatientToken);
         setPatientToken(currentPatientToken);
       } catch (error) {
         console.log(error);

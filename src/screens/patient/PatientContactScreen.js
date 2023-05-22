@@ -1,11 +1,11 @@
 import {
-  ImageBackground,
   ScrollView,
   StyleSheet,
   View,
   Dimensions,
+  ImageBackground,
 } from 'react-native';
-import { Text, IconButton, MD3Colors, Button } from 'react-native-paper';
+import { Text, Button } from 'react-native-paper';
 import React, { useEffect, useState } from 'react';
 import LottieView from 'lottie-react-native';
 import globalStyles from '../../utils/globalStyle';
@@ -14,6 +14,8 @@ import PatientContactCard from '../../components/PatientContactCard/PatientConta
 import getPatientContacts from '../../utils/getPatientContacts';
 import day from '../../assets/lotties/9878-background-full-screen.json';
 import night from '../../assets/lotties/night.json';
+import dayPng from '../../assets/dayPng.png';
+import nightPng from '../../assets/nightPng.png';
 
 const PatientContactScreen = () => {
   const [contacts, setContacts] = useState(null);
@@ -37,12 +39,13 @@ const PatientContactScreen = () => {
   useEffect(() => {
     getTimeOfDay();
     getContacts();
-  }, [getTimeOfDay, getContacts]);
+    console.log('patientContact useEffect');
+  }, []);
 
   return (
     <View style={{ flex: 1, position: 'relative' }}>
-      {/* <ImageBackground
-        source={nightWallpaper}
+      <ImageBackground
+        source={timeOfDay === 'day' ? dayPng : nightPng}
         resizeMode='cover'
         style={{
           position: 'absolute',
@@ -50,18 +53,21 @@ const PatientContactScreen = () => {
           left: 0,
           bottom: 0,
           right: 0,
-          opacity: 0.3,
+          opacity: 1,
         }}
-      ></ImageBackground> */}
-      {/* <LottiePatientBackground /> */}
-      <LottieView
-        autoPlay
-        source={timeOfDay === 'day' ? day : night}
-        style={{
-          position: 'absolute',
-          height: Dimensions.get('screen').height,
-        }}
-      />
+      ></ImageBackground>
+      {/* {timeOfDay !== 'day' ? (
+        <LottiePatientBackground />
+      ) : (
+        <LottieView
+          autoPlay
+          source={day}
+          style={{
+            position: 'absolute',
+            height: Dimensions.get('screen').height,
+          }}
+        />
+      )} */}
       <View style={[globalStyles.container, { gap: 30 }]}>
         {/* <VideoMeeting /> */}
         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 20 }}>

@@ -17,8 +17,6 @@ import exerciseIcon from '../../assets/carousel/weight-dumbbell-svgrepo-com.png'
 
 const PatientRoutineCarousel = ({ setTaskCount }) => {
   const [patientRoutine, setPatientRoutine] = useState(null);
-  const [routineId, setRoutineId] = useState();
-  const [todaysLogs, setTodaysLogs] = useState();
   const [timeOfDay, setTimeOfDay] = useState('night');
 
   const getTimeOfDay = () => {
@@ -27,7 +25,11 @@ const PatientRoutineCarousel = ({ setTaskCount }) => {
     else setTimeOfDay('night');
   };
 
-  const convertToChart = (routine, currentRoutineId, currentTimeInNumber) => {
+  const convertToCarouselData = (
+    routine,
+    currentRoutineId,
+    currentTimeInNumber
+  ) => {
     const item = {};
     const activityType = routine.activityType;
     item.title = routine[activityType].name;
@@ -74,31 +76,26 @@ const PatientRoutineCarousel = ({ setTaskCount }) => {
         if (completed) over++;
 
         if (isOnNext && !completed) {
-          const routineForChart = convertToChart(
+          const routineForCarousel = convertToCarouselData(
             routineElement,
             currentRoutineId,
             currentTimeInNumber
           );
-          currentItems.push(routineForChart);
+          currentItems.push(routineForCarousel);
         }
       });
       const taskOverPercentage =
         total === 0 ? 0 : Math.floor((over / total) * 100);
       setPatientRoutine(currentItems);
       setTaskCount([over, total, taskOverPercentage]);
-      setRoutineId(currentRoutineId);
-      setTodaysLogs(todaysLogs);
     } catch (error) {
-      console.log('hello', error);
+      console.log(error);
     }
   };
 
   const markAsCompleted = async (routineElementId, currentRoutineId) => {
     try {
-      const data = await markRoutineElementAsCompleted(
-        routineElementId,
-        currentRoutineId
-      );
+      await markRoutineElementAsCompleted(routineElementId, currentRoutineId);
       fetchRoutine();
     } catch (error) {
       console.log(error);
@@ -110,39 +107,6 @@ const PatientRoutineCarousel = ({ setTaskCount }) => {
     fetchRoutine();
   }, []);
 
-  const items = [
-    {
-      time: '09:00',
-      title: 'Breakfast',
-      description:
-        'For breakfast you are going to eat below things:\n1. Egg\n2. Bread\n3. Jelly',
-      type: 'meal',
-    },
-    {
-      time: '10:00',
-      title: 'Medicine',
-      description:
-        'Take the medicines listed below:\n1. Donepezil Aricept®\n2. Galantamine Razadyne®\n3. Rivastigmine Exelon®',
-      type: 'medicine',
-    },
-    {
-      time: '13:00',
-      title: 'Shower',
-      description: 'Remember to take a shower',
-    },
-    {
-      time: '14:00',
-      title: 'Lunch',
-      description:
-        'For lunch you are going to eat below things:\n1. rice\n2. beef\n3. fish\n4. egg',
-    },
-    {
-      time: '16:30',
-      title: 'Go to Fitness center',
-      description: "Head out to Fitness Gym for your today's workout",
-      type: 'exercise',
-    },
-  ];
   const renderItem = ({ item, index }) => {
     return (
       <View style={styles.item}>
@@ -202,14 +166,14 @@ const PatientRoutineCarousel = ({ setTaskCount }) => {
         >
           Next tasks
         </Text>
-        <Button
+        {/* <Button
           icon='reload'
           onPress={fetchRoutine}
           mode='contained'
           dark={true}
         >
           Reload
-        </Button>
+        </Button> */}
       </View>
 
       {patientRoutine && (

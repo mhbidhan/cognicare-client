@@ -2,36 +2,18 @@ import React, { useEffect, useState } from 'react';
 import { Text, View, StyleSheet, ImageBackground } from 'react-native';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import globalStyles from '../../utils/globalStyle';
-import { usePatientLoginQuery } from '../../features/patient/patientApi';
-import { useDispatch, useSelector } from 'react-redux';
 import ButtonFilled from '../../components/common/buttons/ButtonFilled';
 import nightWallpaper from '../../assets/nightWallpaper.png';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { SERVER_URL } from '../../config';
 
-const SignInScreen = ({ navigation, route }) => {
+const SignInScreen = ({ route }) => {
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
-  const [foundData, setFoundData] = useState(false);
-  const patientData = useSelector((state) => state.patient);
-
-  const dispatch = useDispatch();
-
-  const { data, isLoading, isError } = usePatientLoginQuery();
 
   const { isPatientState, isNoUserState, isCareTakerState } = route.params;
 
-  // const getData = async (key) => {
-  //   const value = await AsyncStorage.getItem(key);
-  //   return value;
-  // };
-  // getData('token').then((val) => {
-  //     console.log('api', val);
-  //     headers.set('x-auth-token', val);
-  //   });
-
   useEffect(() => {
-    const getPatienToken = async () => {};
     const getBarCodeScannerPermissions = async () => {
       const { status } = await BarCodeScanner.requestPermissionsAsync();
       setHasPermission(status === 'granted');
@@ -42,14 +24,7 @@ const SignInScreen = ({ navigation, route }) => {
 
   const handleBarCodeScanned = async ({ type, data }) => {
     setScanned(true);
-    // alert(`Bar code with type ${type} and data ${data} has been scanned!`);
-    // navigation.navigate("PatientDashBoardScreen");
-    // const token =
-    //   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDVmMmM2ZDgxNDI3MDhiMDdmMGM2NDgiLCJpYXQiOjE2ODM5NTg4OTN9.7LW7TjxDKc78tff9QqcRLsWQJQEhwmwObbFMuSjHxyM';
     const token = data;
-    console.log(data);
-    // const ngRokUrl = 'https://cognicare-projectcode.koyeb.app';
-    // const patientId = '64577a4cb7a4f333e3dd6985';
     fetch(`${SERVER_URL}/patients/own`, {
       method: 'GET',
       headers: {
@@ -59,12 +34,8 @@ const SignInScreen = ({ navigation, route }) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        // dispatch(setPatient(data));
-        // setFoundData(true);
-        // return data;
         const sendToMain = async () => {
           try {
-            console.log(JSON.stringify(data));
             await AsyncStorage.setItem('patientToken', JSON.stringify(data));
             isNoUserState(false);
             isCareTakerState(false);
@@ -81,15 +52,14 @@ const SignInScreen = ({ navigation, route }) => {
   };
 
   if (hasPermission === null) {
-    return <Text>Requesting for camera permission</Text>;
+    return (
+      <Text style={{ color: 'white' }}>Requesting for camera permission</Text>
+    );
   }
   if (hasPermission === false) {
-    return <Text>No access to camera</Text>;
+    return <Text style={{ color: 'white' }}>No access to camera</Text>;
   }
 
-  function onSuccess(e) {
-    console.log(e);
-  }
   return (
     <View style={[styles.container, { position: 'relative' }]}>
       <ImageBackground
@@ -112,15 +82,6 @@ const SignInScreen = ({ navigation, route }) => {
         style={[{ height: 400, width: 400 }]}
       />
 
-      {/* {foundData && (
-        <ButtonFilled
-          text='Dashboard'
-          icon='view-dashboard'
-          onPressHandler={() => {
-            navigation.navigate('PatientDashboard');
-          }}
-        />
-      )} */}
       {scanned && (
         <ButtonFilled
           text='Tap to Scan Again'
