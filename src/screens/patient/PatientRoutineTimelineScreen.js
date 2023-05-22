@@ -107,18 +107,30 @@ const PatientRoutineTimelineScreen = ({ navigation }) => {
     dataForTimeline.completed = completed;
     const timePassed = routineItem.endTime.timeInNumber < currentTimeInNumber;
     dataForTimeline.timePassed = timePassed;
-    if (timePassed) {
-      if (!completed) {
+    if (completed) {
+      dataForTimeline.circleColor = '#009688';
+      dataForTimeline.lineColor = '#009688';
+    } else {
+      if (timePassed) {
         dataForTimeline.circleColor = 'red';
         dataForTimeline.lineColor = 'red';
       } else {
-        dataForTimeline.circleColor = '#009688';
-        dataForTimeline.lineColor = '#009688';
+        dataForTimeline.circleColor = isDay ? '#333333' : 'white';
+        dataForTimeline.lineColor = isDay ? '#333333' : 'white';
       }
-    } else {
-      dataForTimeline.circleColor = isDay ? '#333333' : 'white';
-      dataForTimeline.lineColor = isDay ? '#333333' : 'white';
     }
+    // if (timePassed) {
+    //   if (!completed) {
+    //     dataForTimeline.circleColor = 'red';
+    //     dataForTimeline.lineColor = 'red';
+    //   } else {
+    //     dataForTimeline.circleColor = '#009688';
+    //     dataForTimeline.lineColor = '#009688';
+    //   }
+    // } else {
+    //   dataForTimeline.circleColor = isDay ? '#333333' : 'white';
+    //   dataForTimeline.lineColor = isDay ? '#333333' : 'white';
+    // }
     return dataForTimeline;
   };
 
