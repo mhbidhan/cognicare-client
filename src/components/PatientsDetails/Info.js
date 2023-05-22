@@ -1,31 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
+import { StyleSheet, View } from 'react-native';
+import { ToggleButton } from 'react-native-paper';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  StyleSheet,
-  View,
-  TextInput,
-  TouchableOpacity,
-  Alert,
-  Image,
-  Modal,
-  Button,
-} from 'react-native';
-import globalStyles from './../../utils/globalStyle';
-import pic from './../../assets/pic.jpg';
-import ButtonFilled from '../common/buttons/ButtonFilled';
-import QRCode from 'react-native-qrcode-svg';
-import {
-  Avatar,
-  BottomNavigation,
-  Text,
-  ToggleButton,
-} from 'react-native-paper';
-import moment from 'moment';
+import LottiePatientBackground from '../LottieBackgrounds/LottiePatientBackground';
 import { SERVER_URL } from './../../config';
+import { setThisPatientRoutine } from './../../features/caretaker/caretakerSlice';
+import globalStyles from './../../utils/globalStyle';
 import Description from './Description';
 import HeroSection from './HeroSection';
-import LottiePatientBackground from '../LottieBackgrounds/LottiePatientBackground';
-import { setThisPatientRoutine } from './../../features/caretaker/caretakerSlice';
 
 function Info({ navigation }) {
   const dispatch = useDispatch();
@@ -62,15 +44,12 @@ function Info({ navigation }) {
                 tempRoutine.push(data);
               });
           });
-          // tempRoutine.sort(
-          //   (a, b) => a.startTime.timeInString - b.startTime.timeInString
-          // );
+
           dispatch(
             setThisPatientRoutine({
               patientRoutine: tempRoutine,
             })
           );
-          // setRoutine(tempRoutine);
         }
       })
       .catch((error) => {
@@ -99,19 +78,18 @@ function Info({ navigation }) {
       >
         <ToggleButton.Row onValueChange={handleChange}>
           <ToggleButton
-            icon='card-account-phone-outline'
-            value='addContact'
-            iconColor='white'
+            icon="card-account-phone-outline"
+            value="addContact"
+            iconColor="white"
           />
           <ToggleButton
-            icon='calendar-range'
-            value='addRoutine'
-            iconColor='white'
+            icon="calendar-range"
+            value="addRoutine"
+            iconColor="white"
           />
         </ToggleButton.Row>
       </View>
       <Description patient={thisPatient} />
-      {/* </View> */}
     </View>
   );
 }
