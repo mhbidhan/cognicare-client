@@ -1,21 +1,18 @@
+import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { Dimensions, Text, View } from 'react-native';
-import { Button } from 'react-native-paper';
+import { Dimensions, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { SERVER_URL } from './../../../config';
 import ActivityTypeList from '../../../components/ActivityTypeList/ActivityTypeList';
+import ContactActivityForm from '../../../components/ContactActivityForm/ContactActivityForm';
+import ExerciseActivityForm from '../../../components/ExerciseActivityForm/ExerciseActivityForm';
+import GameActivityForm from '../../../components/GameActivityForm/GameActivityForm';
 import GenaralActivityForm from '../../../components/GenaralActivityForm/GenaralActivityForm';
+import LottieBackground from '../../../components/LottieBackgrounds/LottiePatientBackground';
 import MealActivityForm from '../../../components/MealActivityForm/MealActivityForm';
 import MedicineActivityForm from '../../../components/MedicineActivityForm/MedicineActivityForm';
-import ExerciseActivityForm from '../../../components/ExerciseActivityForm/ExerciseActivityForm';
-import ContactActivityForm from '../../../components/ContactActivityForm/ContactActivityForm';
-import GameActivityForm from '../../../components/GameActivityForm/GameActivityForm';
 import RoutineList from '../../../components/RoutineList/RoutineList';
-import Container from '../../../components/common/Container/Container';
-import LottieBackground from '../../../components/LottieBackgrounds/LottiePatientBackground';
-import { usePostRoutineElementMutation } from './../../../features/caretaker/caretakerApi';
-import { setThisPatientRoutine } from './../../../features/caretaker/caretakerSlice';
 import { getData } from '../../../localStorage';
+import { SERVER_URL } from './../../../config';
 
 const AddRoutineScreen = ({ patientId, navigation }) => {
   const dispatch = useDispatch();
@@ -31,81 +28,54 @@ const AddRoutineScreen = ({ patientId, navigation }) => {
     date: '',
     routineElements: [],
   });
-  const [postRoutineElement, { data, isLoading, isError }] =
-    usePostRoutineElementMutation() || {};
 
   useEffect(() => {
     setFormData((formData) => ({ ...formData, patient: patientId }));
   }, [patientId]);
 
-  const saveHandeler = () => {
-    const token = getData('caretakerToken');
-    const thisPatientRoutine = [];
-    const routineLength = formData.routineElements.length;
-    formData.routineElements.map((item, i) => {
-      fetch(`${SERVER_URL}/routineElement`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-auth-token': token,
-        },
-        body: JSON.stringify(item),
-      })
-        .then((res) => res.json())
-        .then((res) => {
-          // console.log('routine element', res);
-          thisPatientRoutine.push(res);
-          if (i === routineLength - 1) {
-            console.log('ultimate call', thisPatientRoutine);
-            const data = {
-              routineType: routineType,
-              patient: thisPatient._id,
-              date: '',
-              routineElements: thisPatientRoutine,
-            };
-            fetch(`${SERVER_URL}/patientRoutine`, {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-                'x-auth-token': caretakerToken,
-              },
-              body: JSON.stringify(data),
-            })
-              .then((res) => res.json())
-              .then((res) => {
-                if (res.routineElements) {
-                  // console.log('this patient routine', res);
-                  // dispatch(
-                  //   setThisPatientRoutine({
-                  //     patientRoutine: res.routineElements,
-                  //   })
-                  // );
-                  setFormData({
-                    routineType: '',
-                    patient: '',
-                    date: '',
-                    routineElements: [],
-                  });
-                  //     navigation.navigate('Patient_Details');
-                }
-              })
-              .catch((error) => {
-                console.log('Error fetching', error);
-              });
-          }
-        })
-        .catch((error) => {
-          console.log('Error fetching', error);
-        });
-    });
-  };
+  const saveHandeler = async () => {
+    try {
+      const token = await getData('caretakerToken');
+      const thisPatientRoutine = [];
 
-  // useEffect(() => {
-  //   if (!isLoading && !isError && data) {
-  //     console.log(data);
-  //     navigation.navigate('Patient_Details');
-  //   }
-  // }, [isLoading, data]);
+      // Creating routine element for each task
+      for (let routineElement of formData.routineElements) {
+        const newRoutineElement = await axios.post(
+          SERVER_URL + '/routineElement',
+          routineElement,
+          {
+            headers: {
+              'Content-Type': 'application/json',
+              'x-auth-token': token,
+            },
+          }
+        );
+
+        thisPatientRoutine.push(newRoutineElement.data);
+      }
+
+      // Creating the routine
+      await axios.post(
+        SERVER_URL + '/patientRoutine',
+        {
+          routineType: routineType,
+          patient: thisPatient._id,
+          date: '',
+          routineElements: thisPatientRoutine,
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'x-auth-token': token,
+          },
+        }
+      );
+
+      navigation.navigate('Patient Details');
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <View style={{ flex: 1, position: 'relative' }}>
@@ -121,7 +91,6 @@ const AddRoutineScreen = ({ patientId, navigation }) => {
             setView={setView}
             data={formData.routineElements}
             saveHandeler={saveHandeler}
-            loading={isLoading}
             routineElements={formData.routineElements}
           />
         ) : null}
