@@ -14,6 +14,8 @@ function Info({ navigation }) {
   const { thisPatient, patientRoutine } = useSelector(
     (state) => state.caretaker
   );
+  const PatientLoginCode = thisPatient.loginCode;
+  console.log('this-patient', thisPatient);
   console.log('info-> thisPatientRoutine', patientRoutine);
 
   useEffect(() => {
@@ -26,36 +28,34 @@ function Info({ navigation }) {
     })
       .then((res) => res.json())
       .then((res) => {
-        if (res.length > 0) {
-          const tempRoutine = [];
-          console.log('this patient routine response', res);
-          res.map((item, i) => {
-            item.routineElements
-              .sort(
-                (a, b) => a.startTime.timeInNumber - b.startTime.timeInNumber
-              )
-              .map((routine) => {
-                const data = {
-                  time: routine.startTime.timeInString,
-                  title: routine.name,
-                  description: routine[routine.activityType].description,
-                  circleColor: '#009688',
-                };
-                tempRoutine.push(data);
-              });
-          });
+        // if (res.length > 0) {
+        const tempRoutine = [];
+        console.log('this patient routine response', res);
+        res.map((item, i) => {
+          item.routineElements
+            .sort((a, b) => a.startTime.timeInNumber - b.startTime.timeInNumber)
+            .map((routine) => {
+              const data = {
+                time: routine.startTime.timeInString,
+                title: routine.name,
+                description: routine[routine.activityType].description,
+                circleColor: '#009688',
+              };
+              tempRoutine.push(data);
+            });
+        });
 
-          dispatch(
-            setThisPatientRoutine({
-              patientRoutine: tempRoutine,
-            })
-          );
-        }
+        dispatch(
+          setThisPatientRoutine({
+            patientRoutine: tempRoutine,
+          })
+        );
+        // }
       })
       .catch((error) => {
         console.log('Error fetching', error);
       });
-  }, []);
+  }, [PatientLoginCode]);
 
   const handleChange = (value) => {
     if (value === 'addRoutine') {
@@ -78,14 +78,14 @@ function Info({ navigation }) {
       >
         <ToggleButton.Row onValueChange={handleChange}>
           <ToggleButton
-            icon="card-account-phone-outline"
-            value="addContact"
-            iconColor="white"
+            icon='card-account-phone-outline'
+            value='addContact'
+            iconColor='white'
           />
           <ToggleButton
-            icon="calendar-range"
-            value="addRoutine"
-            iconColor="white"
+            icon='calendar-range'
+            value='addRoutine'
+            iconColor='white'
           />
         </ToggleButton.Row>
       </View>

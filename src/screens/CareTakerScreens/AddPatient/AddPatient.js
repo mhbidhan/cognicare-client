@@ -1,12 +1,5 @@
 import React, { useState } from 'react';
-import {
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-  TextInput,
-  Alert,
-} from 'react-native';
+import { StyleSheet, ScrollView, View, Text, TextInput } from 'react-native';
 import { useSelector } from 'react-redux';
 import { Button } from 'react-native-paper';
 import DropDownPicker from 'react-native-dropdown-picker';
@@ -17,7 +10,6 @@ import { useEffect } from 'react';
 import FileInput from '../../../components/common/FileInput/FileInput';
 import uploadToCloudinary from './../../../services/cloudinary';
 import globalStyles from './../../../utils/globalStyle';
-// import Toast from 'react-native-toast-message';
 import showToast from '../../../utils/showToast';
 
 export default function AddPatient({ navigation }) {
@@ -34,7 +26,6 @@ export default function AddPatient({ navigation }) {
   const [emergencyName, setEmergencyName] = useState('');
   const [emergencyPhone, setEmergencyPhone] = useState('');
   const [emergencyRelation, setEmergencyRelation] = useState('');
-  // const [token, setToken] = useState('');
   const [openGender, setOpenGender] = useState(false);
   const [openRelationship, setOpenRelationship] = useState(false);
   const [openLocale, setOpenLocale] = useState(false);
@@ -133,37 +124,7 @@ export default function AddPatient({ navigation }) {
     };
     createNewPatient(data);
     emptyForm();
-    // navigation.navigate('Patient_List');
   };
-  //   launchCamera(
-  //     {
-  //       mediaType: 'photo',
-  //       maxWidth: 800,
-  //       maxHeight: 600,
-  //       quality: 1,
-  //     },
-  //     (res) => console.log(res)
-  //   );
-  //   // ImagePicker.showImagePicker(
-  //   //   {
-  //   //     mediaType: 'photo',
-  //   //     maxWidth: 800,
-  //   //     maxHeight: 600,
-  //   //     quality: 1,
-  //   //   },
-  //   //   (response) => {
-  //   //     if (response.didCancel) {
-  //   //       console.log('User cancelled image picker');
-  //   //     } else if (response.error) {
-  //   //       console.log('ImagePicker Error: ', response.error);
-  //   //     } else if (response.customButton) {
-  //   //       console.log('User tapped custom button: ', response.customButton);
-  //   //     } else {
-  //   //       setImageUri(response.uri);
-  //   //     }
-  //   //   }
-  //   // );
-  // };
 
   return (
     <ScrollView>
