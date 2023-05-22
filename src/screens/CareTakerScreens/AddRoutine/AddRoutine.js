@@ -38,8 +38,8 @@ const AddRoutineScreen = ({ patientId, navigation }) => {
     setFormData((formData) => ({ ...formData, patient: patientId }));
   }, [patientId]);
 
-  const saveHandeler = () => {
-    const token = getData('caretakerToken');
+  const saveHandeler = async () => {
+    const token = await getData('caretakerToken');
     const thisPatientRoutine = [];
     const routineLength = formData.routineElements.length;
     formData.routineElements.map((item, i) => {
@@ -67,7 +67,7 @@ const AddRoutineScreen = ({ patientId, navigation }) => {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
-                'x-auth-token': caretakerToken,
+                'x-auth-token': token,
               },
               body: JSON.stringify(data),
             })
