@@ -8,7 +8,7 @@ const fullWidth = Dimensions.get('window').width;
 function Description({ patient }) {
   return (
     <ScrollView style={styles.container}>
-      <View style={{ margin: 5 }}>
+      <View style={{ margin: 5, alignItems: 'center' }}>
         <View style={{}}>
           <View
             style={{
