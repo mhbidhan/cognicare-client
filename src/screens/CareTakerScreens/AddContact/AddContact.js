@@ -8,6 +8,8 @@ import globalStyles from './../../../utils/globalStyle';
 import FileInput from '../../../components/common/FileInput/FileInput';
 import uploadToCloudinary from '../../../services/cloudinary';
 import LottiePatientBackground from './../../../components/LottieBackgrounds/LottiePatientBackground';
+import showToast from './../../../utils/showToast';
+import { getData } from '../../../localStorage';
 
 const styles = StyleSheet.create({
   container: {
@@ -42,6 +44,7 @@ const AddContact = ({ navigation }) => {
     setImg('');
   };
   const handleSubmit = async () => {
+    const token = await getData('caretakerToken');
     const imgUrl = (await uploadToCloudinary(img)).secure_url;
     const data = {
       name,
@@ -54,7 +57,7 @@ const AddContact = ({ navigation }) => {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
-        'x-auth-token': caretakerToken,
+        'x-auth-token': token,
       },
       body: JSON.stringify(data),
     })
@@ -62,6 +65,7 @@ const AddContact = ({ navigation }) => {
       .then((res) => {
         console.log('result', res);
         emptyString();
+        showToast('success', 'Saved', 'Contact is saved successfully');
       })
       .catch((error) => {
         console.log('Error fetching', error);

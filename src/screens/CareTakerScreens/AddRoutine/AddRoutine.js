@@ -15,6 +15,7 @@ import Container from '../../../components/common/Container/Container';
 import LottieBackground from '../../../components/LottieBackgrounds/LottiePatientBackground';
 import { usePostRoutineElementMutation } from './../../../features/caretaker/caretakerApi';
 import { setThisPatientRoutine } from './../../../features/caretaker/caretakerSlice';
+import { getData } from '../../../localStorage';
 
 const AddRoutineScreen = ({ patientId, navigation }) => {
   const dispatch = useDispatch();
@@ -38,6 +39,7 @@ const AddRoutineScreen = ({ patientId, navigation }) => {
   }, [patientId]);
 
   const saveHandeler = () => {
+    const token = getData('caretakerToken');
     const thisPatientRoutine = [];
     const routineLength = formData.routineElements.length;
     formData.routineElements.map((item, i) => {
@@ -45,7 +47,7 @@ const AddRoutineScreen = ({ patientId, navigation }) => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'x-auth-token': caretakerToken,
+          'x-auth-token': token,
         },
         body: JSON.stringify(item),
       })
