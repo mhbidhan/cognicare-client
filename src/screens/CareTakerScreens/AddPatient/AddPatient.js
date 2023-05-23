@@ -11,6 +11,7 @@ import FileInput from '../../../components/common/FileInput/FileInput';
 import uploadToCloudinary from './../../../services/cloudinary';
 import globalStyles from './../../../utils/globalStyle';
 import showToast from '../../../utils/showToast';
+import LottiePatientBackground from '../../../components/LottieBackgrounds/LottiePatientBackground';
 
 export default function AddPatient({ navigation }) {
   const [name, setName] = useState('');
@@ -127,192 +128,195 @@ export default function AddPatient({ navigation }) {
   };
 
   return (
-    <ScrollView>
-      <View style={styles.container}>
-        <TextInput
-          style={styles.input}
-          value={name}
-          onChangeText={setName}
-          placeholder="Enter patient's name"
-        />
-
-        <TextInput
-          style={styles.input}
-          value={age}
-          onChangeText={setAge}
-          placeholder="Enter patient's age"
-          keyboardType='numeric'
-        />
-
-        <TextInput
-          style={styles.input}
-          value={email}
-          onChangeText={setEmail}
-          placeholder="Enter patient's email"
-        />
-
-        <View style={{ zIndex: 3 }}>
-          <DropDownPicker
-            open={openGender}
-            value={gender}
-            items={genderItems}
-            setOpen={setOpenGender}
-            setValue={setGender}
-            placeholder='Select gender'
-            // zIndex={1000}
-            style={{
-              marginBottom: 10,
-              width: 300,
-              borderRadius: 5,
-              // backgroundColor: globalStyles.colors.primary,
-            }}
-            containerStyle={{
-              width: 300,
-            }}
-            textStyle={{
-              color: '#000',
-              opacity: 0.4,
-            }}
+    <View style={{ flex: 1, position: 'relative' }}>
+      <LottiePatientBackground />
+      <ScrollView>
+        <View style={styles.container}>
+          <TextInput
+            style={styles.input}
+            value={name}
+            onChangeText={setName}
+            placeholder="Enter patient's name"
           />
-        </View>
 
-        <View style={{ zIndex: 2 }}>
-          <DropDownPicker
-            open={openRelationship}
-            value={relationship}
-            items={relationshipItems}
-            setOpen={setOpenRelationship}
-            setValue={setRelationship}
-            placeholder='Select relationship status'
-            zIndex={1000}
-            style={{
-              marginBottom: 10,
-              width: 300,
-              borderRadius: 5,
-              // backgroundColor: globalStyles.colors.primary,
-            }}
-            containerStyle={{
-              width: 300,
-            }}
-            textStyle={{
-              color: '#000',
-              opacity: 0.4,
-            }}
+          <TextInput
+            style={styles.input}
+            value={age}
+            onChangeText={setAge}
+            placeholder="Enter patient's age"
+            keyboardType='numeric'
           />
-        </View>
 
-        <TextInput
-          style={styles.input}
-          value={country}
-          onChangeText={setCountry}
-          placeholder='Where the patient live'
-        />
-
-        <TextInput
-          style={styles.input}
-          value={birthCountry}
-          onChangeText={setBirthCountry}
-          placeholder='Where the patient born'
-        />
-
-        <View style={{ zIndex: 3 }}>
-          <DropDownPicker
-            open={openLocale}
-            value={locale}
-            items={localeItems}
-            setOpen={setOpenLocale}
-            setValue={setLocale}
-            placeholder='Select locale'
-            // zIndex={1000}
-            style={{
-              marginBottom: 10,
-              width: 300,
-              borderRadius: 5,
-              // backgroundColor: globalStyles.colors.primary,
-            }}
-            containerStyle={{
-              width: 300,
-            }}
-            textStyle={{
-              color: '#000',
-              opacity: 0.4,
-            }}
+          <TextInput
+            style={styles.input}
+            value={email}
+            onChangeText={setEmail}
+            placeholder="Enter patient's email"
           />
-        </View>
 
-        <View style={{ zIndex: 2 }}>
-          <DropDownPicker
-            open={openLivingArrangement}
-            value={livingArrangement}
-            items={livingArrangementItems}
-            setOpen={setOpenLivingArrangement}
-            setValue={setLivingArrangement}
-            placeholder='Select living arrangement'
-            // zIndex={1000}
-            style={{
-              marginBottom: 10,
-              width: 300,
-              borderRadius: 5,
-              // backgroundColor: globalStyles.colors.primary,
-            }}
-            containerStyle={{
-              width: 300,
-            }}
-            textStyle={{
-              color: '#000',
-              opacity: 0.4,
-            }}
+          <View style={{ zIndex: 3 }}>
+            <DropDownPicker
+              open={openGender}
+              value={gender}
+              items={genderItems}
+              setOpen={setOpenGender}
+              setValue={setGender}
+              placeholder='Select gender'
+              // zIndex={1000}
+              style={{
+                marginBottom: 10,
+                width: 300,
+                borderRadius: 5,
+                // backgroundColor: globalStyles.colors.primary,
+              }}
+              containerStyle={{
+                width: 300,
+              }}
+              textStyle={{
+                color: '#000',
+                opacity: 0.4,
+              }}
+            />
+          </View>
+
+          <View style={{ zIndex: 2 }}>
+            <DropDownPicker
+              open={openRelationship}
+              value={relationship}
+              items={relationshipItems}
+              setOpen={setOpenRelationship}
+              setValue={setRelationship}
+              placeholder='Select relationship status'
+              zIndex={1000}
+              style={{
+                marginBottom: 10,
+                width: 300,
+                borderRadius: 5,
+                // backgroundColor: globalStyles.colors.primary,
+              }}
+              containerStyle={{
+                width: 300,
+              }}
+              textStyle={{
+                color: '#000',
+                opacity: 0.4,
+              }}
+            />
+          </View>
+
+          <TextInput
+            style={styles.input}
+            value={country}
+            onChangeText={setCountry}
+            placeholder='Where the patient live'
           />
-        </View>
-        <TextInput
-          style={styles.input}
-          value={emergencyName}
-          onChangeText={setEmergencyName}
-          placeholder='Emergency contact name'
-        />
 
-        <TextInput
-          style={styles.input}
-          value={emergencyPhone}
-          onChangeText={setEmergencyPhone}
-          placeholder='Emergency contact phone'
-          keyboardType='numeric'
-        />
+          <TextInput
+            style={styles.input}
+            value={birthCountry}
+            onChangeText={setBirthCountry}
+            placeholder='Where the patient born'
+          />
 
-        <TextInput
-          style={styles.input}
-          value={emergencyRelation}
-          onChangeText={setEmergencyRelation}
-          placeholder='Emergency contact relation'
-        />
+          <View style={{ zIndex: 3 }}>
+            <DropDownPicker
+              open={openLocale}
+              value={locale}
+              items={localeItems}
+              setOpen={setOpenLocale}
+              setValue={setLocale}
+              placeholder='Select locale'
+              // zIndex={1000}
+              style={{
+                marginBottom: 10,
+                width: 300,
+                borderRadius: 5,
+                // backgroundColor: globalStyles.colors.primary,
+              }}
+              containerStyle={{
+                width: 300,
+              }}
+              textStyle={{
+                color: '#000',
+                opacity: 0.4,
+              }}
+            />
+          </View>
 
-        <FileInput handleChange={(file) => setImg(file)} />
+          <View style={{ zIndex: 2 }}>
+            <DropDownPicker
+              open={openLivingArrangement}
+              value={livingArrangement}
+              items={livingArrangementItems}
+              setOpen={setOpenLivingArrangement}
+              setValue={setLivingArrangement}
+              placeholder='Select living arrangement'
+              // zIndex={1000}
+              style={{
+                marginBottom: 10,
+                width: 300,
+                borderRadius: 5,
+                // backgroundColor: globalStyles.colors.primary,
+              }}
+              containerStyle={{
+                width: 300,
+              }}
+              textStyle={{
+                color: '#000',
+                opacity: 0.4,
+              }}
+            />
+          </View>
+          <TextInput
+            style={styles.input}
+            value={emergencyName}
+            onChangeText={setEmergencyName}
+            placeholder='Emergency contact name'
+          />
 
-        <View style={styles.submitButton}>
-          <Button
-            icon='database-plus-outline'
-            mode='elevated'
-            buttonColor={globalStyles.colors.primary}
-            textColor={globalStyles.colors.primaryLight}
-            contentStyle={{
-              width: 300,
-              paddingVertical: 10,
-            }}
-            style={{ borderRadius: 10 }}
-            labelStyle={{ fontSize: 17 }}
-            onPress={handleSubmit}
-          >
-            Add Patient
-          </Button>
-          {/* <ButtonFilled
+          <TextInput
+            style={styles.input}
+            value={emergencyPhone}
+            onChangeText={setEmergencyPhone}
+            placeholder='Emergency contact phone'
+            keyboardType='numeric'
+          />
+
+          <TextInput
+            style={styles.input}
+            value={emergencyRelation}
+            onChangeText={setEmergencyRelation}
+            placeholder='Emergency contact relation'
+          />
+
+          <FileInput handleChange={(file) => setImg(file)} />
+
+          <View style={styles.submitButton}>
+            <Button
+              icon='database-plus-outline'
+              mode='elevated'
+              buttonColor={globalStyles.colors.primary}
+              textColor={globalStyles.colors.primaryLight}
+              contentStyle={{
+                width: 300,
+                paddingVertical: 10,
+              }}
+              style={{ borderRadius: 10 }}
+              labelStyle={{ fontSize: 17 }}
+              onPress={handleSubmit}
+            >
+              Add Patient
+            </Button>
+            {/* <ButtonFilled
           text='Add Patient'
           onPressHandler={handleSubmit}
           width={200}
           style={{ marginTop: 30 }}
         /> */}
+          </View>
         </View>
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </View>
   );
 }
 

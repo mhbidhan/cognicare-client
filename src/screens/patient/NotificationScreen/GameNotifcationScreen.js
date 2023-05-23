@@ -90,7 +90,6 @@ export default function GameNotificationScreen({
             labelStyle={{ fontSize: 13 }}
             onPress={() => {
               setNotification(null);
-              setTimeout(() => setNotification(notification), 1000 * 60 * 10);
             }}
             style={{ zIndex: 2 }}
           >
