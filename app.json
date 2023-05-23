@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "ReactNativeProject",
+    "name": "CogniCare",
     "slug": "ReactNativeProject",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -11,16 +11,29 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": ["**/*"],
-    "permissions": ["NOTIFICATIONS"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "permissions": [
+      "NOTIFICATIONS"
+    ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSCameraUsageDescription": "Allow $(PRODUCT_NAME) to access camera.",
+        "NSMicrophoneUsageDescription": "Allow $(PRODUCT_NAME) to access your microphone"
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "permissions": [
+        "android.permission.CAMERA",
+        "android.permission.RECORD_AUDIO"
+      ],
+      "package": "com.mubtasim91.ReactNativeProject"
     },
     "plugins": [
       [
@@ -39,6 +52,11 @@
     ],
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "72420f37-4ba3-499e-84fb-edb003176e3f"
+      }
     }
   }
 }

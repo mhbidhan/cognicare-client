@@ -20,6 +20,7 @@ import day from '../../assets/lotties/9878-background-full-screen.json';
 import night from '../../assets/lotties/night.json';
 import dayPng from '../../assets/dayPng.png';
 import nightPng from '../../assets/nightPng.png';
+import markRoutineElementAsCompleted from '../../utils/markRoutineElementAsCompleted';
 
 const styles = StyleSheet.create({
   container: {
@@ -86,7 +87,8 @@ const PatientRoutineTimelineScreen = ({ navigation }) => {
     routineItem,
     currentTimeInNumber,
     todaysLogs,
-    isDay
+    isDay,
+    incompletedList
   ) => {
     const dataForTimeline = {};
     dataForTimeline.time = routineItem.startTime.timeInString;
@@ -114,23 +116,12 @@ const PatientRoutineTimelineScreen = ({ navigation }) => {
       if (timePassed) {
         dataForTimeline.circleColor = 'red';
         dataForTimeline.lineColor = 'red';
+        incompletedList.push(routineItem._id);
       } else {
         dataForTimeline.circleColor = isDay ? '#333333' : 'white';
         dataForTimeline.lineColor = isDay ? '#333333' : 'white';
       }
     }
-    // if (timePassed) {
-    //   if (!completed) {
-    //     dataForTimeline.circleColor = 'red';
-    //     dataForTimeline.lineColor = 'red';
-    //   } else {
-    //     dataForTimeline.circleColor = '#009688';
-    //     dataForTimeline.lineColor = '#009688';
-    //   }
-    // } else {
-    //   dataForTimeline.circleColor = isDay ? '#333333' : 'white';
-    //   dataForTimeline.lineColor = isDay ? '#333333' : 'white';
-    // }
     return dataForTimeline;
   };
 
@@ -143,14 +134,23 @@ const PatientRoutineTimelineScreen = ({ navigation }) => {
     const currentRoutine = routine.routineElements;
     sortRoutine(currentRoutine);
     const currentItems = [];
+    const incompletedList = [];
     currentRoutine.forEach((routineItem) => {
       const dataForTimeline = convertedToTimelineData(
         routineItem,
         currentTimeInNumber,
         todaysLogs,
-        isDay
+        isDay,
+        incompletedList
       );
       currentItems.push(dataForTimeline);
+    });
+    incompletedList.forEach((routineElementId) => {
+      markRoutineElementAsCompleted(
+        routineElementId,
+        currentRoutineId,
+        'incomplete'
+      );
     });
     setRoutine(currentRoutine);
     setDataForTimeline(currentItems);
@@ -179,18 +179,6 @@ const PatientRoutineTimelineScreen = ({ navigation }) => {
           opacity: 1,
         }}
       ></ImageBackground>
-      {/* {timeOfDay !== 'day' ? (
-        <LottiePatientBackground />
-      ) : (
-        <LottieView
-          autoPlay
-          source={day}
-          style={{
-            position: 'absolute',
-            height: Dimensions.get('screen').height,
-          }}
-        />
-      )} */}
       <View style={[globalStyles.container, { opacity: 1 }]}>
         <Text
           style={[

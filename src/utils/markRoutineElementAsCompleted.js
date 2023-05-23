@@ -2,7 +2,8 @@ import { SERVER_URL } from '../config';
 
 const markRoutineElementAsCompleted = async (
   routineElementId,
-  currentRoutineId
+  currentRoutineId,
+  currentStatus
 ) => {
   try {
     const url = `${SERVER_URL}/routineLogs`;
@@ -14,7 +15,7 @@ const markRoutineElementAsCompleted = async (
       body: JSON.stringify({
         routineId: currentRoutineId,
         routineElementId: routineElementId,
-        status: 'complete',
+        status: currentStatus ? currentStatus : 'complete',
       }),
     };
     const respone = await fetch(url, options);
