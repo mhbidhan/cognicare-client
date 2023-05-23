@@ -7,6 +7,7 @@ import {
   Dimensions,
   ImageBackground,
 } from 'react-native';
+import { useFocusEffect } from '@react-navigation/native';
 import Timeline from 'react-native-timeline-flatlist';
 import LottieView from 'lottie-react-native';
 import globalStyles from '../../utils/globalStyle';
@@ -155,6 +156,21 @@ const PatientRoutineTimelineScreen = ({ navigation }) => {
     setRoutine(currentRoutine);
     setDataForTimeline(currentItems);
   }, []);
+
+  useFocusEffect(
+    useCallback(() => {
+      let isActive = true;
+
+      const currentHour = new Date().getHours();
+      let isDay = false;
+      if (currentHour >= 6 && currentHour < 18) isDay = true;
+      setCurrentRoutine(isDay);
+
+      return () => {
+        isActive = false;
+      };
+    }, [])
+  );
 
   useEffect(() => {
     getTimeOfDay();

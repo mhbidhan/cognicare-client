@@ -1,5 +1,6 @@
 import { StyleSheet, Text, View, Dimensions, Image } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
+import { useFocusEffect } from '@react-navigation/native';
 import Carousel from 'react-native-snap-carousel';
 import { IconButton, MD3Colors, Button } from 'react-native-paper';
 import Meal from '../../assets/cognicare-assets/meal/meal-assistance-female-svgrepo-com.png';
@@ -102,6 +103,18 @@ const PatientRoutineCarousel = ({ setTaskCount }) => {
     }
   };
 
+  useFocusEffect(
+    useCallback(() => {
+      let isActive = true;
+
+      fetchRoutine();
+
+      return () => {
+        isActive = false;
+      };
+    }, [])
+  );
+
   useEffect(() => {
     getTimeOfDay();
     fetchRoutine();
@@ -129,7 +142,7 @@ const PatientRoutineCarousel = ({ setTaskCount }) => {
             <Text style={styles.time}>{item.time}</Text>
           </View>
         </View>
-        {item.startTimeInNumber < item.currentTimeInNumber && (
+        {item.startTimeInNumber <= item.currentTimeInNumber && (
           <IconButton
             icon='check'
             iconColor={MD3Colors.primary0}

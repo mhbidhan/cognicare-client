@@ -5,8 +5,9 @@ import {
   Dimensions,
   ImageBackground,
 } from 'react-native';
+import { useFocusEffect } from '@react-navigation/native';
 import { Text, Button } from 'react-native-paper';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import LottieView from 'lottie-react-native';
 import globalStyles from '../../utils/globalStyle';
 import LottiePatientBackground from '../../components/LottieBackgrounds/LottiePatientBackground';
@@ -35,6 +36,18 @@ const PatientContactScreen = () => {
       console.log(error);
     }
   };
+
+  useFocusEffect(
+    useCallback(() => {
+      let isActive = true;
+
+      getContacts();
+
+      return () => {
+        isActive = false;
+      };
+    }, [])
+  );
 
   useEffect(() => {
     getTimeOfDay();
