@@ -154,8 +154,8 @@ const RoutineList = ({
           <View
             style={{
               position: 'absolute',
-              top: 10,
-              left: 30,
+              top: 20,
+              left: -40,
               width: Dimensions.get('window').width - 60,
               height: 500,
               backgroundColor: 'white',
