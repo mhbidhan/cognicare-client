@@ -12,6 +12,7 @@ import MealActivityForm from '../../../components/MealActivityForm/MealActivityF
 import MedicineActivityForm from '../../../components/MedicineActivityForm/MedicineActivityForm';
 import RoutineList from '../../../components/RoutineList/RoutineList';
 import { getData } from '../../../localStorage';
+import { SERVER_URL } from '../../../config';
 
 const AddRoutineScreen = ({ patientId, navigation }) => {
   const dispatch = useDispatch();
