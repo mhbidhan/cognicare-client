@@ -7,6 +7,7 @@ import ButtonFilled from './../components/common/buttons/ButtonFilled';
 import nightWallpaper from '../assets/nightWallpaper.png';
 // import Toast from 'react-native-toast-message';
 import animationImg from './../assets/night.json';
+import lottieLogo from './../assets/lottieLogo.json';
 import globalStyles from './../utils/globalStyle';
 
 export default function HomeScreen({ navigation }) {
@@ -53,7 +54,16 @@ export default function HomeScreen({ navigation }) {
         }}
       >
         <View style={{ alignItems: 'center' }}>
-          <Koala />
+          {/* <Koala /> */}
+          <LottieView
+            autoPlay
+            ref={animation}
+            style={{ width: 170 }}
+            // Find more Lottie files at https://lottiefiles.com/featured
+            source={lottieLogo}
+            imageAssetsFolder='lottie/welcomeScreen/images'
+            resizeMode='cover'
+          />
           <SampleSvg />
         </View>
         <View style={{ gap: 20 }}>

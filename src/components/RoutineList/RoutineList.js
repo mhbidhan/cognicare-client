@@ -144,12 +144,19 @@ const RoutineList = ({
           </Button>
         </View>
         {!showOkayaPatientInfo ? (
-          <ButtonFilled
-            text='Register Patient to Okaya'
-            onPressHandler={() => setShowOkayaPatientInfo(true)}
+          // <ButtonFilled
+          //   text='Register Patient to Okaya'
+          //   onPressHandler={() => setShowOkayaPatientInfo(true)}
+          //   icon='video-plus'
+          //   width={155}
+          // />
+          <Button
             icon='video-plus'
-            width={155}
-          />
+            onPress={() => setShowOkayaPatientInfo(true)}
+            mode='contained'
+          >
+            Register Patient to Okaya
+          </Button>
         ) : (
           <View
             style={{
