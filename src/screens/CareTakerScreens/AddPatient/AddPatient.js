@@ -27,6 +27,7 @@ export default function AddPatient({ navigation }) {
   const [emergencyName, setEmergencyName] = useState('');
   const [emergencyPhone, setEmergencyPhone] = useState('');
   const [emergencyRelation, setEmergencyRelation] = useState('');
+  const [emergencyImg, setEmergencyImg] = useState('');
   const [openGender, setOpenGender] = useState(false);
   const [openRelationship, setOpenRelationship] = useState(false);
   const [openLocale, setOpenLocale] = useState(false);
@@ -38,9 +39,9 @@ export default function AddPatient({ navigation }) {
     { label: 'Other', value: 'Other' },
   ];
   const relationshipItems = [
-    { label: 'Single', value: 'Single' },
-    { label: 'Partner', value: 'Partner' },
-    { label: 'Marital', value: 'Marital' },
+    { label: 'Widowed', value: 'Widowed' },
+    { label: 'Married', value: 'Married' },
+    { label: 'Divorced', value: 'Divorced' },
   ];
   const localeItems = [
     { label: 'Rural', value: 'Rural' },
@@ -106,6 +107,7 @@ export default function AddPatient({ navigation }) {
       return;
     }
     const imgUrl = (await uploadToCloudinary(img)).secure_url;
+    const emergencyImgUrl = (await uploadToCloudinary(emergencyImg)).secure_url;
     const data = {
       name,
       age,
@@ -121,6 +123,7 @@ export default function AddPatient({ navigation }) {
         name: emergencyName,
         phone: emergencyPhone,
         relation: emergencyRelation,
+        imgUrl: emergencyImgUrl,
       },
     };
     createNewPatient(data);
@@ -267,6 +270,9 @@ export default function AddPatient({ navigation }) {
               }}
             />
           </View>
+
+          <FileInput handleChange={(file) => setImg(file)} />
+
           <TextInput
             style={styles.input}
             value={emergencyName}
@@ -289,7 +295,7 @@ export default function AddPatient({ navigation }) {
             placeholder='Emergency contact relation'
           />
 
-          <FileInput handleChange={(file) => setImg(file)} />
+          <FileInput handleChange={(file) => setEmergencyImg(file)} />
 
           <View style={styles.submitButton}>
             <Button
