@@ -39,8 +39,8 @@ const ContactActivityForm = ({ setView, onFromSubmit, setCurrentActivity }) => {
         <TextInput
           onChangeText={(text) => setName(text)}
           style={styles.input}
-          label='Exercise Type'
-          placeholder='Walk, jumping...'
+          label='Contact name'
+          placeholder='Name'
         />
 
         <TextInput

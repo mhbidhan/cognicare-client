@@ -6,6 +6,7 @@ import exerciseIcon from '../../assets/deadbug-fitness-exercise.json';
 import gameIcon from '../../assets/game-controller.json';
 import mealIcon from '../../assets/food.json';
 import medicineIcon from '../../assets/medicine.json';
+import generalIcon from '../../assets/lotties/clock.json';
 import ActivityIconButton from '../ActivityIconButton/ActivityIconButton';
 
 const ActivityTypeList = ({ setView }) => {
@@ -30,7 +31,10 @@ const ActivityTypeList = ({ setView }) => {
         ]}
       />
       <ActivityTypeRow
-        list={[{ label: 'Contact', icon: contactIcon }]}
+        list={[
+          { label: 'Contact', icon: contactIcon },
+          { label: 'General', icon: generalIcon },
+        ]}
         setView={setView}
       />
 

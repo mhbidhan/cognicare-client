@@ -21,7 +21,7 @@ export default function ExerciseNotificationScreen({
   };
 
   const { time, message } = notification;
-
+  console.log(notification);
   return (
     <View style={{ flex: 1 }}>
       <View style={containerStyle}>
@@ -75,8 +75,8 @@ export default function ExerciseNotificationScreen({
             Pasta house
           </Text> */}
           <Button
-            icon="check"
-            mode="contained"
+            icon='check'
+            mode='contained'
             // buttonColor="#fff"
             // textColor={globalStyles.colors.gray}
             style={{ borderRadius: 30, marginBottom: 20, zIndex: 2 }}
@@ -89,9 +89,9 @@ export default function ExerciseNotificationScreen({
             DONE
           </Button>
           <Button
-            icon="alarm-snooze"
-            mode="text"
-            textColor="#fff"
+            icon='alarm-snooze'
+            mode='text'
+            textColor='#fff'
             labelStyle={{ fontSize: 13 }}
             onPress={() => {
               setNotification(null);

@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     width: 300,
     borderRadius: 4,
     padding: 12,
-    marginBottom: 20,
+    marginBottom: 10,
     backgroundColor: 'rgba(255,255,255,0.9)',
   },
   label: {
