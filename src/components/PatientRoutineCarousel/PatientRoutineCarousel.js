@@ -15,7 +15,8 @@ import callIcon from '../../assets/carousel/call-day-heart-svgrepo-com.png';
 import gameIcon from '../../assets/carousel/game-card-svgrepo-com.png';
 import mealIcon from '../../assets/carousel/have-a-meal-svgrepo-com.png';
 // import exerciseIcon from '../../assets/carousel/weight-dumbbell-svgrepo-com.png';
-import exerciseIcon from '../../assets/carousel/star-fill.png';
+// import exerciseIcon from '../../assets/carousel/star-fill.png';
+import exerciseIcon from '../../assets/carousel/clock.png';
 
 const PatientRoutineCarousel = ({ setTaskCount }) => {
   const [patientRoutine, setPatientRoutine] = useState(null);
@@ -122,7 +123,7 @@ const PatientRoutineCarousel = ({ setTaskCount }) => {
   }, []);
 
   const renderItem = ({ item, index }) => {
-    const iconSize = item.type === 'exercise' ? 20 : 40;
+    const iconSize = item.type === 'exercise' ? 40 : 40;
     return (
       <View style={styles.item}>
         <View style={{ justifyContent: 'space-between' }}>
