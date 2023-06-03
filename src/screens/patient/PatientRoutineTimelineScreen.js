@@ -22,6 +22,7 @@ import night from '../../assets/lotties/night.json';
 import dayPng from '../../assets/dayPng.png';
 import nightPng from '../../assets/nightPng.png';
 import markRoutineElementAsCompleted from '../../utils/markRoutineElementAsCompleted';
+import MyTheme from '../../assets/Theme/myTheme';
 
 const styles = StyleSheet.create({
   container: {
@@ -172,6 +173,37 @@ const PatientRoutineTimelineScreen = ({ navigation }) => {
     }, [])
   );
 
+  const renderDetail = (rowData, sectionID, rowID) => {
+    let title = (
+      <Text style={{ color: 'black', fontWeight: 'bold' }}>
+        {rowData.title}
+      </Text>
+    );
+    var desc = null;
+    if (rowData.description)
+      desc = (
+        <View>
+          {/* <Image source={{ uri: rowData.imageUrl }} style={styles.image} /> */}
+          <Text>{rowData.description}</Text>
+        </View>
+      );
+
+    return (
+      <View
+        style={{
+          flex: 1,
+          backgroundColor: 'white',
+          padding: 10,
+          borderRadius: 5,
+          gap: 10,
+        }}
+      >
+        {title}
+        {desc}
+      </View>
+    );
+  };
+
   useEffect(() => {
     getTimeOfDay();
     const currentHour = new Date().getHours();
@@ -232,6 +264,7 @@ const PatientRoutineTimelineScreen = ({ navigation }) => {
               options={{
                 style: { paddingTop: 5 },
               }}
+              renderDetail={renderDetail}
             />
           )}
         </ScrollView>
