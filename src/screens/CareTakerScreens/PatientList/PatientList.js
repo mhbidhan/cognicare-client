@@ -48,13 +48,13 @@ function PatientList({ navigation, route }) {
           }}
         >
           <View style={styles.buttonContainer}>
-            <Button icon="logout" mode="contained" onPress={logout}>
-              logout
+            <Button icon='logout' mode='contained' onPress={logout}>
+              Logout
             </Button>
 
             <Button
-              icon="plus"
-              mode="contained"
+              icon='plus'
+              mode='contained'
               onPress={() => navigation.navigate('Add Patient')}
             >
               Add new patient
