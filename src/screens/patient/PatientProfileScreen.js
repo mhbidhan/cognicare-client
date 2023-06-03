@@ -105,7 +105,10 @@ const PatientProfileScreen = ({ route }) => {
                 <Text
                   variant='bodyLarge'
                   style={{
-                    color: timeOfDay === 'day' ? 'rgb(105, 15, 117)' : 'white',
+                    color:
+                      timeOfDay === 'day'
+                        ? 'rgb(105, 15, 117)'
+                        : 'rgb(105, 15, 117)',
                     fontWeight: 'bold',
                   }}
                 >
@@ -114,7 +117,10 @@ const PatientProfileScreen = ({ route }) => {
                 <Text
                   variant='bodyLarge'
                   style={{
-                    color: timeOfDay === 'day' ? 'rgb(105, 15, 117)' : 'white',
+                    color:
+                      timeOfDay === 'day'
+                        ? 'rgb(105, 15, 117)'
+                        : 'rgb(105, 15, 117)',
                     fontWeight: 'bold',
                   }}
                 >
@@ -123,7 +129,10 @@ const PatientProfileScreen = ({ route }) => {
                 <Text
                   variant='bodyLarge'
                   style={{
-                    color: timeOfDay === 'day' ? 'rgb(105, 15, 117)' : 'white',
+                    color:
+                      timeOfDay === 'day'
+                        ? 'rgb(105, 15, 117)'
+                        : 'rgb(105, 15, 117)',
                     fontWeight: 'bold',
                   }}
                 >
@@ -134,7 +143,10 @@ const PatientProfileScreen = ({ route }) => {
                 <Text
                   variant='bodyLarge'
                   style={{
-                    color: timeOfDay === 'day' ? 'rgb(105, 15, 117)' : 'white',
+                    color:
+                      timeOfDay === 'day'
+                        ? 'rgb(105, 15, 117)'
+                        : 'rgb(105, 15, 117)',
                   }}
                 >
                   : {patientDetails.patientName}
@@ -142,7 +154,10 @@ const PatientProfileScreen = ({ route }) => {
                 <Text
                   variant='bodyLarge'
                   style={{
-                    color: timeOfDay === 'day' ? 'rgb(105, 15, 117)' : 'white',
+                    color:
+                      timeOfDay === 'day'
+                        ? 'rgb(105, 15, 117)'
+                        : 'rgb(105, 15, 117)',
                   }}
                 >
                   : {patientDetails.patientRelationshipStatus}
@@ -150,7 +165,10 @@ const PatientProfileScreen = ({ route }) => {
                 <Text
                   variant='bodyLarge'
                   style={{
-                    color: timeOfDay === 'day' ? 'rgb(105, 15, 117)' : 'white',
+                    color:
+                      timeOfDay === 'day'
+                        ? 'rgb(105, 15, 117)'
+                        : 'rgb(105, 15, 117)',
                   }}
                 >
                   : {patientDetails.patientGender}
