@@ -13,6 +13,7 @@ import night from '../../assets/lotties/night.json';
 import LottieView from 'lottie-react-native';
 import ButtonFilled from '../../components/common/buttons/ButtonFilled';
 import getPatientDetailsFromStorage from '../../utils/getPatientDetailsFromStorage';
+import * as WebBrowser from 'expo-web-browser';
 
 const PatientDashBoard = ({ route }) => {
   const [showOkayaInfo, setShowOkayaInfo] = useState(false);
@@ -172,7 +173,7 @@ const PatientDashBoard = ({ route }) => {
         )}
         <View style={{ flexDirection: 'row', gap: 5 }}>
           <ButtonFilled
-            text='Mood Checkin'
+            text='Daily Journal'
             onPressHandler={handleOkayaCheckIn}
             icon='video-plus'
             width={155}

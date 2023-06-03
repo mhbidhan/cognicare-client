@@ -177,7 +177,7 @@ const PatientRoutineCarousel = ({ setTaskCount }) => {
             },
           ]}
         >
-          Next tasks
+          Upcoming tasks
         </Text>
         {/* <Button
           icon='reload'
