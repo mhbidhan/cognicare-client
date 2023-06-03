@@ -16,7 +16,7 @@ function Stat({ patient, navigation }) {
   const [okayaData, setOkayaData] = useState({
     datasets: [
       {
-        data: [20, 45, 28, 80, 99, 43],
+        data: [35, 40, 23, 55, 93, 34],
       },
     ],
     legend: ['Fatigue'],
@@ -47,7 +47,7 @@ function Stat({ patient, navigation }) {
     labels: ['1st', '2nd', '3rd', '4th', '5th', '6th'],
     datasets: [
       {
-        data: [250, 450, 280, 380, 299, 443],
+        data: [220, 490, 300, 340, 399, 473],
       },
     ],
     legend: ['Sleep Logs(min)'],
@@ -255,7 +255,7 @@ function Stat({ patient, navigation }) {
               }}
             />
           </View>
-          <View
+          {/* <View
             style={{
               flex: 1,
               marginTop: 8,
@@ -312,7 +312,7 @@ function Stat({ patient, navigation }) {
                 borderRadius: 16,
               }}
             />
-          </View>
+          </View> */}
         </ScrollView>
       </View>
     </View>
