@@ -11,6 +11,7 @@ import { MaterialCommunityIcons } from 'react-native-vector-icons';
 import * as WebBrowser from 'expo-web-browser';
 
 import Timeline from 'react-native-timeline-flatlist';
+import DropDownPicker from 'react-native-dropdown-picker';
 import ButtonFilled from '../common/buttons/ButtonFilled';
 import globalStyles from '../../utils/globalStyle';
 import { useSelector } from 'react-redux';
@@ -34,10 +35,18 @@ const RoutineList = ({
   saveHandeler,
   loading,
   routineElements,
+  routineType,
+  setRoutineType,
 }) => {
   const [routineData, setRoutineData] = useState([]);
   const [showOkayaPatientInfo, setShowOkayaPatientInfo] = useState(false);
   const { thisPatient } = useSelector((state) => state.caretaker);
+  const [openType, setOpenType] = useState(false);
+
+  const routineTypeItems = [
+    { label: 'Daily', value: 'daily' },
+    { label: 'Special', value: 'special' },
+  ];
 
   useEffect(() => {
     const routineData = data
@@ -83,16 +92,42 @@ const RoutineList = ({
     <View style={{ position: 'relative' }}>
       <View style={[globalStyles.container, { opacity: 1 }]}>
         {!data.length ? (
-          <Text
-            style={{
-              flex: 1,
-              fontSize: 15,
-              color: '#fff',
-              textAlign: 'center',
-            }}
-          >
-            There are no routine to add
-          </Text>
+          <>
+            <View style={{ zIndex: 3 }}>
+              <DropDownPicker
+                open={openType}
+                value={routineType}
+                items={routineTypeItems}
+                setOpen={setOpenType}
+                setValue={setRoutineType}
+                placeholder='Select Routine type'
+                // zIndex={1000}
+                style={{
+                  marginBottom: 10,
+                  width: 300,
+                  borderRadius: 5,
+                  // backgroundColor: globalStyles.colors.primary,
+                }}
+                containerStyle={{
+                  width: 300,
+                }}
+                textStyle={{
+                  color: '#000',
+                  opacity: 0.4,
+                }}
+              />
+            </View>
+            <Text
+              style={{
+                flex: 1,
+                fontSize: 15,
+                color: '#fff',
+                textAlign: 'center',
+              }}
+            >
+              There are no routine to add
+            </Text>
+          </>
         ) : (
           <Timeline
             style={styles.list}

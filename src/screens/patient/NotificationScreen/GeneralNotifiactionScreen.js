@@ -2,10 +2,10 @@ import LottieView from 'lottie-react-native';
 import React from 'react';
 import { Dimensions, View } from 'react-native';
 import { Button, Text } from 'react-native-paper';
-import logo from '../../../assets/lotties/walk.json';
+import clock from '../../../assets/lotties/clock.json';
 import globalStyles from '../../../utils/globalStyle';
 
-export default function ExerciseNotificationScreen({
+export default function GeneralNotifiactionScreen({
   notification,
   setNotification,
   handleLog,
@@ -20,8 +20,8 @@ export default function ExerciseNotificationScreen({
     height: screenHeight,
   };
 
-  const { time, message } = notification;
-  console.log(notification);
+  const { time, message, details } = notification;
+
   return (
     <View style={{ flex: 1 }}>
       <View style={containerStyle}>
@@ -62,23 +62,16 @@ export default function ExerciseNotificationScreen({
             autoPlay
             style={{
               position: 'absolute',
-              bottom: 140,
-              left: 40,
-              width: 200,
-              height: 200,
+              bottom: 130,
+              width: Dimensions.get('window').width * 0.8,
+              height: Dimensions.get('window').width * 0.8,
               zIndex: 1,
-              // backgroundColor: '#eee',
             }}
-            source={logo}
+            source={clock}
           />
-          {/* <Text style={{ fontSize: 15, color: '#fff', marginBottom: 20 }}>
-            Pasta house
-          </Text> */}
           <Button
-            icon='check'
+            icon='phone'
             mode='contained'
-            // buttonColor="#fff"
-            // textColor={globalStyles.colors.gray}
             style={{ borderRadius: 30, marginBottom: 20, zIndex: 2 }}
             labelStyle={{ fontSize: 13 }}
             onPress={() => {
@@ -86,7 +79,7 @@ export default function ExerciseNotificationScreen({
               setNotification(null);
             }}
           >
-            DONE
+            Call
           </Button>
           <Button
             icon='alarm-snooze'

@@ -1,25 +1,17 @@
 import React, { useState } from 'react';
-import {
-  Dimensions,
-  StyleSheet,
-  View,
-  Text,
-  TouchableHighlight,
-} from 'react-native';
-import { TextInput, Button } from 'react-native-paper';
+import { Dimensions, StyleSheet, View } from 'react-native';
+import { Button, TextInput } from 'react-native-paper';
 import handleInputChange from '../../utils/handleInputChange';
-import globalStyles from '../../utils/globalStyle';
-import FileInput from '../common/FileInput/FileInput';
-import uploadToCloudinary from '../../services/cloudinary';
 
-const GameActivityForm = ({ setView, onFromSubmit, setCurrentActivity }) => {
-  const activityType = 'game';
-  const [name, setName] = useState('');
+const GeneralForm = ({ setView, onFromSubmit, setCurrentActivity }) => {
+  const activityType = 'general';
 
-  const handleSubmit = async () => {
-    const formData = {
-      name,
-    };
+  const [formData, setFormData] = useState({
+    name: '',
+    description: '',
+  });
+
+  const handleSubmit = () => {
     setCurrentActivity({ [activityType]: formData, activityType });
     setView('genaral');
   };
@@ -28,10 +20,18 @@ const GameActivityForm = ({ setView, onFromSubmit, setCurrentActivity }) => {
     <View style={styles.form}>
       <View style={styles.formContainer}>
         <TextInput
-          onChangeText={(text) => setName(text)}
+          onChangeText={(text) => handleInputChange('name', text, setFormData)}
           style={styles.input}
-          label='Game name'
-          placeholder='Find color'
+          label='General'
+          placeholder='general type'
+        />
+        <TextInput
+          onChangeText={(text) =>
+            handleInputChange('description', text, setFormData)
+          }
+          style={styles.input}
+          label='Description'
+          placeholder='Description'
         />
 
         <View style={styles.btnContainer}>
@@ -63,11 +63,6 @@ const styles = StyleSheet.create({
   input: {
     marginBottom: 30,
   },
-  urlInput: {
-    flex: 1,
-    marginBottom: 30,
-    height: 90,
-  },
   btn: {
     minWidth: 140,
     marginBottom: 30,
@@ -79,4 +74,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default GameActivityForm;
+export default GeneralForm;

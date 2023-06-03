@@ -9,6 +9,7 @@ import GameActivityForm from '../../../components/GameActivityForm/GameActivityF
 import GenaralActivityForm from '../../../components/GenaralActivityForm/GenaralActivityForm';
 import LottieBackground from '../../../components/LottieBackgrounds/LottiePatientBackground';
 import MealActivityForm from '../../../components/MealActivityForm/MealActivityForm';
+import GeneralForm from '../../../components/GeneralForm/GeneralForm';
 import MedicineActivityForm from '../../../components/MedicineActivityForm/MedicineActivityForm';
 import RoutineList from '../../../components/RoutineList/RoutineList';
 import { getData } from '../../../localStorage';
@@ -17,7 +18,7 @@ import { SERVER_URL } from '../../../config';
 const AddRoutineScreen = ({ patientId, navigation }) => {
   const dispatch = useDispatch();
   const [view, setView] = useState('');
-  const [routineType, setRoutineType] = useState('daily');
+  const [routineType, setRoutineType] = useState('');
   const [currentActivity, setCurrentActivity] = useState(null);
   const { thisPatient } = useSelector((state) => state.caretaker);
   const [formData, setFormData] = useState({
@@ -90,6 +91,8 @@ const AddRoutineScreen = ({ patientId, navigation }) => {
             data={formData.routineElements}
             saveHandeler={saveHandeler}
             routineElements={formData.routineElements}
+            routineType={routineType}
+            setRoutineType={setRoutineType}
           />
         ) : null}
         {view === 'activityType' ? (
@@ -101,6 +104,12 @@ const AddRoutineScreen = ({ patientId, navigation }) => {
             currentActivity={currentActivity}
             setCurrentActivity={setCurrentActivity}
             setFormData={setFormData}
+          />
+        ) : null}
+        {view === 'General' ? (
+          <GeneralForm
+            setView={setView}
+            setCurrentActivity={setCurrentActivity}
           />
         ) : null}
         {view === 'Meal' ? (
