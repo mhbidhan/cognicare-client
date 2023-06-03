@@ -96,6 +96,9 @@ const PatientProfileScreen = ({ route }) => {
                 flexDirection: 'row',
                 justifyContent: 'flex-start',
                 gap: 30,
+                backgroundColor: 'white',
+                borderRadius: 10,
+                padding: 30,
               }}
             >
               <View>
