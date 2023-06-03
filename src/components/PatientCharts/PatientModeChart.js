@@ -1,6 +1,6 @@
 import { StyleSheet, View, Dimensions, Text } from 'react-native';
 import React, { useEffect, useState } from 'react';
-import { BarChart, PieChart } from 'react-native-chart-kit';
+import { LineChart, PieChart } from 'react-native-chart-kit';
 import { AreaChart, Grid } from 'react-native-svg-charts';
 import * as shape from 'd3-shape';
 import { SERVER_URL } from '../../config';
@@ -11,6 +11,21 @@ const PatientModeChart = ({ okayaDataHandeler }) => {
   const [areaData, setAreaData] = useState([
     1, -1, 0, 1, 1, -1, 0, 0, -1, 1, 1,
   ]);
+
+  const [mentalState, setMentalState] = useState({
+    labels: ['Sat', 'Sun', 'Mon', 'Tue', 'Wed', 'Thu'],
+    datasets: [
+      {
+        data: [3, 0, 2, 1, 4, 5],
+        // color: (opacity = 1) => `rgba(247, 116, 106, ${opacity})`,
+      },
+      {
+        data: [0, 4, 2, 0, 2, 3],
+        color: (opacity = 1) => `rgba(122, 97, 95, ${opacity})`,
+      },
+    ],
+    legend: ['Mental state'],
+  });
 
   const chartConfig = {
     backgroundGradientFrom: '#323861',
@@ -108,13 +123,13 @@ const PatientModeChart = ({ okayaDataHandeler }) => {
         const tempAreaData = [];
         const pieData = [];
         const colors = [
+          '#5AC8A7',
+          '#5DD9C1',
+          '#EAE6E5',
           '#7F7F7F',
-          '#ffa726',
-          '#F00',
           '#fff',
           '#94BF4A',
           '#5A78B1',
-          '#5AC8A7',
           '#000',
         ];
         response.map((item) => {
@@ -164,7 +179,7 @@ const PatientModeChart = ({ okayaDataHandeler }) => {
 
   return (
     <View>
-      <View
+      {/* <View
         style={{
           flex: 1,
           marginTop: 8,
@@ -179,7 +194,7 @@ const PatientModeChart = ({ okayaDataHandeler }) => {
             fontWeight: 'bold',
           }}
         >
-          Mood area
+          Mental state
         </Text>
         <AreaChart
           style={{ height: 200 }}
@@ -190,6 +205,43 @@ const PatientModeChart = ({ okayaDataHandeler }) => {
         >
           <Grid />
         </AreaChart>
+      </View> */}
+      <View
+        style={{
+          flex: 1,
+          marginTop: 8,
+        }}
+      >
+        <LineChart
+          data={mentalState}
+          width={globalStyles.adjustedWidthFromDevice} // from react-native
+          height={250}
+          horizontalLabelRotation={45}
+          verticalLabelRotation={30}
+          // yAxisLabel='$'
+          // yAxisSuffix='mg/dL'
+          // yAxisInterval={1} // optional, defaults to 1
+          chartConfig={{
+            backgroundColor: '#e26a00',
+            backgroundGradientFrom: '#fb8c00',
+            backgroundGradientFromOpacity: 0,
+            backgroundGradientTo: '#ffa726',
+            backgroundGradientToOpacity: 0,
+            decimalPlaces: 0, // optional, defaults to 2dp
+            color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+            labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+            style: {
+              // borderRadius: 16,
+              paddingHorizontal: 10,
+            },
+          }}
+          bezier
+          style={{
+            // marginVertical: 8,
+            borderRadius: 16,
+            // paddingHorizontal: 10,
+          }}
+        />
       </View>
       <View
         style={{
