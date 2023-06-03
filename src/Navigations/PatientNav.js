@@ -1,5 +1,7 @@
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+import Ionic from 'react-native-vector-icons/Ionicons';
 import React, { useCallback, useEffect, useState } from 'react';
+// import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import io from 'socket.io-client';
 import MyTheme from '../assets/Theme/myTheme';
@@ -11,8 +13,12 @@ import PatientGameScreen from '../screens/patient/PatientGameScreen';
 import PatientProfileScreen from '../screens/patient/PatientProfileScreen';
 import PatientRoutineTimelineScreen from '../screens/patient/PatientRoutineTimelineScreen';
 import getPatientDetailsFromStorage from '../utils/getPatientDetailsFromStorage';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { View } from 'react-native';
+import { Text } from 'react-native-paper';
 
-const Tab = createMaterialBottomTabNavigator();
+// const Tab = createMaterialBottomTabNavigator();
+const Tab = createBottomTabNavigator();
 
 const PatientNav = ({ isPatientState, isNoUserState, isCareTakerState }) => {
   const [socket, setSocket] = useState(null);
@@ -61,43 +67,75 @@ const PatientNav = ({ isPatientState, isNoUserState, isCareTakerState }) => {
   return (
     <Tab.Navigator
       initialRouteName='PatientDashboard'
-      shifting={true}
-      tabBarShowLabel={false}
-      labeled={false}
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
+          let iconText;
+
+          // if (route.name === 'PatientDashboard') {
+          //   iconName = focused ? 'view-dashboard' : 'view-dashboard-outline';
+          // } else if (route.name === 'PatientRoutineTimeline') {
+          //   iconName = focused ? 'timeline' : 'timeline-outline';
+          // } else if (route.name === 'PatientContact') {
+          //   iconName = focused
+          //     ? 'card-account-phone'
+          //     : 'card-account-phone-outline';
+          // } else if (route.name === 'PatientActivity') {
+          //   iconName = focused
+          //     ? 'microsoft-xbox-controller-battery-full'
+          //     : 'microsoft-xbox-controller-battery-empty';
+          // } else if (route.name === 'PatientProfile') {
+          //   iconName = focused ? 'account' : 'account-outline';
+          // } else if (route.name === 'PatientGame') {
+          //   iconName = focused ? 'gamepad-circle' : 'gamepad-circle-outline';
+          // }
 
           if (route.name === 'PatientDashboard') {
-            iconName = focused ? 'view-dashboard' : 'view-dashboard-outline';
+            iconName = focused ? 'home' : 'home-outline';
+            iconText = 'Home';
           } else if (route.name === 'PatientRoutineTimeline') {
             iconName = focused ? 'timeline' : 'timeline-outline';
+            iconText = 'Routine';
           } else if (route.name === 'PatientContact') {
-            iconName = focused
-              ? 'card-account-phone'
-              : 'card-account-phone-outline';
+            iconName = focused ? 'contacts' : 'contacts-outline';
+            iconText = 'Contact';
           } else if (route.name === 'PatientActivity') {
             iconName = focused
-              ? 'microsoft-xbox-controller-battery-full'
-              : 'microsoft-xbox-controller-battery-empty';
+              ? 'gamepad-circle-left'
+              : 'gamepad-circle-outline';
+            iconText = 'Activity';
           } else if (route.name === 'PatientProfile') {
             iconName = focused ? 'account' : 'account-outline';
+            iconText = 'Profile';
           } else if (route.name === 'PatientGame') {
-            iconName = focused ? 'gamepad-circle' : 'gamepad-circle-outline';
+            iconName = focused
+              ? 'gamepad-circle-left'
+              : 'gamepad-circle-outline';
+            iconText = 'Game';
           }
 
           // You can return any component that you like here!
+          console.log('iconName, focused', iconName, focused);
           return (
-            <MaterialCommunityIcons
-              name={iconName}
-              size={32}
-              color={MyTheme.colors.primary}
-            />
+            <View style={{ alignItems: 'center' }}>
+              <MaterialCommunityIcons name={iconName} size={25} color={color} />
+              {focused && (
+                <Text variant='labelSmall' style={{ color: color }}>
+                  {iconText}
+                </Text>
+              )}
+            </View>
           );
+          // return <Ionic name={iconName} size={32} color={color} />;
         },
-        tabBarStyle: { backgroundColor: 'white' },
+        tabBarStyle: { height: 63, alignItems: 'center' },
         tabBarShowLabel: false,
-        tabBarIconStyle: { color: 'black' },
+        headerShown: false,
+        // tabBarIconStyle: { color: 'black' },
+        tabBarActiveBackgroundColor: 'white',
+        tabBarActiveTintColor: MyTheme.colors.primary,
+        tabBarInactiveTintColor: '#a6a6a6',
+        tabBarItemStyle: { borderRadius: 25, marginVertical: 8 },
       })}
     >
       <Tab.Screen

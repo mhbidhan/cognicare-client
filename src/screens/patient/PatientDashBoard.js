@@ -171,7 +171,13 @@ const PatientDashBoard = ({ route }) => {
             </View>
           </View>
         )}
-        <View style={{ flexDirection: 'row', gap: 5 }}>
+        <View
+          style={{
+            flexDirection: 'row',
+            gap: 5,
+            justifyContent: 'space-between',
+          }}
+        >
           <ButtonFilled
             text='Daily Journal'
             onPressHandler={handleOkayaCheckIn}
