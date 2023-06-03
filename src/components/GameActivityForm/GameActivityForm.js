@@ -30,7 +30,7 @@ const GameActivityForm = ({ setView, onFromSubmit, setCurrentActivity }) => {
         <TextInput
           onChangeText={(text) => setName(text)}
           style={styles.input}
-          label='Exercise Type'
+          label='Game name'
           placeholder='Find color'
         />
 
