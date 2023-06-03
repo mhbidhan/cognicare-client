@@ -55,6 +55,37 @@ const Routine = ({ navigation }) => {
   const { patientRoutine } = useSelector((state) => state.caretaker);
   console.log('routine-page', patientRoutine);
 
+  const renderDetail = (rowData, sectionID, rowID) => {
+    let title = (
+      <Text style={{ color: 'black', fontWeight: 'bold' }}>
+        {rowData.title}
+      </Text>
+    );
+    var desc = null;
+    if (rowData.description)
+      desc = (
+        <View>
+          {/* <Image source={{ uri: rowData.imageUrl }} style={styles.image} /> */}
+          <Text>{rowData.description}</Text>
+        </View>
+      );
+
+    return (
+      <View
+        style={{
+          flex: 1,
+          backgroundColor: 'white',
+          padding: 10,
+          borderRadius: 5,
+          gap: 10,
+        }}
+      >
+        {title}
+        {desc}
+      </View>
+    );
+  };
+
   return (
     <View style={{ flex: 1, position: 'relative' }}>
       <LottiePatientBackground />
@@ -84,6 +115,7 @@ const Routine = ({ navigation }) => {
               options={{
                 style: { paddingTop: 5 },
               }}
+              renderDetail={renderDetail}
             />
           )}
         </View>
