@@ -9,6 +9,7 @@ import {
 import { Button } from 'react-native-paper';
 import { MaterialCommunityIcons } from 'react-native-vector-icons';
 import * as WebBrowser from 'expo-web-browser';
+import axios from 'axios';
 
 import Timeline from 'react-native-timeline-flatlist';
 import DropDownPicker from 'react-native-dropdown-picker';
@@ -17,6 +18,10 @@ import globalStyles from '../../utils/globalStyle';
 import { useSelector } from 'react-redux';
 import { patientApi } from '../../features/patient/patientApi';
 import nightWallpaper from '../../assets/nightWallpaper.png';
+import { SERVER_URL } from '../../config';
+import { TextInput } from 'react-native-paper';
+import { getData } from '../../localStorage';
+import showToast from '../Toast/showToast';
 
 const styles = StyleSheet.create({
   container: {
@@ -42,6 +47,7 @@ const RoutineList = ({
   const [showOkayaPatientInfo, setShowOkayaPatientInfo] = useState(false);
   const { thisPatient } = useSelector((state) => state.caretaker);
   const [openType, setOpenType] = useState(false);
+  const [okayaPass, setOkayaPass] = useState('');
 
   const routineTypeItems = [
     { label: 'Daily', value: 'daily' },
@@ -84,6 +90,26 @@ const RoutineList = ({
         'https://www.okaya.me/dashboard/DirectAccess/landing?company=527437'
       );
     } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleSavePass = async () => {
+    try {
+      const url = `${SERVER_URL}/patients/${thisPatient._id}/setokayapass`;
+      const body = { okayaPass };
+      const caretakertoken = await getData('caretakerToken');
+      console.log('caretakertoken patientId', caretakertoken, thisPatient._id);
+      const response = await axios.put(url, body, {
+        headers: {
+          'Content-Type': 'application/json',
+          'x-auth-token': caretakertoken,
+        },
+      });
+      showToast('info', 'Saved', 'Patient mood password has been saved');
+      setShowOkayaPatientInfo(false);
+    } catch (error) {
+      showToast('error', 'Error', 'Check your network');
       console.log(error);
     }
   };
@@ -197,9 +223,10 @@ const RoutineList = ({
             style={{
               position: 'absolute',
               top: 20,
-              left: -40,
+              left: 5,
               width: Dimensions.get('window').width - 60,
-              height: 500,
+              // height: 500,
+              flex: 1,
               backgroundColor: 'white',
               padding: 20,
               borderRadius: 10,
@@ -213,6 +240,7 @@ const RoutineList = ({
               shadowRadius: 3.84,
 
               elevation: 5,
+              zIndex: 100,
             }}
           >
             <View>
@@ -228,17 +256,18 @@ const RoutineList = ({
                 2. Register the patient by giving the required information.{' '}
                 {'\n'}
                 3. Use 'Invite2023' as Invite code. And then do the first
-                checkin.
+                checkin. 4. Fill the email as the same email of the patient.
               </Text>
             </View>
             <View
               style={{
                 flex: 1,
-                flexDirection: 'row',
+                flexDirection: 'column',
                 gap: 10,
-                height: 30,
+                // height: 30,
                 justifyContent: 'flex-start',
                 alignItems: 'flex-start',
+                alignSelf: 'center',
               }}
             >
               <ButtonFilled
@@ -250,6 +279,19 @@ const RoutineList = ({
                 text='Open Browser'
                 onPressHandler={handleOpenBrowser}
                 icon='open-in-app'
+              />
+              <View style={{ marginTop: 10 }}></View>
+              <TextInput
+                label='Okaya pass'
+                value={okayaPass}
+                onChangeText={(okayaPass) => setOkayaPass(okayaPass)}
+                placeholder='Okaya Pass'
+                style={{ width: 200 }}
+              />
+              <ButtonFilled
+                text='Save Okaya Pass for this user'
+                onPressHandler={handleSavePass}
+                // icon='open-in-app'
               />
             </View>
           </View>
