@@ -22,7 +22,7 @@ const GeneralForm = ({ setView, onFromSubmit, setCurrentActivity }) => {
         <TextInput
           onChangeText={(text) => handleInputChange('name', text, setFormData)}
           style={styles.input}
-          label='General'
+          label='Activity type'
           placeholder='general type'
         />
         <TextInput

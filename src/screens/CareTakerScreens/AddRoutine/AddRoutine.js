@@ -22,17 +22,20 @@ const AddRoutineScreen = ({ patientId, navigation }) => {
   const [currentActivity, setCurrentActivity] = useState(null);
   const { thisPatient } = useSelector((state) => state.caretaker);
   const [formData, setFormData] = useState({
-    routineType: '',
-    patient: '',
-    date: '',
+    routineType: routineType,
+    patient: thisPatient._id,
+    date: new Date(),
     routineElements: [],
   });
+
+  console.log('2', routineType, thisPatient._id);
 
   useEffect(() => {
     setFormData((formData) => ({ ...formData, patient: patientId }));
   }, [patientId]);
 
   const saveHandeler = async () => {
+    console.log(formData);
     try {
       const token = await getData('caretakerToken');
       const thisPatientRoutine = [];
@@ -49,17 +52,17 @@ const AddRoutineScreen = ({ patientId, navigation }) => {
             },
           }
         );
-
+        console.log('newRoutineElement', newRoutineElement);
         thisPatientRoutine.push(newRoutineElement.data);
       }
 
       // Creating the routine
-      await axios.post(
+      const res = await axios.post(
         SERVER_URL + '/patientRoutine',
         {
           routineType: routineType,
           patient: thisPatient._id,
-          date: '',
+          date: new Date(),
           routineElements: thisPatientRoutine,
         },
         {
@@ -69,10 +72,11 @@ const AddRoutineScreen = ({ patientId, navigation }) => {
           },
         }
       );
+      console.log('save', res);
 
-      navigation.navigate('Patient Details');
+      // navigation.navigate('Patient Details');
     } catch (error) {
-      console.log(error);
+      console.log('lasterror', error);
     }
   };
 

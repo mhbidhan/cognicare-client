@@ -87,7 +87,7 @@ const RoutineList = ({
       console.log(error);
     }
   };
-
+  console.log('1', routineType);
   return (
     <View style={{ position: 'relative' }}>
       <View style={[globalStyles.container, { opacity: 1 }]}>
@@ -123,6 +123,7 @@ const RoutineList = ({
                 fontSize: 15,
                 color: '#fff',
                 textAlign: 'center',
+                marginTop: 40,
               }}
             >
               There are no routine to add
