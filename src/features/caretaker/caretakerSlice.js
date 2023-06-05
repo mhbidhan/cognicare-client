@@ -23,6 +23,12 @@ const caretakerSlice = createSlice({
     setThisPatientRoutine: (state, action) => {
       state.patientRoutine = action.payload.patientRoutine;
     },
+    deleteThisPatientRoutineElement: (state, action) => {
+      const newRoutine = state.patientRoutine.filter(
+        (item) => item.time !== action.payload.element.time
+      );
+      state.patientRoutine = newRoutine;
+    },
   },
 });
 
@@ -31,5 +37,6 @@ export const {
   setPatientList,
   setThisPatient,
   setThisPatientRoutine,
+  deleteThisPatientRoutineElement,
 } = caretakerSlice.actions;
 export default caretakerSlice.reducer;

@@ -15,8 +15,8 @@ function Info({ navigation }) {
     (state) => state.caretaker
   );
   const PatientLoginCode = thisPatient.loginCode;
-  console.log('this-patient', thisPatient);
-  console.log('info-> thisPatientRoutine', patientRoutine);
+  // console.log('this-patient', thisPatient);
+  // console.log('info-> thisPatientRoutine', patientRoutine);
 
   useEffect(() => {
     fetch(`${SERVER_URL}/patientRoutine`, {
@@ -30,7 +30,7 @@ function Info({ navigation }) {
       .then((res) => {
         // if (res.length > 0) {
         const tempRoutine = [];
-        console.log('this patient routine response', res);
+        // console.log('this patient routine response', res);
         res.map((item, i) => {
           item.routineElements
             .sort((a, b) => a.startTime.timeInNumber - b.startTime.timeInNumber)

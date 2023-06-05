@@ -1,10 +1,17 @@
 import React from 'react';
-import { Text, View, StyleSheet, ScrollView } from 'react-native';
-import { useSelector } from 'react-redux';
+import {
+  Text,
+  View,
+  StyleSheet,
+  ScrollView,
+  TouchableOpacity,
+} from 'react-native';
+import { useSelector, useDispatch } from 'react-redux';
 import Timeline from 'react-native-timeline-flatlist';
 import globalStyles from './../../utils/globalStyle';
 import ButtonFilled from './../common/buttons/ButtonFilled';
 import LottiePatientBackground from '../LottieBackgrounds/LottiePatientBackground';
+import { deleteThisPatientRoutineElement } from './../../features/caretaker/caretakerSlice';
 
 const styles = StyleSheet.create({
   container: {
@@ -52,14 +59,50 @@ const data = [
 ];
 
 const Routine = ({ navigation }) => {
+  const dispatch = useDispatch();
   const { patientRoutine } = useSelector((state) => state.caretaker);
-  console.log('routine-page', patientRoutine);
+  // console.log('patientRoutine', patientRoutine);
+
+  const deleteHandeler = (item) => {
+    dispatch(deleteThisPatientRoutineElement({ element: item }));
+  };
 
   const renderDetail = (rowData, sectionID, rowID) => {
     let title = (
-      <Text style={{ color: 'black', fontWeight: 'bold' }}>
-        {rowData.title}
-      </Text>
+      <View
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+        }}
+      >
+        <Text style={{ color: 'black', fontWeight: 'bold' }}>
+          {rowData.title}
+        </Text>
+        <TouchableOpacity
+          style={{
+            color: '#fff',
+            backgroundColor: globalStyles.colors.primaryDarker,
+            width: 20,
+            height: 20,
+            borderRadius: 20,
+          }}
+          onPress={() => deleteHandeler(rowData)}
+        >
+          <Text
+            style={{
+              color: '#fff',
+              // paddingTop: 2,
+              // paddingHorizontal: 2,
+              // paddingBottom: 3,
+              textAlign: 'center',
+            }}
+          >
+            x
+          </Text>
+        </TouchableOpacity>
+      </View>
     );
     var desc = null;
     if (rowData.description)
