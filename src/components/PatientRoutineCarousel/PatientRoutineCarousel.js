@@ -3,9 +3,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { useFocusEffect } from '@react-navigation/native';
 import Carousel from 'react-native-snap-carousel';
 import { IconButton, MD3Colors, Button } from 'react-native-paper';
-import Meal from '../../assets/cognicare-assets/meal/meal-assistance-female-svgrepo-com.png';
 import Medicine from '../../assets/cognicare-assets/medicine/medicines-pill-svgrepo-com.png';
-import Exercise from '../../assets/cognicare-assets/exercise/exercise-autumn-svgrepo-com.png';
 import getPatientRoutine from '../../utils/getPatientRoutine';
 import convertTimeToNumber from '../../utils/convertTimeToNumber';
 import { sortRoutine } from '../../utils/routine';
@@ -15,8 +13,9 @@ import callIcon from '../../assets/carousel/call-day-heart-svgrepo-com.png';
 import gameIcon from '../../assets/carousel/game-card-svgrepo-com.png';
 import mealIcon from '../../assets/carousel/have-a-meal-svgrepo-com.png';
 // import exerciseIcon from '../../assets/carousel/weight-dumbbell-svgrepo-com.png';
-// import exerciseIcon from '../../assets/carousel/star-fill.png';
 import exerciseIcon from '../../assets/carousel/clock.png';
+import generalIcon from '../../assets/carousel/clock.png';
+import contactIcon from '../../assets/carousel/telephone-fill.png';
 
 const PatientRoutineCarousel = ({ setTaskCount }) => {
   const [patientRoutine, setPatientRoutine] = useState(null);
@@ -124,6 +123,7 @@ const PatientRoutineCarousel = ({ setTaskCount }) => {
 
   const renderItem = ({ item, index }) => {
     const iconSize = item.type === 'exercise' ? 40 : 40;
+    // ['meal', 'medicine', 'exercise', 'contact', 'game', 'general'],
     return (
       <View style={styles.item}>
         <View style={{ justifyContent: 'space-between' }}>
@@ -133,7 +133,9 @@ const PatientRoutineCarousel = ({ setTaskCount }) => {
                 (item.type === 'meal' && mealIcon) ||
                 (item.type === 'medicine' && Medicine) ||
                 (item.type === 'exercise' && exerciseIcon) ||
-                (item.type === 'game' && gameIcon)
+                (item.type === 'game' && gameIcon) ||
+                (item.type === 'general' && generalIcon) ||
+                (item.type === 'contact' && contactIcon)
               }
               style={{ width: iconSize, height: iconSize }}
             />
